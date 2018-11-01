@@ -15,7 +15,6 @@ public class CameraFollow : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		Debug.Log("target");
 		if(target!= null){
 			Debug.Log("1");
 			//Create a position the camera is aiming for based on the offset from the target
