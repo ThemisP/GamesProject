@@ -62,11 +62,10 @@ public class PlayerController : Photon.MonoBehaviour {
 	void Fire(bool fire){
 		if(fire){
 			if(lastShootTime+fireRate<Time.fixedTime){
-				GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
+				GameObject bullet = PhotonNetwork.Instantiate(bulletPrefab.name, bulletSpawn.position, bulletSpawn.rotation, 0);
 
-				bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 6f;
+				bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 10f;
 
-				Destroy(bullet, 2.0f);
 				lastShootTime = Time.fixedTime;
 			}
 		} 

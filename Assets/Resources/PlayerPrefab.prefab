@@ -216,7 +216,7 @@ MonoBehaviour:
     type: 2}
   bulletSpawn: {fileID: 4808530468726768}
   speed: 6
-  fireRate: 0.5
+  fireRate: 0.2
 --- !u!136 &136687469531102766
 CapsuleCollider:
   m_ObjectHideFlags: 1
