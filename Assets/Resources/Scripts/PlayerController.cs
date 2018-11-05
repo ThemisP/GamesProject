@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : Photon.MonoBehaviour {
 
 	[SerializeField] private GameObject bulletPrefab;
 	[SerializeField] private Transform bulletSpawn;
@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour {
 	Rigidbody playerRigidbody;
 	int floorMask;
 	float camRayLength = 100f;
-
+	PhotonView photonView;
 	float lastShootTime = 0;
 	[SerializeField] private float fireRate = 2f;
 
@@ -19,17 +19,20 @@ public class PlayerController : MonoBehaviour {
 	void Awake () {
 		floorMask = LayerMask.GetMask("Floor");
 		playerRigidbody = GetComponent<Rigidbody>();
+		photonView = GetComponent<PhotonView>();
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		float h = Input.GetAxisRaw("Horizontal");// a and d keys
-		float v = Input.GetAxisRaw("Vertical"); // w and s keys
-		bool fire = Input.GetMouseButton(0);//pressed primary mouse button
+		if(photonView.isMine){
+			float h = Input.GetAxisRaw("Horizontal");// a and d keys
+			float v = Input.GetAxisRaw("Vertical"); // w and s keys
+			bool fire = Input.GetMouseButton(0);//pressed primary mouse button
 
-		Move(h,v);
-		Turning();
-		Fire(fire);
+			Move(h,v);
+			Turning();
+			Fire(fire);
+		}
 	}
 
 	void Move(float h, float v){
