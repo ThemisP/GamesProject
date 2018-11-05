@@ -22,8 +22,8 @@ public class PhotonNetworkManager : Photon.PunBehaviour {
 	}
 
 	public virtual void OnJoinedRoom(){
-		PhotonNetwork.Instantiate(player.name, spawnPoint.position, spawnPoint.rotation, 0);
-		lobbyCammera.GetComponent<CameraFollow>().target = player.transform;
+		GameObject obj = PhotonNetwork.Instantiate(player.name, spawnPoint.position, spawnPoint.rotation, 0);
+		lobbyCammera.GetComponent<CameraFollow>().target = obj.transform;
 	}
 	
 	// Update is called once per frame
