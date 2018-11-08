@@ -12,7 +12,7 @@ public class PhotonNetworkManager : Photon.PunBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		PhotonNetwork.ConnectUsingSettings("0.1");
+		PhotonNetwork.ConnectUsingSettings("0.2");
 	}
 
 	public virtual void OnJoinedLobby(){

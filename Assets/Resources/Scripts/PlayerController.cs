@@ -14,6 +14,11 @@ public class PlayerController : Photon.MonoBehaviour {
 	PhotonView photonView;
 	float lastShootTime = 0;
 	[SerializeField] private float fireRate = 2f;
+	private float lastSynchronizationTime = 0f;
+	private float syncDelay = 0f;
+	private float syncTime = 0f;
+	private Vector3 syncStartPosition = Vector3.zero;
+	private Vector3 syncEndPosition = Vector3.zero;
 
 	// Use this for initialization
 	void Awake () {
@@ -22,6 +27,12 @@ public class PlayerController : Photon.MonoBehaviour {
 		photonView = GetComponent<PhotonView>();
 	}
 	
+	private void SyncedMovement()
+	{
+		syncTime += Time.deltaTime;
+		playerRigidbody.position = Vector3.Lerp(syncStartPosition, syncEndPosition, syncTime / syncDelay);
+	}
+
 	// Update is called once per frame
 	void FixedUpdate () {
 		if(photonView.isMine){
@@ -32,6 +43,22 @@ public class PlayerController : Photon.MonoBehaviour {
 			Move(h,v);
 			Turning();
 			Fire(fire);
+		} else {
+			SyncedMovement();
+		}
+	}
+
+	void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
+		if (stream.isWriting) {
+			stream.SendNext(playerRigidbody.position);
+		}
+		else {
+			syncEndPosition = (Vector3)stream.ReceiveNext();
+			syncStartPosition = playerRigidbody.position;
+	
+			syncTime = 0f;
+			syncDelay = Time.time - lastSynchronizationTime;
+			lastSynchronizationTime = Time.time;
 		}
 	}
 
