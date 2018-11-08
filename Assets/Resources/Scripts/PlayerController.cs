@@ -44,6 +44,7 @@ public class PlayerController : Photon.MonoBehaviour {
 			Turning();
 			Fire(fire);
 		} else {
+			Debug.Log(syncStartPosition);
 			SyncedMovement();
 		}
 	}
