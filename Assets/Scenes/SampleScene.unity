@@ -517,7 +517,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -570, y: 273}
-  m_SizeDelta: {x: 160, y: 20}
+  m_SizeDelta: {x: 160, y: 40.08}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &563710828
 MonoBehaviour:
@@ -561,7 +561,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.583
+  m_Value: 0.362
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -965,8 +965,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1419596708}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.16, y: 1.57, z: 3.38}
-  m_LocalScale: {x: 1, y: 2.8787, z: 1}
+  m_LocalPosition: {x: -1.16, y: 1, z: 3.38}
+  m_LocalScale: {x: 1, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 2088681118}
   m_RootOrder: 2
