@@ -30,7 +30,7 @@ public class PlayerController : Photon.MonoBehaviour {
 	private void SyncedMovement()
 	{
 		syncTime += Time.deltaTime;
-		playerRigidbody.position = Vector3.Lerp(syncStartPosition, syncEndPosition, syncTime / syncDelay);
+		playerRigidbody.MovePosition(Vector3.Lerp(syncStartPosition, syncEndPosition, syncTime / syncDelay));
 	}
 
 	// Update is called once per frame
@@ -51,11 +51,11 @@ public class PlayerController : Photon.MonoBehaviour {
 
 	void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
 		if (stream.isWriting) {
-			stream.SendNext(playerRigidbody.position);
+			stream.SendNext(transform.position);
 		}
 		else {
 			syncEndPosition = (Vector3)stream.ReceiveNext();
-			syncStartPosition = playerRigidbody.position;
+			syncStartPosition = transform.position;
 	
 			syncTime = 0f;
 			syncDelay = Time.time - lastSynchronizationTime;
