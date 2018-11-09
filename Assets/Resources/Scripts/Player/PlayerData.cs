@@ -36,7 +36,9 @@ public class PlayerData : Photon.MonoBehaviour {
 		if(!photonView.isMine) return;
         coins += 1;
         nodePoints += 1;
+        currentHealth -= 5;
         coinCount.text = coins.ToString();
+        nodeCount.text = nodePoints.ToString();
 
 		//currentHealth -= 5 *Time.deltaTime; // This is just to check if the slider is working
 	}
