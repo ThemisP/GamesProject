@@ -50,16 +50,20 @@ public class PlayerController : Photon.MonoBehaviour {
 
 	void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
 		if (stream.isWriting) {
-			stream.SendNext(transform.position);
+			stream.SendNext(playerRigidbody.position);
+			stream.SendNext(playerRigidbody.velocity);
 		}
-		else {
-			syncEndPosition = (Vector3)stream.ReceiveNext();
-			syncStartPosition = transform.position;
-	
+    	else {
+        	Vector3 syncPosition = (Vector3)stream.ReceiveNext();
+        	Vector3 syncVelocity = (Vector3)stream.ReceiveNext();
+ 
 			syncTime = 0f;
 			syncDelay = Time.time - lastSynchronizationTime;
 			lastSynchronizationTime = Time.time;
-		}
+	
+			syncEndPosition = syncPosition + syncVelocity * syncDelay;
+			syncStartPosition = playerRigidbody.position;
+    	}
 	}
 
 	void Move(float h, float v){
