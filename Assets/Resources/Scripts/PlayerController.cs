@@ -19,6 +19,7 @@ public class PlayerController : Photon.MonoBehaviour {
 	private float syncTime = 0f;
 	private Vector3 syncStartPosition = Vector3.zero;
 	private Vector3 syncEndPosition = Vector3.zero;
+	private Quaternion realRotation;
 
 	// Use this for initialization
 	void Awake () {
@@ -32,6 +33,7 @@ public class PlayerController : Photon.MonoBehaviour {
 	{
 		syncTime += Time.deltaTime;
 		playerRigidbody.MovePosition(Vector3.Lerp(syncStartPosition, syncEndPosition, syncTime / syncDelay));
+		playerRigidbody.rotation = Quaternion.Lerp(playerRigidbody.rotation, realRotation, .3f);
 	}
 
 	// Update is called once per frame
@@ -58,7 +60,8 @@ public class PlayerController : Photon.MonoBehaviour {
     	else {
         	Vector3 syncPosition = (Vector3)stream.ReceiveNext();
         	Vector3 syncVelocity = (Vector3)stream.ReceiveNext();
-			playerRigidbody.rotation = (Quaternion)stream.ReceiveNext();
+			//playerRigidbody.rotation = (Quaternion)stream.ReceiveNext();
+			realRotation = (Quaternion)stream.ReceiveNext();
  
 			syncTime = 0f;
 			syncDelay = Time.time - lastSynchronizationTime;
