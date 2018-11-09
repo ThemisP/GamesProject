@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 136687469531102766}
   - component: {fileID: 54228101161094224}
   - component: {fileID: 114971306962235958}
+  - component: {fileID: 114281636829982706}
   - component: {fileID: 114443452982276574}
   m_Layer: 0
   m_Name: PlayerPrefab
@@ -175,6 +176,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
+--- !u!114 &114281636829982706
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1138482734005258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ba0e32431bf4ca429227b60c0890694, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  healthSlider: {fileID: 0}
 --- !u!114 &114443452982276574
 MonoBehaviour:
   m_ObjectHideFlags: 1
