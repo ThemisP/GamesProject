@@ -24,6 +24,7 @@ public class PlayerController : Photon.MonoBehaviour {
 	void Awake () {
 		floorMask = LayerMask.GetMask("Floor");
 		playerRigidbody = GetComponent<Rigidbody>();
+		playerRigidbody.freezeRotation = true;
 		photonView = GetComponent<PhotonView>();
 	}
 	
@@ -52,10 +53,12 @@ public class PlayerController : Photon.MonoBehaviour {
 		if (stream.isWriting) {
 			stream.SendNext(playerRigidbody.position);
 			stream.SendNext(playerRigidbody.velocity);
+			stream.SendNext(playerRigidbody.rotation);
 		}
     	else {
         	Vector3 syncPosition = (Vector3)stream.ReceiveNext();
         	Vector3 syncVelocity = (Vector3)stream.ReceiveNext();
+			playerRigidbody.rotation = (Quaternion)stream.ReceiveNext();
  
 			syncTime = 0f;
 			syncDelay = Time.time - lastSynchronizationTime;
