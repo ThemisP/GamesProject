@@ -15,42 +15,52 @@ public class PlayerData : Photon.MonoBehaviour {
 
 	private int coins = 0;
     private int nodePoints = 0;
-
-	private PhotonView photonView;
 	void Start()
 	{
-		GameObject canvas = GameObject.Find("HUD");
+		GameObject canvas = GameObject.Find("Health");
         GameObject balance = GameObject.Find("Balance");
-        GameObject nodes = GameObject.Find("Nodes");
-		healthSlider = canvas.GetComponentInChildren<Slider>();
+        GameObject nodes = GameObject.Find("NodesBalance");
+		healthSlider = canvas.GetComponent<Slider>();
         coinCount = balance.GetComponent<Text>();
+        coinCount.text = "0";
         nodeCount = nodes.GetComponent<Text>();
+        nodeCount.text = "0";
 		currentHealth = maxHealth;
-		photonView = GetComponent<PhotonView>();
 		healthSlider.value = currentHealth/maxHealth;
-
 	}
 
-	private void FixedUpdate() {
-     
-		if(!photonView.isMine) return;
-        coins += 1;
-        nodePoints += 1;
-        currentHealth -= 5;
-        coinCount.text = coins.ToString();
-        nodeCount.text = nodePoints.ToString();
+	// private void FixedUpdate() {
+	// 	if(!photonView.isMine) return;
+        
+    //     // healthSlider.value = currentHealth/maxHealth;
+    //     // coinCount.text = coins.ToString();
+    //     // nodeCount.text = nodePoints.ToString();
+	// }
 
-		//currentHealth -= 5 *Time.deltaTime; // This is just to check if the slider is working
-	}
+    public void takeDamage(int amount){
+        if(currentHealth - amount > 0){
+            currentHealth -= amount;
+            healthSlider.value = currentHealth/maxHealth;
+        }
+    }
     //finds the amount of skill points held by the user
     public int getSkillPoints()
     {
         return coins;
     }
+
     //updates the skill points held by the user
-    public void addCoins(int newCoins)
+    public bool addCoinsIfAvailable(int newCoins)
     {
-        coins += newCoins;
+        //This statement is when we use -ve value coins to buy items,
+        // it checks whether there are enough coins to use.
+        if(this.coins + newCoins > 0){
+            coins += newCoins;
+            return true;
+        } else {
+            return false;
+        }
+        
     }
 
     public int getNodePoints()

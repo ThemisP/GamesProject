@@ -4,16 +4,33 @@ using UnityEngine;
 
 public class BulletScript : Photon.MonoBehaviour {
 
-
+	int bulletDamage = 10;
 	float lifeTime = 2f;
-	// Update is called once per frame
+
+	Rigidbody rigidbody;
+	void Start()
+	{
+		rigidbody = GetComponent<Rigidbody>();
+		rigidbody.velocity = this.transform.forward * 10f;
+	}
+
 	void Update () {
 		lifeTime -= Time.deltaTime;
 		if(lifeTime<0)
-			PhotonNetwork.Destroy(GetComponent<PhotonView>());
+			Destroy(this);
 	}
 
-	private void OnCollisionEnter(Collision other) {
-		PhotonNetwork.Destroy(GetComponent<PhotonView>());
+	void DestroyBullet(){
+		Destroy(this);
+	}
+
+	private void OnTriggerEnter(Collider collision) {
+		GameObject obj = collision.gameObject;
+		Debug.Log("triggered");
+		if(obj.tag == "Player"){
+			PlayerData data = obj.GetComponent<PlayerData>();
+			if(data!=null) data.takeDamage(bulletDamage);
+		}
+		Destroy(this);
 	}
 }

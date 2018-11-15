@@ -11,7 +11,6 @@ public class PlayerController : Photon.MonoBehaviour {
 	Rigidbody playerRigidbody;
 	int floorMask;
 	float camRayLength = 100f;
-	PhotonView photonView;
 	float lastShootTime = 0;
 	[SerializeField] private float fireRate = 2f;
 	private float lastSynchronizationTime = 0f;
@@ -21,12 +20,14 @@ public class PlayerController : Photon.MonoBehaviour {
 	private Vector3 syncEndPosition = Vector3.zero;
 	private Quaternion realRotation;
 
+	private PlayerData playerData;
+
 	// Use this for initialization
 	void Awake () {
 		floorMask = LayerMask.GetMask("Floor");
 		playerRigidbody = GetComponent<Rigidbody>();
 		playerRigidbody.freezeRotation = true;
-		photonView = GetComponent<PhotonView>();
+		playerData = GetComponent<PlayerData>();
 	}
 	
 	private void SyncedMovement()
@@ -99,12 +100,29 @@ public class PlayerController : Photon.MonoBehaviour {
 	void Fire(bool fire){
 		if(fire){
 			if(lastShootTime+fireRate<Time.fixedTime){
-				GameObject bullet = PhotonNetwork.Instantiate(bulletPrefab.name, bulletSpawn.position, bulletSpawn.rotation, 0);
+				// GameObject bullet = PhotonNetwork.Instantiate(bulletPrefab.name, bulletSpawn.position, bulletSpawn.rotation, 0);
 
-				bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 10f;
-
+				// bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 10f;
+				photonView.RPC("Bullet", PhotonTargets.All, null);
 				lastShootTime = Time.fixedTime;
 			}
 		} 
+	}
+
+	void OnTriggerEnter(Collider collision)
+	{
+		GameObject obj = collision.gameObject;
+		Debug.Log("triggered");
+		if(obj.tag == "Bullet"){
+			BulletScript bullet = obj.GetComponent<BulletScript>();
+			if(bullet!=null) playerData.takeDamage(bulletDamage);
+		}
+		Destroy(this);
+	}
+
+	[PunRPC]
+	void Bullet(){
+		GameObject obj = Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
+		if(obj == null) Debug.Log("NO object but RPC fired");
 	}
 }
