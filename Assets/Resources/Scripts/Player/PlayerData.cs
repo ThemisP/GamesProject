@@ -37,9 +37,12 @@ public class PlayerData : Photon.MonoBehaviour {
     //     // nodeCount.text = nodePoints.ToString();
 	// }
 
-    public void takeDamage(int amount){
+    public void takeDamage(float amount){
         if(currentHealth - amount > 0){
             currentHealth -= amount;
+            healthSlider.value = currentHealth/maxHealth;
+        } else {
+            currentHealth = 0;
             healthSlider.value = currentHealth/maxHealth;
         }
     }

@@ -188,7 +188,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  healthSlider: {fileID: 0}
 --- !u!114 &114443452982276574
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -210,6 +209,7 @@ MonoBehaviour:
   ownershipTransfer: 0
   ObservedComponents:
   - {fileID: 114971306962235958}
+  - {fileID: 114281636829982706}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1

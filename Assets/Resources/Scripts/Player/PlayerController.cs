@@ -109,17 +109,6 @@ public class PlayerController : Photon.MonoBehaviour {
 		} 
 	}
 
-	void OnTriggerEnter(Collider collision)
-	{
-		GameObject obj = collision.gameObject;
-		Debug.Log("triggered");
-		if(obj.tag == "Bullet"){
-			BulletScript bullet = obj.GetComponent<BulletScript>();
-			if(bullet!=null) playerData.takeDamage(bulletDamage);
-		}
-		Destroy(this);
-	}
-
 	[PunRPC]
 	void Bullet(){
 		GameObject obj = Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);

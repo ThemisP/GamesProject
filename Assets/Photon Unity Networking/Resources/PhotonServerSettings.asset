@@ -43,4 +43,5 @@ MonoBehaviour:
   - RequestForPickupTimes
   - TaggedPlayer
   - Bullet
+  - DestroyBullet
   DisableAutoOpenWizard: 1
