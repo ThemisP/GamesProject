@@ -44,4 +44,5 @@ MonoBehaviour:
   - TaggedPlayer
   - Bullet
   - DestroyBullet
+  - BulletDestroy
   DisableAutoOpenWizard: 1

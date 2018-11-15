@@ -17,14 +17,15 @@ public class BulletScript : Photon.MonoBehaviour {
 	void Update () {
 		lifeTime -= Time.deltaTime;
 		if(lifeTime<0)
-			photonView.RPC("BulletDestroy", PhotonTargets.All, null);
+			Destroy(this);
+			// photonView.RPC("BulletDestroy", PhotonTargets.All, null);
 	}
 
 	//procedure call on server
-	[PunRPC]
-	void BulletDestroy(){
-		Destroy(this);
-	}
+	// [PunRPC]
+	// void BulletDestroy(){
+	// 	Destroy(this);
+	// }
 
 	private void OnTriggerEnter(Collider collision) {
 		GameObject obj = collision.gameObject;
@@ -33,6 +34,6 @@ public class BulletScript : Photon.MonoBehaviour {
 			PlayerData data = obj.GetComponent<PlayerData>();
 			if(data!=null) data.takeDamage(bulletDamage);
 		}
-		photonView.RPC("BulletDestroy", PhotonTargets.All, null);
+		// photonView.RPC("BulletDestroy", PhotonTargets.All, null);
 	}
 }
