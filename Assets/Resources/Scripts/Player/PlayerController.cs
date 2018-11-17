@@ -113,5 +113,6 @@ public class PlayerController : Photon.MonoBehaviour {
 	void Bullet(){
 		GameObject obj = Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
 		if(obj == null) Debug.Log("NO object but RPC fired");
+		Destroy(obj, 2f);
 	}
 }

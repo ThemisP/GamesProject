@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BulletScript : Photon.MonoBehaviour {
 
-	int bulletDamage = 10;
+	float bulletDamage = 10;
 	float lifeTime = 2f;
 
 	Rigidbody rigidbody;
@@ -14,26 +14,22 @@ public class BulletScript : Photon.MonoBehaviour {
 		rigidbody.velocity = this.transform.forward * 10f;
 	}
 
-	void Update () {
-		lifeTime -= Time.deltaTime;
-		if(lifeTime<0)
-			Destroy(this);
-			// photonView.RPC("BulletDestroy", PhotonTargets.All, null);
-	}
-
 	//procedure call on server
-	// [PunRPC]
-	// void BulletDestroy(){
-	// 	Destroy(this);
-	// }
+	[PunRPC]
+	void BulletDestroy(){
+		// if(photonView.isMine)
+		// 	Destroy(gameObject);
+	}
 
 	private void OnTriggerEnter(Collider collision) {
 		GameObject obj = collision.gameObject;
 		Debug.Log("triggered");
 		if(obj.tag == "Player"){
-			PlayerData data = obj.GetComponent<PlayerData>();
-			if(data!=null) data.takeDamage(bulletDamage);
+			PhotonView targetView = obj.GetPhotonView();
+			if(targetView != null)
+				targetView.RPC("takeDamage", PhotonTargets.All, this.bulletDamage);
+			
 		}
-		// photonView.RPC("BulletDestroy", PhotonTargets.All, null);
+		photonView.RPC("BulletDestroy", PhotonTargets.All, null);
 	}
 }

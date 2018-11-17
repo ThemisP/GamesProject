@@ -45,4 +45,5 @@ MonoBehaviour:
   - Bullet
   - DestroyBullet
   - BulletDestroy
+  - takeDamage
   DisableAutoOpenWizard: 1
