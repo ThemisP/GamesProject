@@ -623,6 +623,31 @@ Prefab:
       propertyPath: m_Name
       value: HUD
       objectReference: {fileID: 0}
+    - target: {fileID: 114958560623582942, guid: 1dd97d32d322e1048b88a6a7bf9e1df9,
+        type: 2}
+      propertyPath: m_Value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224787754262436626, guid: 1dd97d32d322e1048b88a6a7bf9e1df9,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: -2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224787754262436626, guid: 1dd97d32d322e1048b88a6a7bf9e1df9,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224072064363143346, guid: 1dd97d32d322e1048b88a6a7bf9e1df9,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224072064363143346, guid: 1dd97d32d322e1048b88a6a7bf9e1df9,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: -5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1dd97d32d322e1048b88a6a7bf9e1df9, type: 2}
   m_IsPrefabAsset: 0
