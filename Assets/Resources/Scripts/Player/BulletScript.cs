@@ -14,22 +14,26 @@ public class BulletScript : Photon.MonoBehaviour {
 		rigidbody.velocity = this.transform.forward * 10f;
 	}
 
-	//procedure call on server
-	[PunRPC]
-	void BulletDestroy(){
-		// if(photonView.isMine)
-		// 	Destroy(gameObject);
+	void Update(){
+		if(photonView.isMine){
+			lifeTime -= Time.deltaTime;
+			if(lifeTime < 0)
+				PhotonNetwork.Destroy(photonView);
+		}	
 	}
 
 	private void OnTriggerEnter(Collider collision) {
-		GameObject obj = collision.gameObject;
-		Debug.Log("triggered");
-		if(obj.tag == "Player"){
-			PhotonView targetView = obj.GetPhotonView();
-			if(targetView != null)
-				targetView.RPC("takeDamage", PhotonTargets.All, this.bulletDamage);
-			
+		if(photonView.isMine){
+			GameObject obj = collision.gameObject;
+			Debug.Log("triggered");
+			if(obj.tag == "Player"){
+				PhotonView targetView = obj.GetPhotonView();
+				if(targetView != null)
+					targetView.RPC("takeDamage", PhotonTargets.All, this.bulletDamage);
+				
+			}
+			PhotonNetwork.Destroy(photonView);
 		}
-		photonView.RPC("BulletDestroy", PhotonTargets.All, null);
+		
 	}
 }
