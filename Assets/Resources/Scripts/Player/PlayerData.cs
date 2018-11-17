@@ -37,15 +37,18 @@ public class PlayerData : Photon.MonoBehaviour {
     //     // nodeCount.text = nodePoints.ToString();
 	// }
 
-    
+    [PunRPC]
     public void takeDamage(float amount){
-        if(currentHealth - amount > 0){
-            currentHealth -= amount;
-            healthSlider.value = currentHealth/maxHealth;
-        } else {
-            currentHealth = 0;
-            healthSlider.value = currentHealth/maxHealth;
+        if(photonView.isMine){
+             if(currentHealth - amount > 0){
+                currentHealth -= amount;
+                healthSlider.value = currentHealth/maxHealth;
+            } else {
+                currentHealth = 0;
+                healthSlider.value = currentHealth/maxHealth;
+            }
         }
+       
     }
     //finds the amount of skill points held by the user
     public int getSkillPoints()
