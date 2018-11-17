@@ -17,25 +17,31 @@ public class PlayerData : Photon.MonoBehaviour {
     private int nodePoints = 0;
 	void Start()
 	{
-		GameObject canvas = GameObject.Find("Health");
-        GameObject balance = GameObject.Find("Balance");
-        GameObject nodes = GameObject.Find("NodesBalance");
-		healthSlider = canvas.GetComponent<Slider>();
-        coinCount = balance.GetComponent<Text>();
-        coinCount.text = "0";
-        nodeCount = nodes.GetComponent<Text>();
-        nodeCount.text = "0";
-		currentHealth = maxHealth;
-		healthSlider.value = currentHealth/maxHealth;
+        
+            GameObject canvas = GameObject.Find("Health");
+            GameObject balance = GameObject.Find("Balance");
+            GameObject nodes = GameObject.Find("NodesBalance");
+            healthSlider = canvas.GetComponent<Slider>();
+            coinCount = balance.GetComponent<Text>();
+            coinCount.text = "0";
+            nodeCount = nodes.GetComponent<Text>();
+            nodeCount.text = "0";
+            currentHealth = maxHealth;
+            healthSlider.value = currentHealth/maxHealth;
+        if(true){
+        } else {
+            healthSlider =  transform.GetChild(0).gameObject.GetComponentInChildren<Slider>();
+
+            healthSlider.gameObject.SetActive(true);
+            currentHealth = maxHealth;
+            healthSlider.value = currentHealth/maxHealth;
+       }
+		
 	}
 
-	// private void FixedUpdate() {
-	// 	if(!photonView.isMine) return;
-        
-    //     // healthSlider.value = currentHealth/maxHealth;
-    //     // coinCount.text = coins.ToString();
-    //     // nodeCount.text = nodePoints.ToString();
-	// }
+    void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
+	
+	}
 
     [PunRPC]
     public void takeDamage(float amount){

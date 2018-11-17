@@ -61,7 +61,6 @@ public class PlayerController : Photon.MonoBehaviour {
     	else {
         	Vector3 syncPosition = (Vector3)stream.ReceiveNext();
         	Vector3 syncVelocity = (Vector3)stream.ReceiveNext();
-			//playerRigidbody.rotation = (Quaternion)stream.ReceiveNext();
 			realRotation = (Quaternion)stream.ReceiveNext();
  
 			syncTime = 0f;
