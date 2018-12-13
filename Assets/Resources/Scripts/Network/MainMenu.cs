@@ -14,8 +14,8 @@ public class MainMenu : Photon.PunBehaviour {
 
 	[SerializeField] private GameObject LobbyRoomMenu;
 	[SerializeField] private TMP_InputField usernameInput;
-	[SerializeField] private TMP_InputField createRoomName;
-	[SerializeField] private TMP_InputField joinRoomName;
+	[SerializeField] private InputField createRoomName;
+	[SerializeField] private InputField joinRoomName;
 	[SerializeField] private TMP_Text usernameDisplay;
 	[SerializeField] private TMP_Text LobbyTitle;
 	[SerializeField] private TMP_Text player1Display;
@@ -24,6 +24,8 @@ public class MainMenu : Photon.PunBehaviour {
 	[SerializeField] private Button joinMainGameFromLobbyButton;
 
 	[SerializeField] private PlayerNetwork playerNetwork;
+
+	private bool inLobby = false;
 
 
 	void Awake(){
@@ -34,6 +36,21 @@ public class MainMenu : Photon.PunBehaviour {
 		LobbyRoomMenu.SetActive(false);
 
 		PhotonNetwork.ConnectUsingSettings("v1");
+		playerNetwork.setPlayer(PhotonNetwork.player.UserId);
+	}
+
+	void Start(){
+		InvokeRepeating("SlowUpdate", 0.0f, 0.2f);
+	}
+
+	void SlowUpdate(){
+		if(inLobby){
+			if(PhotonNetwork.otherPlayers.Length>0){
+				player2Display.text = PhotonNetwork.otherPlayers[0].NickName;
+			} else {
+				player2Display.text = "--Not Connected--";
+			}
+		}
 	}
 
 	public void ChooseUsername(){
@@ -42,9 +59,7 @@ public class MainMenu : Photon.PunBehaviour {
 			Debug.Log("Field is empty");
 			return;
 		}
-		playerNetwork.setUsername(name);
 		PhotonNetwork.playerName  = name;
-		
 		usernameScreenMenu.SetActive(false);
 		MainScreenMenu.SetActive(true);
 		JoinRoomMenu.SetActive(false);
@@ -61,6 +76,7 @@ public class MainMenu : Photon.PunBehaviour {
 		}
 		RoomOptions roomOptions = new RoomOptions();
 		roomOptions.MaxPlayers = 2;
+		roomOptions.PublishUserId = true;
 		PhotonNetwork.CreateRoom(name, roomOptions, TypedLobby.Default);		
 	}
 
@@ -78,30 +94,46 @@ public class MainMenu : Photon.PunBehaviour {
 	}
 
 	virtual public void OnJoinedRoom(){
-			usernameScreenMenu.SetActive(false);
-			MainScreenMenu.SetActive(false);
-			JoinRoomMenu.SetActive(false);
-			CreateRoomMenu.SetActive(false);
-			LobbyRoomMenu.SetActive(true);
-			if(PhotonNetwork.otherPlayers.Length <1){
-				joinMainGameFromLobbyButton.interactable = true;
-				player1Display.text = PhotonNetwork.playerName;
-				LobbyTitle.text = "(" + PhotonNetwork.room.Name + ") Lobby";
-			} else {
-				joinMainGameFromLobbyButton.interactable = false;
-				player1Display.text = PhotonNetwork.otherPlayers[0].NickName;
-				player2Display.text = PhotonNetwork.playerName;
-				LobbyTitle.text = "(" + PhotonNetwork.room.Name + ") Lobby";
-			}
-			
+		usernameScreenMenu.SetActive(false);
+		MainScreenMenu.SetActive(false);
+		JoinRoomMenu.SetActive(false);
+		CreateRoomMenu.SetActive(false);
+		LobbyRoomMenu.SetActive(true);
+		if(PhotonNetwork.otherPlayers.Length <1){
+			joinMainGameFromLobbyButton.interactable = true;
+			player1Display.text = PhotonNetwork.playerName;
+			LobbyTitle.text = "(" + PhotonNetwork.room.Name + ") Lobby";
+		} else {
+			joinMainGameFromLobbyButton.interactable = false;
+			player2Display.text = PhotonNetwork.otherPlayers[0].NickName;
+			player1Display.text = PhotonNetwork.playerName;
+			LobbyTitle.text = "(" + PhotonNetwork.room.Name + ") Lobby";
+			playerNetwork.setTeammate(PhotonNetwork.otherPlayers[0].UserId);
+		}
+		inLobby = true;
 	}
 
 	virtual public void OnPhotonJoinRoomFailed(object[] codeAndMsg){
 		Debug.Log(codeAndMsg[0]);
 	}
 
+	public void LeaveRoom(){
+		PhotonNetwork.LeaveRoom();
+	}
+
+	virtual public void OnLeftRoom(){
+		usernameScreenMenu.SetActive(false);
+		MainScreenMenu.SetActive(true);
+		JoinRoomMenu.SetActive(false);
+		CreateRoomMenu.SetActive(false);
+		LobbyRoomMenu.SetActive(false);
+		inLobby = false;
+	}
+
 
 	public void loadGame(){
+		PhotonNetwork.LeaveRoom();
+		PhotonNetwork.JoinOrCreateRoom("MainGame", null, null);
 		SceneManager.LoadScene("MainGameScene", LoadSceneMode.Single);
 	}
 }

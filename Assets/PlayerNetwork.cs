@@ -2,19 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerNetwork : MonoBehaviour {
+public class PlayerNetwork : Photon.MonoBehaviour {
 
-	private string username;
+	private string playerId;
+	private string teammateId;
 
 	void Awake(){
 		DontDestroyOnLoad(this);
 	}
 
-	public void setUsername(string name){
-		this.username = name;
+	public void setPlayer(string player){
+		this.playerId = player;
 	}
-
-	public string getUsername(){
-		return username;
+	public void setTeammate(string player){
+		this.teammateId = player;
 	}
 }
