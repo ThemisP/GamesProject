@@ -94,6 +94,7 @@ public class MainMenu : Photon.PunBehaviour {
 	}
 
 	virtual public void OnJoinedRoom(){
+		PhotonNetwork.automaticallySyncScene = true;
 		usernameScreenMenu.SetActive(false);
 		MainScreenMenu.SetActive(false);
 		JoinRoomMenu.SetActive(false);
@@ -132,8 +133,9 @@ public class MainMenu : Photon.PunBehaviour {
 
 
 	public void loadGame(){
+		// if(PhotonNetwork.playerList.Length <2) return; //Only able to join the game if there are two players in room.
 		PhotonNetwork.LeaveRoom();
-		PhotonNetwork.JoinOrCreateRoom("MainGame", null, null);
-		SceneManager.LoadScene("MainGameScene", LoadSceneMode.Single);
+		PhotonNetwork.LoadLevel("MainGameScene");
+		
 	}
 }

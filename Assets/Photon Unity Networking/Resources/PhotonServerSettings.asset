@@ -46,4 +46,5 @@ MonoBehaviour:
   - DestroyBullet
   - BulletDestroy
   - takeDamage
+  - EnterGame
   DisableAutoOpenWizard: 1

@@ -1,0 +1,255 @@
+fileFormatVersion: 2
+guid: dbfb3eb38c3b9da49891474d269ce560
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: BackWall
+    100002: Bed
+    100004: BedBase
+    100006: BedCylinder1
+    100008: BedCylinder2
+    100010: CellBars
+    100012: CellStructure
+    100014: Controler1
+    100016: Controler2
+    100018: DoorFrame1
+    100020: DoorFrame2
+    100022: DoorFrame3
+    100024: Drainer
+    100026: LeftWall
+    100028: Matress
+    100030: OuterDoorFrame
+    100032: pCylinder10
+    100034: pCylinder12
+    100036: pCylinder13
+    100038: pCylinder14
+    100040: pCylinder15
+    100042: pCylinder16
+    100044: pCylinder29
+    100046: pCylinder5
+    100048: pCylinder6
+    100050: pCylinder7
+    100052: pCylinder8
+    100054: pCylinder9
+    100056: //RootNode
+    100058: RightWall
+    100060: Sink
+    100062: Sink 1
+    100064: Toilet
+    100066: Vrisi
+    100068: WindowBar1
+    100070: WindowBar2
+    100072: WindowBar3
+    400000: BackWall
+    400002: Bed
+    400004: BedBase
+    400006: BedCylinder1
+    400008: BedCylinder2
+    400010: CellBars
+    400012: CellStructure
+    400014: Controler1
+    400016: Controler2
+    400018: DoorFrame1
+    400020: DoorFrame2
+    400022: DoorFrame3
+    400024: Drainer
+    400026: LeftWall
+    400028: Matress
+    400030: OuterDoorFrame
+    400032: pCylinder10
+    400034: pCylinder12
+    400036: pCylinder13
+    400038: pCylinder14
+    400040: pCylinder15
+    400042: pCylinder16
+    400044: pCylinder29
+    400046: pCylinder5
+    400048: pCylinder6
+    400050: pCylinder7
+    400052: pCylinder8
+    400054: pCylinder9
+    400056: //RootNode
+    400058: RightWall
+    400060: Sink
+    400062: Sink 1
+    400064: Toilet
+    400066: Vrisi
+    400068: WindowBar1
+    400070: WindowBar2
+    400072: WindowBar3
+    2100000: lambert1
+    2300000: BackWall
+    2300002: BedBase
+    2300004: BedCylinder1
+    2300006: BedCylinder2
+    2300008: Controler1
+    2300010: Controler2
+    2300012: DoorFrame1
+    2300014: DoorFrame2
+    2300016: DoorFrame3
+    2300018: Drainer
+    2300020: LeftWall
+    2300022: Matress
+    2300024: pCylinder10
+    2300026: pCylinder12
+    2300028: pCylinder13
+    2300030: pCylinder14
+    2300032: pCylinder15
+    2300034: pCylinder16
+    2300036: pCylinder29
+    2300038: pCylinder5
+    2300040: pCylinder6
+    2300042: pCylinder7
+    2300044: pCylinder8
+    2300046: pCylinder9
+    2300048: RightWall
+    2300050: Sink 1
+    2300052: Toilet
+    2300054: Vrisi
+    2300056: WindowBar1
+    2300058: WindowBar2
+    2300060: WindowBar3
+    3300000: BackWall
+    3300002: BedBase
+    3300004: BedCylinder1
+    3300006: BedCylinder2
+    3300008: Controler1
+    3300010: Controler2
+    3300012: DoorFrame1
+    3300014: DoorFrame2
+    3300016: DoorFrame3
+    3300018: Drainer
+    3300020: LeftWall
+    3300022: Matress
+    3300024: pCylinder10
+    3300026: pCylinder12
+    3300028: pCylinder13
+    3300030: pCylinder14
+    3300032: pCylinder15
+    3300034: pCylinder16
+    3300036: pCylinder29
+    3300038: pCylinder5
+    3300040: pCylinder6
+    3300042: pCylinder7
+    3300044: pCylinder8
+    3300046: pCylinder9
+    3300048: RightWall
+    3300050: Sink 1
+    3300052: Toilet
+    3300054: Vrisi
+    3300056: WindowBar1
+    3300058: WindowBar2
+    3300060: WindowBar3
+    4300000: BedBase
+    4300002: BedCylinder1
+    4300004: BedCylinder2
+    4300006: Matress
+    4300008: BackWall
+    4300010: pCylinder10
+    4300012: pCylinder12
+    4300014: pCylinder13
+    4300016: pCylinder14
+    4300018: pCylinder15
+    4300020: pCylinder16
+    4300022: pCylinder5
+    4300024: pCylinder6
+    4300026: pCylinder7
+    4300028: pCylinder8
+    4300030: pCylinder9
+    4300032: pCylinder29
+    4300034: LeftWall
+    4300036: DoorFrame1
+    4300038: DoorFrame2
+    4300040: DoorFrame3
+    4300042: RightWall
+    4300044: WindowBar1
+    4300046: WindowBar2
+    4300048: WindowBar3
+    4300050: Toilet
+    4300052: Sink
+    4300054: Drainer
+    4300056: Vrisi
+    4300058: Controler1
+    4300060: Controler2
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
