@@ -1,10 +1,11 @@
 ﻿using System;
 namespace AssemblyCSharp.Assets.Resources.Scripts.Player
 {
-    public class Weapon
+    public abstract class Weapon
     {
-        public Weapon()
-        {
-        }
+        public float damage;
+        public float lifeTime;
+        public float velocityFactor;
+        public float fireRate;
     }
 }

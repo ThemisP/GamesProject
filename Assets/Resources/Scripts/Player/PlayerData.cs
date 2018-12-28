@@ -15,21 +15,25 @@ public class PlayerData : Photon.MonoBehaviour {
 
 	private int coins = 0;
     private int nodePoints = 0;
+
+    private List<Weapon> weapons = new List<Weapon>();
+
 	void Start()
 	{
         
-            GameObject canvas = GameObject.Find("Health");
-            GameObject balance = GameObject.Find("Balance");
-            GameObject nodes = GameObject.Find("NodesBalance");
-            healthSlider = canvas.GetComponent<Slider>();
-            coinCount = balance.GetComponent<Text>();
-            coinCount.text = "0";
-            nodeCount = nodes.GetComponent<Text>();
-            nodeCount.text = "0";
-            currentHealth = maxHealth;
-            healthSlider.value = currentHealth/maxHealth;
+        GameObject canvas = GameObject.Find("Health");
+        GameObject balance = GameObject.Find("Balance");
+        GameObject nodes = GameObject.Find("NodesBalance");
+        healthSlider = canvas.GetComponent<Slider>();
+        coinCount = balance.GetComponent<Text>();
+        coinCount.text = "0";
+        nodeCount = nodes.GetComponent<Text>();
+        nodeCount.text = "0";
+        currentHealth = maxHealth;
+        healthSlider.value = currentHealth/maxHealth;
         if(true){
-        } else {
+        } 
+        else {
             healthSlider =  transform.GetChild(0).gameObject.GetComponentInChildren<Slider>();
 
             healthSlider.gameObject.SetActive(true);
