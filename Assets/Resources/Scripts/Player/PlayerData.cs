@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using AssemblyCSharp.Assets.Resources.Scripts.Player;
 public class PlayerData : Photon.MonoBehaviour {
 
 	[SerializeField] private float maxHealth = 100f;
