@@ -48,13 +48,14 @@ public class PlayerController : Photon.MonoBehaviour {
             //change weapon if a valid number key is pressed
             for (int i = 1; i < playerData.weapons.Count+1;i++){
                 if(Input.GetButton(i.ToString())){
-                    playerData.changeWeapon(i-1);
+                    playerData.changeWeapon(i-1); //changes the local playerData, not the real one.
                 }
             }
 
 			Move(h,v);
 			Turning();
-			Fire(fire);
+            //Fire(fire,playerData.weapon);
+            Fire(fire,new AssaultRifle());
 		} else {
 			SyncedMovement();
 		}
@@ -104,9 +105,9 @@ public class PlayerController : Photon.MonoBehaviour {
 		}
 	}
 
-	void Fire(bool fire){
+    void Fire(bool fire, Weapon weapon){
 		if(fire){
-            if(lastShootTime+playerData.weapon.fireRate<Time.fixedTime){
+            if(lastShootTime+weapon.fireRate<Time.fixedTime){
 				GameObject bullet = PhotonNetwork.Instantiate(bulletPrefab.name, bulletSpawn.position, bulletSpawn.rotation, 0);
 				lastShootTime = Time.fixedTime;
 			}
