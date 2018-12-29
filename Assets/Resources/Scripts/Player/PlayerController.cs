@@ -46,16 +46,16 @@ public class PlayerController : Photon.MonoBehaviour {
 			bool fire = Input.GetMouseButton(0);//pressed primary mouse button
 
             //change weapon if a valid number key is pressed
-            for (int i = 1; i < playerData.weapons.Count+1;i++){
-                if(Input.GetButton(i.ToString())){
-                    playerData.changeWeapon(i-1); //changes the local playerData, not the real one.
-                }
-            }
+            //for (int i = 1; i < playerData.weapons.Count+1;i++){
+            //    if(Input.GetButton(i.ToString())){
+            //        playerData.changeWeapon(i-1); //changes the local playerData, not the real one.
+            //    }
+            //}
 
 			Move(h,v);
 			Turning();
             //Fire(fire,playerData.weapon);
-            Fire(fire,new AssaultRifle());
+            Fire(fire,new Pistol());
 		} else {
 			SyncedMovement();
 		}
