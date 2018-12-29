@@ -16,7 +16,8 @@ public class PlayerData : Photon.MonoBehaviour {
 	private int coins = 0;
     private int nodePoints = 0;
 
-    private List<Weapon> weapons = new List<Weapon>();
+    public List<Weapon> weapons = new List<Weapon>();
+    public Weapon weapon;
 
 	void Start()
 	{
@@ -31,7 +32,12 @@ public class PlayerData : Photon.MonoBehaviour {
         nodeCount.text = "0";
         currentHealth = maxHealth;
         healthSlider.value = currentHealth/maxHealth;
-        if(true){
+        weapon = new Pistol();
+        weapons.Add(weapon);
+
+        //This is just for testing
+        weapons.Add(new AssaultRifle());
+        if (true){
         } 
         else {
             healthSlider =  transform.GetChild(0).gameObject.GetComponentInChildren<Slider>();
@@ -88,6 +94,10 @@ public class PlayerData : Photon.MonoBehaviour {
     public void addNodePoints(int newPoints)
     {
         nodePoints += newPoints;
+    }
+
+    public void changeWeapon(int index){
+        weapon = weapons[index];
     }
 
     

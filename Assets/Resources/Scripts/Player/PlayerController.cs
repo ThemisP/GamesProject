@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using AssemblyCSharp.Assets.Resources.Scripts.Player;
 
 public class PlayerController : Photon.MonoBehaviour {
 
@@ -43,6 +44,13 @@ public class PlayerController : Photon.MonoBehaviour {
 			float h = Input.GetAxisRaw("Horizontal");// a and d keys
 			float v = Input.GetAxisRaw("Vertical"); // w and s keys
 			bool fire = Input.GetMouseButton(0);//pressed primary mouse button
+
+            //change weapon if a valid number key is pressed
+            for (int i = 1; i < playerData.weapons.Count+1;i++){
+                if(Input.GetButton(i.ToString())){
+                    playerData.changeWeapon(i-1);
+                }
+            }
 
 			Move(h,v);
 			Turning();
@@ -98,7 +106,7 @@ public class PlayerController : Photon.MonoBehaviour {
 
 	void Fire(bool fire){
 		if(fire){
-			if(lastShootTime+fireRate<Time.fixedTime){
+            if(lastShootTime+playerData.weapon.fireRate<Time.fixedTime){
 				GameObject bullet = PhotonNetwork.Instantiate(bulletPrefab.name, bulletSpawn.position, bulletSpawn.rotation, 0);
 				lastShootTime = Time.fixedTime;
 			}
