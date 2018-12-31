@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using AssemblyCSharp.Assets.Resources.Scripts.Player;
 
 public class PlayerController : Photon.MonoBehaviour {
 
@@ -53,10 +54,18 @@ public class PlayerController : Photon.MonoBehaviour {
 			bool fire = Input.GetMouseButton(0);//pressed primary mouse button
             dodge = Input.GetButton("Dodge"); //pressed the f key
 
+            //change weapon if a valid number key is pressed
+            //for (int i = 1; i < playerData.weapons.Count+1;i++){
+            //    if(Input.GetButton(i.ToString())){
+            //        playerData.changeWeapon(i-1); //changes the local playerData, not the real one.
+            //    }
+            //}
+
 			Move(h,v);
 			Turning();
 			Fire(fire);
-           // StartCoroutine(Dodge(dodge));
+            //Fire(fire,playerData.weapon);
+            Fire(fire,new Pistol());
 		} else {
 			SyncedMovement();
 		}
@@ -106,9 +115,9 @@ public class PlayerController : Photon.MonoBehaviour {
 		}
 	}
 
-	void Fire(bool fire){
+    void Fire(bool fire, Weapon weapon){
 		if(fire){
-			if(lastShootTime+fireRate<Time.fixedTime){
+            if(lastShootTime+weapon.fireRate<Time.fixedTime){
 				GameObject bullet = PhotonNetwork.Instantiate(bulletPrefab.name, bulletSpawn.position, bulletSpawn.rotation, 0);
 				lastShootTime = Time.fixedTime;
 			}

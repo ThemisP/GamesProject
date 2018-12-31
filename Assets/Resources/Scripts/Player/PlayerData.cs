@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using AssemblyCSharp.Assets.Resources.Scripts.Player;
 public class PlayerData : Photon.MonoBehaviour {
 
 	[SerializeField] private float maxHealth = 100f;
@@ -23,9 +23,14 @@ public class PlayerData : Photon.MonoBehaviour {
 
 	private int coins = 0;
     private int nodePoints = 0;
+
+    public List<Weapon> weapons = new List<Weapon>();
+    public Weapon weapon;
+
 	void Start()
 	{
         
+<<<<<<< HEAD
             GameObject canvas = GameObject.Find("Health");
             GameObject balance = GameObject.Find("Balance");
             GameObject nodes = GameObject.Find("NodesBalance");
@@ -41,6 +46,24 @@ public class PlayerData : Photon.MonoBehaviour {
             healthSlider.value = currentHealth/maxHealth;
         if(true){
         } else {
+        GameObject canvas = GameObject.Find("Health");
+        GameObject balance = GameObject.Find("Balance");
+        GameObject nodes = GameObject.Find("NodesBalance");
+        healthSlider = canvas.GetComponent<Slider>();
+        coinCount = balance.GetComponent<Text>();
+        coinCount.text = "0";
+        nodeCount = nodes.GetComponent<Text>();
+        nodeCount.text = "0";
+        currentHealth = maxHealth;
+        healthSlider.value = currentHealth/maxHealth;
+        weapon = new Pistol();
+        weapons.Add(weapon);
+
+        //This is just for testing
+        weapons.Add(new AssaultRifle());
+        if (true){
+        } 
+        else {
             healthSlider =  transform.GetChild(0).gameObject.GetComponentInChildren<Slider>();
 
             healthSlider.gameObject.SetActive(true);
@@ -117,10 +140,10 @@ public class PlayerData : Photon.MonoBehaviour {
         nodePoints += newPoints;
     }
 
-    //public Color getColor()
-    //{
-    //    return 
-    //}
+
+    public void changeWeapon(int index){
+        weapon = weapons[index];
+    }
 
     
 }
