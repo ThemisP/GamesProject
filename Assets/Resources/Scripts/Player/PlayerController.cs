@@ -9,14 +9,22 @@ public class PlayerController : Photon.MonoBehaviour {
 	[SerializeField] private float speed = 6f;
 	Vector3 movement;
 	Rigidbody playerRigidbody;
-	int floorMask;
+   /* Color playerColour = new Color();*/ //a player's colour usually
+    Color dodgeColour; //a player's colour when dodging
+    Color revertCol; //placeholder to revert colour back to normal once time has elapsed
+    int floorMask;
 	float camRayLength = 100f;
 	float lastShootTime = 0;
 	[SerializeField] private float fireRate = 2f;
 	private float lastSynchronizationTime = 0f;
 	private float syncDelay = 0f;
 	private float syncTime = 0f;
-	private Vector3 syncStartPosition = Vector3.zero;
+    public bool dodge;
+    //private float invisibleSpriteTimer = 0.0f;
+    //private float dodgeTimeDuration = 0.1f;
+    //private float currentDuration = 0.0f;
+    //private float overallDodgeDuration = 0.5f;
+    private Vector3 syncStartPosition = Vector3.zero;
 	private Vector3 syncEndPosition = Vector3.zero;
 	private Quaternion realRotation;
 
@@ -43,10 +51,12 @@ public class PlayerController : Photon.MonoBehaviour {
 			float h = Input.GetAxisRaw("Horizontal");// a and d keys
 			float v = Input.GetAxisRaw("Vertical"); // w and s keys
 			bool fire = Input.GetMouseButton(0);//pressed primary mouse button
+            dodge = Input.GetButton("Dodge"); //pressed the f key
 
 			Move(h,v);
 			Turning();
 			Fire(fire);
+           // StartCoroutine(Dodge(dodge));
 		} else {
 			SyncedMovement();
 		}
@@ -104,5 +114,25 @@ public class PlayerController : Photon.MonoBehaviour {
 			}
 		} 
 	}
+
+
+
+
+    //[PunRPC]
+    //public IEnumerator Dodge(bool dodge)
+    //{
+    //    dodgeColour = Color.magenta;
+    //    if (dodge)
+    //    {
+    //     for(int i = 0; i < 5; i++)
+    //        {
+    //            //creates a flashing-effect when the dodging key is pressed
+    //            playerColour = dodgeColour;
+    //            yield return new WaitForSeconds(.1f);
+    //            playerColour = revertCol;
+    //            yield return new WaitForSeconds(.1f);
+    //        }
+    //    }
+    //}
 
 }

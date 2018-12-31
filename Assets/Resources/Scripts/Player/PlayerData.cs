@@ -6,10 +6,18 @@ using UnityEngine.UI;
 public class PlayerData : Photon.MonoBehaviour {
 
 	[SerializeField] private float maxHealth = 100f;
+    
 	private Slider healthSlider;
+    private Slider dodgeSlider;
 	private float currentHealth;
+    private float dodgeCooldown;
+    private float cooldownTime;
+   // playerColour = GetComponent<Color>();
     private Text coinCount;
     private Text nodeCount;
+    //timings related to undamagable sprite
+    //is active when the sprite is either damaged or dodging
+    
 
 	private int kills = 0, assists = 0, deaths = 0;
 
@@ -21,8 +29,11 @@ public class PlayerData : Photon.MonoBehaviour {
             GameObject canvas = GameObject.Find("Health");
             GameObject balance = GameObject.Find("Balance");
             GameObject nodes = GameObject.Find("NodesBalance");
+            GameObject dodgeCool = GameObject.Find("Dodge Cooldown");
             healthSlider = canvas.GetComponent<Slider>();
+            dodgeSlider = canvas.GetComponent<Slider>();
             coinCount = balance.GetComponent<Text>();
+           // playerColour = GetComponent<MyRandomColorOn>
             coinCount.text = "0";
             nodeCount = nodes.GetComponent<Text>();
             nodeCount.text = "0";
@@ -56,6 +67,26 @@ public class PlayerData : Photon.MonoBehaviour {
         }
        
     }
+
+    //ensures that cooldown takes place between dodges
+    [PunRPC] 
+    public void dodgeUsed()
+    {
+        if (photonView.isMine)
+        {
+            if (Input.GetButton("Dodge"))
+            {
+                dodgeSlider = transform.GetChild(0).gameObject.GetComponentInChildren<Slider>();
+                dodgeSlider.gameObject.SetActive(true);
+                dodgeCooldown = 0.5f;
+                dodgeSlider.value -= Time.deltaTime;
+
+                
+            }
+        }
+    }
+
+
     //finds the amount of skill points held by the user
     public int getSkillPoints()
     {
@@ -85,6 +116,11 @@ public class PlayerData : Photon.MonoBehaviour {
     {
         nodePoints += newPoints;
     }
+
+    //public Color getColor()
+    //{
+    //    return 
+    //}
 
     
 }
