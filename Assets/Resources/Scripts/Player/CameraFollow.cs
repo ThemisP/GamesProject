@@ -2,27 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraFollow : MonoBehaviour {
+public class CameraFollow : MonoBehaviour { 
+    [Header("Settings")]
+    public float smoothing = 5f;
+    public Vector3 offset;
 
-	public Transform target;
-	public float smoothing = 5f;
-
-	Vector3 offset;
-	bool initialise = false;
-	// Use this for initialization
-	void Start () {
-	
+    private Transform target;
+    // Use this for initialization
+    void Start () {
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if(target!= null){
-			if(!initialise){
-					Debug.Log("target");
-					offset = transform.position - target.position;
-					initialise = true;
-			}
-			
 			//Create a position the camera is aiming for based on the offset from the target
 			Vector3 targetCamPos = target.position + offset;
 
@@ -30,4 +22,8 @@ public class CameraFollow : MonoBehaviour {
 			transform.position = Vector3.Lerp(transform.position, targetCamPos, smoothing * Time.deltaTime);
 		}
 	}
+
+    public void SetTarget(Transform target) {
+        this.target = target;
+    }
 }

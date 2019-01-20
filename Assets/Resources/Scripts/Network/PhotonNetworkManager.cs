@@ -60,7 +60,7 @@ public class PhotonNetworkManager : Photon.PunBehaviour {
 		// 	spawnPoint.position += Vector3.right*2;
 		// }
 		GameObject obj = PhotonNetwork.Instantiate(player.name, spawnPoint.position, spawnPoint.rotation, 0);
-		lobbyCammera.GetComponent<CameraFollow>().target = obj.transform;
+		lobbyCammera.GetComponent<CameraFollow>().SetTarget(obj.transform);
 	}
 	
 	// Update is called once per frame

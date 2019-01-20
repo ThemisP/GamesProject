@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerData : Photon.MonoBehaviour {
+public class PlayerData : MonoBehaviour {
 
 	[SerializeField] private float maxHealth = 100f;
 	private Slider healthSlider;
@@ -15,37 +15,31 @@ public class PlayerData : Photon.MonoBehaviour {
 
 	private int coins = 0;
     private int nodePoints = 0;
-	void Start()
-	{
-        
-            GameObject canvas = GameObject.Find("Health");
-            GameObject balance = GameObject.Find("Balance");
-            GameObject nodes = GameObject.Find("NodesBalance");
-            healthSlider = canvas.GetComponent<Slider>();
-            coinCount = balance.GetComponent<Text>();
-            coinCount.text = "0";
-            nodeCount = nodes.GetComponent<Text>();
-            nodeCount.text = "0";
-            currentHealth = maxHealth;
-            healthSlider.value = currentHealth/maxHealth;
-        if(true){
+    void Start() {
+
+        GameObject canvas = GameObject.Find("Health");
+        GameObject balance = GameObject.Find("Balance");
+        GameObject nodes = GameObject.Find("NodesBalance");
+        healthSlider = canvas.GetComponent<Slider>();
+        coinCount = balance.GetComponent<Text>();
+        coinCount.text = "0";
+        nodeCount = nodes.GetComponent<Text>();
+        nodeCount.text = "0";
+        currentHealth = maxHealth;
+        healthSlider.value = currentHealth / maxHealth;
+        if (true) {
         } else {
-            healthSlider =  transform.GetChild(0).gameObject.GetComponentInChildren<Slider>();
+            healthSlider = transform.GetChild(0).gameObject.GetComponentInChildren<Slider>();
 
             healthSlider.gameObject.SetActive(true);
             currentHealth = maxHealth;
-            healthSlider.value = currentHealth/maxHealth;
-       }
-		
-	}
+            healthSlider.value = currentHealth / maxHealth;
+        }
 
-    void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
-	
-	}
-
-    [PunRPC]
+    }
+    
     public void takeDamage(float amount){
-        if(photonView.isMine){
+        if(true){
              if(currentHealth - amount > 0){
                 currentHealth -= amount;
                 healthSlider.value = currentHealth/maxHealth;
