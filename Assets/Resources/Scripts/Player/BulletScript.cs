@@ -6,10 +6,8 @@ public class BulletScript : Photon.MonoBehaviour {
 
 	float bulletDamage = 10;
 	float lifeTime = 2f;
-    bool dodged = false;
-    PlayerController control;
 
-	Rigidbody rigidbody;
+	new Rigidbody rigidbody;
 	void Start()
 	{
 		rigidbody = GetComponent<Rigidbody>();
@@ -30,9 +28,7 @@ public class BulletScript : Photon.MonoBehaviour {
 			Debug.Log("triggered");
 			if(obj.tag == "Player"){
 				PhotonView targetView = obj.GetPhotonView();
-                control = GetComponent<PlayerController>();
-                dodged = control.dodge;
-                if (targetView != null && !dodged);
+                if (targetView != null)
 					targetView.RPC("takeDamage", PhotonTargets.All, this.bulletDamage);
 				
 			}

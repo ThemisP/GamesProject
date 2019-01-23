@@ -19,7 +19,7 @@ public class PlayerController : Photon.MonoBehaviour {
 	private float lastSynchronizationTime = 0f;
 	private float syncDelay = 0f;
 	private float syncTime = 0f;
-    public bool dodge;
+    //public bool dodge;
     //private float invisibleSpriteTimer = 0.0f;
     //private float dodgeTimeDuration = 0.1f;
     //private float currentDuration = 0.0f;
@@ -51,11 +51,13 @@ public class PlayerController : Photon.MonoBehaviour {
 			float h = Input.GetAxisRaw("Horizontal");// a and d keys
 			float v = Input.GetAxisRaw("Vertical"); // w and s keys
 			bool fire = Input.GetMouseButton(0);//pressed primary mouse button
-            dodge = Input.GetButton("Dodge"); //pressed the f key
-
+            bool dodge = Input.GetButton("Dodge"); //pressed f key
+            //Debug.Log(dodge);
 			Move(h,v);
 			Turning();
 			Fire(fire);
+            playerData.Dodge(dodge);
+            //playerData.dodgeUsed();
            // StartCoroutine(Dodge(dodge));
 		} else {
 			SyncedMovement();
@@ -114,6 +116,24 @@ public class PlayerController : Photon.MonoBehaviour {
 			}
 		} 
 	}
+
+    //void Dodge(bool dodging)
+    //{
+    //    if (dodging)
+    //    {
+    //        Debug.Log("Successful dodge ready to use");
+    //        playerData.dodgeUsed();
+    //    }
+    //    //if(dodging && !playerData.canDodge())
+    //    //{
+    //    //    Debug.Log("Cooldown not complete!");
+    //    //    //notify the player that you cannot dodge yet
+    //    //}
+    //    else
+    //    {
+    //        //default case when f is not pressed
+    //    }
+    //}
 
 
 
