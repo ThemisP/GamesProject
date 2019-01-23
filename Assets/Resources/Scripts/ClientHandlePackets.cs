@@ -42,7 +42,17 @@ public class ClientHandlePackets{
         buffer.WriteBytes(data);
         int packetnum = buffer.ReadInt();
         string msg = buffer.ReadString();
+        int ClientIndex = buffer.ReadInt();
+        Network.instance.ClientIndex = ClientIndex;
+        Network.instance.StartUdp();
         Debug.Log(msg);
+
+        buffer.Clear();
+        buffer.WriteInt(ClientIndex);
+        buffer.WriteInt(1);
+        buffer.WriteFloat(10.2f);
+        Debug.Log("send");
+        Network.instance.UdpClient.Send(buffer.BuffToArray(), buffer.Length());
     }
 
     void HandleCreateRoomResponse(byte[] data) {
