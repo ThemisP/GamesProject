@@ -181,7 +181,7 @@ public class Network : MonoBehaviour {
             return;
         }
         ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
-        buffer.WriteInt(8);
+        buffer.WriteInt(9);
         buffer.WriteInt(GameIndex);
         myStream.Write(buffer.BuffToArray(), 0, buffer.Length());
     }
