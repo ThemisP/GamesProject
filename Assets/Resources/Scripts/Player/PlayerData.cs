@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
 public class PlayerData : Photon.MonoBehaviour {
 
 	[SerializeField] private float maxHealth = 100f;
@@ -26,6 +25,7 @@ public class PlayerData : Photon.MonoBehaviour {
     private bool dodging = false;
     private Color dodgeColor = new Color(1.0f,0.0f,1.0f,1.0f); //purple
     private Image dodgeImage;
+
 	void Start()
 	{
             GameObject canvas = GameObject.Find("Health");
@@ -39,7 +39,16 @@ public class PlayerData : Photon.MonoBehaviour {
             nodeCount = nodes.GetComponent<Text>();
             nodeCount.text = "0";
             currentHealth = maxHealth;
-            healthSlider.value = currentHealth / maxHealth;
+            healthSlider.value = currentHealth/maxHealth;
+        if (true){
+        } 
+        else {
+            healthSlider =  transform.GetChild(0).gameObject.GetComponentInChildren<Slider>();
+
+            healthSlider.gameObject.SetActive(true);
+            currentHealth = maxHealth;
+            healthSlider.value = currentHealth/maxHealth;
+       }
 	}
 
     //void FixedUpdate()
@@ -145,11 +154,6 @@ public class PlayerData : Photon.MonoBehaviour {
     {
         nodePoints += newPoints;
     }
-
-    //public Color getColor()
-    //{
-    //    return 
-    //}
 
     
 }

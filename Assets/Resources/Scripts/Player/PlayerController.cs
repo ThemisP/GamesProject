@@ -19,11 +19,6 @@ public class PlayerController : Photon.MonoBehaviour {
 	private float lastSynchronizationTime = 0f;
 	private float syncDelay = 0f;
 	private float syncTime = 0f;
-    //public bool dodge;
-    //private float invisibleSpriteTimer = 0.0f;
-    //private float dodgeTimeDuration = 0.1f;
-    //private float currentDuration = 0.0f;
-    //private float overallDodgeDuration = 0.5f;
     private Vector3 syncStartPosition = Vector3.zero;
 	private Vector3 syncEndPosition = Vector3.zero;
 	private Quaternion realRotation;
@@ -52,14 +47,11 @@ public class PlayerController : Photon.MonoBehaviour {
 			float v = Input.GetAxisRaw("Vertical"); // w and s keys
 			bool fire = Input.GetMouseButton(0);//pressed primary mouse button
             bool dodge = Input.GetButton("Dodge"); //pressed f key
-            //Debug.Log(dodge);
 			Move(h,v);
 			Turning();
-			Fire(fire);
             playerData.Dodge(dodge);
-            //playerData.dodgeUsed();
-           // StartCoroutine(Dodge(dodge));
-		} else {
+            Fire(fire);
+        } else {
 			SyncedMovement();
 		}
 	}
@@ -108,9 +100,9 @@ public class PlayerController : Photon.MonoBehaviour {
 		}
 	}
 
-	void Fire(bool fire){
+    void Fire(bool fire){
 		if(fire){
-			if(lastShootTime+fireRate<Time.fixedTime){
+            if(lastShootTime+fireRate<Time.fixedTime){
 				GameObject bullet = PhotonNetwork.Instantiate(bulletPrefab.name, bulletSpawn.position, bulletSpawn.rotation, 0);
 				lastShootTime = Time.fixedTime;
 			}
