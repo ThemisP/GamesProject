@@ -1,14 +1,79 @@
 fileFormatVersion: 2
-guid: e2ddf0b596a39ae44b4727f3b12f1964
+guid: 3948dbdc5d9782341982dcf8c612a2d3
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: //RootNode
-    400000: //RootNode
+    100000: Chair1
+    100002: Chair2
+    100004: Chair3
+    100006: Chair4
+    100008: ChairTop1
+    100010: ChairTop2
+    100012: ChairTop3
+    100014: ChairTop4
+    100016: LegChair1
+    100018: LegChair2
+    100020: LegChair3
+    100022: LegChair4
+    100024: LegLower1
+    100026: LegLower2
+    100028: LegMain
+    100030: //RootNode
+    100032: Top
+    400000: Chair1
+    400002: Chair2
+    400004: Chair3
+    400006: Chair4
+    400008: ChairTop1
+    400010: ChairTop2
+    400012: ChairTop3
+    400014: ChairTop4
+    400016: LegChair1
+    400018: LegChair2
+    400020: LegChair3
+    400022: LegChair4
+    400024: LegLower1
+    400026: LegLower2
+    400028: LegMain
+    400030: //RootNode
+    400032: Top
     2100000: lambert1
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: barrel
+    2300000: ChairTop1
+    2300002: ChairTop2
+    2300004: ChairTop3
+    2300006: ChairTop4
+    2300008: LegChair1
+    2300010: LegChair2
+    2300012: LegChair3
+    2300014: LegChair4
+    2300016: LegLower1
+    2300018: LegLower2
+    2300020: LegMain
+    2300022: Top
+    3300000: ChairTop1
+    3300002: ChairTop2
+    3300004: ChairTop3
+    3300006: ChairTop4
+    3300008: LegChair1
+    3300010: LegChair2
+    3300012: LegChair3
+    3300014: LegChair4
+    3300016: LegLower1
+    3300018: LegLower2
+    3300020: LegMain
+    3300022: Top
+    4300000: LegChair4
+    4300002: ChairTop4
+    4300004: LegChair3
+    4300006: ChairTop3
+    4300008: LegChair2
+    4300010: ChairTop2
+    4300012: ChairTop1
+    4300014: LegChair1
+    4300016: LegLower2
+    4300018: LegLower1
+    4300020: Top
+    4300022: LegMain
   externalObjects: {}
   materials:
     importMaterials: 1
