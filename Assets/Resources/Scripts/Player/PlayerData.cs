@@ -80,5 +80,8 @@ public class PlayerData : MonoBehaviour {
         nodePoints += newPoints;
     }
 
-    
+    public float getCurrentHealth()
+    {
+        return currentHealth;
+    }  
 }

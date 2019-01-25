@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Net.Sockets;
 using System.IO;
 using System.Net;
+using System.Threading;
 
 public class Network : MonoBehaviour {
 
@@ -36,6 +37,8 @@ public class Network : MonoBehaviour {
 
     private Queue<string> RunOnMainThread = new Queue<string>();
 
+    private Thread checkHealthThread;
+
     public void Awake() {
         instance = this;
         player = new PlayerInfo();
@@ -62,8 +65,8 @@ public class Network : MonoBehaviour {
     }
 
     void ConnectToGameServer() {
-        if(TcpClient != null) {
-            if(TcpClient.Connected || isConnected) return;
+        if (TcpClient != null) {
+            if (TcpClient.Connected || isConnected) return;
             TcpClient.Close();
             TcpClient = null;
         }
@@ -75,6 +78,8 @@ public class Network : MonoBehaviour {
         Array.Resize(ref asyncBuff, 8192);
         TcpClient.BeginConnect(IP, Port, new AsyncCallback(ConnectCallback), TcpClient);
         isConnected = true;
+        checkHealthThread = new Thread(() => CheckPlayerHealth(PlayerPrefab, TcpStream));
+        checkHealthThread.Start();
     }
 
     public void StartUdp() {
@@ -229,6 +234,24 @@ public class Network : MonoBehaviour {
         buffer.WriteInt(9);
         buffer.WriteInt(GameIndex);
         TcpStream.Write(buffer.BuffToArray(), 0, buffer.Length());
+    }
+
+    // Thread which periodically checks the players health status, 
+    // on case that player health is 0, sends message to server 
+    // to update status of the player and broadcast death other 
+    // players
+    private static void CheckPlayerHealth(GameObject playerPrefab, NetworkStream tcpStream)
+    {
+        if (playerPrefab.activeInHierarchy && playerPrefab.GetComponent<PlayerData>().getCurrentHealth() <= 0){
+            ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
+            buffer.WriteInt(-1);
+            tcpStream.Write(buffer.BuffToArray(), 0, buffer.Length());
+            Debug.Log("Player has died");
+        }
+        else
+        {
+            Thread.Sleep(5000);
+        }
     }
     #endregion
 
