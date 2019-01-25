@@ -31,6 +31,8 @@ public class Network : MonoBehaviour {
 
     public IPEndPoint IPend;
     public PlayerInfo player;
+    public GameObject[] teamMate;
+    public GameObject[] playersInGame = new GameObject[100];
 
     public int ClientIndex;//server related (something like a unique id very simple though)
     private byte[] asyncBuff;
@@ -78,8 +80,8 @@ public class Network : MonoBehaviour {
         Array.Resize(ref asyncBuff, 8192);
         TcpClient.BeginConnect(IP, Port, new AsyncCallback(ConnectCallback), TcpClient);
         isConnected = true;
-        checkHealthThread = new Thread(() => CheckPlayerHealth(PlayerPrefab, TcpStream));
-        checkHealthThread.Start();
+        //checkHealthThread = new Thread(() => CheckPlayerHealth(PlayerPrefab, TcpStream));
+        //checkHealthThread.Start();
     }
 
     public void StartUdp() {
@@ -88,7 +90,7 @@ public class Network : MonoBehaviour {
 
         IPend = new IPEndPoint(IPAddress.Any, 0);
         Debug.Log("setup Udp");
-        //UdpClient.BeginReceive(new AsyncCallback(OnReceiveUdp), null);
+        UdpClient.BeginReceive(new AsyncCallback(OnReceiveUdp), null);
     }
 
     void ConnectCallback(IAsyncResult result) {
@@ -107,8 +109,13 @@ public class Network : MonoBehaviour {
 
     #region "GameRelated"
     void JoinGame() {
-        GameObject player = GameObject.Instantiate(PlayerPrefab, spawnpoints[0].position, spawnpoints[0].rotation);
-        camera.SetTarget(player.transform);
+        int teamNumber = this.player.GetTeamNumber();
+        Transform spawnpoint = spawnpoints[teamNumber % 2];
+        GameObject playerObj = GameObject.Instantiate(PlayerPrefab, spawnpoint.position, spawnpoint.rotation);
+        player.playerObj = playerObj;
+        camera.SetTarget(playerObj.transform);
+        InvokeRepeating("SendPlayerPos", 0f, 0.3f); //Every 0.3 seconds, repeated calls to send player position to server.
+        GetPlayersInGame();
     }
     #endregion
 
@@ -131,8 +138,10 @@ public class Network : MonoBehaviour {
             buffer.WriteBytes(myBytes);
             float number2 = buffer.ReadFloat();
             Debug.Log("from server " + number2);
+
             //Handle Data
-            //ClientHandlePackets.instance.HandleData(myBytes);
+            ClientHandlePackets.instance.HandleDataUdp(myBytes);
+            
 
 
             if (TcpClient == null) return;
@@ -140,6 +149,22 @@ public class Network : MonoBehaviour {
 
         }
     }
+
+    //Once you join a game this is invoked every .3 seconds to update the player's location on the server.
+    public void SendPlayerPos() {
+        ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
+        buffer.WriteInt(ClientIndex);
+        buffer.WriteInt(2);
+        Transform playerTransform = player.playerObj.transform;
+        buffer.WriteString(DateTime.Now.ToString());
+        buffer.WriteFloat(playerTransform.position.x);
+        buffer.WriteFloat(playerTransform.position.y);
+        buffer.WriteFloat(playerTransform.position.z);
+        buffer.WriteFloat(playerTransform.rotation.y);
+
+        UdpClient.Send(buffer.BuffToArray(), buffer.Length());
+    }
+    
 
     #endregion
 
@@ -236,6 +261,18 @@ public class Network : MonoBehaviour {
         TcpStream.Write(buffer.BuffToArray(), 0, buffer.Length());
     }
 
+    public void GetPlayersInGame() {
+        if (TcpClient == null || !TcpClient.Connected) {
+            TcpClient.Close();
+            TcpClient = null;
+            Debug.Log("Disconnected");
+            return;
+        }
+        ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
+        buffer.WriteInt(10);
+        TcpStream.Write(buffer.BuffToArray(), 0, buffer.Length());
+    }
+    
     // Thread which periodically checks the players health status, 
     // on case that player health is 0, sends message to server 
     // to update status of the player and broadcast death other 

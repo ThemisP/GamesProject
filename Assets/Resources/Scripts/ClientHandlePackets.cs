@@ -8,16 +8,21 @@ using UnityEngine;
 public class ClientHandlePackets{
     public static ClientHandlePackets instance = new ClientHandlePackets();
     private delegate void Packet_(byte[] data);
-    private Dictionary<int, Packet_> Packets;
+    private Dictionary<int, Packet_> PacketsTcp;
+    private Dictionary<int, Packet_> PacketsUdp;
 
     public void InitMessages() {
-        Packets = new Dictionary<int, Packet_>();
-        Packets.Add(1, HandleWelcomeMessage);
+        PacketsTcp = new Dictionary<int, Packet_>();
+        PacketsTcp.Add(1, HandleWelcomeMessage);
         //handleLoginSuccess....
-        Packets.Add(3, HandleCreateRoomResponse);
-        Packets.Add(4, HandleGetPlayersInRoom);
-        Packets.Add(5, HandleJoinRoomResponse);
-        Packets.Add(6, HandleJoinGameResponse);
+        PacketsTcp.Add(3, HandleCreateRoomResponse);
+        PacketsTcp.Add(4, HandleGetPlayersInRoom);
+        PacketsTcp.Add(5, HandleJoinRoomResponse);
+        PacketsTcp.Add(6, HandleJoinGameResponse);
+        PacketsTcp.Add(7, HandleGetPlayersInGameResponse);
+
+        PacketsUdp = new Dictionary<int, Packet_>();
+        PacketsUdp.Add(1, HandlePlayerPos);
     }
 
     public void HandleData(byte[] data) {
@@ -30,13 +35,49 @@ public class ClientHandlePackets{
         
         if (packetnum == 0) return;
 
-        if (Packets.TryGetValue(packetnum, out packet)) {
+        if (PacketsTcp.TryGetValue(packetnum, out packet)) {
             packet.Invoke(data);
         } else {
-            Debug.Log("Packet number does not exist the client doesn't know what to do with the data.");
+            Debug.Log("Packet number | " + packetnum + " | does not exist (in TCP) the client doesn't know what to do with the data.");
         }
     }
 
+    public void HandleDataUdp(byte[] data) {
+        int packetnum;
+        Packet_ packet;
+        ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
+        buffer.WriteBytes(data);
+        packetnum = buffer.ReadInt();
+        buffer = null;
+
+        if (packetnum == 0) return;
+
+        if (PacketsUdp.TryGetValue(packetnum, out packet)) {
+            packet.Invoke(data);
+        } else {
+            Debug.Log("Packet number | " + packetnum + " | does not exist (in UDP) the client doesn't know what to do with the data.");
+        }
+    }
+
+    #region "Udp Packets"
+    //Packetnum = 1
+    void HandlePlayerPos(byte[] data) {
+        ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
+        buffer.WriteBytes(data);
+        int packetnum = buffer.ReadInt();
+        int playerIndex = buffer.ReadInt();
+        string playerName = buffer.ReadString();
+        float xpos = buffer.ReadFloat();
+        float ypos = buffer.ReadFloat();
+        float zpos = buffer.ReadFloat();
+        float yrot = buffer.ReadFloat();
+
+    }
+
+    #endregion
+
+    #region "Tcp Packets"
+    //Packetnum = 1
     void HandleWelcomeMessage(byte[] data) {
         ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
         buffer.WriteBytes(data);
@@ -54,7 +95,7 @@ public class ClientHandlePackets{
         Debug.Log("send");
         Network.instance.UdpClient.Send(buffer.BuffToArray(), buffer.Length());
     }
-
+    //Packetnum = 3
     void HandleCreateRoomResponse(byte[] data) {
         ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
         buffer.WriteBytes(data);
@@ -69,7 +110,7 @@ public class ClientHandlePackets{
             Debug.Log("Failed to create a room!");
         }
     }
-
+    //Packetnum = 4
     void HandleGetPlayersInRoom(byte[] data) {
         ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
         buffer.WriteBytes(data);
@@ -83,7 +124,7 @@ public class ClientHandlePackets{
             Debug.Log("User: " + user);
         }
     }
-
+    //Packetnum = 5
     void HandleJoinRoomResponse(byte[] data) {
         ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
         buffer.WriteBytes(data);
@@ -98,22 +139,47 @@ public class ClientHandlePackets{
             Debug.Log("Failed");
         }
     }
-
+    //Packetnum = 6
     void HandleJoinGameResponse(byte[] data) {
         ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
         buffer.WriteBytes(data);
         int packetnum = buffer.ReadInt();
-        int response = buffer.ReadInt();
-        int gameIndex = buffer.ReadInt();
+        int response = buffer.ReadInt();        
         if (response == 1) {
+            int gameIndex = buffer.ReadInt();
+            int teamIndex = buffer.ReadInt();
+            int teammateIndex = buffer.ReadInt();
+            string teammateUsername = buffer.ReadString();
             Debug.Log("Joined");
+            
             //Network.instance.player.JoinGame(gameIndex);
+            Network.instance.player.SetTeamNumber(teamIndex);
+            Network.instance.player.SetTeammate(teammateIndex, teammateUsername);
             Network.instance.CallFunctionFromAnotherThread("JoinGame");
             Network.instance.mainMenu.JoinGameSuccessfull();
         } else {
             Debug.Log("Failed");
         }
     }
+    //Packetnum = 7
+    void HandleGetPlayersInGameResponse(byte[] data) {
+        ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
+        buffer.WriteBytes(data);
+        int packetnum = buffer.ReadInt();
+        int numberOfPlayers = buffer.ReadInt();
+        for(int i=0; i<numberOfPlayers; i++) {
+            int playerTeam = buffer.ReadInt();
+            string playerUsername = buffer.ReadString();
+            float posX = buffer.ReadFloat();
+            float posY = buffer.ReadFloat();
+            float posZ = buffer.ReadFloat();
+            float rotZ = buffer.ReadFloat();
+            Debug.Log("Player " + playerUsername +
+                      " part of team " + playerTeam +
+                      " is at pos " + posX + ", " + posY + ", " + posZ + " with rotation " + rotZ);
+        }
+    }
+    #endregion
 }
-    
+
 

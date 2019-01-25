@@ -7,6 +7,10 @@ public class PlayerInfo {
     private bool inRoom;
     private int roomIndex;
     private string teammateUsername;
+    private int teammateIndex;
+    private int teamNumber;
+
+    public GameObject playerObj;
     
     public PlayerInfo() {
         this.username = "Default";
@@ -17,8 +21,17 @@ public class PlayerInfo {
         this.teammateUsername = username;
     }
 
+    public void SetTeammate(int index, string username) {
+        this.teammateUsername = username;
+        this.teammateIndex = index;
+    }
+
     public void ChangeUsername(string username) {
         this.username = username;
+    }
+
+    public void SetTeamNumber(int number) {
+        this.teamNumber = number;
     }
 
     public void JoinRoom(int roomIndex) {
@@ -44,6 +57,10 @@ public class PlayerInfo {
 
     public string GetTeammateUsername() {
         return this.teammateUsername;
+    }
+
+    public int GetTeamNumber() {
+        return this.teamNumber;
     }
 	
 }

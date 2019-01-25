@@ -213,7 +213,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1408238488680944
 GameObject:
   m_ObjectHideFlags: 1
@@ -836,7 +836,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1518673152136198}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6545e87568b8591408bf7910ebeda487, type: 3}
+  m_Script: {fileID: 11500000, guid: 93d922e0299bed940aa6eca5cb0ef0b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   LoginMenu: {fileID: 1398525933433738}
@@ -847,6 +847,7 @@ MonoBehaviour:
   RoomTitle: {fileID: 114521711018423188}
   Player1InLobby: {fileID: 114024341175480200}
   Player2InLobby: {fileID: 114569523373624066}
+  PlayButton: {fileID: 114425699408428774}
 --- !u!114 &114361604227564680
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -953,7 +954,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114341750624534518}
-        m_MethodName: Quit
+        m_MethodName: QuitMain
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1123,7 +1124,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114341750624534518}
-        m_MethodName: Quit
+        m_MethodName: EnterMainGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

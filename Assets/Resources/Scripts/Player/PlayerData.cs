@@ -15,7 +15,9 @@ public class PlayerData : MonoBehaviour {
 
 	private int coins = 0;
     private int nodePoints = 0;
-    void Start() {
+
+    //Change back to Start when fixed HUD
+    void Start12() {
 
         GameObject canvas = GameObject.Find("Health");
         GameObject balance = GameObject.Find("Balance");
