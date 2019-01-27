@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - HUD
+  - EnemyPlayer
   layers:
   - Default
   - TransparentFX

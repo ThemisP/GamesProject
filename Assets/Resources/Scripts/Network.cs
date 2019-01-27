@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Net.Sockets;
@@ -22,6 +23,8 @@ public class Network : MonoBehaviour {
     public Transform[] spawnpoints;
     public CameraFollow camera;
     public GameObject PlayerPrefab;
+    public GameObject TeammatePlayerPrefab;
+    public GameObject EnemyPlayerPrefab;
 
     public TcpClient TcpClient;
     public NetworkStream TcpStream;
@@ -32,16 +35,17 @@ public class Network : MonoBehaviour {
     public IPEndPoint IPend;
     public PlayerInfo player;
     public GameObject[] teamMate;
-    public GameObject[] playersInGame = new GameObject[100];
+    public Dictionary<int, EnemyPlayerController> playersInGame;
 
     public int ClientIndex;//server related (something like a unique id very simple though)
     private byte[] asyncBuff;
 
-    private Queue<string> RunOnMainThread = new Queue<string>();
+    private Queue<Action> RunOnMainThread = new Queue<Action>();
 
     private Thread checkHealthThread;
 
     public void Awake() {
+        playersInGame = new Dictionary<int, EnemyPlayerController>();
         instance = this;
         player = new PlayerInfo();
     }
@@ -55,15 +59,17 @@ public class Network : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if (RunOnMainThread.Count > 0) {
-            foreach(string s in RunOnMainThread) {
-                Invoke(s, 0f);
-            }
-            RunOnMainThread.Clear();
+            lock (RunOnMainThread) {
+                Action s = RunOnMainThread.Dequeue();
+                s();
+            }            
         }
     }
 
-    public void CallFunctionFromAnotherThread(string functionName) {
-        RunOnMainThread.Enqueue(functionName);
+    public void CallFunctionFromAnotherThread(Action functionName) {
+        lock (RunOnMainThread) {
+            RunOnMainThread.Enqueue(functionName);
+        }
     }
 
     void ConnectToGameServer() {
@@ -108,7 +114,7 @@ public class Network : MonoBehaviour {
     }
 
     #region "GameRelated"
-    void JoinGame() {
+    public void JoinGame() {
         int teamNumber = this.player.GetTeamNumber();
         Transform spawnpoint = spawnpoints[teamNumber % 2];
         GameObject playerObj = GameObject.Instantiate(PlayerPrefab, spawnpoint.position, spawnpoint.rotation);
@@ -116,6 +122,20 @@ public class Network : MonoBehaviour {
         camera.SetTarget(playerObj.transform);
         InvokeRepeating("SendPlayerPos", 0f, 0.3f); //Every 0.3 seconds, repeated calls to send player position to server.
         GetPlayersInGame();
+    }
+
+    public void SpawnPlayer(int id, string username, int team, Vector3 pos, Vector3 rot) {
+        Debug.Log("Player " + username + " is at (" + pos + ") in team " + team);
+        GameObject player = GameObject.Instantiate(EnemyPlayerPrefab, pos, Quaternion.Euler(rot));
+        EnemyPlayerController controller =  player.GetComponent<EnemyPlayerController>();        
+        if (controller == null) Debug.LogError("Controller not found in spawned player");
+        else {
+            controller.SetPlayerId(id);
+            controller.SetUsername(username);
+            controller.SetTeamNumber(team);
+            playersInGame.Add(id, controller);
+        }
+
     }
     #endregion
 
@@ -133,19 +153,10 @@ public class Network : MonoBehaviour {
                 UdpClient.Close();
                 return;
             }
-            Debug.Log("reached");
-            ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
-            buffer.WriteBytes(myBytes);
-            float number2 = buffer.ReadFloat();
-            Debug.Log("from server " + number2);
-
             //Handle Data
             ClientHandlePackets.instance.HandleDataUdp(myBytes);
-            
 
-
-            if (TcpClient == null) return;
-            TcpStream.BeginRead(asyncBuff, 0, 8192, OnReceiveTcp, null);
+            UdpClient.BeginReceive(new AsyncCallback(OnReceiveUdp), null);
 
         }
     }
@@ -162,6 +173,7 @@ public class Network : MonoBehaviour {
         buffer.WriteFloat(playerTransform.position.z);
         buffer.WriteFloat(playerTransform.rotation.y);
 
+        Debug.Log("send Loc");
         UdpClient.Send(buffer.BuffToArray(), buffer.Length());
     }
     

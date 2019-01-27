@@ -23,6 +23,7 @@ public class ClientHandlePackets{
 
         PacketsUdp = new Dictionary<int, Packet_>();
         PacketsUdp.Add(1, HandlePlayerPos);
+        PacketsUdp.Add(2, HandleReceivePlayersLocations);
     }
 
     public void HandleData(byte[] data) {
@@ -49,7 +50,7 @@ public class ClientHandlePackets{
         buffer.WriteBytes(data);
         packetnum = buffer.ReadInt();
         buffer = null;
-
+        Debug.Log("udp received");
         if (packetnum == 0) return;
 
         if (PacketsUdp.TryGetValue(packetnum, out packet)) {
@@ -72,6 +73,29 @@ public class ClientHandlePackets{
         float zpos = buffer.ReadFloat();
         float yrot = buffer.ReadFloat();
 
+    }
+
+    void HandleReceivePlayersLocations(byte[] data) {
+        ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
+        buffer.WriteBytes(data);
+        int packetnum = buffer.ReadInt();
+        int numberOfPlayers = buffer.ReadInt();
+        for (int i = 0; i < numberOfPlayers; i++) {
+            int playerId = buffer.ReadInt();
+            float posX = buffer.ReadFloat();
+            float posY = buffer.ReadFloat();
+            float posZ = buffer.ReadFloat();
+            float rotY = buffer.ReadFloat();
+
+            EnemyPlayerController controller;
+            Debug.Log("testing: xpos: " + posX + ", " + posY + ", " + posZ);
+            //Testing
+            if(Network.instance.playersInGame.TryGetValue(playerId, out controller)){
+                controller.SetPlayerPosAndRot(new Vector3(posX, posY, posZ), new Vector3(0, rotY, 0));
+            } else {
+                Debug.LogWarning("Getting info for an unregistered player");
+            }
+        }
     }
 
     #endregion
@@ -155,7 +179,7 @@ public class ClientHandlePackets{
             //Network.instance.player.JoinGame(gameIndex);
             Network.instance.player.SetTeamNumber(teamIndex);
             Network.instance.player.SetTeammate(teammateIndex, teammateUsername);
-            Network.instance.CallFunctionFromAnotherThread("JoinGame");
+            Network.instance.CallFunctionFromAnotherThread(Network.instance.JoinGame);
             Network.instance.mainMenu.JoinGameSuccessfull();
         } else {
             Debug.Log("Failed");
@@ -168,15 +192,20 @@ public class ClientHandlePackets{
         int packetnum = buffer.ReadInt();
         int numberOfPlayers = buffer.ReadInt();
         for(int i=0; i<numberOfPlayers; i++) {
+            int playerId = buffer.ReadInt();
             int playerTeam = buffer.ReadInt();
             string playerUsername = buffer.ReadString();
             float posX = buffer.ReadFloat();
             float posY = buffer.ReadFloat();
             float posZ = buffer.ReadFloat();
-            float rotZ = buffer.ReadFloat();
-            Debug.Log("Player " + playerUsername +
-                      " part of team " + playerTeam +
-                      " is at pos " + posX + ", " + posY + ", " + posZ + " with rotation " + rotZ);
+            float rotY = buffer.ReadFloat();
+            
+            //Testing
+            Network.instance.CallFunctionFromAnotherThread(() => {
+                Network.instance.SpawnPlayer(playerId ,playerUsername, playerTeam,
+                                             new Vector3(posX, posY, posZ),
+                                             new Vector3(0, rotY, 0));
+            });
         }
     }
     #endregion
