@@ -181,12 +181,13 @@ public class Network : MonoBehaviour {
         UdpClient.Send(buffer.BuffToArray(), buffer.Length());
     }
 
-    public void SendBullet(Vector3 pos, Vector3 rot, float speed, float lifeTime) {
+    public void SendBullet(Vector3 pos, Vector3 rot, float speed, float lifeTime, int bulletId) {
         ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
         buffer.WriteInt(ClientIndex);
         buffer.WriteInt(3);
         Transform playerTransform = player.playerObj.transform;
         buffer.WriteString(DateTime.Now.ToString());
+        buffer.WriteString(ClientIndex.ToString() + "_" + bulletId.ToString());
         buffer.WriteFloat(pos.x);
         buffer.WriteFloat(pos.y);
         buffer.WriteFloat(pos.z);
