@@ -118,7 +118,7 @@ public class Network : MonoBehaviour {
         GameObject playerObj = GameObject.Instantiate(PlayerPrefab, spawnpoint.position, spawnpoint.rotation);
         player.playerObj = playerObj;
         camera.SetTarget(playerObj.transform);
-        InvokeRepeating("SendPlayerPos", 0f, 0.3f); //Every 0.3 seconds, repeated calls to send player position to server.
+        InvokeRepeating("SendPlayerPos", 0f, 0.2f); //Every 0.3 seconds, repeated calls to send player position to server.
         GetPlayersInGame();
     }
 
@@ -159,7 +159,7 @@ public class Network : MonoBehaviour {
         }
     }
 
-    //Once you join a game this is invoked every .3 seconds to update the player's location on the server.
+    //Once you join a game this is invoked every .2 seconds to update the player's location on the server.
     public void SendPlayerPos() {
         ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
         buffer.WriteInt(ClientIndex);
@@ -169,6 +169,12 @@ public class Network : MonoBehaviour {
         buffer.WriteFloat(playerTransform.position.x);
         buffer.WriteFloat(playerTransform.position.y);
         buffer.WriteFloat(playerTransform.position.z);
+        Rigidbody rigidbod = player.playerObj.GetComponent<Rigidbody>();
+        if (rigidbod == null) Debug.LogError("rigidbody not found!!!");
+        buffer.WriteFloat(rigidbod.velocity.x);
+        buffer.WriteFloat(rigidbod.velocity.y);
+        buffer.WriteFloat(rigidbod.velocity.z);
+
         buffer.WriteFloat(playerTransform.rotation.y);
 
         Debug.Log("send Loc");
