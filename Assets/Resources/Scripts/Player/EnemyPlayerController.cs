@@ -53,7 +53,7 @@ public class EnemyPlayerController : MonoBehaviour {
         syncDelay = Time.time - lastSynchronizationTime;
         lastSynchronizationTime = Time.time;
         //Debug.Log(pos + " :: " + rot);
-        Debug.Log("received " + rot);
+        //Debug.Log("received " + rot);
         this.playerPos = pos + vel*syncDelay;
         this.playerRot = rot;
     }

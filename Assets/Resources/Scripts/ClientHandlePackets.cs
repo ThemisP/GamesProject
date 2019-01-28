@@ -111,7 +111,7 @@ public class ClientHandlePackets{
         ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
         buffer.WriteBytes(data);
         int packetNumber = buffer.ReadInt();
-        string playerId = buffer.ReadString();
+        string bulletId = buffer.ReadString();
 
         float posX = buffer.ReadFloat();
         float posY = buffer.ReadFloat();
@@ -119,6 +119,14 @@ public class ClientHandlePackets{
         float rotY = buffer.ReadFloat();
         float speed = buffer.ReadFloat();
         float lifeTime = buffer.ReadFloat();
+
+        ObjectHandler.instance.CallFunctionFromAnotherThread(() => {
+            ObjectHandler.instance.InstantiateBullet(new Vector3(posX, posY, posZ),
+                                                     new Vector3(0, rotY, 0),
+                                                     speed,
+                                                     lifeTime,
+                                                     bulletId);
+        });
     }
 
     #endregion

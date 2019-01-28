@@ -4,12 +4,15 @@ using UnityEngine;
 using System;
 
 public class ObjectHandler : MonoBehaviour {
+    public static ObjectHandler instance;
+
  	private Queue<Action> RunOnMainThread = new Queue<Action>();
     private Dictionary<string, GameObject> Bullets;
     public GameObject bulletPrefab;
 	// Use this for initialization
 	void Start () {
-		
+        instance = this;
+        Bullets = new Dictionary<string, GameObject>();
 	}
 	
 	// Update is called once per frame
@@ -34,7 +37,7 @@ public class ObjectHandler : MonoBehaviour {
         if (rigbod != null) rigbod.velocity = Vector3.forward * speed;
         else Debug.LogError("Rigid body for bullet prefab spawn not found!");
         BulletScript bulletScript = bullet.GetComponent<BulletScript>();
-        if (bulletScript != null) bulletScript..lifeTime = lifetime;
+        if (bulletScript != null) bulletScript.lifeTime = lifetime;
         else Debug.LogError("BulletScritp not found for bullet prefab!");
 
         if(rigbod!=null && bulletScript!=null)Bullets.Add(bulletId, bullet);
