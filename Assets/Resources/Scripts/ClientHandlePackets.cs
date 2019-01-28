@@ -85,13 +85,21 @@ public class ClientHandlePackets{
             float posX = buffer.ReadFloat();
             float posY = buffer.ReadFloat();
             float posZ = buffer.ReadFloat();
+            float velX = buffer.ReadFloat();
+            float velY = buffer.ReadFloat();
+            float velZ = buffer.ReadFloat();
+
             float rotY = buffer.ReadFloat();
 
             EnemyPlayerController controller;
-            Debug.Log("testing: xpos: " + posX + ", " + posY + ", " + posZ);
+            //Debug.Log("testing: xpos: " + posX + ", " + posY + ", " + posZ);
             //Testing
             if(Network.instance.playersInGame.TryGetValue(playerId, out controller)){
-                controller.SetPlayerPosAndRot(new Vector3(posX, posY, posZ), new Vector3(0, rotY, 0));
+                controller.CallFunctionFromAnotherThread(() => {
+                    controller.SetPlayerPosAndRot(new Vector3(posX, posY, posZ), 
+                                                  new Vector3(0, rotY, 0),
+                                                  new Vector3(velX, velY, velZ));
+                });
             } else {
                 Debug.LogWarning("Getting info for an unregistered player");
             }
@@ -116,7 +124,7 @@ public class ClientHandlePackets{
         buffer.WriteInt(ClientIndex);
         buffer.WriteInt(1);
         buffer.WriteFloat(10.2f);
-        Debug.Log("send");
+        //Debug.Log("send");
         Network.instance.UdpClient.Send(buffer.BuffToArray(), buffer.Length());
     }
     //Packetnum = 3
