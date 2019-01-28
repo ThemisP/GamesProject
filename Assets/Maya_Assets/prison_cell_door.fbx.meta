@@ -1,0 +1,171 @@
+fileFormatVersion: 2
+guid: 2fe98ca689fd4894fa15fb5c7a8b9f71
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: DoorFrame
+    100002: DoorFrame4
+    100004: DoorFrame5
+    100006: DoorFrame6
+    100008: DoorHorizontalBars
+    100010: DoorVerticalBars
+    100012: pCube1
+    100014: pCylinder18
+    100016: pCylinder19
+    100018: pCylinder20
+    100020: pCylinder21
+    100022: pCylinder22
+    100024: pCylinder23
+    100026: pCylinder24
+    100028: pCylinder25
+    100030: pCylinder26
+    100032: pCylinder27
+    100034: pCylinder28
+    100036: //RootNode
+    400000: DoorFrame
+    400002: DoorFrame4
+    400004: DoorFrame5
+    400006: DoorFrame6
+    400008: DoorHorizontalBars
+    400010: DoorVerticalBars
+    400012: pCube1
+    400014: pCylinder18
+    400016: pCylinder19
+    400018: pCylinder20
+    400020: pCylinder21
+    400022: pCylinder22
+    400024: pCylinder23
+    400026: pCylinder24
+    400028: pCylinder25
+    400030: pCylinder26
+    400032: pCylinder27
+    400034: pCylinder28
+    400036: //RootNode
+    2100000: lambert1
+    2300000: DoorFrame4
+    2300002: DoorFrame5
+    2300004: DoorFrame6
+    2300006: pCube1
+    2300008: pCylinder18
+    2300010: pCylinder19
+    2300012: pCylinder20
+    2300014: pCylinder21
+    2300016: pCylinder22
+    2300018: pCylinder23
+    2300020: pCylinder24
+    2300022: pCylinder25
+    2300024: pCylinder26
+    2300026: pCylinder27
+    2300028: pCylinder28
+    3300000: DoorFrame4
+    3300002: DoorFrame5
+    3300004: DoorFrame6
+    3300006: pCube1
+    3300008: pCylinder18
+    3300010: pCylinder19
+    3300012: pCylinder20
+    3300014: pCylinder21
+    3300016: pCylinder22
+    3300018: pCylinder23
+    3300020: pCylinder24
+    3300022: pCylinder25
+    3300024: pCylinder26
+    3300026: pCylinder27
+    3300028: pCylinder28
+    4300000: DoorFrame5
+    4300002: DoorFrame6
+    4300004: pCylinder20
+    4300006: pCylinder21
+    4300008: pCylinder22
+    4300010: pCylinder23
+    4300012: pCylinder19
+    4300014: pCylinder18
+    4300016: pCylinder24
+    4300018: pCylinder25
+    4300020: pCylinder26
+    4300022: pCylinder27
+    4300024: pCylinder28
+    4300026: pCube1
+    4300028: DoorFrame4
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

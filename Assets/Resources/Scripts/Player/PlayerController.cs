@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : Photon.MonoBehaviour {
+public class PlayerController : MonoBehaviour {
 
 	[SerializeField] private GameObject bulletPrefab;
 	[SerializeField] private Transform bulletSpawn;
@@ -42,7 +42,7 @@ public class PlayerController : Photon.MonoBehaviour {
 
 	// Update is called once per frame
 	void FixedUpdate () {
-		if(photonView.isMine){
+		if(true){
 			float h = Input.GetAxisRaw("Horizontal");// a and d keys
 			float v = Input.GetAxisRaw("Vertical"); // w and s keys
 			bool fire = Input.GetMouseButton(0);//pressed primary mouse button
@@ -56,25 +56,25 @@ public class PlayerController : Photon.MonoBehaviour {
 		}
 	}
 
-	void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
-		if (stream.isWriting) {
-			stream.SendNext(playerRigidbody.position);
-			stream.SendNext(playerRigidbody.velocity);
-			stream.SendNext(playerRigidbody.rotation);
-		}
-    	else {
-        	Vector3 syncPosition = (Vector3)stream.ReceiveNext();
-        	Vector3 syncVelocity = (Vector3)stream.ReceiveNext();
-			realRotation = (Quaternion)stream.ReceiveNext();
+	//void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
+	//	if (stream.isWriting) {
+	//		stream.SendNext(playerRigidbody.position);
+	//		stream.SendNext(playerRigidbody.velocity);
+	//		stream.SendNext(playerRigidbody.rotation);
+	//	}
+ //   	else {
+ //       	Vector3 syncPosition = (Vector3)stream.ReceiveNext();
+ //       	Vector3 syncVelocity = (Vector3)stream.ReceiveNext();
+	//		realRotation = (Quaternion)stream.ReceiveNext();
  
-			syncTime = 0f;
-			syncDelay = Time.time - lastSynchronizationTime;
-			lastSynchronizationTime = Time.time;
+	//		syncTime = 0f;
+	//		syncDelay = Time.time - lastSynchronizationTime;
+	//		lastSynchronizationTime = Time.time;
 	
-			syncEndPosition = syncPosition + syncVelocity * syncDelay;
-			syncStartPosition = playerRigidbody.position;
-    	}
-	}
+	//		syncEndPosition = syncPosition + syncVelocity * syncDelay;
+	//		syncStartPosition = playerRigidbody.position;
+ //   	}
+	//}
 
 	void Move(float h, float v){
 		movement.Set(h, 0f, v);
@@ -102,8 +102,8 @@ public class PlayerController : Photon.MonoBehaviour {
 
     void Fire(bool fire){
 		if(fire){
-            if(lastShootTime+fireRate<Time.fixedTime){
-				GameObject bullet = PhotonNetwork.Instantiate(bulletPrefab.name, bulletSpawn.position, bulletSpawn.rotation, 0);
+			if(lastShootTime+fireRate<Time.fixedTime){
+				//GameObject bullet = PhotonNetwork.Instantiate(bulletPrefab.name, bulletSpawn.position, bulletSpawn.rotation, 0);
 				lastShootTime = Time.fixedTime;
 			}
 		} 
