@@ -29,15 +29,16 @@ public class EnemyPlayerController : MonoBehaviour {
 	
 	void FixedUpdate () {
         if (RunOnMainThread.Count > 0) {
-            lock (RunOnMainThread) {
+            lock(RunOnMainThread) {
                 Action s = RunOnMainThread.Dequeue();
                 s();
             }
         }
         syncTime += Time.deltaTime;
         //Debug.Log("Player pos (" + playerPos + "), player rot (" + playerRot + ")");
-        if (syncDelay > 0)
+        if (syncDelay != 0) {
             playerRigidbody.MovePosition(Vector3.Lerp(transform.position, playerPos, syncTime / syncDelay));
+        }
         playerRigidbody.rotation = Quaternion.Lerp(playerRigidbody.rotation, Quaternion.Euler(playerRot), .3f);
     }
 
@@ -52,6 +53,7 @@ public class EnemyPlayerController : MonoBehaviour {
         syncDelay = Time.time - lastSynchronizationTime;
         lastSynchronizationTime = Time.time;
         //Debug.Log(pos + " :: " + rot);
+        Debug.Log("received " + rot);
         this.playerPos = pos + vel*syncDelay;
         this.playerRot = rot;
     }

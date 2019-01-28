@@ -120,7 +120,7 @@ public class Network : MonoBehaviour {
         GameObject playerObj = GameObject.Instantiate(PlayerPrefab, spawnpoint.position, spawnpoint.rotation);
         player.playerObj = playerObj;
         camera.SetTarget(playerObj.transform);
-        InvokeRepeating("SendPlayerPos", 0f, 0.2f); //Every 0.3 seconds, repeated calls to send player position to server.
+        InvokeRepeating("SendPlayerPos", 0f, 0.1f); //Every 0.1 seconds, repeated calls to send player position to server.
         GetPlayersInGame();
     }
 
@@ -177,7 +177,7 @@ public class Network : MonoBehaviour {
         buffer.WriteFloat(rigidbod.velocity.y);
         buffer.WriteFloat(rigidbod.velocity.z);
 
-        buffer.WriteFloat(playerTransform.rotation.y);
+        buffer.WriteFloat(playerTransform.rotation.eulerAngles.y);
 
         Debug.Log("send Loc");
         UdpClient.Send(buffer.BuffToArray(), buffer.Length());
