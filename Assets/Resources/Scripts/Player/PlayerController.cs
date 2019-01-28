@@ -46,10 +46,10 @@ public class PlayerController : MonoBehaviour {
 			float h = Input.GetAxisRaw("Horizontal");// a and d keys
 			float v = Input.GetAxisRaw("Vertical"); // w and s keys
 			bool fire = Input.GetMouseButton(0);//pressed primary mouse button
-            bool dodge = Input.GetButton("Dodge"); //pressed f key
+            //bool dodge = Input.GetButton("Dodge"); //pressed f key
 			Move(h,v);
 			Turning();
-            playerData.Dodge(dodge);
+            //playerData.Dodge(dodge);
             Fire(fire);
         } else {
 			SyncedMovement();
