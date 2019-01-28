@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class EnemyPlayerController : MonoBehaviour {
 
@@ -15,29 +16,43 @@ public class EnemyPlayerController : MonoBehaviour {
     private float syncDelay = 0f;
     private float syncTime = 0f;
 
+    private Queue<Action> RunOnMainThread = new Queue<Action>();
+
     // Use this for initialization
     void Start () {
         playerRigidbody = GetComponent<Rigidbody>();
         if (playerRigidbody == null) Debug.LogError("Not found rigid body component");
         playerRigidbody.freezeRotation = true;
-        //playerPos = transform.position;
-        //playerRot = transform.rotation.eulerAngles;
+        playerPos = transform.position;
+        playerRot = transform.rotation.eulerAngles;
     }
 	
 	void FixedUpdate () {
+        if (RunOnMainThread.Count > 0) {
+            lock (RunOnMainThread) {
+                Action s = RunOnMainThread.Dequeue();
+                s();
+            }
+        }
         syncTime += Time.deltaTime;
-        Debug.Log("Player pos (" + playerPos + "), player rot (" + playerRot + ")");
+        //Debug.Log("Player pos (" + playerPos + "), player rot (" + playerRot + ")");
         if (syncDelay > 0)
             playerRigidbody.MovePosition(Vector3.Lerp(transform.position, playerPos, syncTime / syncDelay));
-        //playerRigidbody.rotation = Quaternion.Lerp(playerRigidbody.rotation, Quaternion.Euler(playerRot), .3f);
+        playerRigidbody.rotation = Quaternion.Lerp(playerRigidbody.rotation, Quaternion.Euler(playerRot), .3f);
     }
 
-    public void SetPlayerPosAndRot(Vector3 pos, Vector3 rot) {
+    public void CallFunctionFromAnotherThread(Action functionName) {
+        lock (RunOnMainThread) {
+            RunOnMainThread.Enqueue(functionName);
+        }
+    }
+
+    public void SetPlayerPosAndRot(Vector3 pos, Vector3 rot, Vector3 vel) {
         syncTime = 0f;
         syncDelay = Time.time - lastSynchronizationTime;
         lastSynchronizationTime = Time.time;
-        Debug.Log(pos + " :: " + rot);
-        this.playerPos = pos;
+        //Debug.Log(pos + " :: " + rot);
+        this.playerPos = pos + vel*syncDelay;
         this.playerRot = rot;
     }
 
