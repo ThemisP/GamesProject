@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletScript : Photon.MonoBehaviour {
+public class BulletScript : MonoBehaviour {
 
 	float bulletDamage = 10;
 	float lifeTime = 2f;

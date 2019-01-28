@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] private GameObject bulletPrefab;
 	[SerializeField] private Transform bulletSpawn;
 	[SerializeField] private float speed = 6f;
+	[SerializeField] private Network network;
 	Vector3 movement;
 	Rigidbody playerRigidbody;
 	int floorMask;
@@ -99,7 +100,7 @@ public class PlayerController : MonoBehaviour {
 	void Fire(bool fire){
 		if(fire){
 			if(lastShootTime+fireRate<Time.fixedTime){
-				//GameObject bullet = PhotonNetwork.Instantiate(bulletPrefab.name, bulletSpawn.position, bulletSpawn.rotation, 0);
+				Network.instance.SendBullet(bulletSpawn.position, bulletSpawn.rotation.eulerAngles, 2f, 2f);
 				lastShootTime = Time.fixedTime;
 			}
 		} 
