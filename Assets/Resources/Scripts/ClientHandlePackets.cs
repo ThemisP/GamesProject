@@ -24,6 +24,7 @@ public class ClientHandlePackets{
         PacketsUdp = new Dictionary<int, Packet_>();
         PacketsUdp.Add(1, HandlePlayerPos);
         PacketsUdp.Add(2, HandleReceivePlayersLocations);
+        PacketsUdp.Add(3, HandleRecievePlayerBullet);
     }
 
     public void HandleData(byte[] data) {
@@ -104,6 +105,20 @@ public class ClientHandlePackets{
                 Debug.LogWarning("Getting info for an unregistered player");
             }
         }
+    }
+
+    void HandleRecievePlayerBullet(byte[] data) {
+        ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
+        buffer.WriteBytes(data);
+        int packetNumber = buffer.ReadInt();
+        string playerId = buffer.ReadString();
+
+        float posX = buffer.ReadFloat();
+        float posY = buffer.ReadFloat();
+        float posZ = buffer.ReadFloat();
+        float rotY = buffer.ReadFloat();
+        float speed = buffer.ReadFloat();
+        float lifeTime = buffer.ReadFloat();
     }
 
     #endregion

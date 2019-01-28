@@ -42,8 +42,6 @@ public class Network : MonoBehaviour {
 
     private Queue<Action> RunOnMainThread = new Queue<Action>();
 
-    private Thread checkHealthThread;
-
     public void Awake() {
         playersInGame = new Dictionary<int, EnemyPlayerController>();
         instance = this;
@@ -182,7 +180,24 @@ public class Network : MonoBehaviour {
         Debug.Log("send Loc");
         UdpClient.Send(buffer.BuffToArray(), buffer.Length());
     }
-    
+
+    public void SendBullet(Vector3 pos, Vector3 rot, float speed, float lifeTime, int bulletId) {
+        ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
+        buffer.WriteInt(ClientIndex);
+        buffer.WriteInt(3);
+        Transform playerTransform = player.playerObj.transform;
+        buffer.WriteString(DateTime.Now.ToString());
+        buffer.WriteString(ClientIndex.ToString() + "_" + bulletId.ToString());
+        buffer.WriteFloat(pos.x);
+        buffer.WriteFloat(pos.y);
+        buffer.WriteFloat(pos.z);
+        buffer.WriteFloat(rot.y);
+        buffer.WriteFloat(speed);
+        buffer.WriteFloat(lifeTime);
+
+        Debug.Log("firing bullet");
+        UdpClient.Send(buffer.BuffToArray(), buffer.Length());
+    }
 
     #endregion
 

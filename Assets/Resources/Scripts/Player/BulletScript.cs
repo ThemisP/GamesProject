@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletScript : Photon.MonoBehaviour {
+public class BulletScript : Photon.PunBehaviour {
 
 	float bulletDamage = 10;
-	float lifeTime = 2f;
+	public float lifeTime = 2f;
 
 	Rigidbody rigidbody;
 	void Start()
