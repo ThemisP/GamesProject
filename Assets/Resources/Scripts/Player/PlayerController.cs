@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
 
 	[SerializeField] private GameObject bulletPrefab;
-	private int bulletId = 0;
+	private int bulletCount = 0;
 	[SerializeField] private Transform bulletSpawn;
 	[SerializeField] private float speed = 6f;
 	[SerializeField] private Network network;
@@ -102,8 +102,10 @@ public class PlayerController : MonoBehaviour {
 	void Fire(bool fire){
 		if(fire){
 			if(lastShootTime+fireRate<Time.fixedTime){
+                string bulletId = Network.instance.ClientIndex.ToString() + "_" + bulletCount.ToString();
+                ObjectHandler.instance.InstantiateBullet(bulletSpawn.position, bulletSpawn.rotation.eulerAngles, 2f, 2f, bulletId);
 				Network.instance.SendBullet(bulletSpawn.position, bulletSpawn.rotation.eulerAngles, 2f, 2f, bulletId);
-				bulletId = (bulletId + 1) % 1000;
+				bulletCount = (bulletCount + 1) % 1000;
 				lastShootTime = Time.fixedTime;
 			}
 		} 
