@@ -29,10 +29,15 @@ public class ObjectHandler : MonoBehaviour {
     }
 
     public void InstantiateBullet(Vector3 pos, Vector3 rot, float speed, float lifetime, string bulletId){
-        GameObject bullet = Instantiate(bulletPrefab, pos, Quaternion.EulerAngles(rot));
-        bullet.GetComponent<Rigidbody>().velocity = Vector3.forward*speed;
-        bullet.GetComponent<BulletScript>().lifeTime = lifetime;
-        Bullets.Add(bulletId, bullet);
+        GameObject bullet = Instantiate(bulletPrefab, pos, Quaternion.Euler(rot));
+        Rigidbody rigbod = bullet.GetComponent<Rigidbody>();
+        if (rigbod != null) rigbod.velocity = Vector3.forward * speed;
+        else Debug.LogError("Rigid body for bullet prefab spawn not found!");
+        BulletScript bulletScript = bullet.GetComponent<BulletScript>();
+        if (bulletScript != null) bulletScript..lifeTime = lifetime;
+        else Debug.LogError("BulletScritp not found for bullet prefab!");
+
+        if(rigbod!=null && bulletScript!=null)Bullets.Add(bulletId, bullet);
     }
 
 }
