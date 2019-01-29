@@ -38,7 +38,7 @@ public class ObjectHandler : MonoBehaviour {
         else Debug.LogError("Rigid body for bullet prefab spawn not found!");
         BulletScript bulletScript = bullet.GetComponent<BulletScript>();
         if (bulletScript != null) bulletScript.lifeTime = lifetime;
-        else Debug.LogError("BulletScritp not found for bullet prefab!");
+        else Debug.LogError("BulletScript not found for bullet prefab!");
 
         if(rigbod!=null && bulletScript!=null)Bullets.Add(bulletId, bullet);
     }

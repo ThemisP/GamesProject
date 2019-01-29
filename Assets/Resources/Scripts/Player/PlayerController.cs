@@ -102,8 +102,8 @@ public class PlayerController : MonoBehaviour {
 	void Fire(bool fire){
 		if(fire){
 			if(lastShootTime+fireRate<Time.fixedTime){
-                string bulletId = Network.instance.ClientIndex.ToString() + "_" + bulletCount.ToString();
-                ObjectHandler.instance.InstantiateBullet(bulletSpawn.position, bulletSpawn.rotation.eulerAngles, 2f, 2f, bulletId);
+                		string bulletId = Network.instance.ClientIndex.ToString() + "_" + bulletCount.ToString();
+                		ObjectHandler.instance.InstantiateBullet(bulletSpawn.position, bulletSpawn.rotation.eulerAngles, 2f, 2f, bulletId);
 				Network.instance.SendBullet(bulletSpawn.position, bulletSpawn.rotation.eulerAngles, 2f, 2f, bulletId);
 				bulletCount = (bulletCount + 1) % 1000;
 				lastShootTime = Time.fixedTime;

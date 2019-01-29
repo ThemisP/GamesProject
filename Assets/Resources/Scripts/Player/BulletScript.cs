@@ -17,7 +17,6 @@ public class BulletScript : Photon.PunBehaviour {
 	void Update(){
 		if(photonView.isMine){
 			lifeTime -= Time.deltaTime;
-			if(lifeTime < 0)
 				PhotonNetwork.Destroy(photonView);
 		}	
 	}
