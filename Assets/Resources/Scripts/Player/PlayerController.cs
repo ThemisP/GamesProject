@@ -99,13 +99,15 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void Fire(bool fire){
+        if(lastShootTime<fireRate)
+            lastShootTime += Time.deltaTime;
 		if(fire){
-			if(lastShootTime+fireRate<Time.fixedTime){
-                		string bulletId = Network.instance.ClientIndex.ToString() + "_" + bulletCount.ToString();
-                		ObjectHandler.instance.InstantiateBullet(bulletSpawn.position, bulletSpawn.rotation.eulerAngles, 2f, 2f, bulletId);
+			if(lastShootTime>=fireRate){
+                string bulletId = Network.instance.ClientIndex.ToString() + "_" + bulletCount.ToString();
+                ObjectHandler.instance.InstantiateBullet(bulletSpawn.position, bulletSpawn.rotation.eulerAngles, 2f, 2f, bulletId);
 				Network.instance.SendBullet(bulletSpawn.position, bulletSpawn.rotation.eulerAngles, 2f, 2f, bulletId);
 				bulletCount = (bulletCount + 1) % 1000;
-				lastShootTime = Time.fixedTime;
+				lastShootTime = 0f;
 			}
 		} 
 	}
@@ -115,6 +117,17 @@ public class PlayerController : MonoBehaviour {
             if (DodgeTimer > DodgeCooldown) {
                 DodgeTimer = 0f;
             }
+        }
+    }
+
+    private void OnTriggerEnter(Collider collision) {
+        GameObject obj = collision.gameObject;
+        Debug.Log("triggered");
+        if (obj.tag == "Bullet") {
+            BulletScript bulletScript = obj.GetComponent<BulletScript>();
+            ObjectHandler.instance.DestroyBullet(bulletScript.GetBulletId());
+            playerData.takeDamage(bulletScript.GetBulletDamage());
+            Network.instance.SendDestroyBullet(bulletScript.GetBulletId());
         }
     }
 

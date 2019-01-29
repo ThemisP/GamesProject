@@ -6,6 +6,7 @@ TagManager:
   tags:
   - HUD
   - EnemyPlayer
+  - Bullet
   layers:
   - Default
   - TransparentFX

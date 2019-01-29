@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BulletScript : Photon.PunBehaviour {
-
+    string bullet_id;
 	float bulletDamage = 10;
 	public float lifeTime = 2f;
 
@@ -15,24 +15,36 @@ public class BulletScript : Photon.PunBehaviour {
 	}
 
 	void Update(){
-		if(photonView.isMine){
-			lifeTime -= Time.deltaTime;
-				PhotonNetwork.Destroy(photonView);
-		}	
+        if (bullet_id.StartsWith(Network.instance.ClientIndex.ToString())) {
+            lifeTime -= Time.deltaTime;
+            if (lifeTime < 0) {
+                ObjectHandler.instance.DestroyBullet(this.bullet_id);
+                Network.instance.SendDestroyBullet(bullet_id);
+            }
+        }
 	}
 
-	private void OnTriggerEnter(Collider collision) {
-		if(photonView.isMine){
-			GameObject obj = collision.gameObject;
-			Debug.Log("triggered");
-			if(obj.tag == "Player"){
-				PhotonView targetView = obj.GetPhotonView();
-				if(targetView != null)
-					targetView.RPC("takeDamage", PhotonTargets.All, this.bulletDamage);
-				
-			}
-			PhotonNetwork.Destroy(photonView);
-		}
-		
-	}
+    private void OnCollisionEnter(Collision collision) {
+        GameObject obj = collision.gameObject;
+        Debug.Log("triggered");
+        if (obj.tag != "EnemyPlayer") {
+            ObjectHandler.instance.DestroyBullet(this.bullet_id);
+            Network.instance.SendDestroyBullet(this.bullet_id);
+        }
+    }
+
+    #region "Setters"
+    public void SetBulletId(string id) {
+        this.bullet_id = id;
+    }
+    #endregion
+
+    #region "Getters"
+    public string GetBulletId() {
+        return this.bullet_id;
+    }
+    public float GetBulletDamage() {
+        return this.bulletDamage;
+    }
+    #endregion
 }

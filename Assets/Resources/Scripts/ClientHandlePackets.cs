@@ -20,6 +20,7 @@ public class ClientHandlePackets{
         PacketsTcp.Add(5, HandleJoinRoomResponse);
         PacketsTcp.Add(6, HandleJoinGameResponse);
         PacketsTcp.Add(7, HandleGetPlayersInGameResponse);
+        PacketsTcp.Add(8, HandleDestroyBullet);
 
         PacketsUdp = new Dictionary<int, Packet_>();
         PacketsUdp.Add(1, HandlePlayerPos);
@@ -203,11 +204,13 @@ public class ClientHandlePackets{
         if (response == 1) {
             int gameIndex = buffer.ReadInt();
             int teamIndex = buffer.ReadInt();
+            int playerNumber = buffer.ReadInt();//Spawning purposes
             int teammateIndex = buffer.ReadInt();
             string teammateUsername = buffer.ReadString();
             Debug.Log("Joined");
-            
+
             //Network.instance.player.JoinGame(gameIndex);
+            Network.instance.player.playerNumber = playerNumber;
             Network.instance.player.SetTeamNumber(teamIndex);
             Network.instance.player.SetTeammate(teammateIndex, teammateUsername);
             Network.instance.CallFunctionFromAnotherThread(Network.instance.JoinGame);
@@ -239,7 +242,18 @@ public class ClientHandlePackets{
             });
         }
     }
-    #endregion
+
+    //Packetnum = 8
+    void HandleDestroyBullet(byte[] data) {
+        ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
+        buffer.WriteBytes(data);
+        int packetnum = buffer.ReadInt();
+        string bulletId = buffer.ReadString();
+        ObjectHandler.instance.CallFunctionFromAnotherThread(() => {
+            ObjectHandler.instance.DestroyBullet(bulletId);
+        });        
+    }
+        #endregion
 }
 
 

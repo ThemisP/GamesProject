@@ -115,6 +115,8 @@ public class Network : MonoBehaviour {
     public void JoinGame() {
         int teamNumber = this.player.GetTeamNumber();
         Transform spawnpoint = spawnpoints[teamNumber % 2];
+        if (player.playerNumber == 1) spawnpoint.position = spawnpoint.position + Vector3.forward * 2;
+        else spawnpoint.position = spawnpoint.position + Vector3.forward * -2;
         GameObject playerObj = GameObject.Instantiate(PlayerPrefab, spawnpoint.position, spawnpoint.rotation);
         player.playerObj = playerObj;
         camera.SetTarget(playerObj.transform);
@@ -176,8 +178,7 @@ public class Network : MonoBehaviour {
         buffer.WriteFloat(rigidbod.velocity.z);
 
         buffer.WriteFloat(playerTransform.rotation.eulerAngles.y);
-
-        Debug.Log("send Loc");
+        
         UdpClient.Send(buffer.BuffToArray(), buffer.Length());
     }
 
@@ -304,6 +305,20 @@ public class Network : MonoBehaviour {
         ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
         buffer.WriteInt(10);
         TcpStream.Write(buffer.BuffToArray(), 0, buffer.Length());
+    }
+
+    public void SendDestroyBullet(string bulletId) {
+        if (TcpClient == null || !TcpClient.Connected) {
+            TcpClient.Close();
+            TcpClient = null;
+            Debug.Log("Disconnected");
+            return;
+        }
+        ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
+        buffer.WriteInt(11);
+        buffer.WriteString(bulletId);
+        TcpStream.Write(buffer.BuffToArray(), 0, buffer.Length());
+
     }
     
     // Thread which periodically checks the players health status, 

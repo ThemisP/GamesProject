@@ -9,6 +9,7 @@ public class PlayerInfo {
     private string teammateUsername;
     private int teammateIndex;
     private int teamNumber;
+    public int playerNumber = 1; // used for spawn point purposes
 
     public GameObject playerObj;
     

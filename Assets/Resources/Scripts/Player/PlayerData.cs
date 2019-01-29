@@ -13,6 +13,7 @@ public class PlayerData : MonoBehaviour {
     private Slider dodgeSlider;
     private int kills = 0, assists = 0, deaths = 0;
 
+    private GameObject HUDCanvas;
     private GameObject popupHelp;
     private GameObject popupWeapon;
 
@@ -21,15 +22,16 @@ public class PlayerData : MonoBehaviour {
 
     //Change back to Start when fixed HUD
     void Start() {
-        RectTransform hud = GameObject.Find("HUDPrefab").GetComponent<RectTransform>();
+        HUDCanvas = GameObject.Find("HUDPrefab");
+        RectTransform hud = HUDCanvas.GetComponent<RectTransform>();
         GameObject canvas = GameObject.Find("Health");
         GameObject balance = GameObject.Find("Balance");
         GameObject nodes = GameObject.Find("NodesBalance");
         popupHelp = hud.Find("Help_Popup").gameObject;
-        Debug.Log(popupHelp);
         popupWeapon = hud.Find("Weapons_Popup").gameObject;
         dodgeSlider = hud.Find("Dodge Cooldown").GetComponent<Slider>();
 
+        HUDCanvas.SetActive(true);
         popupHelp.SetActive(false);
         popupWeapon.SetActive(false);
         healthSlider = canvas.GetComponent<Slider>();
