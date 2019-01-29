@@ -10,18 +10,28 @@ public class PlayerData : MonoBehaviour {
 	private float currentHealth;
     private Text coinCount;
     private Text nodeCount;
+    private Slider dodgeSlider;
+    private int kills = 0, assists = 0, deaths = 0;
 
-	private int kills = 0, assists = 0, deaths = 0;
+    private GameObject popupHelp;
+    private GameObject popupWeapon;
 
 	private int coins = 0;
     private int nodePoints = 0;
 
     //Change back to Start when fixed HUD
-    void Start12() {
-
+    void Start() {
+        RectTransform hud = GameObject.Find("HUDPrefab").GetComponent<RectTransform>();
         GameObject canvas = GameObject.Find("Health");
         GameObject balance = GameObject.Find("Balance");
         GameObject nodes = GameObject.Find("NodesBalance");
+        popupHelp = hud.Find("Help_Popup").gameObject;
+        Debug.Log(popupHelp);
+        popupWeapon = hud.Find("Weapons_Popup").gameObject;
+        dodgeSlider = hud.Find("Dodge Cooldown").GetComponent<Slider>();
+
+        popupHelp.SetActive(false);
+        popupWeapon.SetActive(false);
         healthSlider = canvas.GetComponent<Slider>();
         coinCount = balance.GetComponent<Text>();
         coinCount.text = "0";
@@ -29,17 +39,9 @@ public class PlayerData : MonoBehaviour {
         nodeCount.text = "0";
         currentHealth = maxHealth;
         healthSlider.value = currentHealth / maxHealth;
-        if (true) {
-        } else {
-            healthSlider = transform.GetChild(0).gameObject.GetComponentInChildren<Slider>();
-
-            healthSlider.gameObject.SetActive(true);
-            currentHealth = maxHealth;
-            healthSlider.value = currentHealth / maxHealth;
-        }
-
     }
-    
+
+
     public void takeDamage(float amount){
         if(true){
              if(currentHealth - amount > 0){
@@ -56,6 +58,14 @@ public class PlayerData : MonoBehaviour {
     public int getSkillPoints()
     {
         return coins;
+    }
+
+    public void DodgeCooldown(float cooldown, float timer) {
+        if (timer > cooldown) {
+            dodgeSlider.value = 1;
+        } else {
+            dodgeSlider.value = timer / cooldown;
+        }
     }
 
     //updates the skill points held by the user
@@ -80,6 +90,22 @@ public class PlayerData : MonoBehaviour {
     public void addNodePoints(int newPoints)
     {
         nodePoints += newPoints;
+    }
+
+    public void PopupHelp(bool active) {
+        if (active) {
+            popupHelp.SetActive(true);
+        } else {
+            popupHelp.SetActive(false);
+        }        
+    }
+
+    public void PopupWeapons(bool active) {
+        if (active) {
+            popupWeapon.SetActive(true);
+        } else {
+            popupWeapon.SetActive(false);
+        }
     }
 
     public float getCurrentHealth()

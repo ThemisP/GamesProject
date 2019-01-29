@@ -23,6 +23,12 @@ public class PlayerController : MonoBehaviour {
 	private Vector3 syncEndPosition = Vector3.zero;
 	private Quaternion realRotation;
 
+    [Header("Player Abilities")]
+    public float DodgeCooldown = 3f;
+
+
+    private float DodgeTimer = 0f;
+
 	private PlayerData playerData;
 
 	// Use this for initialization
@@ -42,38 +48,31 @@ public class PlayerController : MonoBehaviour {
 
 	// Update is called once per frame
 	void FixedUpdate () {
-		if(true){
-			float h = Input.GetAxisRaw("Horizontal");// a and d keys
-			float v = Input.GetAxisRaw("Vertical"); // w and s keys
-			bool fire = Input.GetMouseButton(0);//pressed primary mouse button
+		float h = Input.GetAxisRaw("Horizontal");// a and d keys
+		float v = Input.GetAxisRaw("Vertical"); // w and s keys
+		bool fire = Input.GetMouseButton(0);//pressed primary mouse button
+        bool hitDodge = Input.GetKey(KeyCode.F);
 
-			Move(h,v);
-			Turning();
-			Fire(fire);
-		} else {
-			SyncedMovement();
-		}
+        bool hitHelp = Input.GetKey(KeyCode.H);
+        bool hitWeaponsUpgrade = Input.GetKey(KeyCode.E);
+
+
+        playerData.PopupHelp(hitHelp);
+        playerData.PopupWeapons(hitWeaponsUpgrade);
+
+        updateDodgeTimer();
+
+		Move(h,v);
+		Turning();
+		Fire(fire);
+        Dodge(hitDodge);
 	}
 
-	//void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
-	//	if (stream.isWriting) {
-	//		stream.SendNext(playerRigidbody.position);
-	//		stream.SendNext(playerRigidbody.velocity);
-	//		stream.SendNext(playerRigidbody.rotation);
-	//	}
- //   	else {
- //       	Vector3 syncPosition = (Vector3)stream.ReceiveNext();
- //       	Vector3 syncVelocity = (Vector3)stream.ReceiveNext();
-	//		realRotation = (Quaternion)stream.ReceiveNext();
- 
-	//		syncTime = 0f;
-	//		syncDelay = Time.time - lastSynchronizationTime;
-	//		lastSynchronizationTime = Time.time;
-	
-	//		syncEndPosition = syncPosition + syncVelocity * syncDelay;
-	//		syncStartPosition = playerRigidbody.position;
- //   	}
-	//}
+    void updateDodgeTimer() {
+        if (DodgeTimer < DodgeCooldown)
+            DodgeTimer += Time.deltaTime;
+        playerData.DodgeCooldown(DodgeCooldown, DodgeTimer);
+    }
 
 	void Move(float h, float v){
 		movement.Set(h, 0f, v);
@@ -110,5 +109,13 @@ public class PlayerController : MonoBehaviour {
 			}
 		} 
 	}
+
+    void Dodge(bool hitDodge) {
+        if (hitDodge) {            
+            if (DodgeTimer > DodgeCooldown) {
+                DodgeTimer = 0f;
+            }
+        }
+    }
 
 }
