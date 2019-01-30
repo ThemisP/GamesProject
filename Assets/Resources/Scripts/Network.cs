@@ -44,7 +44,7 @@ public class Network : MonoBehaviour {
     private Queue<Action> RunOnMainThread = new Queue<Action>();
 
     public void Awake() {
-        //HUD.SetActive(false);
+        HUD.SetActive(false);
         playersInGame = new Dictionary<int, EnemyPlayerController>();
         instance = this;
         player = new PlayerInfo();
@@ -53,7 +53,6 @@ public class Network : MonoBehaviour {
     // Use this for initialization
     void Start () {
         ClientHandlePackets.instance.InitMessages();
-        ConnectToGameServer();
 	}
 	
 	// Update is called once per frame
@@ -72,13 +71,13 @@ public class Network : MonoBehaviour {
         }
     }
 
-    void ConnectToGameServer() {
+    public void ConnectToGameServer(string ip) {
         if (TcpClient != null) {
             if (TcpClient.Connected || isConnected) return;
             TcpClient.Close();
             TcpClient = null;
         }
-
+        this.IP = ip;
         TcpClient = new TcpClient();
         TcpClient.ReceiveBufferSize = 4096;
         TcpClient.SendBufferSize = 4096;
@@ -109,6 +108,7 @@ public class Network : MonoBehaviour {
                 TcpClient.NoDelay = true;
                 TcpStream = TcpClient.GetStream();
                 TcpStream.BeginRead(asyncBuff, 0, 8192, OnReceiveTcp, null);
+                mainMenu.ConnectedSuccesfull();
             }
         }
     }
@@ -128,7 +128,7 @@ public class Network : MonoBehaviour {
     }
 
     public void SpawnPlayer(int id, string username, int team, Vector3 pos, Vector3 rot) {
-        Debug.Log("Player " + username + " is at (" + pos + ") in team " + team);
+        if (playersInGame.ContainsKey(id)) return;
         GameObject player = GameObject.Instantiate(EnemyPlayerPrefab, pos, Quaternion.Euler(rot));
         EnemyPlayerController controller =  player.GetComponent<EnemyPlayerController>();        
         if (controller == null) Debug.LogError("Controller not found in spawned player");

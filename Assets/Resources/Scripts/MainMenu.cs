@@ -7,11 +7,13 @@ using UnityEngine.UI;
 public class MainMenu : MonoBehaviour {
 
     [Header("Menus")]
+    public GameObject ConnectMenu;
     public GameObject LoginMenu;
     public GameObject MainScreenMenu;
     public GameObject LobbyMenu;
 
     [Header("InputFields")]
+    public InputField ipAddress;
     public InputField username;
     public InputField roomIndexSelect;
 
@@ -28,6 +30,7 @@ public class MainMenu : MonoBehaviour {
     private float timer = 0;
     private float timer2 = 0;
     public enum MenuState {
+        ConnectIp,
         Login,
         Main,
         Lobby,
@@ -36,22 +39,31 @@ public class MainMenu : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        SetMenuState(MenuState.Login);
+        SetMenuState(MenuState.ConnectIp);
 	}
 
     void Update() {
         switch (this._state) {
+            case MenuState.ConnectIp:
+                ConnectMenu.SetActive(true);
+                LoginMenu.SetActive(false);
+                MainScreenMenu.SetActive(false);
+                LobbyMenu.SetActive(false);
+                break;
             case MenuState.Login:
+                ConnectMenu.SetActive(false);
                 LoginMenu.SetActive(true);
                 MainScreenMenu.SetActive(false);
                 LobbyMenu.SetActive(false);
                 break;
             case MenuState.Main:
+                ConnectMenu.SetActive(false);
                 LoginMenu.SetActive(false);
                 MainScreenMenu.SetActive(true);
                 LobbyMenu.SetActive(false);
                 break;
             case MenuState.Lobby:
+                ConnectMenu.SetActive(false);
                 LoginMenu.SetActive(false);
                 MainScreenMenu.SetActive(false);
                 LobbyMenu.SetActive(true);
@@ -88,6 +100,14 @@ public class MainMenu : MonoBehaviour {
 
     public void SetMenuState(MenuState state) {
         this._state = state;
+    }
+
+    public void ConnectToServer() {
+        if (string.IsNullOrEmpty(ipAddress.text)) return;
+        Network.instance.ConnectToGameServer(ipAddress.text);
+    }
+    public void ConnectedSuccesfull() {
+        SetMenuState(MenuState.Login);
     }
 
     public void Login() {
