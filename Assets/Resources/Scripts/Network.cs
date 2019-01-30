@@ -25,6 +25,7 @@ public class Network : MonoBehaviour {
     public GameObject PlayerPrefab;
     public GameObject TeammatePlayerPrefab;
     public GameObject EnemyPlayerPrefab;
+    public GameObject HUD;
 
     public TcpClient TcpClient;
     public NetworkStream TcpStream;
@@ -43,6 +44,7 @@ public class Network : MonoBehaviour {
     private Queue<Action> RunOnMainThread = new Queue<Action>();
 
     public void Awake() {
+        HUD.SetActive(false);
         playersInGame = new Dictionary<int, EnemyPlayerController>();
         instance = this;
         player = new PlayerInfo();
@@ -113,6 +115,7 @@ public class Network : MonoBehaviour {
 
     #region "GameRelated"
     public void JoinGame() {
+        HUD.SetActive(true);
         int teamNumber = this.player.GetTeamNumber();
         Transform spawnpoint = spawnpoints[teamNumber % 2];
         if (player.playerNumber == 1) spawnpoint.position = spawnpoint.position + Vector3.forward * 2;
@@ -182,7 +185,7 @@ public class Network : MonoBehaviour {
         UdpClient.Send(buffer.BuffToArray(), buffer.Length());
     }
 
-    public void SendBullet(Vector3 pos, Vector3 rot, float speed, float lifeTime, string bulletId) {
+    public void SendBullet(Vector3 pos, float rotY, float speed, float lifeTime, string bulletId) {
         ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
         buffer.WriteInt(ClientIndex);
         buffer.WriteInt(3);
@@ -192,7 +195,7 @@ public class Network : MonoBehaviour {
         buffer.WriteFloat(pos.x);
         buffer.WriteFloat(pos.y);
         buffer.WriteFloat(pos.z);
-        buffer.WriteFloat(rot.y);
+        buffer.WriteFloat(rotY);
         buffer.WriteFloat(speed);
         buffer.WriteFloat(lifeTime);
 

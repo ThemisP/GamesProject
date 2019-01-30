@@ -37,6 +37,12 @@ public class BulletScript : Photon.PunBehaviour {
     public void SetBulletId(string id) {
         this.bullet_id = id;
     }
+    public void SetBulletDamage(float damage) {
+        this.bulletDamage = damage;
+    }
+    public void SetBulletLifeTime(float lifetime) {
+        this.lifeTime = lifetime;
+    }
     #endregion
 
     #region "Getters"
