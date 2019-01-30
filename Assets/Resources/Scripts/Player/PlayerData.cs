@@ -23,6 +23,8 @@ public class PlayerData : MonoBehaviour {
     private int nodePoints = 0;
     private float damageDealt = 0;
 
+    public Weapon currentWeapon = Weapons.instance.GetPistol();
+
     //Change back to Start when fixed HUD
     void Start() {
         HUDCanvas = GameObject.Find("HUDPrefab");
@@ -40,10 +42,10 @@ public class PlayerData : MonoBehaviour {
         Button sniperButton = popupWeapon.GetComponent<RectTransform>().Find("Sniper").GetComponent<Button>();
 
 
-        pistolButton.onClick.AddListener(() => ChangeWeapon(0, playerController));
-        shotgunButton.onClick.AddListener(() => ChangeWeapon(1, playerController));
-        rifleButton.onClick.AddListener(() => ChangeWeapon(2, playerController));
-        sniperButton.onClick.AddListener(() => ChangeWeapon(3, playerController));
+        pistolButton.onClick.AddListener(() => ChangeWeapon(0));
+        shotgunButton.onClick.AddListener(() => ChangeWeapon(1));
+        rifleButton.onClick.AddListener(() => ChangeWeapon(2));
+        sniperButton.onClick.AddListener(() => ChangeWeapon(3));
 
         HUDCanvas.SetActive(true);
         popupHelp.SetActive(false);
@@ -56,26 +58,20 @@ public class PlayerData : MonoBehaviour {
         currentHealth = maxHealth;
         healthSlider.value = currentHealth / maxHealth;
     }
-    public void SetPlayerController(PlayerController pc) {
-        this.playerController = pc;
-        Debug.Log(this.playerController);
-    }
 
-    void ChangeWeapon(int weaponNumber, PlayerController pc) {
+    void ChangeWeapon(int weaponNumber) {
         switch (weaponNumber) {
             case 0:
-                pc.SetWeapon(Weapons.instance.GetPistol());
+                this.currentWeapon = Weapons.instance.GetPistol();
                 break;
             case 1:
-                pc.SetWeapon(Weapons.instance.GetShotgun());
+                this.currentWeapon = Weapons.instance.GetShotgun();
                 break;
             case 2:
-                Debug.Log(playerController);
-                Debug.Log(Weapons.instance.GetAssaultRifle());
-                pc.SetWeapon(Weapons.instance.GetAssaultRifle());
+                this.currentWeapon =  Weapons.instance.GetAssaultRifle();
                 break;
             case 3:
-                pc.SetWeapon(Weapons.instance.GetSniper());
+                this.currentWeapon = Weapons.instance.GetSniper();
                 break;
             default:
                 Debug.Log("Incorrect weapon number in change weapon");

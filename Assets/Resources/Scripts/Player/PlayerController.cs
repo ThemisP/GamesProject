@@ -12,7 +12,10 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] private Network network;
 	Vector3 movement;
 	Rigidbody playerRigidbody;
-	int floorMask;
+   /* Color playerColour = new Color();*/ //a player's colour usually
+    Color dodgeColour; //a player's colour when dodging
+    Color revertCol; //placeholder to revert colour back to normal once time has elapsed
+    int floorMask;
 	float camRayLength = 100f;
 	float lastShootTime = 0;
 
@@ -22,18 +25,15 @@ public class PlayerController : MonoBehaviour {
 
     private int bulletCount = 0;//used for bullet id
     private float DodgeTimer = 0f;
-    private Weapon currentWeapon;
 
 	private PlayerData playerData;
 
 	// Use this for initialization
 	void Awake () {
-        currentWeapon = Weapons.instance.GetPistol();
 		floorMask = LayerMask.GetMask("Floor");
 		playerRigidbody = GetComponent<Rigidbody>();
 		playerRigidbody.freezeRotation = true;
 		playerData = GetComponent<PlayerData>();
-        playerData.SetPlayerController(this);
 	}
 	
 	// Update is called once per frame
@@ -94,38 +94,44 @@ public class PlayerController : MonoBehaviour {
         if(lastShootTime<100f)
             lastShootTime += Time.deltaTime;
 		if(fire){
-			if(lastShootTime>=currentWeapon.GetFirerate()){
+			if(lastShootTime>=playerData.currentWeapon.GetFirerate()){
                 FireGun();
 			}
 		} 
 	}
 
     void FireGun() {
-        for(int i = 0; i <currentWeapon.GetNumberOfBullets(); i++) {
+        for(int i = 0; i <playerData.currentWeapon.GetNumberOfBullets(); i++) {
             string bulletId = Network.instance.ClientIndex.ToString() + "_" + bulletCount.ToString();
             if (i == 0) {
                 Vector3 rotation = bulletSpawn.rotation.eulerAngles;
-                ObjectHandler.instance.InstantiateBullet(bulletSpawn.position, rotation, 
-                                                          currentWeapon.GetSpeed(), currentWeapon.GetLifetime(), 
+                ObjectHandler.instance.InstantiateBullet(bulletSpawn.position, rotation,
+                                                          playerData.currentWeapon.GetSpeed(), 
+                                                          playerData.currentWeapon.GetLifetime(), 
                                                           bulletId);
-                Network.instance.SendBullet(bulletSpawn.position, rotation.y, 
-                                            currentWeapon.GetSpeed(), currentWeapon.GetLifetime(), bulletId);
+                Network.instance.SendBullet(bulletSpawn.position, rotation.y,
+                                            playerData.currentWeapon.GetSpeed(), 
+                                            playerData.currentWeapon.GetLifetime(), bulletId);
             } else if (i == 1) {
                 Vector3 rotation = bulletSpawn.rotation.eulerAngles;
                 rotation += Vector3.up * +10;
                 ObjectHandler.instance.InstantiateBullet(bulletSpawn.position, rotation,
-                                                          currentWeapon.GetSpeed(), currentWeapon.GetLifetime(),
+                                                          playerData.currentWeapon.GetSpeed(), 
+                                                          playerData.currentWeapon.GetLifetime(),
                                                           bulletId);
                 Network.instance.SendBullet(bulletSpawn.position, rotation.y,
-                                            currentWeapon.GetSpeed(), currentWeapon.GetLifetime(), bulletId);
+                                            playerData.currentWeapon.GetSpeed(),
+                                            playerData.currentWeapon.GetLifetime(), bulletId);
             } else if(i == 2) {
                 Vector3 rotation = bulletSpawn.rotation.eulerAngles;
                 rotation += Vector3.up * -10;
                 ObjectHandler.instance.InstantiateBullet(bulletSpawn.position, rotation,
-                                                          currentWeapon.GetSpeed(), currentWeapon.GetLifetime(),
+                                                          playerData.currentWeapon.GetSpeed(),
+                                                          playerData.currentWeapon.GetLifetime(),
                                                           bulletId);
                 Network.instance.SendBullet(bulletSpawn.position, rotation.y,
-                                            currentWeapon.GetSpeed(), currentWeapon.GetLifetime(), bulletId);
+                                            playerData.currentWeapon.GetSpeed(),
+                                            playerData.currentWeapon.GetLifetime(), bulletId);
             }
             bulletCount = (bulletCount + 1) % 1000;
             lastShootTime = 0f;
@@ -156,9 +162,6 @@ public class PlayerController : MonoBehaviour {
     }
 
     #region "setters"
-    public void SetWeapon(Weapon weapon) {
-        this.currentWeapon = weapon;
-    }
     #endregion
 
 }
