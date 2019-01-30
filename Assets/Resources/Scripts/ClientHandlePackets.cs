@@ -264,7 +264,7 @@ public class ClientHandlePackets{
         float damageDealt = buffer.ReadFloat();
         Network.instance.CallFunctionFromAnotherThread(() => {
             if (Network.instance.player.playerObj.activeInHierarchy){
-                Network.instance.player.playerObj.GetComponent<PlayerData>.UpdateDamageDealt(damageDealt);
+                Network.instance.player.playerObj.GetComponent<PlayerData>().UpdateDamageDealt(damageDealt);
             }
         });
     }
