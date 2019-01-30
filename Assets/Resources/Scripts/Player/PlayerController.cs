@@ -12,7 +12,10 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] private Network network;
 	Vector3 movement;
 	Rigidbody playerRigidbody;
-	int floorMask;
+   /* Color playerColour = new Color();*/ //a player's colour usually
+    Color dodgeColour; //a player's colour when dodging
+    Color revertCol; //placeholder to revert colour back to normal once time has elapsed
+    int floorMask;
 	float camRayLength = 100f;
 	float lastShootTime = 0;
 

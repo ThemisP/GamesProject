@@ -7,7 +7,7 @@ public class BulletScript : Photon.PunBehaviour {
 	float bulletDamage = 10;
 	public float lifeTime = 2f;
 
-	Rigidbody rigidbody;
+	new Rigidbody rigidbody;
 	void Start()
 	{
 		rigidbody = GetComponent<Rigidbody>();
