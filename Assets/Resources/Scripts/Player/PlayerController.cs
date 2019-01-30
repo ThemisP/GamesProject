@@ -150,6 +150,7 @@ public class PlayerController : MonoBehaviour {
             Network.instance.SendDestroyBullet(bulletScript.GetBulletId());
 			if (playerData.getCurrentHealth() <= 0) {
 				Network.instance.HandlePlayerDeath(bulletScript.GetBulletId());
+				playerData.RefreshHealth(); // NOTE: Temporary, should die in final product
 			}
         } 
     }

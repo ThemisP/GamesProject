@@ -157,4 +157,8 @@ public class PlayerData : MonoBehaviour {
     public void UpdateDamageDealt(float damageDealt){
         this.damageDealt += damageDealt;
     }   
+
+    public void RefreshHealth(){
+        this.currentHealth = maxHealth;
+    }
 }
