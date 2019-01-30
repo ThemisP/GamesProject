@@ -266,7 +266,7 @@ public class ClientHandlePackets{
             if (Network.instance.player.playerObj.activeInHierarchy){
                 Network.instance.player.playerObj.GetComponent<PlayerData>.UpdateDamageDealt(damageDealt);
             }
-        })
+        });
     }
     #endregion
 }
