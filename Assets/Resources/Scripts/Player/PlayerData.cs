@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Resources.Scripts.Weapons;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,7 +17,7 @@ public class PlayerData : MonoBehaviour {
     private GameObject HUDCanvas;
     private GameObject popupHelp;
     private GameObject popupWeapon;
-    private PlayerController PlayerController;
+    private PlayerController playerController;
 
 	private int coins = 0;
     private int nodePoints = 0;
@@ -31,6 +32,17 @@ public class PlayerData : MonoBehaviour {
         popupHelp = hud.Find("Help_Popup").gameObject;
         popupWeapon = hud.Find("Weapons_Popup").gameObject;
         dodgeSlider = hud.Find("Dodge Cooldown").GetComponent<Slider>();
+        
+        Button pistolButton = popupWeapon.GetComponent<RectTransform>().Find("Pistol").GetComponent<Button>();
+        Button shotgunButton = popupWeapon.GetComponent<RectTransform>().Find("Shotgun").GetComponent<Button>();
+        Button rifleButton = popupWeapon.GetComponent<RectTransform>().Find("Rifle").GetComponent<Button>();
+        Button sniperButton = popupWeapon.GetComponent<RectTransform>().Find("Sniper").GetComponent<Button>();
+
+
+        pistolButton.onClick.AddListener(() => ChangeWeapon(0, playerController));
+        shotgunButton.onClick.AddListener(() => ChangeWeapon(1, playerController));
+        rifleButton.onClick.AddListener(() => ChangeWeapon(2, playerController));
+        sniperButton.onClick.AddListener(() => ChangeWeapon(3, playerController));
 
         HUDCanvas.SetActive(true);
         popupHelp.SetActive(false);
@@ -43,12 +55,29 @@ public class PlayerData : MonoBehaviour {
         currentHealth = maxHealth;
         healthSlider.value = currentHealth / maxHealth;
     }
+    public void SetPlayerController(PlayerController pc) {
+        this.playerController = pc;
+        Debug.Log(this.playerController);
+    }
 
-    public void ChangeWeapon(int x) {
-        switch (x) {
+    void ChangeWeapon(int weaponNumber, PlayerController pc) {
+        switch (weaponNumber) {
             case 0:
+                pc.SetWeapon(Weapons.instance.GetPistol());
                 break;
             case 1:
+                pc.SetWeapon(Weapons.instance.GetShotgun());
+                break;
+            case 2:
+                Debug.Log(playerController);
+                Debug.Log(Weapons.instance.GetAssaultRifle());
+                pc.SetWeapon(Weapons.instance.GetAssaultRifle());
+                break;
+            case 3:
+                pc.SetWeapon(Weapons.instance.GetSniper());
+                break;
+            default:
+                Debug.Log("Incorrect weapon number in change weapon");
                 break;
         }
     }

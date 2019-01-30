@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour {
 		playerRigidbody = GetComponent<Rigidbody>();
 		playerRigidbody.freezeRotation = true;
 		playerData = GetComponent<PlayerData>();
+        playerData.SetPlayerController(this);
 	}
 	
 	// Update is called once per frame
@@ -149,5 +150,11 @@ public class PlayerController : MonoBehaviour {
             Network.instance.SendDestroyBullet(bulletScript.GetBulletId());
         }
     }
+
+    #region "setters"
+    public void SetWeapon(Weapon weapon) {
+        this.currentWeapon = weapon;
+    }
+    #endregion
 
 }

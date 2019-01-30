@@ -44,7 +44,7 @@ public class Network : MonoBehaviour {
     private Queue<Action> RunOnMainThread = new Queue<Action>();
 
     public void Awake() {
-        HUD.SetActive(false);
+        //HUD.SetActive(false);
         playersInGame = new Dictionary<int, EnemyPlayerController>();
         instance = this;
         player = new PlayerInfo();
