@@ -22,6 +22,8 @@ public class ClientHandlePackets{
         PacketsTcp.Add(7, HandleGetPlayersInGameResponse);
         PacketsTcp.Add(8, HandleDestroyBullet);
 
+        PacketsTcp.Add(12, HandleDealtDamage);
+
         PacketsUdp = new Dictionary<int, Packet_>();
         PacketsUdp.Add(1, HandlePlayerPos);
         PacketsUdp.Add(2, HandleReceivePlayersLocations);
@@ -253,7 +255,20 @@ public class ClientHandlePackets{
             ObjectHandler.instance.DestroyBullet(bulletId);
         });        
     }
-        #endregion
+
+    // Packetnum = 12
+    void HandleDealtDamage(byte[] data){
+        ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
+        buffer.WriteBytes(data);
+        int packetnum = buffer.ReadInt();
+        float damageDealt = buffer.ReadFloat();
+        Network.instance.CallFunctionFromAnotherThread(() => {
+            if (Network.instance.player.playerObj.activeInHierarchy){
+                Network.instance.player.playerObj.GetComponent<PlayerData>.UpdateDamageDealt(damageDealt);
+            }
+        })
+    }
+    #endregion
 }
 
 

@@ -19,6 +19,7 @@ public class PlayerData : MonoBehaviour {
 
 	private int coins = 0;
     private int nodePoints = 0;
+    private float damageDealt = 0;
 
     //Change back to Start when fixed HUD
     void Start() {
@@ -114,4 +115,8 @@ public class PlayerData : MonoBehaviour {
     {
         return currentHealth;
     }  
+
+    public void UpdateDamageDealt(float damageDealt){
+        this.damageDealt += damageDealt;
+    }   
 }
