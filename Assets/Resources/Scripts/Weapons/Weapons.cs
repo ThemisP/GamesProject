@@ -11,16 +11,16 @@ namespace Assets.Resources.Scripts.Weapons {
         //The pattern for each of this is 
         // Weapon(Damage, Lifetime, Firerate, Spread, Speed, NumberOfBullets)
         public Weapon GetPistol() {
-            return new Weapon(10f, 0.7f, 2f, 2f, 2f, 1);
+            return new Weapon(10f, 0.7f, 1f, 2f, 2f, 1);
         }
         public Weapon GetAssaultRifle() {
-            return new Weapon(20f, 3f, 1f, 1f, 2.5f, 1);
+            return new Weapon(20f, 3f, 0.6f, 1f, 2.5f, 1);
         }
         public Weapon GetShotgun() {
-            return new Weapon(10f, 0.7f, 2f, 2f, 3f, 3);
+            return new Weapon(10f, 0.7f, 1.2f, 2f, 3f, 3);
         }
         public Weapon GetSniper() {
-            return new Weapon(50f, 4f, 4f, 0.5f, 4f, 1);
+            return new Weapon(50f, 4f, 2f, 0.5f, 20f, 1);
         }
     }
 
