@@ -56,6 +56,7 @@ GameObject:
   - component: {fileID: 23893646174014750}
   - component: {fileID: 136687469531102766}
   - component: {fileID: 54228101161094224}
+  - component: {fileID: 114607166787744436}
   - component: {fileID: 114971306962235958}
   - component: {fileID: 114281636829982706}
   m_Layer: 0
@@ -453,6 +454,26 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!114 &114607166787744436
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1138482734005258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6311d674cbdefe4aad94c6ce509b236, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewRadius: 10
+  viewAngle: 90
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 2048
+  visibleTargets: []
 --- !u!114 &114954132127803122
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -484,7 +505,8 @@ MonoBehaviour:
     type: 2}
   bulletSpawn: {fileID: 4808530468726768}
   speed: 6
-  fireRate: 0.2
+  network: {fileID: 0}
+  DodgeCooldown: 3
 --- !u!136 &136687469531102766
 CapsuleCollider:
   m_ObjectHideFlags: 1
