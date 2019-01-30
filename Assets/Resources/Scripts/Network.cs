@@ -128,6 +128,7 @@ public class Network : MonoBehaviour {
     }
 
     public void SpawnPlayer(int id, string username, int team, Vector3 pos, Vector3 rot) {
+        Debug.Log("Player => " + id);
         if (playersInGame.ContainsKey(id)) return;
         GameObject player = GameObject.Instantiate(EnemyPlayerPrefab, pos, Quaternion.Euler(rot));
         EnemyPlayerController controller =  player.GetComponent<EnemyPlayerController>();        

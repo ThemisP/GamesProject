@@ -106,6 +106,11 @@ public class ClientHandlePackets{
                 });
             } else {
                 Debug.LogWarning("Getting info for an unregistered player");
+                Network.instance.CallFunctionFromAnotherThread(() => {
+                    Network.instance.SpawnPlayer(playerId, "greg", 4,
+                                                 new Vector3(posX, posY, posZ),
+                                                 new Vector3(0, rotY, 0));
+                });
             }
         }
     }
