@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using Assets.Resources.Scripts.Weapons;
 
 public class PlayerController : MonoBehaviour {
 
 	[SerializeField] private GameObject bulletPrefab;
-	private int bulletCount = 0;
 	[SerializeField] private Transform bulletSpawn;
 	[SerializeField] private float speed = 6f;
 	[SerializeField] private Network network;
@@ -15,37 +15,26 @@ public class PlayerController : MonoBehaviour {
 	int floorMask;
 	float camRayLength = 100f;
 	float lastShootTime = 0;
-	[SerializeField] private float fireRate = 2f;
-	private float lastSynchronizationTime = 0f;
-	private float syncDelay = 0f;
-	private float syncTime = 0f;
-	private Vector3 syncStartPosition = Vector3.zero;
-	private Vector3 syncEndPosition = Vector3.zero;
-	private Quaternion realRotation;
 
     [Header("Player Abilities")]
     public float DodgeCooldown = 3f;
 
 
+    private int bulletCount = 0;//used for bullet id
     private float DodgeTimer = 0f;
+    private Weapon currentWeapon;
 
 	private PlayerData playerData;
 
 	// Use this for initialization
 	void Awake () {
+        currentWeapon = Weapons.instance.GetPistol();
 		floorMask = LayerMask.GetMask("Floor");
 		playerRigidbody = GetComponent<Rigidbody>();
 		playerRigidbody.freezeRotation = true;
 		playerData = GetComponent<PlayerData>();
 	}
 	
-	private void SyncedMovement()
-	{
-		syncTime += Time.deltaTime;
-		playerRigidbody.MovePosition(Vector3.Lerp(syncStartPosition, syncEndPosition, syncTime / syncDelay));
-		playerRigidbody.rotation = Quaternion.Lerp(playerRigidbody.rotation, realRotation, .3f);
-	}
-
 	// Update is called once per frame
 	void FixedUpdate () {
 		float h = Input.GetAxisRaw("Horizontal");// a and d keys
@@ -64,7 +53,9 @@ public class PlayerController : MonoBehaviour {
 
 		Move(h,v);
 		Turning();
-		Fire(fire);
+        if (!hitWeaponsUpgrade) {
+            Fire(fire);
+        }
         Dodge(hitDodge);
 	}
 
@@ -99,18 +90,46 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void Fire(bool fire){
-        if(lastShootTime<fireRate)
+        if(lastShootTime<100f)
             lastShootTime += Time.deltaTime;
 		if(fire){
-			if(lastShootTime>=fireRate){
-                string bulletId = Network.instance.ClientIndex.ToString() + "_" + bulletCount.ToString();
-                ObjectHandler.instance.InstantiateBullet(bulletSpawn.position, bulletSpawn.rotation.eulerAngles, 2f, 2f, bulletId);
-				Network.instance.SendBullet(bulletSpawn.position, bulletSpawn.rotation.eulerAngles, 2f, 2f, bulletId);
-				bulletCount = (bulletCount + 1) % 1000;
-				lastShootTime = 0f;
+			if(lastShootTime>=currentWeapon.GetFirerate()){
+                FireGun();
 			}
 		} 
 	}
+
+    void FireGun() {
+        for(int i = 0; i <currentWeapon.GetNumberOfBullets(); i++) {
+            string bulletId = Network.instance.ClientIndex.ToString() + "_" + bulletCount.ToString();
+            if (i == 0) {
+                Vector3 rotation = bulletSpawn.rotation.eulerAngles;
+                ObjectHandler.instance.InstantiateBullet(bulletSpawn.position, rotation, 
+                                                          currentWeapon.GetSpeed(), currentWeapon.GetLifetime(), 
+                                                          bulletId);
+                Network.instance.SendBullet(bulletSpawn.position, rotation.y, 
+                                            currentWeapon.GetSpeed(), currentWeapon.GetLifetime(), bulletId);
+            } else if (i == 1) {
+                Vector3 rotation = bulletSpawn.rotation.eulerAngles;
+                rotation += Vector3.up * +10;
+                ObjectHandler.instance.InstantiateBullet(bulletSpawn.position, rotation,
+                                                          currentWeapon.GetSpeed(), currentWeapon.GetLifetime(),
+                                                          bulletId);
+                Network.instance.SendBullet(bulletSpawn.position, rotation.y,
+                                            currentWeapon.GetSpeed(), currentWeapon.GetLifetime(), bulletId);
+            } else if(i == 2) {
+                Vector3 rotation = bulletSpawn.rotation.eulerAngles;
+                rotation += Vector3.up * -10;
+                ObjectHandler.instance.InstantiateBullet(bulletSpawn.position, rotation,
+                                                          currentWeapon.GetSpeed(), currentWeapon.GetLifetime(),
+                                                          bulletId);
+                Network.instance.SendBullet(bulletSpawn.position, rotation.y,
+                                            currentWeapon.GetSpeed(), currentWeapon.GetLifetime(), bulletId);
+            }
+            bulletCount = (bulletCount + 1) % 1000;
+            lastShootTime = 0f;
+        }
+    }
 
     void Dodge(bool hitDodge) {
         if (hitDodge) {            

@@ -16,6 +16,7 @@ public class PlayerData : MonoBehaviour {
     private GameObject HUDCanvas;
     private GameObject popupHelp;
     private GameObject popupWeapon;
+    private PlayerController PlayerController;
 
 	private int coins = 0;
     private int nodePoints = 0;
@@ -44,6 +45,14 @@ public class PlayerData : MonoBehaviour {
         healthSlider.value = currentHealth / maxHealth;
     }
 
+    public void ChangeWeapon(int x) {
+        switch (x) {
+            case 0:
+                break;
+            case 1:
+                break;
+        }
+    }
 
     public void takeDamage(float amount){
         if(true){
