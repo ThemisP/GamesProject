@@ -323,24 +323,21 @@ public class Network : MonoBehaviour {
         TcpStream.Write(buffer.BuffToArray(), 0, buffer.Length());
 
     }
-    
-    // Thread which periodically checks the players health status, 
-    // on case that player health is 0, sends message to server 
-    // to update status of the player and broadcast death other 
-    // players
-    private static void CheckPlayerHealth(GameObject playerPrefab, NetworkStream tcpStream)
-    {
-        if (playerPrefab.activeInHierarchy && playerPrefab.GetComponent<PlayerData>().getCurrentHealth() <= 0){
-            ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
-            buffer.WriteInt(-1);
-            tcpStream.Write(buffer.BuffToArray(), 0, buffer.Length());
-            Debug.Log("Player has died");
+
+    public void HandlePlayerDeath(string bulletId) {
+        if (TcpClient == null || !TcpClient.Connected) {
+            TcpClient.Close();
+            TcpClient = null;
+            Debug.Log("Disconnected");
+            return;
         }
-        else
-        {
-            Thread.Sleep(5000);
-        }
+
+        ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
+        buffer.WriteInt(-1);
+        buffer.WriteString(bulletId);
+        TcpStream.Write(buffer.BuffToArray(), 0, buffer.Length());
     }
+
     #endregion
 
     #endregion

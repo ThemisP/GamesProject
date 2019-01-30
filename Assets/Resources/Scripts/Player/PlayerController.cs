@@ -148,7 +148,10 @@ public class PlayerController : MonoBehaviour {
             ObjectHandler.instance.DestroyBullet(bulletScript.GetBulletId());
             playerData.takeDamage(bulletScript.GetBulletDamage());
             Network.instance.SendDestroyBullet(bulletScript.GetBulletId());
-        }
+			if (playerData.getCurrentHealth() <= 0) {
+				Network.instance.HandlePlayerDeath(bulletScript.GetBulletId());
+			}
+        } 
     }
 
     #region "setters"
