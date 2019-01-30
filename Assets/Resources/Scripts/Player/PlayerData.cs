@@ -85,7 +85,7 @@ public class PlayerData : MonoBehaviour {
                 currentHealth -= amount;
                 healthSlider.value = currentHealth/maxHealth;
             } else {
-                currentHealth = 0;
+                currentHealth = 100;
                 healthSlider.value = currentHealth/maxHealth;
             }
         }
