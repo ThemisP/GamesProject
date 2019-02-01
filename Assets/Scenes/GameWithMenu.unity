@@ -484,12 +484,12 @@ Prefab:
     - target: {fileID: 224390809321722026, guid: f57ba0d77c23171489d46735aaf21b26,
         type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 224568820135523476, guid: f57ba0d77c23171489d46735aaf21b26,
         type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 114341750624534518, guid: f57ba0d77c23171489d46735aaf21b26,
         type: 2}
