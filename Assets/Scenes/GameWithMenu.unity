@@ -191,7 +191,7 @@ GameObject:
   m_Component:
   - component: {fileID: 245909308}
   m_Layer: 0
-  m_Name: Obstacles
+  m_Name: Objects
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -336,7 +336,7 @@ GameObject:
   m_Component:
   - component: {fileID: 403070100}
   m_Layer: 0
-  m_Name: Targets
+  m_Name: Enemies
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
