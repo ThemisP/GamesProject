@@ -2,9 +2,11 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
+public delegate void EnemiesVisibilityChange(List<Transform> newEnemies);
+
 public class FieldOfView : MonoBehaviour {
     public float viewRadius; // How far the player can see
-    [Range(0, 360)]
+    [Range(0, 361)]
     public float viewAngle;
     public LayerMask enemyMask;
     public LayerMask objectMask;
@@ -16,14 +18,25 @@ public class FieldOfView : MonoBehaviour {
     public MeshFilter viewMeshFilter;
     Mesh viewMesh;
 
+    
+    public FogProjector fogProjector;
+    public float updateDistance = 1;
+    Vector3 lastUpdatePos;
+
+    public static event EnemiesVisibilityChange OnEnemiesVisibilityChange;
+
     void Start() {
         viewMesh = new Mesh ();
         viewMesh.name = "View Mesh";
         viewMeshFilter.mesh = viewMesh;
-        StartCoroutine("FindTargetsWithDelay", .2f);
+
+        fogProjector = fogProjector ?? FindObjectOfType<FogProjector>();
+
+        StartCoroutine("FindEnemiesWithDelay", .2f);
+        fogProjector.UpdateFog();
     }
 
-    IEnumerator FindTargetsWithDelay(float delay) {
+    IEnumerator FindEnemiesWithDelay(float delay) {
         while(true) {
             yield return new WaitForSeconds(delay);
             FindVisibleEnemies();
@@ -34,6 +47,11 @@ public class FieldOfView : MonoBehaviour {
     should be drawn after any action from the player */
     void LateUpdate() {
         DrawFieldOfView();
+        if (Vector3.Distance(transform.position, lastUpdatePos) > updateDistance || Time.time<.5f)
+        {
+            lastUpdatePos = transform.position;
+            fogProjector.UpdateFog();
+        }
     }
 
     /* Go through all the enemies within the field of view and
@@ -45,17 +63,18 @@ public class FieldOfView : MonoBehaviour {
         Collider[] enemiesInViewRadius = Physics.OverlapSphere(transform.position, viewRadius, enemyMask);
         
         for(int i=0; i < enemiesInViewRadius.Length; i++) {
-            Transform target = enemiesInViewRadius[i].transform;
-            Vector3 dirToTarget = (target.position - transform.position).normalized;
+            Transform enemy = enemiesInViewRadius[i].transform;
+            Vector3 dirToEnemy = (enemy.position - transform.position).normalized;
 
-            if(Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2) {
-                float dstToTarget = Vector3.Distance(transform.position, target.position);
+            if(Vector3.Angle(transform.forward, dirToEnemy) < viewAngle / 2) {
+                float dstToEnemy = Vector3.Distance(transform.position, enemy.position);
 
-                if(!Physics.Raycast(transform.position, dirToTarget, dstToTarget, objectMask)) {
-                    visibleEnemies.Add(target);
+                if(!Physics.Raycast(transform.position, dirToEnemy, dstToEnemy, objectMask)) {
+                    visibleEnemies.Add(enemy);
                 }
             }
         }
+        if (OnEnemiesVisibilityChange != null) OnEnemiesVisibilityChange(visibleEnemies);
     }
 
     void DrawFieldOfView() {

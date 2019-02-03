@@ -205,7 +205,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1593606046495786}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4288539092806294}
@@ -505,8 +505,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6311d674cbdefe4aad94c6ce509b236, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewRadius: 10
-  viewAngle: 360
+  viewRadius: 30
+  viewAngle: 361
   enemyMask:
     serializedVersion: 2
     m_Bits: 1024
@@ -518,6 +518,8 @@ MonoBehaviour:
   edgeResolveIterations: 4
   edgeDstThreshold: 0.5
   viewMeshFilter: {fileID: 33942745659827562}
+  fogProjector: {fileID: 0}
+  updateDistance: 0.5
 --- !u!114 &114281636829982706
 MonoBehaviour:
   m_ObjectHideFlags: 1
