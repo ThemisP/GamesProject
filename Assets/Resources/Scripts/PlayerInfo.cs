@@ -10,6 +10,7 @@ public class PlayerInfo {
     private int teammateIndex;
     private int teamNumber;
     public int playerNumber = 1; // used for spawn point purposes
+    private int gameIndex;
 
     public GameObject playerObj;
     
@@ -18,6 +19,7 @@ public class PlayerInfo {
         inRoom = false;
     }
 
+    #region "Setters"
     public void SetTeammateUsername(string username) {
         this.teammateUsername = username;
     }
@@ -26,6 +28,11 @@ public class PlayerInfo {
         this.teammateUsername = username;
         this.teammateIndex = index;
     }
+
+    public void SetGameIndex(int gameindex) {
+        this.gameIndex = gameindex;
+    }
+    #endregion
 
     public void ChangeUsername(string username) {
         this.username = username;

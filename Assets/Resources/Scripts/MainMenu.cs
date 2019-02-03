@@ -26,7 +26,6 @@ public class MainMenu : MonoBehaviour {
     public Button PlayButton;
 
     private MenuState _state;
-    private bool reset = true;
     private float timer = 0;
     private float timer2 = 0;
     public enum MenuState {
@@ -68,7 +67,7 @@ public class MainMenu : MonoBehaviour {
                 MainScreenMenu.SetActive(false);
                 LobbyMenu.SetActive(true);
 
-                //update every 2 seconds
+                //update every 1 seconds
                 if (timer > 1f) {
                     Player1InLobby.text = Network.instance.player.GetUsername();
                     string p2 = Network.instance.player.GetTeammateUsername();
@@ -80,11 +79,10 @@ public class MainMenu : MonoBehaviour {
                     timer += Time.deltaTime;
                 }
 
-                //update every 16 seconds
-                if(timer2 > 16f) {
+                //update every 2 seconds
+                if(timer2 > 2f) {
                     Network.instance.GetPlayersInRoom();
                     timer2 = 0;
-                    reset = true;
                 } else {
                     timer2 += Time.deltaTime;
                 }

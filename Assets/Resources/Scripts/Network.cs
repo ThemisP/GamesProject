@@ -21,7 +21,7 @@ public class Network : MonoBehaviour {
     [Header("Other Settings")]
     public MainMenu mainMenu;
     public Transform[] spawnpoints;
-    public CameraFollow camera;
+    public CameraFollow cameraScript;
     public GameObject PlayerPrefab;
     public GameObject TeammatePlayerPrefab;
     public GameObject EnemyPlayerPrefab;
@@ -122,7 +122,7 @@ public class Network : MonoBehaviour {
         else spawnpoint.position = spawnpoint.position + Vector3.forward * -2;
         GameObject playerObj = GameObject.Instantiate(PlayerPrefab, spawnpoint.position, spawnpoint.rotation);
         player.playerObj = playerObj;
-        camera.SetTarget(playerObj.transform);
+        cameraScript.SetTarget(playerObj.transform);
         InvokeRepeating("SendPlayerPos", 0f, 0.1f); //Every 0.1 seconds, repeated calls to send player position to server.
         GetPlayersInGame();
     }

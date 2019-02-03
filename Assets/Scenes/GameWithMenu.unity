@@ -149,10 +149,11 @@ MonoBehaviour:
   spawnpoints:
   - {fileID: 1093750236}
   - {fileID: 1761517776}
-  camera: {fileID: 1511272331}
+  cameraScript: {fileID: 1511272331}
   PlayerPrefab: {fileID: 1138482734005258, guid: 32e07439584ed3641b043b98c467b25d,
     type: 2}
-  TeammatePlayerPrefab: {fileID: 0}
+  TeammatePlayerPrefab: {fileID: 1092823999797046, guid: 0585c2f46ca9c1e4e8b05c9410780eaa,
+    type: 2}
   EnemyPlayerPrefab: {fileID: 1467978437358472, guid: 7f61c66d86373144a8167730b264dab5,
     type: 2}
   HUD: {fileID: 214384404}
