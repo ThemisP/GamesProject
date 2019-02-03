@@ -56,7 +56,6 @@ GameObject:
   - component: {fileID: 23893646174014750}
   - component: {fileID: 136687469531102766}
   - component: {fileID: 54228101161094224}
-  - component: {fileID: 114607166787744436}
   - component: {fileID: 114971306962235958}
   - component: {fileID: 114281636829982706}
   m_Layer: 0
@@ -141,7 +140,8 @@ GameObject:
   - component: {fileID: 4523903670181002}
   - component: {fileID: 33942745659827562}
   - component: {fileID: 23777386926014538}
-  m_Layer: 0
+  - component: {fileID: 114270065100409928}
+  m_Layer: 12
   m_Name: View Visualisation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -188,8 +188,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1138482734005258}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.5700971, y: 2.4992957, z: 0.3583095}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224016580037312866}
@@ -494,6 +494,30 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114270065100409928
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1593606046495786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6311d674cbdefe4aad94c6ce509b236, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewRadius: 10
+  viewAngle: 360
+  enemyMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  objectMask:
+    serializedVersion: 2
+    m_Bits: 2048
+  visibleEnemies: []
+  meshResolution: 1
+  edgeResolveIterations: 4
+  edgeDstThreshold: 0.5
+  viewMeshFilter: {fileID: 33942745659827562}
 --- !u!114 &114281636829982706
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -527,30 +551,6 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
---- !u!114 &114607166787744436
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1138482734005258}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6311d674cbdefe4aad94c6ce509b236, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  viewRadius: 10
-  viewAngle: 360
-  enemyMask:
-    serializedVersion: 2
-    m_Bits: 1024
-  objectMask:
-    serializedVersion: 2
-    m_Bits: 2048
-  visibleEnemies: []
-  meshResolution: 1
-  edgeResolveIterations: 4
-  edgeDstThreshold: 0.5
-  viewMeshFilter: {fileID: 33942745659827562}
 --- !u!114 &114954132127803122
 MonoBehaviour:
   m_ObjectHideFlags: 1
