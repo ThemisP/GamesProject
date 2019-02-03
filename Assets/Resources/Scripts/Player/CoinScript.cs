@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CoinScript : Photon.MonoBehaviour {
+public class CoinScript : MonoBehaviour {
     float lifetime = 2f;
     private void Update() {
         lifetime = Time.deltaTime;
@@ -15,8 +15,7 @@ public class CoinScript : Photon.MonoBehaviour {
 
     private void OnCollisionEnter(Collision other)
     {
-        if(other.gameObject.name == "PlayerPrefab(Clone)")
-            PhotonNetwork.Destroy(GetComponent<PhotonView>());
+        
     }
 }
 
