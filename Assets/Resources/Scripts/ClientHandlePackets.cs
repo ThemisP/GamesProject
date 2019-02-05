@@ -243,11 +243,11 @@ public class ClientHandlePackets{
         ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
         buffer.WriteBytes(data);
         float damageDealt = buffer.ReadFloat();
-        Network.instance.CallFunctionFromAnotherThread(() => {
-            if (Network.instance.player.playerObj.activeInHierarchy){
-                Network.instance.player.playerObj.GetComponent<PlayerData>().UpdateDamageDealt(damageDealt);
-            }
-        });
+        //Network.instance.CallFunctionFromAnotherThread(() => {
+        //    if (Network.instance.player.playerObj.activeInHierarchy){
+        //        Network.instance.player.playerObj.GetComponent<PlayerData>().UpdateDamageDealt(damageDealt);
+        //    }
+        //});
     }
     #endregion
 }

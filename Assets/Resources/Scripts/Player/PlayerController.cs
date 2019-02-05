@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour {
     private float DodgeTimer = 0f;
 
 	private PlayerData playerData;
+    private bool offline = false;
 
 	// Use this for initialization
 	void Awake () {
@@ -109,7 +110,7 @@ public class PlayerController : MonoBehaviour {
                                                           playerData.currentWeapon.GetSpeed(), 
                                                           playerData.currentWeapon.GetLifetime(), 
                                                           bulletId);
-                Network.instance.SendBullet(bulletSpawn.position, rotation.y,
+                if(!offline) Network.instance.SendBullet(bulletSpawn.position, rotation.y,
                                             playerData.currentWeapon.GetSpeed(), 
                                             playerData.currentWeapon.GetLifetime(), bulletId);
             } else if (i == 1) {
@@ -119,7 +120,7 @@ public class PlayerController : MonoBehaviour {
                                                           playerData.currentWeapon.GetSpeed(), 
                                                           playerData.currentWeapon.GetLifetime(),
                                                           bulletId);
-                Network.instance.SendBullet(bulletSpawn.position, rotation.y,
+                if (!offline) Network.instance.SendBullet(bulletSpawn.position, rotation.y,
                                             playerData.currentWeapon.GetSpeed(),
                                             playerData.currentWeapon.GetLifetime(), bulletId);
             } else if(i == 2) {
@@ -129,7 +130,7 @@ public class PlayerController : MonoBehaviour {
                                                           playerData.currentWeapon.GetSpeed(),
                                                           playerData.currentWeapon.GetLifetime(),
                                                           bulletId);
-                Network.instance.SendBullet(bulletSpawn.position, rotation.y,
+                if (!offline) Network.instance.SendBullet(bulletSpawn.position, rotation.y,
                                             playerData.currentWeapon.GetSpeed(),
                                             playerData.currentWeapon.GetLifetime(), bulletId);
             }
@@ -153,15 +154,20 @@ public class PlayerController : MonoBehaviour {
             BulletScript bulletScript = obj.GetComponent<BulletScript>();
             ObjectHandler.instance.DestroyBullet(bulletScript.GetBulletId());
             playerData.takeDamage(bulletScript.GetBulletDamage());
-            Network.instance.SendDestroyBullet(bulletScript.GetBulletId());
+
+            if (!offline) Network.instance.SendDestroyBullet(bulletScript.GetBulletId());
+
 			if (playerData.getCurrentHealth() <= 0) {
-				Network.instance.HandlePlayerDeath(bulletScript.GetBulletId());
+				if(!offline) Network.instance.HandlePlayerDeath(bulletScript.GetBulletId());
 				playerData.RefreshHealth(); // NOTE: Temporary, should die in final product
 			}
         } 
     }
 
     #region "setters"
+    public void SetOffline(bool set) {
+        this.offline = set;
+    }
     #endregion
 
 }

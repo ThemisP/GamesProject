@@ -89,6 +89,7 @@ public class MainMenu : MonoBehaviour {
                 
                 break;
             case MenuState.InGame:
+                ConnectMenu.SetActive(false);
                 LoginMenu.SetActive(false);
                 MainScreenMenu.SetActive(false);
                 LobbyMenu.SetActive(false);
@@ -98,6 +99,11 @@ public class MainMenu : MonoBehaviour {
 
     public void SetMenuState(MenuState state) {
         this._state = state;
+    }
+
+    public void PlayOffline() {
+        SetMenuState(MenuState.InGame);
+        Network.instance.JoinGameOffline();
     }
 
     public void ConnectToServer() {

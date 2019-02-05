@@ -37,12 +37,13 @@ public class ObjectHandler : MonoBehaviour {
             Bullets.Remove(bulletId);
             if(bullet!= null) {
                 Destroy(bullet, 0f);
+                if(!Network.instance.player.isOffline()) Network.instance.SendDestroyBullet(bulletId);
             }
         }      
     }
 
     public void InstantiateBullet(Vector3 pos, Vector3 rot, float speed, float lifetime, string bulletId){
-        GameObject bullet = Instantiate(bulletPrefab, pos, Quaternion.Euler(rot));
+        GameObject bullet = GameObject.Instantiate(this.bulletPrefab, pos, Quaternion.Euler(rot));
         Rigidbody rigbod = bullet.GetComponent<Rigidbody>();
         if (rigbod != null) rigbod.velocity = Vector3.forward * speed;
         else Debug.LogError("Rigid body for bullet prefab spawn not found!");

@@ -19,7 +19,7 @@ public class BulletScript : MonoBehaviour {
             lifeTime -= Time.deltaTime;
             if (lifeTime < 0) {
                 ObjectHandler.instance.DestroyBullet(this.bullet_id);
-                Network.instance.SendDestroyBullet(bullet_id);
+                
             }
         }
 	}
@@ -29,7 +29,6 @@ public class BulletScript : MonoBehaviour {
         Debug.Log("triggered");
         if (obj.tag != "EnemyPlayer") {
             ObjectHandler.instance.DestroyBullet(this.bullet_id);
-            Network.instance.SendDestroyBullet(this.bullet_id);
         }
     }
 

@@ -11,8 +11,11 @@ public class PlayerInfo {
     private int teamNumber;
     public int playerNumber = 1; // used for spawn point purposes
     private int gameIndex;
+    private bool offline = false;
 
     public GameObject playerObj;
+    private PlayerController playerController;
+
     
     public PlayerInfo() {
         this.username = "Default";
@@ -33,6 +36,10 @@ public class PlayerInfo {
         this.gameIndex = gameindex;
     }
     #endregion
+    public void SetPlayerObj(GameObject playerObj) {
+        this.playerObj = playerObj;
+        this.playerController = playerObj.GetComponent<PlayerController>();
+    }
 
     public void ChangeUsername(string username) {
         this.username = username;
@@ -40,6 +47,11 @@ public class PlayerInfo {
 
     public void SetTeamNumber(int number) {
         this.teamNumber = number;
+    }
+
+    public void SetOffline(bool set) {
+        this.offline = set;
+        this.playerController.SetOffline(set);
     }
 
     public void JoinRoom(int roomIndex) {
@@ -67,6 +79,9 @@ public class PlayerInfo {
         return this.teammateUsername;
     }
 
+    public bool isOffline() {
+        return this.offline;
+    }
     public int GetTeamNumber() {
         return this.teamNumber;
     }

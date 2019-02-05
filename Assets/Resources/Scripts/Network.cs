@@ -35,7 +35,7 @@ public class Network : MonoBehaviour {
 
     public IPEndPoint IPend;
     public PlayerInfo player;
-    public GameObject[] teamMate;
+    public GameObject teamMate;
     public Dictionary<int, EnemyPlayerController> playersInGame;
 
     public int ClientIndex;//server related (something like a unique id very simple though)
@@ -121,10 +121,22 @@ public class Network : MonoBehaviour {
         if (player.playerNumber == 1) spawnpoint.position = spawnpoint.position + Vector3.forward * 2;
         else spawnpoint.position = spawnpoint.position + Vector3.forward * -2;
         GameObject playerObj = GameObject.Instantiate(PlayerPrefab, spawnpoint.position, spawnpoint.rotation);
-        player.playerObj = playerObj;
+        player.SetPlayerObj(playerObj);
         cameraScript.SetTarget(playerObj.transform);
         InvokeRepeating("SendPlayerPos", 0f, 0.1f); //Every 0.1 seconds, repeated calls to send player position to server.
         GetPlayersInGame();
+    }
+
+    public void JoinGameOffline() {
+        HUD.SetActive(true);
+        Transform spawnpoint = spawnpoints[0];
+        GameObject playerObj = GameObject.Instantiate(PlayerPrefab, spawnpoint.position, spawnpoint.rotation);
+        player.SetPlayerObj(playerObj);
+        player.SetOffline(true);
+        cameraScript.SetTarget(playerObj.transform);
+
+        GameObject teammateObj = GameObject.Instantiate(TeammatePlayerPrefab, spawnpoint.position + Vector3.forward * 2, spawnpoint.rotation);
+        teamMate = teammateObj;
     }
 
     public void SpawnPlayer(int id, string username, int team, Vector3 pos, Vector3 rot) {
