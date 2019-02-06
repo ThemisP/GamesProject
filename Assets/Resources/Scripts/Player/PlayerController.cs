@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour {
 
     [Header("Player Abilities")]
     public float DodgeCooldown = 3f;
-
+    public bool isDodging;
 
     private int bulletCount = 0;//used for bullet id
     private float DodgeTimer = 0f;
@@ -57,6 +57,7 @@ public class PlayerController : MonoBehaviour {
         playerData.PopupStatuses(hitStatus);
 
         speed = playerData.currentStatus.GetSpeed();
+        IsDodging();
         playerData.takeDamage(playerData.currentStatus.GetDamage());
 
         UpdateDodgeTimer();
@@ -186,6 +187,18 @@ public class PlayerController : MonoBehaviour {
 				playerData.RefreshHealth(); // NOTE: Temporary, should die in final product
 			}
         } 
+    }
+
+    public void IsDodging()
+    {
+        if (Input.GetKey(KeyCode.F) && (DodgeTimer == DodgeCooldown))
+        {
+            isDodging = true;
+        }
+        else
+        {
+            isDodging = false;
+        }
     }
 
     #region "setters"

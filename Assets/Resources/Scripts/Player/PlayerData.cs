@@ -122,16 +122,28 @@ public class PlayerData : MonoBehaviour {
     }
 
     public void takeDamage(float amount){
-        if(true){
-             if(currentHealth - amount > 0){
-                currentHealth -= amount;
-                healthSlider.value = currentHealth/maxHealth;
-            } else {
-                currentHealth = 100;
-                healthSlider.value = currentHealth/maxHealth;
+        playerController = GetComponent<PlayerController>();
+        if (playerController.isDodging)
+        {
+            healthSlider.value = currentHealth / maxHealth;
+            Debug.Log("Dodge Successful");
+        }
+        else
+        {
+            if (true)
+            {
+                if (currentHealth - amount > 0)
+                {
+                    currentHealth -= amount;
+                    healthSlider.value = currentHealth / maxHealth;
+                }
+                else
+                {
+                    currentHealth = 100;
+                    healthSlider.value = currentHealth / maxHealth;
+                }
             }
         }
-       
     }
     //finds the amount of skill points held by the user
     public int getSkillPoints()
