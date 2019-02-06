@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using Assets.Resources.Scripts.Weapons;
+using Assets.Resources.Scripts.Statuses;
+
 
 public class PlayerController : MonoBehaviour {
 
@@ -25,6 +27,7 @@ public class PlayerController : MonoBehaviour {
 
     private int bulletCount = 0;//used for bullet id
     private float DodgeTimer = 0f;
+    private float StatusTimer = 0f;
 
 	private PlayerData playerData;
     private bool offline = false;
@@ -46,14 +49,20 @@ public class PlayerController : MonoBehaviour {
 
         bool hitHelp = Input.GetKey(KeyCode.H);
         bool hitWeaponsUpgrade = Input.GetKey(KeyCode.E);
+        bool hitStatus = Input.GetKey(KeyCode.Q);
 
 
         playerData.PopupHelp(hitHelp);
         playerData.PopupWeapons(hitWeaponsUpgrade);
+        playerData.PopupStatuses(hitStatus);
 
-        updateDodgeTimer();
+        speed = playerData.currentStatus.GetSpeed();
+        playerData.takeDamage(playerData.currentStatus.GetDamage());
 
-		Move(h,v);
+        UpdateDodgeTimer();
+        UpdateStatusTimer();
+
+        Move(h,v);
 		Turning();
         if (!hitWeaponsUpgrade) {
             Fire(fire);
@@ -61,10 +70,25 @@ public class PlayerController : MonoBehaviour {
         Dodge(hitDodge);
 	}
 
-    void updateDodgeTimer() {
+    void UpdateDodgeTimer() {
         if (DodgeTimer < DodgeCooldown)
             DodgeTimer += Time.deltaTime;
         playerData.DodgeCooldown(DodgeCooldown, DodgeTimer);
+    }
+
+    void UpdateStatusTimer(){
+        if(playerData.currentStatus.Equals(Statuses.instance.GetHealthy())){
+            return;
+        }
+        else {
+            if (StatusTimer < playerData.currentStatus.GetDuration()){
+                StatusTimer += Time.deltaTime;
+            }
+            playerData.StatusCooldown(StatusTimer);
+            if(StatusTimer> playerData.currentStatus.GetDuration()){
+                StatusTimer = 0f;
+            }
+        }
     }
 
 	void Move(float h, float v){
