@@ -79,17 +79,13 @@ public class PlayerData : MonoBehaviour {
         }
     }
 
-    public void takeDamage(float amount){
-        if(true){
-             if(currentHealth - amount > 0){
-                currentHealth -= amount;
-                healthSlider.value = currentHealth/maxHealth;
-            } else {
-                currentHealth = 100;
-                healthSlider.value = currentHealth/maxHealth;
-            }
+    public void takeDamage(float amount, string bulletId){
+        currentHealth -= amount;
+        if (currentHealth - amount > 0){
+            healthSlider.value = currentHealth/maxHealth;
+        } else {
+            healthSlider.value = 0f;
         }
-       
     }
     //finds the amount of skill points held by the user
     public int getSkillPoints()

@@ -35,10 +35,10 @@ public class Network : MonoBehaviour {
 
     public IPEndPoint IPend;
     public PlayerInfo player;
-    public GameObject teamMate;
+    [HideInInspector] public GameObject teamMate;
     public Dictionary<int, EnemyPlayerController> playersInGame;
 
-    public int ClientIndex;//server related (something like a unique id very simple though)
+    [HideInInspector] public int ClientIndex;//server related (something like a unique id very simple though)
     private byte[] asyncBuff;
 
     private Queue<Action> RunOnMainThread = new Queue<Action>();
@@ -124,7 +124,7 @@ public class Network : MonoBehaviour {
         player.SetPlayerObj(playerObj);
         cameraScript.SetTarget(playerObj.transform);
         InvokeRepeating("SendPlayerPos", 0f, 0.1f); //Every 0.1 seconds, repeated calls to send player position to server.
-        GetPlayersInGame();
+        //GetPlayersInGame();
     }
 
     public void JoinGameOffline() {
@@ -211,8 +211,6 @@ public class Network : MonoBehaviour {
         buffer.WriteFloat(rotY);
         buffer.WriteFloat(speed);
         buffer.WriteFloat(lifeTime);
-
-        Debug.Log("firing bullet");
         UdpClient.Send(buffer.BuffToArray(), buffer.Length());
     }
 
@@ -335,6 +333,20 @@ public class Network : MonoBehaviour {
         buffer.WriteString(bulletId);
         TcpStream.Write(buffer.BuffToArray(), 0, buffer.Length());
 
+    }
+
+    public void SendPlayerDamage(float damageTake, string bulletId) {
+        if (TcpClient == null || !TcpClient.Connected) {
+            TcpClient.Close();
+            TcpClient = null;
+            Debug.Log("Disconnected");
+            return;
+        }
+        ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
+        buffer.WriteInt(12);
+        buffer.WriteString(bulletId);
+        buffer.WriteFloat(damageTake);
+        TcpStream.Write(buffer.BuffToArray(), 0, buffer.Length());
     }
 
     public void HandlePlayerDeath(string bulletId) {

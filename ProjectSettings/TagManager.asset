@@ -7,6 +7,7 @@ TagManager:
   - HUD
   - EnemyPlayer
   - Bullet
+  - Arena
   layers:
   - Default
   - TransparentFX

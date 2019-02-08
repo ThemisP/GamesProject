@@ -53,7 +53,7 @@ public class ClientHandlePackets{
         buffer.WriteBytes(data);
         packetnum = buffer.ReadInt();
         buffer = null;
-        Debug.Log("udp received");
+
         if (packetnum == 0) return;
 
         if (PacketsUdp.TryGetValue(packetnum, out packet)) {
