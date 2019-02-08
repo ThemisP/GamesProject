@@ -24,6 +24,7 @@ public class Network : MonoBehaviour {
     public CameraFollow cameraScript;
     public GameObject PlayerPrefab;
     public GameObject TeammatePlayerPrefab;
+    public GameObject TeamPrefab; //could we do <PlayerPrefab,TeammatePlayerPrefab> ??? 
     public GameObject EnemyPlayerPrefab;
     public GameObject HUD;
 
@@ -36,6 +37,7 @@ public class Network : MonoBehaviour {
     public IPEndPoint IPend;
     public PlayerInfo player;
     public GameObject teamMate;
+    public GameObject team; //combination of Player & TeamMate prefab
     public Dictionary<int, EnemyPlayerController> playersInGame;
 
     public int ClientIndex;//server related (something like a unique id very simple though)
@@ -131,12 +133,20 @@ public class Network : MonoBehaviour {
         HUD.SetActive(true);
         Transform spawnpoint = spawnpoints[0];
         GameObject playerObj = GameObject.Instantiate(PlayerPrefab, spawnpoint.position, spawnpoint.rotation);
-        player.SetPlayerObj(playerObj);
-        player.SetOffline(true);
-        cameraScript.SetTarget(playerObj.transform);
-
+        //player.SetPlayerObj(playerObj);
+        //player.SetOffline(true);
+        //cameraScript.SetTarget(playerObj.transform);
+        /*
+         * GameObject teamObj = GameOb
+         * 
+         */
         GameObject teammateObj = GameObject.Instantiate(TeammatePlayerPrefab, spawnpoint.position + Vector3.forward * 2, spawnpoint.rotation);
         teamMate = teammateObj;
+        GameObject teamObj = GameObject.Instantiate(TeamPrefab, spawnpoint.position + Vector3.forward * 4, spawnpoint.rotation);
+        team = teamObj;
+        player.SetPlayerObj(team);
+        player.SetOffline(true);
+        cameraScript.SetTarget(team.transform);
     }
 
     public void SpawnPlayer(int id, string username, int team, Vector3 pos, Vector3 rot) {
