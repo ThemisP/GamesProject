@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour {
 
 	[SerializeField] private GameObject bulletPrefab;
 	[SerializeField] private Transform bulletSpawn;
-	[SerializeField] private float speed = 6f;
+	[SerializeField] private float speed = 8f;
 	[SerializeField] private Network network;
 	Vector3 movement;
 	Rigidbody playerRigidbody;

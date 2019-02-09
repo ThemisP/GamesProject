@@ -63,6 +63,8 @@ public class Network : MonoBehaviour {
                 s();
             }            
         }
+        if (player.playerObj == null)
+            CancelInvoke();
     }
 
     public void CallFunctionFromAnotherThread(Action functionName) {
@@ -141,9 +143,16 @@ public class Network : MonoBehaviour {
 
     public void SpawnPlayer(int id, string username, int team, Vector3 pos, Vector3 rot) {
         Debug.Log("Player => " + id);
+        if (id == ClientIndex) return;
         if (playersInGame.ContainsKey(id)) return;
-        GameObject player = GameObject.Instantiate(EnemyPlayerPrefab, pos, Quaternion.Euler(rot));
-        EnemyPlayerController controller =  player.GetComponent<EnemyPlayerController>();        
+        GameObject playerObj;
+        Debug.Log("team is: " + team);
+        if (team == player.GetTeamNumber()) {
+            playerObj = GameObject.Instantiate(TeammatePlayerPrefab, pos, Quaternion.Euler(rot));
+        } else {
+            playerObj = GameObject.Instantiate(EnemyPlayerPrefab, pos, Quaternion.Euler(rot));
+        }
+        EnemyPlayerController controller =  playerObj.GetComponent<EnemyPlayerController>();        
         if (controller == null) Debug.LogError("Controller not found in spawned player");
         else {
             controller.SetPlayerId(id);
@@ -152,6 +161,24 @@ public class Network : MonoBehaviour {
             playersInGame.Add(id, controller);
         }
 
+    }
+
+    public void DestroyPlayer(int id) {
+        EnemyPlayerController controller;
+        if(playersInGame.TryGetValue(id, out controller)){
+            playersInGame.Remove(id);
+            Destroy(controller.gameObject, 0f);
+        }
+    }
+
+    public void Died() { 
+        Destroy(player.playerObj);
+    }
+    public void HandlePlayerDamage(int id, bool isAlive, float health) {
+        EnemyPlayerController controller;
+        if(playersInGame.TryGetValue(id, out controller)){
+            controller.SetHealth(health);
+        }
     }
     #endregion
 
@@ -179,6 +206,7 @@ public class Network : MonoBehaviour {
 
     //Once you join a game this is invoked every .2 seconds to update the player's location on the server.
     public void SendPlayerPos() {
+        if (player.playerObj == null) return;
         ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
         buffer.WriteInt(ClientIndex);
         buffer.WriteInt(2);
