@@ -20,7 +20,8 @@ public class ClientHandlePackets{
         PacketsTcp.Add(5, HandleJoinRoomResponse);
         PacketsTcp.Add(6, HandleJoinGameResponse);
         PacketsTcp.Add(7, HandleGetPlayersInGameResponse);
-
+        PacketsTcp.Add(9, HandlePlayerTookDamage);
+        PacketsTcp.Add(10, HandlePlayerDeath);
         PacketsTcp.Add(12, HandleDealtDamage);
 
         PacketsUdp = new Dictionary<int, Packet_>();
@@ -52,7 +53,7 @@ public class ClientHandlePackets{
         buffer.WriteBytes(data);
         packetnum = buffer.ReadInt();
         buffer = null;
-        Debug.Log("udp received");
+
         if (packetnum == 0) return;
 
         if (PacketsUdp.TryGetValue(packetnum, out packet)) {
@@ -227,6 +228,35 @@ public class ClientHandlePackets{
         }
     }
 
+
+    //Packetnum = 9
+    void HandlePlayerTookDamage(byte[] data) {
+        ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
+        buffer.WriteBytes(data);
+        int clientId = buffer.ReadInt();
+        string bulletId = buffer.ReadString();
+        bool isAlive = (buffer.ReadInt() == 1) ? true : false;
+        float health = buffer.ReadFloat();
+        ObjectHandler.instance.CallFunctionFromAnotherThread(() => {
+            ObjectHandler.instance.DestroyBullet(bulletId);
+        });
+        Network.instance.HandlePlayerDamage(clientId, isAlive, health);
+        if (!isAlive) {
+            Network.instance.CallFunctionFromAnotherThread(() => {
+                Network.instance.DestroyPlayer(clientId);
+            });
+        }
+    }
+
+    //Packetnum = 10
+    void HandlePlayerDeath(byte[] data) {
+        ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
+        buffer.WriteBytes(data);
+
+        Network.instance.CallFunctionFromAnotherThread(() => {
+            Network.instance.Died();
+        });
+    }
 
     // Packetnum = 12
     // TODO: This exists for points

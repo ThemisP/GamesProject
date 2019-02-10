@@ -35,10 +35,10 @@ public class Network : MonoBehaviour {
 
     public IPEndPoint IPend;
     public PlayerInfo player;
-    public GameObject teamMate;
+    [HideInInspector] public GameObject teamMate;
     public Dictionary<int, EnemyPlayerController> playersInGame;
 
-    public int ClientIndex;//server related (something like a unique id very simple though)
+    [HideInInspector] public int ClientIndex;//server related (something like a unique id very simple though)
     private byte[] asyncBuff;
 
     private Queue<Action> RunOnMainThread = new Queue<Action>();
@@ -63,6 +63,8 @@ public class Network : MonoBehaviour {
                 s();
             }            
         }
+        if (player.playerObj == null)
+            CancelInvoke();
     }
 
     public void CallFunctionFromAnotherThread(Action functionName) {
@@ -124,7 +126,7 @@ public class Network : MonoBehaviour {
         player.SetPlayerObj(playerObj);
         cameraScript.SetTarget(playerObj.transform);
         InvokeRepeating("SendPlayerPos", 0f, 0.1f); //Every 0.1 seconds, repeated calls to send player position to server.
-        GetPlayersInGame();
+        //GetPlayersInGame();
     }
 
     public void JoinGameOffline() {
@@ -141,9 +143,16 @@ public class Network : MonoBehaviour {
 
     public void SpawnPlayer(int id, string username, int team, Vector3 pos, Vector3 rot) {
         Debug.Log("Player => " + id);
+        if (id == ClientIndex) return;
         if (playersInGame.ContainsKey(id)) return;
-        GameObject player = GameObject.Instantiate(EnemyPlayerPrefab, pos, Quaternion.Euler(rot));
-        EnemyPlayerController controller =  player.GetComponent<EnemyPlayerController>();        
+        GameObject playerObj;
+        Debug.Log("team is: " + team);
+        if (team == player.GetTeamNumber()) {
+            playerObj = GameObject.Instantiate(TeammatePlayerPrefab, pos, Quaternion.Euler(rot));
+        } else {
+            playerObj = GameObject.Instantiate(EnemyPlayerPrefab, pos, Quaternion.Euler(rot));
+        }
+        EnemyPlayerController controller =  playerObj.GetComponent<EnemyPlayerController>();        
         if (controller == null) Debug.LogError("Controller not found in spawned player");
         else {
             controller.SetPlayerId(id);
@@ -152,6 +161,24 @@ public class Network : MonoBehaviour {
             playersInGame.Add(id, controller);
         }
 
+    }
+
+    public void DestroyPlayer(int id) {
+        EnemyPlayerController controller;
+        if(playersInGame.TryGetValue(id, out controller)){
+            playersInGame.Remove(id);
+            Destroy(controller.gameObject, 0f);
+        }
+    }
+
+    public void Died() { 
+        Destroy(player.playerObj);
+    }
+    public void HandlePlayerDamage(int id, bool isAlive, float health) {
+        EnemyPlayerController controller;
+        if(playersInGame.TryGetValue(id, out controller)){
+            controller.SetHealth(health);
+        }
     }
     #endregion
 
@@ -179,6 +206,7 @@ public class Network : MonoBehaviour {
 
     //Once you join a game this is invoked every .2 seconds to update the player's location on the server.
     public void SendPlayerPos() {
+        if (player.playerObj == null) return;
         ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
         buffer.WriteInt(ClientIndex);
         buffer.WriteInt(2);
@@ -211,8 +239,6 @@ public class Network : MonoBehaviour {
         buffer.WriteFloat(rotY);
         buffer.WriteFloat(speed);
         buffer.WriteFloat(lifeTime);
-
-        Debug.Log("firing bullet");
         UdpClient.Send(buffer.BuffToArray(), buffer.Length());
     }
 
@@ -320,6 +346,21 @@ public class Network : MonoBehaviour {
         }
         ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
         buffer.WriteInt(10);
+        TcpStream.Write(buffer.BuffToArray(), 0, buffer.Length());
+    }
+
+
+    public void SendPlayerDamage(float damageTake, string bulletId) {
+        if (TcpClient == null || !TcpClient.Connected) {
+            TcpClient.Close();
+            TcpClient = null;
+            Debug.Log("Disconnected");
+            return;
+        }
+        ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
+        buffer.WriteInt(12);
+        buffer.WriteString(bulletId);
+        buffer.WriteFloat(damageTake);
         TcpStream.Write(buffer.BuffToArray(), 0, buffer.Length());
     }
 

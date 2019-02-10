@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour {
 
 	[SerializeField] private GameObject bulletPrefab;
 	[SerializeField] private Transform bulletSpawn;
-	[SerializeField] private float speed = 6f;
+	[SerializeField] private float speed = 8f;
 	[SerializeField] private Network network;
 	Vector3 movement;
 	Rigidbody playerRigidbody;
@@ -102,40 +102,21 @@ public class PlayerController : MonoBehaviour {
 	}
 
     void FireGun() {
-        for(int i = 0; i <playerData.currentWeapon.GetNumberOfBullets(); i++) {
-            string bulletId = Network.instance.ClientIndex.ToString() + "_" + bulletCount.ToString();
-            if (i == 0) {
-                Vector3 rotation = bulletSpawn.rotation.eulerAngles;
-                ObjectHandler.instance.InstantiateBullet(bulletSpawn.position, rotation,
-                                                          playerData.currentWeapon.GetSpeed(), 
-                                                          playerData.currentWeapon.GetLifetime(), 
-                                                          bulletId);
-                if(!offline) Network.instance.SendBullet(bulletSpawn.position, rotation.y,
-                                            playerData.currentWeapon.GetSpeed(), 
-                                            playerData.currentWeapon.GetLifetime(), bulletId);
-            } else if (i == 1) {
-                Vector3 rotation = bulletSpawn.rotation.eulerAngles;
-                rotation += Vector3.up * +10;
-                ObjectHandler.instance.InstantiateBullet(bulletSpawn.position, rotation,
-                                                          playerData.currentWeapon.GetSpeed(), 
-                                                          playerData.currentWeapon.GetLifetime(),
-                                                          bulletId);
-                if (!offline) Network.instance.SendBullet(bulletSpawn.position, rotation.y,
-                                            playerData.currentWeapon.GetSpeed(),
-                                            playerData.currentWeapon.GetLifetime(), bulletId);
-            } else if(i == 2) {
-                Vector3 rotation = bulletSpawn.rotation.eulerAngles;
-                rotation += Vector3.up * -10;
-                ObjectHandler.instance.InstantiateBullet(bulletSpawn.position, rotation,
-                                                          playerData.currentWeapon.GetSpeed(),
-                                                          playerData.currentWeapon.GetLifetime(),
-                                                          bulletId);
-                if (!offline) Network.instance.SendBullet(bulletSpawn.position, rotation.y,
-                                            playerData.currentWeapon.GetSpeed(),
-                                            playerData.currentWeapon.GetLifetime(), bulletId);
-            }
+        string bulletId;
+        lastShootTime = 0f;
+        Vector3 rotation;
+        for (int i = 0; i <playerData.currentWeapon.GetNumberOfBullets(); i++) { 
+            bulletId = Network.instance.ClientIndex.ToString() + "_" + bulletCount.ToString();
+            rotation = bulletSpawn.rotation.eulerAngles;
+            if(i!=0) rotation += Vector3.up * ((float)Math.Pow(-1, i) * 10);
+            ObjectHandler.instance.InstantiateBullet(bulletSpawn.position, rotation,
+                                                        playerData.currentWeapon.GetSpeed(), 
+                                                        playerData.currentWeapon.GetLifetime(), 
+                                                        bulletId);
+            if(!offline) Network.instance.SendBullet(bulletSpawn.position, rotation.y,
+                                        playerData.currentWeapon.GetSpeed(), 
+                                        playerData.currentWeapon.GetLifetime(), bulletId);
             bulletCount = (bulletCount + 1) % 1000;
-            lastShootTime = 0f;
         }
     }
 
@@ -152,13 +133,11 @@ public class PlayerController : MonoBehaviour {
         Debug.Log("triggered");
         if (obj.tag == "Bullet") {
             BulletScript bulletScript = obj.GetComponent<BulletScript>();
-            ObjectHandler.instance.DestroyBullet(bulletScript.GetBulletId());
-            playerData.takeDamage(bulletScript.GetBulletDamage());
+            
+            playerData.takeDamage(bulletScript.GetBulletDamage(), bulletScript.GetBulletId());
 
-			if (playerData.getCurrentHealth() <= 0) {
-				if(!offline) Network.instance.HandlePlayerDeath(bulletScript.GetBulletId());
-				playerData.RefreshHealth(); // NOTE: Temporary, should die in final product
-			}
+            if (!offline) Network.instance.SendPlayerDamage(bulletScript.GetBulletDamage(), bulletScript.GetBulletId());
+            ObjectHandler.instance.DestroyBullet(bulletScript.GetBulletId());
         } 
     }
 

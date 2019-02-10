@@ -1,13 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System;
 
 public class EnemyPlayerController : MonoBehaviour {
 
+    public Slider healthSlider;
+
     private int PlayerID;
     private string Username;
     private int TeamNumber;
+    private float maxHealth = 100f;
+    private float health = 100f;
 
     private Rigidbody playerRigidbody;
     private Vector3 playerPos;
@@ -34,6 +39,12 @@ public class EnemyPlayerController : MonoBehaviour {
                 s();
             }
         }
+
+        if (health > 0)
+            healthSlider.value = health / maxHealth;
+        else
+            healthSlider.value = 0;
+
         syncTime += Time.deltaTime;
         //Debug.Log("Player pos (" + playerPos + "), player rot (" + playerRot + ")");
         if (syncDelay != 0) {
@@ -67,6 +78,9 @@ public class EnemyPlayerController : MonoBehaviour {
     }
     public void SetPlayerId(int id) {
         this.PlayerID = id;
+    }
+    public void SetHealth(float amount) {
+        this.health = amount;
     }
     #endregion
 
