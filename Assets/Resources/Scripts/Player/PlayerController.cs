@@ -155,8 +155,6 @@ public class PlayerController : MonoBehaviour {
             ObjectHandler.instance.DestroyBullet(bulletScript.GetBulletId());
             playerData.takeDamage(bulletScript.GetBulletDamage());
 
-            if (!offline) Network.instance.SendDestroyBullet(bulletScript.GetBulletId());
-
 			if (playerData.getCurrentHealth() <= 0) {
 				if(!offline) Network.instance.HandlePlayerDeath(bulletScript.GetBulletId());
 				playerData.RefreshHealth(); // NOTE: Temporary, should die in final product

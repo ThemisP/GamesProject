@@ -323,20 +323,6 @@ public class Network : MonoBehaviour {
         TcpStream.Write(buffer.BuffToArray(), 0, buffer.Length());
     }
 
-    public void SendDestroyBullet(string bulletId) {
-        if (TcpClient == null || !TcpClient.Connected) {
-            TcpClient.Close();
-            TcpClient = null;
-            Debug.Log("Disconnected");
-            return;
-        }
-        ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
-        buffer.WriteInt(11);
-        buffer.WriteString(bulletId);
-        TcpStream.Write(buffer.BuffToArray(), 0, buffer.Length());
-
-    }
-
     public void HandlePlayerDeath(string bulletId) {
         if (TcpClient == null || !TcpClient.Connected) {
             TcpClient.Close();

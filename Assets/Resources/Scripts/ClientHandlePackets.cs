@@ -20,7 +20,6 @@ public class ClientHandlePackets{
         PacketsTcp.Add(5, HandleJoinRoomResponse);
         PacketsTcp.Add(6, HandleJoinGameResponse);
         PacketsTcp.Add(7, HandleGetPlayersInGameResponse);
-        PacketsTcp.Add(8, HandleDestroyBullet);
 
         PacketsTcp.Add(12, HandleDealtDamage);
 
@@ -228,17 +227,9 @@ public class ClientHandlePackets{
         }
     }
 
-    //Packetnum = 8
-    void HandleDestroyBullet(byte[] data) {
-        ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
-        buffer.WriteBytes(data);
-        string bulletId = buffer.ReadString();
-        ObjectHandler.instance.CallFunctionFromAnotherThread(() => {
-            ObjectHandler.instance.DestroyBullet(bulletId);
-        });        
-    }
 
     // Packetnum = 12
+    // TODO: This exists for points
     void HandleDealtDamage(byte[] data){
         ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
         buffer.WriteBytes(data);

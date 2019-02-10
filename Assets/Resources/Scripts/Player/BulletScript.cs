@@ -15,13 +15,11 @@ public class BulletScript : MonoBehaviour {
 	}
 
 	void Update(){
-        if (bullet_id.StartsWith(Network.instance.ClientIndex.ToString())) {
             lifeTime -= Time.deltaTime;
             if (lifeTime < 0) {
                 ObjectHandler.instance.DestroyBullet(this.bullet_id);
                 
             }
-        }
 	}
 
     private void OnCollisionEnter(Collision collision) {

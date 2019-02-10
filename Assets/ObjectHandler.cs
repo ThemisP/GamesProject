@@ -37,7 +37,6 @@ public class ObjectHandler : MonoBehaviour {
             Bullets.Remove(bulletId);
             if(bullet!= null) {
                 Destroy(bullet, 0f);
-                if(!Network.instance.player.isOffline()) Network.instance.SendDestroyBullet(bulletId);
             }
         }      
     }
