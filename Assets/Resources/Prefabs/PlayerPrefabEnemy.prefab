@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 23643575175268474}
   - component: {fileID: 136578768151488168}
   - component: {fileID: 54045221035424990}
+  - component: {fileID: 2011524565500935651}
   - component: {fileID: 114262634495356538}
   m_Layer: 0
   m_Name: PlayerPrefabEnemy
@@ -112,6 +113,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
+--- !u!114 &2011524565500935651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1467978437358472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2fb306058324c34daee55f8b748a489, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114262634495356538
 MonoBehaviour:
   m_ObjectHideFlags: 0
