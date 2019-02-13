@@ -8,6 +8,7 @@ TagManager:
   - EnemyPlayer
   - Bullet
   - Arena
+  - Circle
   layers:
   - Default
   - TransparentFX
