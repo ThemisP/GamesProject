@@ -71,6 +71,8 @@ public class ClientHandlePackets{
         int numberOfPlayers = buffer.ReadInt();
         for (int i = 0; i < numberOfPlayers; i++) {
             int playerId = buffer.ReadInt();
+            string playerUsername = buffer.ReadString();
+            int playerTeam = buffer.ReadInt();
             float posX = buffer.ReadFloat();
             float posY = buffer.ReadFloat();
             float posZ = buffer.ReadFloat();
@@ -92,7 +94,7 @@ public class ClientHandlePackets{
             } else {
                 Debug.LogWarning("Getting info for an unregistered player");
                 Network.instance.CallFunctionFromAnotherThread(() => {
-                    Network.instance.SpawnPlayer(playerId, "greg", 4,
+                    Network.instance.SpawnPlayer(playerId, playerUsername, playerTeam,
                                                  new Vector3(posX, posY, posZ),
                                                  new Vector3(0, rotY, 0));
                 });
@@ -111,13 +113,15 @@ public class ClientHandlePackets{
         float rotY = buffer.ReadFloat();
         float speed = buffer.ReadFloat();
         float lifeTime = buffer.ReadFloat();
+        float damage = buffer.ReadFloat();
 
         ObjectHandler.instance.CallFunctionFromAnotherThread(() => {
             ObjectHandler.instance.InstantiateBullet(new Vector3(posX, posY, posZ),
                                                      new Vector3(0, rotY, 0),
                                                      speed,
                                                      lifeTime,
-                                                     bulletId);
+                                                     bulletId,
+                                                     damage);
         });
     }
 

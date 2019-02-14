@@ -226,7 +226,7 @@ public class Network : MonoBehaviour {
         UdpClient.Send(buffer.BuffToArray(), buffer.Length());
     }
 
-    public void SendBullet(Vector3 pos, float rotY, float speed, float lifeTime, string bulletId) {
+    public void SendBullet(Vector3 pos, float rotY, float speed, float lifeTime, string bulletId, float damage) {
         ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
         buffer.WriteInt(ClientIndex);
         buffer.WriteInt(3);
@@ -239,6 +239,7 @@ public class Network : MonoBehaviour {
         buffer.WriteFloat(rotY);
         buffer.WriteFloat(speed);
         buffer.WriteFloat(lifeTime);
+        buffer.WriteFloat(damage);
         UdpClient.Send(buffer.BuffToArray(), buffer.Length());
     }
 

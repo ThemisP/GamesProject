@@ -112,10 +112,11 @@ public class PlayerController : MonoBehaviour {
             ObjectHandler.instance.InstantiateBullet(bulletSpawn.position, rotation,
                                                         playerData.currentWeapon.GetSpeed(), 
                                                         playerData.currentWeapon.GetLifetime(), 
-                                                        bulletId);
+                                                        bulletId, playerData.currentWeapon.GetDamage());
             if(!offline) Network.instance.SendBullet(bulletSpawn.position, rotation.y,
                                         playerData.currentWeapon.GetSpeed(), 
-                                        playerData.currentWeapon.GetLifetime(), bulletId);
+                                        playerData.currentWeapon.GetLifetime(), bulletId,
+                                        playerData.currentWeapon.GetDamage());
             bulletCount = (bulletCount + 1) % 1000;
         }
     }
@@ -133,7 +134,8 @@ public class PlayerController : MonoBehaviour {
         Debug.Log("triggered");
         if (obj.tag == "Bullet") {
             BulletScript bulletScript = obj.GetComponent<BulletScript>();
-            
+            //check if teammate its friendly bullet;
+            //if(bulletScript.GetBulletId().StartsWith(Network.instance.player.GetTeammateUsername()))
             playerData.takeDamage(bulletScript.GetBulletDamage(), bulletScript.GetBulletId());
 
             if (!offline) Network.instance.SendPlayerDamage(bulletScript.GetBulletDamage(), bulletScript.GetBulletId());

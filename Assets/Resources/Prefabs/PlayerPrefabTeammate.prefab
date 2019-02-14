@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 114393733584267296}
   m_Layer: 0
   m_Name: PlayerPrefabTeammate
-  m_TagString: EnemyPlayer
+  m_TagString: Teammate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
