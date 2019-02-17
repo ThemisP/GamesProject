@@ -94,6 +94,7 @@ public class PlayerController : MonoBehaviour {
 
 	void Move(float h, float v){
 		movement.Set(h, 0f, v);
+        Debug.Log(h + " : " + v);
 		//Normalise the movement vector to make it proportional to the speed per second
 		//Deltatime is the step for the game timer
 		movement = movement.normalized * speed * Time.deltaTime;

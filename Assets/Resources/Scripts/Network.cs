@@ -133,7 +133,7 @@ public class Network : MonoBehaviour {
         HUD.SetActive(true);
         Transform spawnpoint = spawnpoints[0];
         GameObject playerObj = GameObject.Instantiate(PlayerPrefab, spawnpoint.position, spawnpoint.rotation);
-        //player.SetPlayerObj(playerObj);
+        player.SetPlayerObj(playerObj);
         //player.SetOffline(true);
         //cameraScript.SetTarget(playerObj.transform);
         /*
@@ -142,8 +142,12 @@ public class Network : MonoBehaviour {
          */
         GameObject teammateObj = GameObject.Instantiate(TeammatePlayerPrefab, spawnpoint.position + Vector3.forward * 2, spawnpoint.rotation);
         teamMate = teammateObj;
-        GameObject teamObj = GameObject.Instantiate(TeamPrefab, spawnpoint.position + Vector3.forward * 4, spawnpoint.rotation);
+        Debug.Log(spawnpoint.position);
+        GameObject teamObj = GameObject.Instantiate(TeamPrefab, new Vector3(0,7,0), Quaternion.Euler(new Vector3(0,0,0)));
         team = teamObj;
+        TeamScript script = teamObj.GetComponent<TeamScript>();
+        if (script != null) script.SetPlayers(playerObj.transform, teammateObj.transform);
+        else Debug.Log("teamScript error");
         player.SetPlayerObj(team);
         player.SetOffline(true);
         cameraScript.SetTarget(team.transform);
