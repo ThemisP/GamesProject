@@ -25,6 +25,7 @@ public class Network : MonoBehaviour {
     public GameObject PlayerPrefab;
     public GameObject TeammatePlayerPrefab;
     public GameObject TeamPrefab; //could we do <PlayerPrefab,TeammatePlayerPrefab> ??? 
+    public GameObject SimplifiedTeamPrefab;
     public GameObject EnemyPlayerPrefab;
     public GameObject HUD;
 
@@ -143,11 +144,14 @@ public class Network : MonoBehaviour {
         GameObject teammateObj = GameObject.Instantiate(TeammatePlayerPrefab, spawnpoint.position + Vector3.forward * 2, spawnpoint.rotation);
         teamMate = teammateObj;
         Debug.Log(spawnpoint.position);
-        GameObject teamObj = GameObject.Instantiate(TeamPrefab, new Vector3(0,7,0), Quaternion.Euler(new Vector3(0,0,0)));
+        GameObject teamObj = GameObject.Instantiate(SimplifiedTeamPrefab, new Vector3(0,1,0), Quaternion.Euler(new Vector3(0,0,0)));
         team = teamObj;
         TeamScript script = teamObj.GetComponent<TeamScript>();
         if (script != null) script.SetPlayers(playerObj.transform, teammateObj.transform);
         else Debug.Log("teamScript error");
+        PlayerController controller = playerObj.GetComponent<PlayerController>();
+        if (controller != null) controller.SetTeamController(script);
+        else Debug.Log("cannot find controller");
         player.SetPlayerObj(team);
         player.SetOffline(true);
         cameraScript.SetTarget(team.transform);

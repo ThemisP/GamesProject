@@ -4,6 +4,7 @@ using System;
 using UnityEngine;
 using Assets.Resources.Scripts.Weapons;
 using Assets.Resources.Scripts.Statuses;
+using Assets.Resources.Scripts.Chain;
 
 
 public class PlayerController : MonoBehaviour {
@@ -14,16 +15,17 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] private Network network;
 	Vector3 movement;
 	Rigidbody playerRigidbody;
+    TeamScript teamScript;
    /* Color playerColour = new Color();*/ //a player's colour usually
     Color dodgeColour; //a player's colour when dodging
     Color revertCol; //placeholder to revert colour back to normal once time has elapsed
     int floorMask;
 	float camRayLength = 100f;
 	float lastShootTime = 0;
-
     [Header("Player Abilities")]
     public float DodgeCooldown = 3f;
     public bool isDodging;
+
 
     private int bulletCount = 0;//used for bullet id
     private float DodgeTimer = 0f;
@@ -38,6 +40,7 @@ public class PlayerController : MonoBehaviour {
 		playerRigidbody = GetComponent<Rigidbody>();
 		playerRigidbody.freezeRotation = true;
 		playerData = GetComponent<PlayerData>();
+        Debug.Log(teamScript);
 	}
 	
 	// Update is called once per frame
@@ -51,6 +54,18 @@ public class PlayerController : MonoBehaviour {
         bool hitWeaponsUpgrade = Input.GetKey(KeyCode.E);
         bool hitStatus = Input.GetKey(KeyCode.Q);
 
+        if(teamScript!=null){
+            float range = teamScript.getJointRange();
+            Debug.Log(range);
+            float difference = teamScript.getDifference();
+            Debug.Log(difference);
+            Debug.Log(range >= difference);
+
+            if (difference <= range)
+            {
+                Move(h, v);
+            }
+        }
 
         playerData.PopupHelp(hitHelp);
         playerData.PopupWeapons(hitWeaponsUpgrade);
@@ -62,8 +77,7 @@ public class PlayerController : MonoBehaviour {
 
         UpdateDodgeTimer();
         UpdateStatusTimer();
-
-        Move(h,v);
+       
 		Turning();
         if (!hitWeaponsUpgrade) {
             Fire(fire);
@@ -205,6 +219,10 @@ public class PlayerController : MonoBehaviour {
     #region "setters"
     public void SetOffline(bool set) {
         this.offline = set;
+    }
+
+    public void SetTeamController(TeamScript script){
+        this.teamScript = script;
     }
     #endregion
 
