@@ -57,4 +57,10 @@ public class ObjectHandler : MonoBehaviour {
         if(bulletScript!=null)Bullets.Add(bulletId, bullet);
     }
 
+    public void DestroyAll() {
+        foreach(KeyValuePair<string, GameObject> bullet in Bullets) {
+            GameObject.Destroy(bullet.Value);
+        }
+    }
+
 }

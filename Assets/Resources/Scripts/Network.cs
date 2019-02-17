@@ -171,6 +171,11 @@ public class Network : MonoBehaviour {
         }
     }
 
+    public void LeaveGameLogic() {
+        ObjectHandler.instance.DestroyAll();
+        mainMenu.SetMenuState(MainMenu.MenuState.Main);
+    }
+
     public void Died() { 
         Destroy(player.playerObj);
     }
@@ -262,8 +267,7 @@ public class Network : MonoBehaviour {
             }
 
             //Handle Data
-            ClientHandlePackets.instance.HandleData(myBytes);
-            
+            ClientHandlePackets.instance.HandleData(myBytes);            
 
             if (TcpClient == null) return;
             TcpStream.BeginRead(asyncBuff, 0, 8192, OnReceiveTcp, null);
@@ -376,6 +380,19 @@ public class Network : MonoBehaviour {
         ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
         buffer.WriteInt(-1);
         buffer.WriteString(bulletId);
+        TcpStream.Write(buffer.BuffToArray(), 0, buffer.Length());
+    }
+
+    public void LeaveGame() {
+        if (TcpClient == null || !TcpClient.Connected) {
+            TcpClient.Close();
+            TcpClient = null;
+            Debug.Log("Disconnected");
+            return;
+        }
+
+        ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
+        buffer.WriteInt(13);
         TcpStream.Write(buffer.BuffToArray(), 0, buffer.Length());
     }
 

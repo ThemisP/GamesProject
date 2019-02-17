@@ -23,6 +23,7 @@ public class ClientHandlePackets{
         PacketsTcp.Add(9, HandlePlayerTookDamage);
         PacketsTcp.Add(10, HandlePlayerDeath);
         PacketsTcp.Add(12, HandleDealtDamage);
+        PacketsTcp.Add(13, HandleLeaveGame);
 
         PacketsUdp = new Dictionary<int, Packet_>();
         PacketsUdp.Add(2, HandleReceivePlayersLocations);
@@ -273,6 +274,15 @@ public class ClientHandlePackets{
         //        Network.instance.player.playerObj.GetComponent<PlayerData>().UpdateDamageDealt(damageDealt);
         //    }
         //});
+    }
+
+    void HandleLeaveGame(byte[] data) {
+        //    ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
+        //    buffer.WriteBytes(data);
+        //    float damageDealt = buffer.ReadFloat();
+        Network.instance.CallFunctionFromAnotherThread(() => {
+            Network.instance.LeaveGameLogic();
+        });
     }
     #endregion
 }
