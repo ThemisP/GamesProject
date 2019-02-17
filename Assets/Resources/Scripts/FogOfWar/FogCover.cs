@@ -5,22 +5,38 @@ using UnityEngine;
 
 public class FogCover : MonoBehaviour
 {
-    Renderer renderer;
-
+    //Renderer renderer;
+    private Renderer[] renderers;
+    private Canvas[] canvas;
 
     void Start()
     {
-        renderer = GetComponent<Renderer>();
-        FieldOfView.OnEnemiesVisibilityChange += FieldOfViewOnEnemiesVisibilityChange;
+        // renderer = GetComponent<Renderer>();
+        renderers = GetComponentsInChildren<Renderer>();
+        canvas = GetComponentsInChildren<Canvas>();
+        // VisibleEnemies.OnEnemiesVisibilityChange += FieldOfViewOnEnemiesVisibilityChange;
     }
 
     void OnDestroy()
     {
-        FieldOfView.OnEnemiesVisibilityChange -= FieldOfViewOnEnemiesVisibilityChange;
+        // VisibleEnemies.OnEnemiesVisibilityChange -= FieldOfViewOnEnemiesVisibilityChange;
+    }
+    void Update()
+    {
+        FieldOfViewOnEnemiesVisibilityChange();
     }
 
-    void FieldOfViewOnEnemiesVisibilityChange(List<Transform> newEnemies)
-    {
-        renderer.enabled = newEnemies.Contains(transform);
+    void FieldOfViewOnEnemiesVisibilityChange()
+    {   
+        // renderer.enabled = VisibleEnemies.visibleEnemies.Contains(transform);
+        foreach(Renderer renderer in renderers)
+        {
+            renderer.enabled = VisibleEnemies.visibleEnemies.Contains(transform);
+        }
+
+        foreach(Canvas c in canvas)
+        {
+            c.enabled = VisibleEnemies.visibleEnemies.Contains(transform);
+        }
     }
 }

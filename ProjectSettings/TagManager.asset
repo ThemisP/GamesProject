@@ -8,7 +8,9 @@ TagManager:
   - EnemyPlayer
   - Bullet
   - Arena
+  - Teammate
   - Circle
+  - VisibleEnemies
   layers:
   - Default
   - TransparentFX
@@ -22,7 +24,7 @@ TagManager:
   - Floor
   - Enemies
   - Objects
-  - Vision
+  - 
   - 
   - 
   - 

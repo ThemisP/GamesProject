@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public delegate void EnemiesVisibilityChange(List<Transform> newEnemies);
+// public delegate void EnemiesVisibilityChange(List<Transform> newEnemies);
 
 public class FieldOfView : MonoBehaviour {
     public float viewRadius; // How far the player can see
@@ -10,7 +10,7 @@ public class FieldOfView : MonoBehaviour {
     public float viewAngle;
     public LayerMask enemyMask;
     public LayerMask objectMask;
-    public List<Transform> visibleEnemies = new List<Transform>();
+    // public List<Transform> visibleEnemies = new List<Transform>();
 
     public float meshResolution; // How many rays cast out
     public int edgeResolveIterations; // No of iterations for aproximating the edge of an object
@@ -23,7 +23,7 @@ public class FieldOfView : MonoBehaviour {
     public float updateDistance = 1;
     Vector3 lastUpdatePos;
 
-    public static event EnemiesVisibilityChange OnEnemiesVisibilityChange;
+    // public static event EnemiesVisibilityChange OnEnemiesVisibilityChange;
 
     void Start() {
         viewMesh = new Mesh ();
@@ -32,16 +32,24 @@ public class FieldOfView : MonoBehaviour {
 
         fogProjector = fogProjector ?? FindObjectOfType<FogProjector>();
 
-        StartCoroutine("FindEnemiesWithDelay", .2f);
+        VisibleEnemies.OnEnemiesVisibilityChange += FindVisibleEnemies;
+
+        // StartCoroutine("FindEnemiesWithDelay", .2f);
         fogProjector.UpdateFog();
     }
 
-    IEnumerator FindEnemiesWithDelay(float delay) {
-        while(true) {
-            yield return new WaitForSeconds(delay);
-            FindVisibleEnemies();
-        }
+    
+    void OnDestroy()
+    {
+        VisibleEnemies.OnEnemiesVisibilityChange -= FindVisibleEnemies;
     }
+
+    // IEnumerator FindEnemiesWithDelay(float delay) {
+    //     while(true) {
+    //         yield return new WaitForSeconds(delay);
+    //         FindVisibleEnemies();
+    //     }
+    // }
 
     /* A LateUpdate was used as the field of view 
     should be drawn after any action from the player */
@@ -58,7 +66,7 @@ public class FieldOfView : MonoBehaviour {
     check whether or not their are obstructed by an object. 
     If they are not, they are added to the visibleEnemies list */
     void FindVisibleEnemies() {
-        visibleEnemies.Clear();
+        // VisibleEnemies.visibleEnemies.Clear();
         // a list with all the enemy objects that are within the view radius
         Collider[] enemiesInViewRadius = Physics.OverlapSphere(transform.position, viewRadius, enemyMask);
         
@@ -70,11 +78,13 @@ public class FieldOfView : MonoBehaviour {
                 float dstToEnemy = Vector3.Distance(transform.position, enemy.position);
 
                 if(!Physics.Raycast(transform.position, dirToEnemy, dstToEnemy, objectMask)) {
-                    visibleEnemies.Add(enemy);
+                    // VisibleEnemies.visibleEnemies.Add(enemy);
+                    VisibleEnemies.AddVisibleEnemy(enemy);
                 }
             }
         }
-        if (OnEnemiesVisibilityChange != null) OnEnemiesVisibilityChange(visibleEnemies);
+        // if (VisibleEnemies.OnEnemiesVisibilityChange != null) VisibleEnemies.OnEnemiesVisibilityChange(VisibleEnemies.visibleEnemies);
+        // VisibleEnemies.EnemiesVisibilityChange();
     }
 
     void DrawFieldOfView() {
