@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] private float speed = 6f;
 	[SerializeField] private Network network;
 	Vector3 movement;
+    Vector3 lastKnownPosition;
 	Rigidbody playerRigidbody;
     TeamScript teamScript;
    /* Color playerColour = new Color();*/ //a player's colour usually
@@ -56,14 +57,20 @@ public class PlayerController : MonoBehaviour {
 
         if(teamScript!=null){
             float range = teamScript.getJointRange();
-            Debug.Log(range);
+            //Debug.Log(range);
             float difference = teamScript.getDifference();
-            Debug.Log(difference);
-            Debug.Log(range >= difference);
+            //Debug.Log(difference);
+            //Debug.Log(range >= difference);
 
             if (difference <= range)
             {
                 Move(h, v);
+                lastKnownPosition = playerRigidbody.position;
+
+            }
+            else
+            {
+                playerRigidbody.MovePosition(transform.position - movement);
             }
         }
 
