@@ -98,10 +98,8 @@ public class MainMenu : MonoBehaviour {
                 LoginMenu.SetActive(false);
                 MainScreenMenu.SetActive(false);
                 LobbyMenu.SetActive(false);
-                Debug.Log("InGame");
                 bool escape = Input.GetKeyDown(KeyCode.Escape);
                 if (escape) {
-                    Debug.Log("escape pressed:  " + escape + " state is: " + EscapeMenu.activeSelf);
                     if (!EscapeMenu.activeSelf)
                         EscapeMenu.SetActive(true);
                     else

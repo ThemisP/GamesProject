@@ -96,7 +96,6 @@ public class Network : MonoBehaviour {
         UdpClient.Connect(IP, UdpPort);
 
         IPend = new IPEndPoint(IPAddress.Any, 0);
-        Debug.Log("setup Udp");
         UdpClient.BeginReceive(new AsyncCallback(OnReceiveUdp), null);
     }
 
@@ -142,11 +141,9 @@ public class Network : MonoBehaviour {
     }
 
     public void SpawnPlayer(int id, string username, int team, Vector3 pos, Vector3 rot) {
-        Debug.Log("Player => " + id);
         if (id == ClientIndex) return;
         if (playersInGame.ContainsKey(id)) return;
         GameObject playerObj;
-        Debug.Log("team is: " + team);
         if (team == player.GetTeamNumber()) {
             playerObj = GameObject.Instantiate(TeammatePlayerPrefab, pos, Quaternion.Euler(rot));
         } else {
@@ -163,16 +160,26 @@ public class Network : MonoBehaviour {
 
     }
 
-    public void DestroyPlayer(int id) {
-        EnemyPlayerController controller;
-        if(playersInGame.TryGetValue(id, out controller)){
-            playersInGame.Remove(id);
-            Destroy(controller.gameObject, 0f);
+    public void DestroyPlayer(int id, int teamNumber) {
+        if (teamNumber == player.GetTeamNumber()) {
+            Destroy(teamMate);
+        } else {
+            EnemyPlayerController controller;
+            if (playersInGame.TryGetValue(id, out controller)) {
+                playersInGame.Remove(id);
+                Destroy(controller.gameObject, 0f);
+            }
         }
     }
 
     public void LeaveGameLogic() {
-        ObjectHandler.instance.DestroyAll();
+        CancelInvoke();
+        Destroy(player.playerObj);
+        Destroy(teamMate);
+        foreach(KeyValuePair<int, EnemyPlayerController> enemy in playersInGame) {
+            Destroy(enemy.Value.gameObject);
+        }
+        cameraScript.SetToOriginalPosition();
         mainMenu.SetMenuState(MainMenu.MenuState.Main);
     }
 

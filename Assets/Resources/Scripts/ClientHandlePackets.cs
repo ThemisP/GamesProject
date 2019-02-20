@@ -22,6 +22,7 @@ public class ClientHandlePackets{
         PacketsTcp.Add(7, HandleGetPlayersInGameResponse);
         PacketsTcp.Add(9, HandlePlayerTookDamage);
         PacketsTcp.Add(10, HandlePlayerDeath);
+        PacketsTcp.Add(11, HandleOtherPlayerDeath);
         PacketsTcp.Add(12, HandleDealtDamage);
         PacketsTcp.Add(13, HandleLeaveGame);
 
@@ -153,7 +154,6 @@ public class ClientHandlePackets{
         int finished = buffer.ReadInt();
         int roomIndex = buffer.ReadInt();
         if (finished == 1) {
-            Debug.Log("Succeded with roomIndex: " + roomIndex);
             Network.instance.player.JoinRoom(roomIndex);
             Network.instance.mainMenu.CreateGameSuccessfull();
         } else {
@@ -165,12 +165,10 @@ public class ClientHandlePackets{
         ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
         buffer.WriteBytes(data);
         int numberOfPlayers = buffer.ReadInt();
-        Debug.Log(numberOfPlayers);
         for (int i = 0; i < numberOfPlayers; i++) {
             string user = buffer.ReadString();
             if (user != Network.instance.player.GetUsername())
                 Network.instance.player.SetTeammateUsername(user);
-            Debug.Log("User: " + user);
         }
     }
     //Packetnum = 5
@@ -180,11 +178,10 @@ public class ClientHandlePackets{
         int response = buffer.ReadInt();
         int roomIndex = buffer.ReadInt();
         if(response == 1) {
-            Debug.Log("Joined");
             Network.instance.player.JoinRoom(roomIndex);
             Network.instance.mainMenu.JoinRoomSuccessfull();
         } else {
-            Debug.Log("Failed");
+            Debug.Log("Failed to join room (response)");
         }
     }
     //Packetnum = 6
@@ -198,7 +195,6 @@ public class ClientHandlePackets{
             int playerNumber = buffer.ReadInt();//Spawning purposes
             int teammateIndex = buffer.ReadInt();
             string teammateUsername = buffer.ReadString();
-            Debug.Log("Joined");
 
             Network.instance.player.SetGameIndex(gameIndex);
             Network.instance.player.playerNumber = playerNumber;
@@ -207,7 +203,7 @@ public class ClientHandlePackets{
             Network.instance.CallFunctionFromAnotherThread(Network.instance.JoinGame);
             Network.instance.mainMenu.JoinGameSuccessfull();
         } else {
-            Debug.Log("Failed");
+            Debug.Log("Failed to join game (response)");
         }
     }
     //Packetnum = 7
@@ -239,6 +235,7 @@ public class ClientHandlePackets{
         ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
         buffer.WriteBytes(data);
         int clientId = buffer.ReadInt();
+        int teamNumber = buffer.ReadInt();
         string bulletId = buffer.ReadString();
         bool isAlive = (buffer.ReadInt() == 1) ? true : false;
         float health = buffer.ReadFloat();
@@ -248,7 +245,7 @@ public class ClientHandlePackets{
         Network.instance.HandlePlayerDamage(clientId, isAlive, health);
         if (!isAlive) {
             Network.instance.CallFunctionFromAnotherThread(() => {
-                Network.instance.DestroyPlayer(clientId);
+                Network.instance.DestroyPlayer(clientId, teamNumber);
             });
         }
     }
@@ -261,6 +258,19 @@ public class ClientHandlePackets{
         Network.instance.CallFunctionFromAnotherThread(() => {
             Network.instance.Died();
         });
+    }
+
+    //Packetnum = 11
+    void HandleOtherPlayerDeath(byte[] data) {
+        ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
+        buffer.WriteBytes(data);
+        int playerIndex = buffer.ReadInt();
+        int playerTeam = buffer.ReadInt();
+
+        Network.instance.CallFunctionFromAnotherThread(() => {
+            Network.instance.DestroyPlayer(playerIndex, playerTeam);
+        });
+
     }
 
     // Packetnum = 12
