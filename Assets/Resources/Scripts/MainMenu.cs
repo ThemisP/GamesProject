@@ -169,6 +169,7 @@ public class MainMenu : MonoBehaviour {
     }
 
     public void QuitMain() {
+
         SetMenuState(MenuState.Main);
     }
 

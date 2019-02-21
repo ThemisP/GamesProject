@@ -25,10 +25,10 @@ public class ClientHandlePackets{
         PacketsTcp.Add(11, HandleOtherPlayerDeath);
         PacketsTcp.Add(12, HandleDealtDamage);
         PacketsTcp.Add(13, HandleLeaveGame);
+        PacketsTcp.Add(14, HandleRecievePlayerBullet);
 
         PacketsUdp = new Dictionary<int, Packet_>();
         PacketsUdp.Add(2, HandleReceivePlayersLocations);
-        PacketsUdp.Add(3, HandleRecievePlayerBullet);
     }
 
     public void HandleData(byte[] data) {
@@ -87,9 +87,18 @@ public class ClientHandlePackets{
             EnemyPlayerController controller;
             //Debug.Log("testing: xpos: " + posX + ", " + posY + ", " + posZ);
             //Testing
-            if(Network.instance.playersInGame.TryGetValue(playerId, out controller)){
+            if (Network.instance.playersInGame.TryGetValue(playerId, out controller)) {
+                Debug.Log("enemy");
                 controller.CallFunctionFromAnotherThread(() => {
-                    controller.SetPlayerPosAndRot(new Vector3(posX, posY, posZ), 
+                    controller.SetPlayerPosAndRot(new Vector3(posX, posY, posZ),
+                                                  new Vector3(0, rotY, 0),
+                                                  new Vector3(velX, velY, velZ));
+                });
+            } else if(playerTeam == Network.instance.player.GetTeamNumber() && Network.instance.teamMate !=null) {
+                Debug.Log("teammate");
+                EnemyPlayerController teamMateController =  Network.instance.teamMate.GetComponent<EnemyPlayerController>();
+                teamMateController.CallFunctionFromAnotherThread(() => {
+                    controller.SetPlayerPosAndRot(new Vector3(posX, posY, posZ),
                                                   new Vector3(0, rotY, 0),
                                                   new Vector3(velX, velY, velZ));
                 });
@@ -103,29 +112,7 @@ public class ClientHandlePackets{
             }
         }
     }
-    //Packetnum = 3
-    void HandleRecievePlayerBullet(byte[] data) {
-        ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
-        buffer.WriteBytes(data);
-        string bulletId = buffer.ReadString();
-
-        float posX = buffer.ReadFloat();
-        float posY = buffer.ReadFloat();
-        float posZ = buffer.ReadFloat();
-        float rotY = buffer.ReadFloat();
-        float speed = buffer.ReadFloat();
-        float lifeTime = buffer.ReadFloat();
-        float damage = buffer.ReadFloat();
-
-        ObjectHandler.instance.CallFunctionFromAnotherThread(() => {
-            ObjectHandler.instance.InstantiateBullet(new Vector3(posX, posY, posZ),
-                                                     new Vector3(0, rotY, 0),
-                                                     speed,
-                                                     lifeTime,
-                                                     bulletId,
-                                                     damage);
-        });
-    }
+    
 
     #endregion
 
@@ -286,12 +273,38 @@ public class ClientHandlePackets{
         //});
     }
 
+    //Packetnum = 13
     void HandleLeaveGame(byte[] data) {
         //    ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
         //    buffer.WriteBytes(data);
         //    float damageDealt = buffer.ReadFloat();
         Network.instance.CallFunctionFromAnotherThread(() => {
             Network.instance.LeaveGameLogic();
+        });
+    }
+
+    //Packetnum = 14
+    void HandleRecievePlayerBullet(byte[] data) {
+        ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
+        buffer.WriteBytes(data);
+        string bulletId = buffer.ReadString();
+        int bulletTeam = buffer.ReadInt();
+        float posX = buffer.ReadFloat();
+        float posY = buffer.ReadFloat();
+        float posZ = buffer.ReadFloat();
+        float rotY = buffer.ReadFloat();
+        float speed = buffer.ReadFloat();
+        float lifeTime = buffer.ReadFloat();
+        float damage = buffer.ReadFloat();
+
+        ObjectHandler.instance.CallFunctionFromAnotherThread(() => {
+            ObjectHandler.instance.InstantiateBullet(new Vector3(posX, posY, posZ),
+                                                     new Vector3(0, rotY, 0),
+                                                     speed,
+                                                     lifeTime,
+                                                     bulletId,
+                                                     damage,
+                                                     bulletTeam);
         });
     }
     #endregion

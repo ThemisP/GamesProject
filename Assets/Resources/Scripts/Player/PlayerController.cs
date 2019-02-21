@@ -112,7 +112,8 @@ public class PlayerController : MonoBehaviour {
             ObjectHandler.instance.InstantiateBullet(bulletSpawn.position, rotation,
                                                         playerData.currentWeapon.GetSpeed(), 
                                                         playerData.currentWeapon.GetLifetime(), 
-                                                        bulletId, playerData.currentWeapon.GetDamage());
+                                                        bulletId, playerData.currentWeapon.GetDamage(),
+                                                        Network.instance.player.GetTeamNumber());
             if(!offline) Network.instance.SendBullet(bulletSpawn.position, rotation.y,
                                         playerData.currentWeapon.GetSpeed(), 
                                         playerData.currentWeapon.GetLifetime(), bulletId,
@@ -131,15 +132,17 @@ public class PlayerController : MonoBehaviour {
 
     private void OnTriggerEnter(Collider collision) {
         GameObject obj = collision.gameObject;
-        Debug.Log("triggered");
         if (obj.tag == "Bullet") {
             BulletScript bulletScript = obj.GetComponent<BulletScript>();
             //check if teammate its friendly bullet;
             //if(bulletScript.GetBulletId().StartsWith(Network.instance.player.GetTeammateUsername()))
-            playerData.takeDamage(bulletScript.GetBulletDamage(), bulletScript.GetBulletId());
+            if (bulletScript.GetBulletTeam() == Network.instance.player.GetTeamNumber()) {
+            } else { 
+                playerData.takeDamage(bulletScript.GetBulletDamage(), bulletScript.GetBulletId());
 
-            if (!offline) Network.instance.SendPlayerDamage(bulletScript.GetBulletDamage(), bulletScript.GetBulletId());
-            ObjectHandler.instance.DestroyBullet(bulletScript.GetBulletId());
+                if (!offline) Network.instance.SendPlayerDamage(bulletScript.GetBulletDamage(), bulletScript.GetBulletId());
+                ObjectHandler.instance.DestroyBullet(bulletScript.GetBulletId());
+            }
         } 
     }
 

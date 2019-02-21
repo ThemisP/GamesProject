@@ -7,6 +7,7 @@ public class BulletScript : MonoBehaviour {
 	float bulletDamage = 10;
 	public float lifeTime = 2f;
     private float speed = 1f;
+    private int bulletTeam;
 
 	new Rigidbody rigidbody;
 	void Awake()
@@ -52,6 +53,9 @@ public class BulletScript : MonoBehaviour {
     public void SetSpeed(float speed) {
         this.speed = speed;
     }
+    public void SetBulletTeam(int number) {
+        this.bulletTeam = number;
+    }
     #endregion
 
     #region "Getters"
@@ -60,6 +64,9 @@ public class BulletScript : MonoBehaviour {
     }
     public float GetBulletDamage() {
         return this.bulletDamage;
+    }
+    public int GetBulletTeam() {
+        return this.bulletTeam;
     }
     #endregion
 }
