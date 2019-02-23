@@ -363,6 +363,14 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 511ca899e2f520540a0cf1d947d1ff14, type: 2}
+    - target: {fileID: 2300000, guid: 3b0941fda278a8a45aac9f3470336462, type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 3b0941fda278a8a45aac9f3470336462, type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b0941fda278a8a45aac9f3470336462, type: 3}
 --- !u!4 &214363839 stripped
@@ -678,6 +686,14 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 511ca899e2f520540a0cf1d947d1ff14, type: 2}
+    - target: {fileID: 2300000, guid: 7eed9cb1b0fc2eb4eac23c023bbcf838, type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 7eed9cb1b0fc2eb4eac23c023bbcf838, type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7eed9cb1b0fc2eb4eac23c023bbcf838, type: 3}
 --- !u!4 &617099609 stripped
@@ -24526,7 +24542,7 @@ GameObject:
   - component: {fileID: 2018539611}
   - component: {fileID: 2018539612}
   - component: {fileID: 2018539613}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: CircleLine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24563,7 +24579,17 @@ MonoBehaviour:
   Radius: 36
   SpeedShrinking: 0.05
   Circle: {fileID: 984835600}
-  Shrinking: 0
+  PauseDurations:
+  - 5
+  - 5
+  - 5
+  - 5
+  Stages:
+  - 0.7
+  - 0.4
+  - 0.2
+  - 0
+  currentStageIndex: 0
 --- !u!120 &2018539613
 LineRenderer:
   m_ObjectHideFlags: 0
