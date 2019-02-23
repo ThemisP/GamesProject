@@ -38,4 +38,12 @@ public class ShrinkCircle : MonoBehaviour
             Circle.transform.localScale = new Vector3 (Radius, 1, Radius);
         }
     }
+
+    public bool isInCircle(Transform obj)
+    {
+        float dist = Vector3.Distance(transform.position, obj.position);
+        if(dist < Radius)
+            return true;
+        else return false;
+    }
 }
