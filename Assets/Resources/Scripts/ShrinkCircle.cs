@@ -10,11 +10,16 @@ public class ShrinkCircle : MonoBehaviour
     public float Radius;
     public float SpeedShrinking;
     public GameObject Circle;
-    public bool Shrinking;
+    bool Shrinking;
+    public float PauseDuration = 30.0f;
+    public float ShrinkingDuration = 30.0f;
+    public int numOfStages;
 
     #region Private Members
 	private RenderCircleLine circle;
 	private LineRenderer renderer;
+    private float startPauseTime;
+    private float startShrinkingTime;
 	#endregion
 
     void Start()
@@ -22,14 +27,28 @@ public class ShrinkCircle : MonoBehaviour
         renderer = gameObject.GetComponent<LineRenderer>();
         circle = new RenderCircleLine(ref renderer, Segments, Radius, Radius);
         Circle = GameObject.FindGameObjectWithTag("Circle");
+        startPauseTime = Time.time;
     }
 
     void Update ()
     {
-        if(Time.time > 2f)
+        if(!Shrinking)
         {
-            Shrinking = true;
+            if((Time.time - startPauseTime) >= PauseDuration)
+            {
+                Shrinking = true;
+                startShrinkingTime = Time.time;
+            }
+        } 
+        else
+        {
+            if((Time.time - startShrinkingTime) >= ShrinkingDuration)
+            {
+                Shrinking = false;
+                startPauseTime = Time.time;
+            }
         }
+
 
         if(Shrinking)
         {
