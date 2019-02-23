@@ -24,6 +24,8 @@ public class Network : MonoBehaviour {
     public CameraFollow cameraScript;
     public GameObject PlayerPrefab;
     public GameObject TeammatePlayerPrefab;
+    public GameObject TeamPrefab; //could we do <PlayerPrefab,TeammatePlayerPrefab> ??? 
+    public GameObject SimplifiedTeamPrefab;
     public GameObject EnemyPlayerPrefab;
     public GameObject HUD;
 
@@ -36,6 +38,7 @@ public class Network : MonoBehaviour {
     public IPEndPoint IPend;
     public PlayerInfo player;
     public GameObject teamMate;
+    public GameObject team; //combination of Player & TeamMate prefab
     public Dictionary<int, EnemyPlayerController> playersInGame;
 
     public int ClientIndex;//server related (something like a unique id very simple though)
@@ -132,11 +135,26 @@ public class Network : MonoBehaviour {
         Transform spawnpoint = spawnpoints[0];
         GameObject playerObj = GameObject.Instantiate(PlayerPrefab, spawnpoint.position, spawnpoint.rotation);
         player.SetPlayerObj(playerObj);
-        player.SetOffline(true);
-        cameraScript.SetTarget(playerObj.transform);
-
+        //player.SetOffline(true);
+        //cameraScript.SetTarget(playerObj.transform);
+        /*
+         * GameObject teamObj = GameOb
+         * 
+         */
         GameObject teammateObj = GameObject.Instantiate(TeammatePlayerPrefab, spawnpoint.position + Vector3.forward * 2, spawnpoint.rotation);
         teamMate = teammateObj;
+        Debug.Log(spawnpoint.position);
+        GameObject teamObj = GameObject.Instantiate(SimplifiedTeamPrefab, new Vector3(0,1,0), Quaternion.Euler(new Vector3(0,0,0)));
+        team = teamObj;
+        TeamScript script = teamObj.GetComponent<TeamScript>();
+        if (script != null) script.SetPlayers(playerObj.transform, teammateObj.transform);
+        else Debug.Log("teamScript error");
+        PlayerController controller = playerObj.GetComponent<PlayerController>();
+        if (controller != null) controller.SetTeamController(script);
+        else Debug.Log("cannot find controller");
+        player.SetPlayerObj(team);
+        player.SetOffline(true);
+        cameraScript.SetTarget(team.transform);
     }
 
     public void SpawnPlayer(int id, string username, int team, Vector3 pos, Vector3 rot) {

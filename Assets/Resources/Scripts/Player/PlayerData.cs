@@ -1,4 +1,5 @@
 ﻿using Assets.Resources.Scripts.Weapons;
+using Assets.Resources.Scripts.Statuses;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,6 +18,7 @@ public class PlayerData : MonoBehaviour {
     private GameObject HUDCanvas;
     private GameObject popupHelp;
     private GameObject popupWeapon;
+    private GameObject popupStatus;
     private PlayerController playerController;
 
 	private int coins = 0;
@@ -24,6 +26,7 @@ public class PlayerData : MonoBehaviour {
     private float damageDealt = 0;
 
     public Weapon currentWeapon = Weapons.instance.GetPistol();
+    public Status currentStatus = Statuses.instance.GetHealthy();
 
     //Change back to Start when fixed HUD
     void Start() {
@@ -34,6 +37,7 @@ public class PlayerData : MonoBehaviour {
         GameObject nodes = GameObject.Find("NodesBalance");
         popupHelp = hud.Find("Help_Popup").gameObject;
         popupWeapon = hud.Find("Weapons_Popup").gameObject;
+        popupStatus = hud.Find("Statuses_Popup").gameObject;
         dodgeSlider = hud.Find("Dodge Cooldown").GetComponent<Slider>();
         
         Button pistolButton = popupWeapon.GetComponent<RectTransform>().Find("Pistol").GetComponent<Button>();
@@ -47,9 +51,24 @@ public class PlayerData : MonoBehaviour {
         rifleButton.onClick.AddListener(() => ChangeWeapon(2));
         sniperButton.onClick.AddListener(() => ChangeWeapon(3));
 
+        Button healthyButton = popupStatus.GetComponent<RectTransform>().Find("Healthy").GetComponent<Button>();
+        Button burntButton = popupStatus.GetComponent<RectTransform>().Find("Burnt").GetComponent<Button>();
+        Button poisonedButton = popupStatus.GetComponent<RectTransform>().Find("Poisoned").GetComponent<Button>();
+        Button invincibleButton = popupStatus.GetComponent<RectTransform>().Find("Invincible").GetComponent<Button>();
+        Button paralyzedButton = popupStatus.GetComponent<RectTransform>().Find("Paralyzed").GetComponent<Button>();
+
+
+        healthyButton.onClick.AddListener(() => ChangeStatus(0));
+        burntButton.onClick.AddListener(() => ChangeStatus(1));
+        poisonedButton.onClick.AddListener(() => ChangeStatus(2));
+        invincibleButton.onClick.AddListener(() => ChangeStatus(3));
+        paralyzedButton.onClick.AddListener(() => ChangeStatus(4));
+
+
         HUDCanvas.SetActive(true);
         popupHelp.SetActive(false);
         popupWeapon.SetActive(false);
+        popupStatus.SetActive(false);
         healthSlider = canvas.GetComponent<Slider>();
         coinCount = balance.GetComponent<Text>();
         coinCount.text = "0";
@@ -79,17 +98,52 @@ public class PlayerData : MonoBehaviour {
         }
     }
 
+    void ChangeStatus(int statusNumber){
+        switch (statusNumber){
+            case 0:
+                this.currentStatus = Statuses.instance.GetHealthy();
+                break;
+            case 1:
+                this.currentStatus = Statuses.instance.GetBurnt();
+                break;
+            case 2:
+                this.currentStatus = Statuses.instance.GetPoisoned();
+                break;
+            case 3:
+                this.currentStatus = Statuses.instance.GetInvincible();
+                break;
+            case 4:
+                this.currentStatus = Statuses.instance.GetParalyzed();
+                break;
+            default:
+                Debug.Log("Incorrect status number in change weapon");
+                break;
+        }
+    }
+
     public void takeDamage(float amount){
-        if(true){
-             if(currentHealth - amount > 0){
-                currentHealth -= amount;
-                healthSlider.value = currentHealth/maxHealth;
-            } else {
-                currentHealth = 100;
-                healthSlider.value = currentHealth/maxHealth;
+        playerController = GetComponent<PlayerController>();
+        if (playerController.isDodging)
+        {
+            healthSlider.value = currentHealth / maxHealth;
+            Debug.Log("Dodge Successful");
+        }
+        else
+        {
+            if (true)
+            {
+                if (currentHealth - amount > 0)
+                {
+                    currentHealth -= amount;
+                    healthSlider.value = currentHealth / maxHealth;
+                }
+                else
+                {
+                    currentHealth = 100;
+                    healthSlider.value = currentHealth / maxHealth;
+                }
             }
         }
-       
     }
     //finds the amount of skill points held by the user
     public int getSkillPoints()
@@ -102,6 +156,12 @@ public class PlayerData : MonoBehaviour {
             dodgeSlider.value = 1;
         } else {
             dodgeSlider.value = timer / cooldown;
+        }
+    }
+
+    public void StatusCooldown(float timer){
+        if(timer>currentStatus.GetDuration()){
+            currentStatus = Statuses.instance.GetHealthy();
         }
     }
 
@@ -142,6 +202,15 @@ public class PlayerData : MonoBehaviour {
             popupWeapon.SetActive(true);
         } else {
             popupWeapon.SetActive(false);
+        }
+    }
+
+    public void PopupStatuses(bool active){
+        if (active){
+            popupStatus.SetActive(true);
+        }
+        else{
+            popupStatus.SetActive(false);
         }
     }
 
