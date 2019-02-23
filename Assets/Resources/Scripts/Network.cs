@@ -35,7 +35,7 @@ public class Network : MonoBehaviour {
 
     public IPEndPoint IPend;
     public PlayerInfo player;
-    [HideInInspector] public GameObject teamMate;
+    [HideInInspector] public int teamMateIndex;
     public Dictionary<int, EnemyPlayerController> playersInGame;
 
     [HideInInspector] public int ClientIndex;//server related (something like a unique id very simple though)
@@ -137,7 +137,7 @@ public class Network : MonoBehaviour {
         cameraScript.SetTarget(playerObj.transform);
 
         GameObject teammateObj = GameObject.Instantiate(TeammatePlayerPrefab, spawnpoint.position + Vector3.forward * 2, spawnpoint.rotation);
-        teamMate = teammateObj;
+        //teamMate = teammateObj;
     }
 
     public void SpawnPlayer(int id, string username, int team, Vector3 pos, Vector3 rot) {
@@ -146,45 +146,33 @@ public class Network : MonoBehaviour {
         GameObject playerObj;
         if (team == player.GetTeamNumber()) {
             playerObj = GameObject.Instantiate(TeammatePlayerPrefab, pos, Quaternion.Euler(rot));
-            EnemyPlayerController controller = playerObj.GetComponent<EnemyPlayerController>();
-            if (controller == null) Debug.LogError("Controller not found in spawned player");
-            else {
-                controller.SetPlayerId(id);
-                controller.SetUsername(username);
-                controller.SetTeamNumber(team);
-                teamMate = playerObj;
-            }
+            teamMateIndex = id;
         } else {
             playerObj = GameObject.Instantiate(EnemyPlayerPrefab, pos, Quaternion.Euler(rot));
-            EnemyPlayerController controller = playerObj.GetComponent<EnemyPlayerController>();
-            if (controller == null) Debug.LogError("Controller not found in spawned player");
-            else {
-                controller.SetPlayerId(id);
-                controller.SetUsername(username);
-                controller.SetTeamNumber(team);
-                playersInGame.Add(id, controller);
-            }
         }
-        
+        EnemyPlayerController controller = playerObj.GetComponent<EnemyPlayerController>();
+        if (controller == null) Debug.LogError("Controller not found in spawned player");
+        else {
+            controller.SetPlayerId(id);
+            controller.SetUsername(username);
+            controller.SetTeamNumber(team);
+            playersInGame.Add(id, controller);
+        }
+
 
     }
 
     public void DestroyPlayer(int id, int teamNumber) {
-        if (teamNumber == player.GetTeamNumber()) {
-            Destroy(teamMate);
-        } else {
-            EnemyPlayerController controller;
-            if (playersInGame.TryGetValue(id, out controller)) {
-                playersInGame.Remove(id);
-                Destroy(controller.gameObject, 0f);
-            }
+        EnemyPlayerController controller;
+        if (playersInGame.TryGetValue(id, out controller)) {
+            playersInGame.Remove(id);
+            Destroy(controller.gameObject, 0f);
         }
     }
 
     public void LeaveGameLogic() {
         CancelInvoke();
         Destroy(player.playerObj);
-        Destroy(teamMate);
         foreach(KeyValuePair<int, EnemyPlayerController> enemy in playersInGame) {
             Destroy(enemy.Value.gameObject);
         }
@@ -243,7 +231,6 @@ public class Network : MonoBehaviour {
         buffer.WriteFloat(rigidbod.velocity.z);
 
         buffer.WriteFloat(playerTransform.rotation.eulerAngles.y);
-        
         UdpClient.Send(buffer.BuffToArray(), buffer.Length());
     }
     #endregion

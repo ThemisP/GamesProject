@@ -83,21 +83,12 @@ public class ClientHandlePackets{
             float velZ = buffer.ReadFloat();
 
             float rotY = buffer.ReadFloat();
+            Debug.Log("getting position for player in team " + playerTeam);
 
             EnemyPlayerController controller;
-            //Debug.Log("testing: xpos: " + posX + ", " + posY + ", " + posZ);
-            //Testing
             if (Network.instance.playersInGame.TryGetValue(playerId, out controller)) {
                 Debug.Log("enemy");
                 controller.CallFunctionFromAnotherThread(() => {
-                    controller.SetPlayerPosAndRot(new Vector3(posX, posY, posZ),
-                                                  new Vector3(0, rotY, 0),
-                                                  new Vector3(velX, velY, velZ));
-                });
-            } else if(playerTeam == Network.instance.player.GetTeamNumber() && Network.instance.teamMate !=null) {
-                Debug.Log("teammate");
-                EnemyPlayerController teamMateController =  Network.instance.teamMate.GetComponent<EnemyPlayerController>();
-                teamMateController.CallFunctionFromAnotherThread(() => {
                     controller.SetPlayerPosAndRot(new Vector3(posX, posY, posZ),
                                                   new Vector3(0, rotY, 0),
                                                   new Vector3(velX, velY, velZ));
@@ -106,8 +97,8 @@ public class ClientHandlePackets{
                 Debug.LogWarning("Getting info for an unregistered player");
                 Network.instance.CallFunctionFromAnotherThread(() => {
                     Network.instance.SpawnPlayer(playerId, playerUsername, playerTeam,
-                                                 new Vector3(posX, posY, posZ),
-                                                 new Vector3(0, rotY, 0));
+                                                    new Vector3(posX, posY, posZ),
+                                                    new Vector3(0, rotY, 0));
                 });
             }
         }
