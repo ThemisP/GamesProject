@@ -11,6 +11,7 @@ public class MainMenu : MonoBehaviour {
     public GameObject LoginMenu;
     public GameObject MainScreenMenu;
     public GameObject LobbyMenu;
+    public GameObject EscapeMenu;
 
     [Header("InputFields")]
     public InputField ipAddress;
@@ -48,24 +49,28 @@ public class MainMenu : MonoBehaviour {
                 LoginMenu.SetActive(false);
                 MainScreenMenu.SetActive(false);
                 LobbyMenu.SetActive(false);
+                EscapeMenu.SetActive(false);
                 break;
             case MenuState.Login:
                 ConnectMenu.SetActive(false);
                 LoginMenu.SetActive(true);
                 MainScreenMenu.SetActive(false);
                 LobbyMenu.SetActive(false);
+                EscapeMenu.SetActive(false);
                 break;
             case MenuState.Main:
                 ConnectMenu.SetActive(false);
                 LoginMenu.SetActive(false);
                 MainScreenMenu.SetActive(true);
                 LobbyMenu.SetActive(false);
+                EscapeMenu.SetActive(false);
                 break;
             case MenuState.Lobby:
                 ConnectMenu.SetActive(false);
                 LoginMenu.SetActive(false);
                 MainScreenMenu.SetActive(false);
                 LobbyMenu.SetActive(true);
+                EscapeMenu.SetActive(false);
 
                 //update every 1 seconds
                 if (timer > 1f) {
@@ -93,6 +98,13 @@ public class MainMenu : MonoBehaviour {
                 LoginMenu.SetActive(false);
                 MainScreenMenu.SetActive(false);
                 LobbyMenu.SetActive(false);
+                bool escape = Input.GetKeyDown(KeyCode.Escape);
+                if (escape) {
+                    if (!EscapeMenu.activeSelf)
+                        EscapeMenu.SetActive(true);
+                    else
+                        EscapeMenu.SetActive(false);
+                }
                 break;
         }
     }
@@ -109,9 +121,6 @@ public class MainMenu : MonoBehaviour {
     public void ConnectToServer() {
         if (string.IsNullOrEmpty(ipAddress.text)) return;
         Network.instance.ConnectToGameServer(ipAddress.text);
-    }
-    public void ConnectedSuccesfull() {
-        SetMenuState(MenuState.Login);
     }
 
     public void Login() {
@@ -157,7 +166,12 @@ public class MainMenu : MonoBehaviour {
     }
 
     public void QuitMain() {
+
         SetMenuState(MenuState.Main);
+    }
+
+    public void LeaveGame() {
+        Network.instance.LeaveGame();
     }
 
 }

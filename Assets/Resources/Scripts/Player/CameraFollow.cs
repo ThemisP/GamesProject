@@ -6,10 +6,13 @@ public class CameraFollow : MonoBehaviour {
     [Header("Settings")]
     public float smoothing = 5f;
     public Vector3 offset;
-
+    private Vector3 originalPos;
+    private Quaternion originalRot;
     private Transform target;
     // Use this for initialization
     void Start () {
+        originalPos = transform.position;
+        originalRot = transform.rotation;
 	}
 	
 	// Update is called once per frame
@@ -25,5 +28,10 @@ public class CameraFollow : MonoBehaviour {
 
     public void SetTarget(Transform target) {
         this.target = target;
+    }
+
+    public void SetToOriginalPosition() {
+        transform.position = originalPos;
+        transform.rotation = originalRot;
     }
 }
