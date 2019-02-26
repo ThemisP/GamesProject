@@ -58,11 +58,11 @@ public class PlayerData : MonoBehaviour {
         Button paralyzedButton = popupStatus.GetComponent<RectTransform>().Find("Paralyzed").GetComponent<Button>();
 
 
-        healthyButton.onClick.AddListener(() => ChangeStatus(0));
-        burntButton.onClick.AddListener(() => ChangeStatus(1));
-        poisonedButton.onClick.AddListener(() => ChangeStatus(2));
-        invincibleButton.onClick.AddListener(() => ChangeStatus(3));
-        paralyzedButton.onClick.AddListener(() => ChangeStatus(4));
+        // healthyButton.onClick.AddListener(() => ChangeStatus(0));
+        // burntButton.onClick.AddListener(() => ChangeStatus(1));
+        // poisonedButton.onClick.AddListener(() => ChangeStatus(2));
+        // invincibleButton.onClick.AddListener(() => ChangeStatus(3));
+        // paralyzedButton.onClick.AddListener(() => ChangeStatus(4));
 
 
         HUDCanvas.SetActive(true);
@@ -98,51 +98,12 @@ public class PlayerData : MonoBehaviour {
         }
     }
 
-    void ChangeStatus(int statusNumber){
-        switch (statusNumber){
-            case 0:
-                this.currentStatus = Statuses.instance.GetHealthy();
-                break;
-            case 1:
-                this.currentStatus = Statuses.instance.GetBurnt();
-                break;
-            case 2:
-                this.currentStatus = Statuses.instance.GetPoisoned();
-                break;
-            case 3:
-                this.currentStatus = Statuses.instance.GetInvincible();
-                break;
-            case 4:
-                this.currentStatus = Statuses.instance.GetParalyzed();
-                break;
-            default:
-                Debug.Log("Incorrect status number in change weapon");
-                break;
-        }
-    }
-
-    public void takeDamage(float amount){
-        playerController = GetComponent<PlayerController>();
-        if (playerController.isDodging)
-        {
-            healthSlider.value = currentHealth / maxHealth;
-            Debug.Log("Dodge Successful");
-        }
-        else
-        {
-            if (true)
-            {
-                if (currentHealth - amount > 0)
-                {
-                    currentHealth -= amount;
-                    healthSlider.value = currentHealth / maxHealth;
-                }
-                else
-                {
-                    currentHealth = 100;
-                    healthSlider.value = currentHealth / maxHealth;
-                }
-            }
+    public void takeDamage(float amount, string bulletId){
+        currentHealth -= amount;
+        if (currentHealth - amount > 0){
+            healthSlider.value = currentHealth/maxHealth;
+        } else {
+            healthSlider.value = 0f;
         }
     }
     //finds the amount of skill points held by the user
