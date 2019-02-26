@@ -83,11 +83,9 @@ public class ClientHandlePackets{
             float velZ = buffer.ReadFloat();
 
             float rotY = buffer.ReadFloat();
-            Debug.Log("getting position for player in team " + playerTeam);
 
             EnemyPlayerController controller;
             if (Network.instance.playersInGame.TryGetValue(playerId, out controller)) {
-                Debug.Log("enemy");
                 controller.CallFunctionFromAnotherThread(() => {
                     controller.SetPlayerPosAndRot(new Vector3(posX, posY, posZ),
                                                   new Vector3(0, rotY, 0),

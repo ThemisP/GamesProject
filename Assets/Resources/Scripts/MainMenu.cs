@@ -122,9 +122,6 @@ public class MainMenu : MonoBehaviour {
         if (string.IsNullOrEmpty(ipAddress.text)) return;
         Network.instance.ConnectToGameServer(ipAddress.text);
     }
-    public void ConnectedSuccesfull() {
-        SetMenuState(MenuState.Login);
-    }
 
     public void Login() {
         if (string.IsNullOrEmpty(username.text)) return;

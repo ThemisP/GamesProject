@@ -109,7 +109,8 @@ public class Network : MonoBehaviour {
                 TcpClient.NoDelay = true;
                 TcpStream = TcpClient.GetStream();
                 TcpStream.BeginRead(asyncBuff, 0, 8192, OnReceiveTcp, null);
-                mainMenu.ConnectedSuccesfull();
+
+                mainMenu.SetMenuState(MainMenu.MenuState.Login);
             }
         }
     }
