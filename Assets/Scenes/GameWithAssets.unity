@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641234, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -146,7 +146,7 @@ MonoBehaviour:
   UdpPort: 5501
   isConnected: 0
   shouldHandleData: 0
-  mainMenu: {fileID: 2044427750}
+  mainMenu: {fileID: 0}
   spawnpoints:
   - {fileID: 1093750236}
   - {fileID: 1761517776}
@@ -155,10 +155,14 @@ MonoBehaviour:
     type: 3}
   TeammatePlayerPrefab: {fileID: 1092823999797046, guid: 0585c2f46ca9c1e4e8b05c9410780eaa,
     type: 3}
+  TeamPrefab: {fileID: 0}
+  SimplifiedTeamPrefab: {fileID: 133912441, guid: 54f250d96f914418c981a9ebcb551144,
+    type: 3}
   EnemyPlayerPrefab: {fileID: 1467978437358472, guid: 7f61c66d86373144a8167730b264dab5,
     type: 3}
   HUD: {fileID: 214384404}
-  teamMate: {fileID: 0}
+  teamMateIndex: 0
+  team: {fileID: 0}
   ClientIndex: 0
 --- !u!4 &81600821
 Transform:
@@ -289,6 +293,10 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 42247, guid: f57ba0d77c23171489d46735aaf21b26, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f57ba0d77c23171489d46735aaf21b26, type: 3}
@@ -1877,18 +1885,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1786659082}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &2044427750 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114341750624534518, guid: f57ba0d77c23171489d46735aaf21b26,
-    type: 3}
-  m_PrefabInstance: {fileID: 129609013}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93d922e0299bed940aa6eca5cb0ef0b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2045468657
 GameObject:
   m_ObjectHideFlags: 0

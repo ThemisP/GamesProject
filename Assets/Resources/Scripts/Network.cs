@@ -38,6 +38,8 @@ public class Network : MonoBehaviour {
     public IPEndPoint IPend;
     public PlayerInfo player;
     [HideInInspector] public int teamMateIndex;
+    [HideInInspector]  public GameObject team;
+
     public Dictionary<int, EnemyPlayerController> playersInGame;
 
     [HideInInspector] public int ClientIndex;//server related (something like a unique id very simple though)
@@ -143,8 +145,7 @@ public class Network : MonoBehaviour {
          * 
          */
         GameObject teammateObj = GameObject.Instantiate(TeammatePlayerPrefab, spawnpoint.position + Vector3.forward * 2, spawnpoint.rotation);
-        teamMate = teammateObj;
-        Debug.Log(spawnpoint.position);
+        //teamMate = teammateObj;
         GameObject teamObj = GameObject.Instantiate(SimplifiedTeamPrefab, new Vector3(0,1,0), Quaternion.Euler(new Vector3(0,0,0)));
         team = teamObj;
         TeamScript script = teamObj.GetComponent<TeamScript>();
@@ -153,9 +154,8 @@ public class Network : MonoBehaviour {
         PlayerController controller = playerObj.GetComponent<PlayerController>();
         if (controller != null) controller.SetTeamController(script);
         else Debug.Log("cannot find controller");
-        player.SetPlayerObj(team);
         player.SetOffline(true);
-        cameraScript.SetTarget(team.transform);
+        cameraScript.SetTarget(playerObj.transform);
     }
 
     public void SpawnPlayer(int id, string username, int team, Vector3 pos, Vector3 rot) {

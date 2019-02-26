@@ -52,15 +52,12 @@ using UnityEngine;
         
         //potentially vectorise this in the future
         public Vector3 movementModifier(float difference, Vector3 movement ){
-        separationRatio = 1 - ((jointRange - difference) / jointRange);
-        Debug.Log(separationRatio);
-        //if (separationRatio > 0.4f) movement = movement * 0.5f;
-        //else if (separationRatio > 0.55f) movement = movement * 0.25f;
-        if (separationRatio > 0.6f) movement = movement * 0.1f;
-        if (separationRatio > 0.75f) movement = movement * 0.5f;
-        else if (separationRatio > 0.9f) movement = movement * 0.1f;
-        else if (separationRatio > 1.01f) movement = movement * 10f;
-        else if (separationRatio > 1.1f) movement = movement * 0f;
-        return movement;
+            separationRatio = 1 - ((jointRange - difference) / jointRange);
+            if (separationRatio < 1f) movement = movement;
+            else if (separationRatio > 1f) movement = movement * 0.2f;
+            // else if (separationRatio < 0.9f) movement = movement * 0.1f;
+            // else if (separationRatio < 1.01f) movement = movement * 10f;
+            // else if (separationRatio < 1.1f) movement = movement * 0f;
+            return movement;
         }
     }

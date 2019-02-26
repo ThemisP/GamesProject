@@ -43,7 +43,6 @@ public class PlayerController : MonoBehaviour
         playerRigidbody = GetComponent<Rigidbody>();
         playerRigidbody.freezeRotation = true;
         playerData = GetComponent<PlayerData>();
-        Debug.Log(teamScript);
     }
 
     // Update is called once per frame
@@ -80,7 +79,7 @@ public class PlayerController : MonoBehaviour
 
         playerData.PopupHelp(hitHelp);
         playerData.PopupWeapons(hitWeaponsUpgrade);
-        playerData.PopupStatuses(hitStatus);
+        // playerData.PopupStatuses(hitStatus);
 
         speed = playerData.currentStatus.GetSpeed();
         // IsDodging();
@@ -127,7 +126,6 @@ public class PlayerController : MonoBehaviour
     void Move(float h, float v)
     {
         movement.Set(h, 0f, v);
-        Debug.Log(h + " : " + v);
         //Normalise the movement vector to make it proportional to the speed per second
         //Deltatime is the step for the game timer
         movement = movement.normalized * speed * Time.deltaTime;
