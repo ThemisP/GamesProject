@@ -19,10 +19,11 @@ using UnityEngine;
         public FixedJoint joint2;
         [SerializeField] private float jointRange =5f;
         private float separationRatio;
+        private Vector3 MaxConnectionTension;
         // Start is called before the first frame update
         void Start()
         {
-
+            MaxConnectionTension = new Vector3(100000f, 0, 100000f);
         }
 
         // Update is called once per frame
@@ -50,14 +51,21 @@ using UnityEngine;
             return (player1.position-player2.position).magnitude;
         }
         
-        //potentially vectorise this in the future
+        // TODO: Smoothing of movement about 
         public Vector3 movementModifier(float difference, Vector3 movement ){
-            separationRatio = 1 - ((jointRange - difference) / jointRange);
-            if (separationRatio < 1f) movement = movement;
-            else if (separationRatio > 1f) movement = movement * 0.2f;
-            // else if (separationRatio < 0.9f) movement = movement * 0.1f;
-            // else if (separationRatio < 1.01f) movement = movement * 10f;
-            // else if (separationRatio < 1.1f) movement = movement * 0f;
+            if (difference >= jointRange) {
+                /* At this point the connection is at max tension, so we must dampen 
+                 * the appropriate components of the movement of the player in the 
+                 * direction in which the force of tension is applied
+                */
+                Vector3 movementNormalized = movement.normalized;
+                Vector3 tensionDirection = (player1.position - player2.position).normalized;
+                Vector3 movementSubTension = movementNormalized - tensionDirection;
+                Vector3 zeroVector = new Vector3(0f, 0f, 0f);
+                if (movementSubTension == zeroVector){
+                    return movement * 0f;
+                }
+            }
             return movement;
         }
     }
