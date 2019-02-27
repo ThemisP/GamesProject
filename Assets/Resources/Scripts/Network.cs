@@ -38,7 +38,7 @@ public class Network : MonoBehaviour {
     public IPEndPoint IPend;
     public PlayerInfo player;
     [HideInInspector] public int teamMateIndex;
-    [HideInInspector]  public GameObject team;
+    [HideInInspector]  public GameObject Team;
 
     public Dictionary<int, EnemyPlayerController> playersInGame;
 
@@ -138,22 +138,18 @@ public class Network : MonoBehaviour {
         Transform spawnpoint = spawnpoints[0];
         GameObject playerObj = GameObject.Instantiate(PlayerPrefab, spawnpoint.position, spawnpoint.rotation);
         player.SetPlayerObj(playerObj);
-        //player.SetOffline(true);
-        //cameraScript.SetTarget(playerObj.transform);
-        /*
-         * GameObject teamObj = GameOb
-         * 
-         */
+
         GameObject teammateObj = GameObject.Instantiate(TeammatePlayerPrefab, spawnpoint.position + Vector3.forward * 2, spawnpoint.rotation);
-        //teamMate = teammateObj;
-        GameObject teamObj = GameObject.Instantiate(SimplifiedTeamPrefab, new Vector3(0,1,0), Quaternion.Euler(new Vector3(0,0,0)));
-        team = teamObj;
-        TeamScript script = teamObj.GetComponent<TeamScript>();
+        Team = GameObject.Instantiate(SimplifiedTeamPrefab, new Vector3(0,1,0), Quaternion.Euler(new Vector3(0,0,0)));
+
+        TeamScript script = Team.GetComponent<TeamScript>();
         if (script != null) script.SetPlayers(playerObj.transform, teammateObj.transform);
         else Debug.Log("teamScript error");
+
         PlayerController controller = playerObj.GetComponent<PlayerController>();
         if (controller != null) controller.SetTeamController(script);
         else Debug.Log("cannot find controller");
+    
         player.SetOffline(true);
         cameraScript.SetTarget(playerObj.transform);
     }
@@ -164,6 +160,15 @@ public class Network : MonoBehaviour {
         GameObject playerObj;
         if (team == player.GetTeamNumber()) {
             playerObj = GameObject.Instantiate(TeammatePlayerPrefab, pos, Quaternion.Euler(rot));
+            Team = GameObject.Instantiate(SimplifiedTeamPrefab, new Vector3(0,1,0), Quaternion.Euler(new Vector3(0,0,0)));
+            
+            TeamScript script = Team.GetComponent<TeamScript>();
+            if (script != null) script.SetPlayers(player.GetPlayerObj().transform, playerObj.transform);
+            else Debug.Log("teamScript error");
+
+            PlayerController teammateController = player.GetPlayerObj().GetComponent<PlayerController>();
+            if (teammateController != null) teammateController.SetTeamController(script);
+            else Debug.Log("Cannot find controller");
             teamMateIndex = id;
         } else {
             playerObj = GameObject.Instantiate(EnemyPlayerPrefab, pos, Quaternion.Euler(rot));

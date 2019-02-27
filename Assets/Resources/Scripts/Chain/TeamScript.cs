@@ -51,7 +51,7 @@ using UnityEngine;
             return (player1.position-player2.position).magnitude;
         }
         
-        // TODO: Smoothing of movement about 
+        // TODO: Smoothing of movement circle edge 
         public Vector3 movementModifier(float difference, Vector3 movement ){
             if (difference >= jointRange) {
                 /* At this point the connection is at max tension, so we must dampen 
@@ -60,9 +60,7 @@ using UnityEngine;
                 */
                 Vector3 movementNormalized = movement.normalized;
                 Vector3 tensionDirection = (player1.position - player2.position).normalized;
-                Vector3 movementSubTension = movementNormalized - tensionDirection;
-                Vector3 zeroVector = new Vector3(0f, 0f, 0f);
-                if (movementSubTension == zeroVector){
+                if (movementNormalized - tensionDirection == Vector3.zero){
                     return movement * 0f;
                 }
             }

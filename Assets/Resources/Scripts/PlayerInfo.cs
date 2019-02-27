@@ -86,4 +86,7 @@ public class PlayerInfo {
         return this.teamNumber;
     }
 	
+    public GameObject GetPlayerObj() {
+        return this.playerObj;
+    }
 }
