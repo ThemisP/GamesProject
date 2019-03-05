@@ -6,28 +6,36 @@ public class BulletScript : MonoBehaviour {
     string bullet_id;
 	float bulletDamage = 10;
 	public float lifeTime = 2f;
+    private float speed = 1f;
+    private int bulletTeam;
 
 	new Rigidbody rigidbody;
-	void Start()
+	void Awake()
 	{
 		rigidbody = GetComponent<Rigidbody>();
-		rigidbody.velocity = this.transform.forward * 10f;
+		rigidbody.velocity = this.transform.forward * speed;
 	}
 
 	void Update(){
-        if (bullet_id.StartsWith(Network.instance.ClientIndex.ToString())) {
-            lifeTime -= Time.deltaTime;
-            if (lifeTime < 0) {
-                ObjectHandler.instance.DestroyBullet(this.bullet_id);
-                
-            }
+        rigidbody.velocity = this.transform.forward * speed;
+        lifeTime -= Time.deltaTime;
+        if (lifeTime < 0) {
+            ObjectHandler.instance.DestroyBullet(this.bullet_id);
         }
 	}
 
-    private void OnCollisionEnter(Collision collision) {
+    void OnCollisionEnter(Collision collision) {        
+        if (bullet_id.StartsWith(Network.instance.ClientIndex.ToString())) {            
+            GameObject obj = collision.gameObject;
+            if (obj.tag != "EnemyPlayer" && obj.tag!="Bullet") {
+                ObjectHandler.instance.DestroyBullet(this.bullet_id);
+            }
+        }
+    }
+
+    void OnTriggerEnter(Collider collision) {
         GameObject obj = collision.gameObject;
-        Debug.Log("triggered");
-        if (obj.tag != "EnemyPlayer") {
+        if (obj.tag != "EnemyPlayer" && obj.tag != "Bullet") {
             ObjectHandler.instance.DestroyBullet(this.bullet_id);
         }
     }
@@ -42,6 +50,12 @@ public class BulletScript : MonoBehaviour {
     public void SetBulletLifeTime(float lifetime) {
         this.lifeTime = lifetime;
     }
+    public void SetSpeed(float speed) {
+        this.speed = speed;
+    }
+    public void SetBulletTeam(int number) {
+        this.bulletTeam = number;
+    }
     #endregion
 
     #region "Getters"
@@ -50,6 +64,9 @@ public class BulletScript : MonoBehaviour {
     }
     public float GetBulletDamage() {
         return this.bulletDamage;
+    }
+    public int GetBulletTeam() {
+        return this.bulletTeam;
     }
     #endregion
 }

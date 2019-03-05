@@ -20,13 +20,15 @@ public class ClientHandlePackets{
         PacketsTcp.Add(5, HandleJoinRoomResponse);
         PacketsTcp.Add(6, HandleJoinGameResponse);
         PacketsTcp.Add(7, HandleGetPlayersInGameResponse);
-        PacketsTcp.Add(8, HandleDestroyBullet);
-
+        PacketsTcp.Add(9, HandlePlayerTookDamage);
+        PacketsTcp.Add(10, HandlePlayerDeath);
+        PacketsTcp.Add(11, HandleOtherPlayerDeath);
         PacketsTcp.Add(12, HandleDealtDamage);
+        PacketsTcp.Add(13, HandleLeaveGame);
+        PacketsTcp.Add(14, HandleRecievePlayerBullet);
 
         PacketsUdp = new Dictionary<int, Packet_>();
         PacketsUdp.Add(2, HandleReceivePlayersLocations);
-        PacketsUdp.Add(3, HandleRecievePlayerBullet);
     }
 
     public void HandleData(byte[] data) {
@@ -53,7 +55,7 @@ public class ClientHandlePackets{
         buffer.WriteBytes(data);
         packetnum = buffer.ReadInt();
         buffer = null;
-        Debug.Log("udp received");
+
         if (packetnum == 0) return;
 
         if (PacketsUdp.TryGetValue(packetnum, out packet)) {
@@ -71,6 +73,8 @@ public class ClientHandlePackets{
         int numberOfPlayers = buffer.ReadInt();
         for (int i = 0; i < numberOfPlayers; i++) {
             int playerId = buffer.ReadInt();
+            string playerUsername = buffer.ReadString();
+            int playerTeam = buffer.ReadInt();
             float posX = buffer.ReadFloat();
             float posY = buffer.ReadFloat();
             float posZ = buffer.ReadFloat();
@@ -81,45 +85,23 @@ public class ClientHandlePackets{
             float rotY = buffer.ReadFloat();
 
             EnemyPlayerController controller;
-            //Debug.Log("testing: xpos: " + posX + ", " + posY + ", " + posZ);
-            //Testing
-            if(Network.instance.playersInGame.TryGetValue(playerId, out controller)){
+            if (Network.instance.playersInGame.TryGetValue(playerId, out controller)) {
                 controller.CallFunctionFromAnotherThread(() => {
-                    controller.SetPlayerPosAndRot(new Vector3(posX, posY, posZ), 
+                    controller.SetPlayerPosAndRot(new Vector3(posX, posY, posZ),
                                                   new Vector3(0, rotY, 0),
                                                   new Vector3(velX, velY, velZ));
                 });
             } else {
                 Debug.LogWarning("Getting info for an unregistered player");
                 Network.instance.CallFunctionFromAnotherThread(() => {
-                    Network.instance.SpawnPlayer(playerId, "greg", 4,
-                                                 new Vector3(posX, posY, posZ),
-                                                 new Vector3(0, rotY, 0));
+                    Network.instance.SpawnPlayer(playerId, playerUsername, playerTeam,
+                                                    new Vector3(posX, posY, posZ),
+                                                    new Vector3(0, rotY, 0));
                 });
             }
         }
     }
-    //Packetnum = 3
-    void HandleRecievePlayerBullet(byte[] data) {
-        ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
-        buffer.WriteBytes(data);
-        string bulletId = buffer.ReadString();
-
-        float posX = buffer.ReadFloat();
-        float posY = buffer.ReadFloat();
-        float posZ = buffer.ReadFloat();
-        float rotY = buffer.ReadFloat();
-        float speed = buffer.ReadFloat();
-        float lifeTime = buffer.ReadFloat();
-
-        ObjectHandler.instance.CallFunctionFromAnotherThread(() => {
-            ObjectHandler.instance.InstantiateBullet(new Vector3(posX, posY, posZ),
-                                                     new Vector3(0, rotY, 0),
-                                                     speed,
-                                                     lifeTime,
-                                                     bulletId);
-        });
-    }
+    
 
     #endregion
 
@@ -148,7 +130,6 @@ public class ClientHandlePackets{
         int finished = buffer.ReadInt();
         int roomIndex = buffer.ReadInt();
         if (finished == 1) {
-            Debug.Log("Succeded with roomIndex: " + roomIndex);
             Network.instance.player.JoinRoom(roomIndex);
             Network.instance.mainMenu.CreateGameSuccessfull();
         } else {
@@ -160,12 +141,10 @@ public class ClientHandlePackets{
         ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
         buffer.WriteBytes(data);
         int numberOfPlayers = buffer.ReadInt();
-        Debug.Log(numberOfPlayers);
         for (int i = 0; i < numberOfPlayers; i++) {
             string user = buffer.ReadString();
             if (user != Network.instance.player.GetUsername())
                 Network.instance.player.SetTeammateUsername(user);
-            Debug.Log("User: " + user);
         }
     }
     //Packetnum = 5
@@ -175,11 +154,10 @@ public class ClientHandlePackets{
         int response = buffer.ReadInt();
         int roomIndex = buffer.ReadInt();
         if(response == 1) {
-            Debug.Log("Joined");
             Network.instance.player.JoinRoom(roomIndex);
             Network.instance.mainMenu.JoinRoomSuccessfull();
         } else {
-            Debug.Log("Failed");
+            Debug.Log("Failed to join room (response)");
         }
     }
     //Packetnum = 6
@@ -193,7 +171,6 @@ public class ClientHandlePackets{
             int playerNumber = buffer.ReadInt();//Spawning purposes
             int teammateIndex = buffer.ReadInt();
             string teammateUsername = buffer.ReadString();
-            Debug.Log("Joined");
 
             Network.instance.player.SetGameIndex(gameIndex);
             Network.instance.player.playerNumber = playerNumber;
@@ -202,7 +179,7 @@ public class ClientHandlePackets{
             Network.instance.CallFunctionFromAnotherThread(Network.instance.JoinGame);
             Network.instance.mainMenu.JoinGameSuccessfull();
         } else {
-            Debug.Log("Failed");
+            Debug.Log("Failed to join game (response)");
         }
     }
     //Packetnum = 7
@@ -228,17 +205,52 @@ public class ClientHandlePackets{
         }
     }
 
-    //Packetnum = 8
-    void HandleDestroyBullet(byte[] data) {
+
+    //Packetnum = 9
+    void HandlePlayerTookDamage(byte[] data) {
         ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
         buffer.WriteBytes(data);
+        int clientId = buffer.ReadInt();
+        int teamNumber = buffer.ReadInt();
         string bulletId = buffer.ReadString();
+        bool isAlive = (buffer.ReadInt() == 1) ? true : false;
+        float health = buffer.ReadFloat();
         ObjectHandler.instance.CallFunctionFromAnotherThread(() => {
             ObjectHandler.instance.DestroyBullet(bulletId);
-        });        
+        });
+        Network.instance.HandlePlayerDamage(clientId, isAlive, health);
+        if (!isAlive) {
+            Network.instance.CallFunctionFromAnotherThread(() => {
+                Network.instance.DestroyPlayer(clientId, teamNumber);
+            });
+        }
+    }
+
+    //Packetnum = 10
+    void HandlePlayerDeath(byte[] data) {
+        ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
+        buffer.WriteBytes(data);
+
+        Network.instance.CallFunctionFromAnotherThread(() => {
+            Network.instance.Died();
+        });
+    }
+
+    //Packetnum = 11
+    void HandleOtherPlayerDeath(byte[] data) {
+        ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
+        buffer.WriteBytes(data);
+        int playerIndex = buffer.ReadInt();
+        int playerTeam = buffer.ReadInt();
+
+        Network.instance.CallFunctionFromAnotherThread(() => {
+            Network.instance.DestroyPlayer(playerIndex, playerTeam);
+        });
+
     }
 
     // Packetnum = 12
+    // TODO: This exists for points
     void HandleDealtDamage(byte[] data){
         ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
         buffer.WriteBytes(data);
@@ -248,6 +260,41 @@ public class ClientHandlePackets{
         //        Network.instance.player.playerObj.GetComponent<PlayerData>().UpdateDamageDealt(damageDealt);
         //    }
         //});
+    }
+
+    //Packetnum = 13
+    void HandleLeaveGame(byte[] data) {
+        //    ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
+        //    buffer.WriteBytes(data);
+        //    float damageDealt = buffer.ReadFloat();
+        Network.instance.CallFunctionFromAnotherThread(() => {
+            Network.instance.LeaveGameLogic();
+        });
+    }
+
+    //Packetnum = 14
+    void HandleRecievePlayerBullet(byte[] data) {
+        ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
+        buffer.WriteBytes(data);
+        string bulletId = buffer.ReadString();
+        int bulletTeam = buffer.ReadInt();
+        float posX = buffer.ReadFloat();
+        float posY = buffer.ReadFloat();
+        float posZ = buffer.ReadFloat();
+        float rotY = buffer.ReadFloat();
+        float speed = buffer.ReadFloat();
+        float lifeTime = buffer.ReadFloat();
+        float damage = buffer.ReadFloat();
+
+        ObjectHandler.instance.CallFunctionFromAnotherThread(() => {
+            ObjectHandler.instance.InstantiateBullet(new Vector3(posX, posY, posZ),
+                                                     new Vector3(0, rotY, 0),
+                                                     speed,
+                                                     lifeTime,
+                                                     bulletId,
+                                                     damage,
+                                                     bulletTeam);
+        });
     }
     #endregion
 }
