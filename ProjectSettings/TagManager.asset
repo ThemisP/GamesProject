@@ -8,6 +8,8 @@ TagManager:
   - Circle
   - EnemyPlayer
   - HUD
+  - Bullet
+  - Arena
   layers:
   - Default
   - TransparentFX
@@ -17,8 +19,8 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
+  - PostProcessing
+  - Floor
   - 
   - 
   - 
