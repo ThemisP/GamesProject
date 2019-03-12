@@ -130,7 +130,6 @@ public class Network : MonoBehaviour {
         player.SetPlayerObj(playerObj);
         cameraScript.SetTarget(playerObj.transform);
         InvokeRepeating("SendPlayerPos", 0f, 0.1f); //Every 0.1 seconds, repeated calls to send player position to server.
-        //GetPlayersInGame();
     }
 
     public void JoinGameOffline() {
