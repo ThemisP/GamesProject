@@ -4,11 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - HUD
-  - EnemyPlayer
-  - Bullet
-  - Arena
   - Teammate
+  - Circle
+  - EnemyPlayer
+  - HUD
   layers:
   - Default
   - TransparentFX
@@ -18,8 +17,8 @@ TagManager:
   - UI
   - 
   - 
-  - PostProcessing
-  - Floor
+  - 
+  - 
   - 
   - 
   - 
