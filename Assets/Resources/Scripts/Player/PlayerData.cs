@@ -1,4 +1,5 @@
 ﻿using Assets.Resources.Scripts.Weapons;
+using Assets.Resources.Scripts.Statuses;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,6 +18,7 @@ public class PlayerData : MonoBehaviour {
     private GameObject HUDCanvas;
     private GameObject popupHelp;
     private GameObject popupWeapon;
+    // private GameObject popupStatus;
     private PlayerController playerController;
 
 	private int coins = 0;
@@ -24,6 +26,7 @@ public class PlayerData : MonoBehaviour {
     private float damageDealt = 0;
 
     public Weapon currentWeapon = Weapons.instance.GetPistol();
+    public Status currentStatus = Statuses.instance.GetHealthy();
 
     //Change back to Start when fixed HUD
     void Start() {
@@ -34,6 +37,7 @@ public class PlayerData : MonoBehaviour {
         GameObject nodes = GameObject.Find("NodesBalance");
         popupHelp = hud.Find("Help_Popup").gameObject;
         popupWeapon = hud.Find("Weapons_Popup").gameObject;
+        // popupStatus = hud.Find("Statuses_Popup").gameObject;
         dodgeSlider = hud.Find("Dodge Cooldown").GetComponent<Slider>();
         
         Button pistolButton = popupWeapon.GetComponent<RectTransform>().Find("Pistol").GetComponent<Button>();
@@ -47,9 +51,24 @@ public class PlayerData : MonoBehaviour {
         rifleButton.onClick.AddListener(() => ChangeWeapon(2));
         sniperButton.onClick.AddListener(() => ChangeWeapon(3));
 
+        // Button healthyButton = popupStatus.GetComponent<RectTransform>().Find("Healthy").GetComponent<Button>();
+        // Button burntButton = popupStatus.GetComponent<RectTransform>().Find("Burnt").GetComponent<Button>();
+        // Button poisonedButton = popupStatus.GetComponent<RectTransform>().Find("Poisoned").GetComponent<Button>();
+        // Button invincibleButton = popupStatus.GetComponent<RectTransform>().Find("Invincible").GetComponent<Button>();
+        // Button paralyzedButton = popupStatus.GetComponent<RectTransform>().Find("Paralyzed").GetComponent<Button>();
+
+
+        // healthyButton.onClick.AddListener(() => ChangeStatus(0));
+        // burntButton.onClick.AddListener(() => ChangeStatus(1));
+        // poisonedButton.onClick.AddListener(() => ChangeStatus(2));
+        // invincibleButton.onClick.AddListener(() => ChangeStatus(3));
+        // paralyzedButton.onClick.AddListener(() => ChangeStatus(4));
+
+
         HUDCanvas.SetActive(true);
         popupHelp.SetActive(false);
         popupWeapon.SetActive(false);
+        // popupStatus.SetActive(false);
         healthSlider = canvas.GetComponent<Slider>();
         coinCount = balance.GetComponent<Text>();
         coinCount.text = "0";
@@ -101,6 +120,12 @@ public class PlayerData : MonoBehaviour {
         }
     }
 
+    public void StatusCooldown(float timer){
+        if(timer>currentStatus.GetDuration()){
+            currentStatus = Statuses.instance.GetHealthy();
+        }
+    }
+
     //updates the skill points held by the user
     public bool addCoinsIfAvailable(int newCoins)
     {
@@ -140,6 +165,15 @@ public class PlayerData : MonoBehaviour {
             popupWeapon.SetActive(false);
         }
     }
+
+    // public void PopupStatuses(bool active){
+    //     if (active){
+    //         popupStatus.SetActive(true);
+    //     }
+    //     else{
+    //         popupStatus.SetActive(false);
+    //     }
+    // }
 
     public float getCurrentHealth()
     {

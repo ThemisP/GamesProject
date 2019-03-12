@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641234, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -154,6 +154,9 @@ MonoBehaviour:
   PlayerPrefab: {fileID: 1138482734005258, guid: 32e07439584ed3641b043b98c467b25d,
     type: 3}
   TeammatePlayerPrefab: {fileID: 1092823999797046, guid: 0585c2f46ca9c1e4e8b05c9410780eaa,
+    type: 3}
+  TeamPrefab: {fileID: 0}
+  SimplifiedTeamPrefab: {fileID: 133912441, guid: 54f250d96f914418c981a9ebcb551144,
     type: 3}
   EnemyPlayerPrefab: {fileID: 1467978437358472, guid: 7f61c66d86373144a8167730b264dab5,
     type: 3}
@@ -289,6 +292,10 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 42247, guid: f57ba0d77c23171489d46735aaf21b26, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f57ba0d77c23171489d46735aaf21b26, type: 3}
