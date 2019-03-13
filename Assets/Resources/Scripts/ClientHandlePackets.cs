@@ -132,7 +132,10 @@ public class ClientHandlePackets{
         if (finished == 1) {
             Network.instance.player.JoinRoom(roomIndex);
             Network.instance.mainMenu.CreateGameSuccessfull();
-        } else {
+        } else if (finished == -1) {
+            Debug.Log("Failed to create a room, all game rooms taken, find another game to join");
+        }
+        else {
             Debug.Log("Failed to create a room!");
         }
     }
