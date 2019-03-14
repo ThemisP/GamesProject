@@ -4,66 +4,80 @@ using System;
 using UnityEngine;
 
 
-    public class TeamScript : MonoBehaviour
-    {
+public class TeamScript : MonoBehaviour {
 
-        public Transform player1;
-        public Transform player2;
+    private Rigidbody player1;
+    private Rigidbody player2;
 
-        public Transform handle1;
-        public Transform handle2;
+    [Header("Chain Prefabs")]
+    public GameObject SpringJoint;
+    public GameObject ChainLink;
 
-        public Transform block;
+    private int chainPoints = 5;
 
-        public FixedJoint joint1;
-        public FixedJoint joint2;
-        [SerializeField] private float jointRange =5f;
-        private float separationRatio;
-        private Vector3 MaxConnectionTension;
-        // Start is called before the first frame update
-        void Start()
-        {
-            MaxConnectionTension = new Vector3(100000f, 0, 100000f);
+    [SerializeField] private float jointRange = 5f;
+    private float separationRatio;
+
+    public void SetPlayers(Transform player1, Transform player2) {
+        Rigidbody player1Rigid = player1.GetComponent<Rigidbody>();
+        Rigidbody player2Rigid = player2.GetComponent<Rigidbody>();
+
+        this.player1 = player1Rigid;
+        this.player2 = player2Rigid;
+        CreateChain();
+    }
+
+    private void CreateChain() {
+        Vector3 differenceVecStep = getDifference() * 1 / (float)chainPoints;
+        CreateChain(player1, differenceVecStep, 0);        
+    }
+    private void CreateChain(Rigidbody link1, Vector3 differenceVecStep, int count) {
+        if (count >= chainPoints) return;
+        GameObject link2;
+        if (count == chainPoints-1) {
+            link2 = player2.gameObject;
+        } else {
+            link2 = Instantiate(ChainLink, player1.position + (count * differenceVecStep), player1.rotation);
         }
+        GameObject joint = Instantiate(SpringJoint);
+        link1.transform.parent = gameObject.transform;
+        link2.transform.parent = gameObject.transform;
+        joint.transform.parent = gameObject.transform;
 
-        // Update is called once per frame
-        void Update()
-        {
-            if (player1 != null && player2 != null)
-            {
-                //Debug.Log(player1.transform);
-                block.position = 0.5f * (player1.position + player2.position);
+        Rigidbody link1Rigid = link1.GetComponent<Rigidbody>();
+        Rigidbody link2Rigid = link2.GetComponent<Rigidbody>();
+        if (link1Rigid == null || link2Rigid == null) Debug.LogError("rigidbodies not found in chain links");
+        else {
+            SpringJoint script = joint.GetComponent<SpringJoint>();
+            if (script == null) Debug.Log("spring joint script not found");
+            else {
+                script.SetHandles(link1Rigid, link2Rigid);
+                CreateChain(link2Rigid, differenceVecStep, count + 1);
             }
-        }
-
-        public void SetPlayers(Transform player1, Transform player2)
-        {
-            this.player1 = player1;
-            this.player2 = player2;
-        }
-
-        public float getJointRange()
-        {
-            return jointRange;
-        }
-
-        public float getDifference(){
-            return (player1.position-player2.position).magnitude;
-        }
-        
-        // TODO: Smoothing of movement circle edge 
-        public Vector3 movementModifier(float difference, Vector3 movement ){
-            if (difference >= jointRange) {
-                /* At this point the connection is at max tension, so we must dampen 
-                 * the appropriate components of the movement of the player in the 
-                 * direction in which the force of tension is applied
-                */
-                Vector3 movementNormalized = movement.normalized;
-                Vector3 tensionDirection = (player1.position - player2.position).normalized;
-                if (movementNormalized - tensionDirection == Vector3.zero){
-                    return movement * 0f;
-                }
-            }
-            return movement;
         }
     }
+
+    public float getJointRange() {
+        return jointRange;
+    }
+
+    public Vector3 getDifference() {
+        return (player1.position - player2.position);
+    }
+
+    // TODO: Smoothing of movement circle edge 
+    //public Vector3 movementModifier(Vector3 velocity) {
+    //    Vector3 differenceVec = getDifference();
+    //    if (differenceVec.magnitude >= jointRange) {
+    //        /* At this point the connection is at max tension, so we must dampen 
+    //         * the appropriate components of the movement of the player in the 
+    //         * direction in which the force of tension is applied
+    //        */
+    //        float displacement = differenceVec.magnitude - jointRange;
+    //        float force = -tensionConstant * displacement - dampeningConstant*velocity.magnitude;
+    //        Vector3 forceVec = differenceVec.normalized * force;
+    //        return forceVec;
+    //    }
+    //    return Vector3.zero;
+    //}
+}
