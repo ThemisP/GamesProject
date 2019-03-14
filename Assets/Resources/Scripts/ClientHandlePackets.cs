@@ -26,7 +26,8 @@ public class ClientHandlePackets{
         PacketsTcp.Add(12, HandleDealtDamage);
         PacketsTcp.Add(13, HandleLeaveGame);
         PacketsTcp.Add(14, HandleRecievePlayerBullet);
-
+        PacketsTcp.Add(15, HandleRoomsFullResponse);
+        
         PacketsUdp = new Dictionary<int, Packet_>();
         PacketsUdp.Add(2, HandleReceivePlayersLocations);
     }
@@ -297,6 +298,17 @@ public class ClientHandlePackets{
                                                      bulletId,
                                                      damage,
                                                      bulletTeam);
+        });
+    }
+
+    // PacketNum 15
+    void HandleRoomsFullResponse(byte[] data) {
+        ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
+        buffer.WriteBytes(data);
+        int areRoomsFull = buffer.ReadInt();
+        int numberOfFullRooms = buffer.ReadInt();
+        Network.instance.CallFunctionFromAnotherThread(() => {
+            Network.instance.SetFullRooms(numberOfFullRooms, areRoomsFull);
         });
     }
     #endregion

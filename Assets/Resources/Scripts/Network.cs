@@ -47,6 +47,8 @@ public class Network : MonoBehaviour {
 
     private Queue<Action> RunOnMainThread = new Queue<Action>();
 
+    private bool GameIsReady;
+    private int NumberOfFullRooms;
     public void Awake() {
         HUD.SetActive(false);
         playersInGame = new Dictionary<int, EnemyPlayerController>();
@@ -438,7 +440,30 @@ public class Network : MonoBehaviour {
         TcpStream.Write(buffer.BuffToArray(), 0, buffer.Length());
     }
 
+    public void IsGameReady() {
+        if (TcpClient == null || !TcpClient.Connected) {
+            TcpClient.Close();
+            TcpClient = null;
+            Debug.Log("Disconnected");
+            return;
+        }
+
+        ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
+        buffer.WriteInt(15);
+        TcpStream.Write(buffer.BuffToArray(), 0, buffer.Length());
+    }
     #endregion
 
     #endregion
+    public bool GameReady() {
+        return GameIsReady;
+    } 
+
+    public void SetFullRooms(int numberOfFullRooms, int areRoomsFull) {
+        if (areRoomsFull == 1) {
+            GameIsReady = true;
+        }
+
+        NumberOfFullRooms = numberOfFullRooms;
+    }
 }

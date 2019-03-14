@@ -29,6 +29,8 @@ public class MainMenu : MonoBehaviour {
     private MenuState _state;
     private float timer = 0;
     private float timer2 = 0;
+
+    private float timer3 =  0;
     public enum MenuState {
         ConnectIp,
         Login,
@@ -91,6 +93,14 @@ public class MainMenu : MonoBehaviour {
                 } else {
                     timer2 += Time.deltaTime;
                 }
+
+                // Update every 5 seconds
+                if (timer3 > 5f) {
+                    Network.instance.IsGameReady();
+                    timer3 = 0;
+                } else {
+                    timer3 += Time.deltaTime;
+                }
                 
                 break;
             case MenuState.InGame:
@@ -105,6 +115,7 @@ public class MainMenu : MonoBehaviour {
                     else
                         EscapeMenu.SetActive(false);
                 }
+
                 break;
         }
     }
@@ -153,7 +164,9 @@ public class MainMenu : MonoBehaviour {
     }
 
     public void EnterMainGame() {
-        Network.instance.JoinGame(0);
+        if (Network.instance.GameReady())
+            Network.instance.JoinGame(0);
+        else Debug.Log("Can't enter main game, not all players present");
     }
 
     public void JoinGameSuccessfull() {
