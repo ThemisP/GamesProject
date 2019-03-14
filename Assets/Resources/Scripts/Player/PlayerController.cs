@@ -57,25 +57,7 @@ public class PlayerController : MonoBehaviour
         bool hitWeaponsUpgrade = Input.GetKey(KeyCode.E);
         bool hitStatus = Input.GetKey(KeyCode.Q);
 
-        if (teamScript != null)
-        {
-            float range = teamScript.getJointRange();
-            //Debug.Log(range);
-            float difference = teamScript.getDifference();
-            //Debug.Log(difference);
-            //Debug.Log(range >= difference);
-
-            if (difference <= range * 1.1f)
-            {
-                Move(h, v);
-                lastKnownPosition = playerRigidbody.position;
-
-            }
-            else
-            {
-                playerRigidbody.MovePosition(transform.position - movement);
-            }
-        }
+        Move(h, v);
 
         playerData.PopupHelp(hitHelp);
         playerData.PopupWeapons(hitWeaponsUpgrade);
@@ -129,8 +111,12 @@ public class PlayerController : MonoBehaviour
         //Normalise the movement vector to make it proportional to the speed per second
         //Deltatime is the step for the game timer
         movement = movement.normalized * speed * Time.deltaTime;
-        float difference = teamScript.getDifference();
-        movement = teamScript.movementModifier(difference, movement);
+        //if (teamScript != null) {
+        //    Vector3 springForce;
+        //    springForce = teamScript.movementModifier(playerRigidbody.velocity);
+        //    playerRigidbody.AddForce(springForce);
+        //}
+        
         playerRigidbody.MovePosition(transform.position + movement);
     }
 
