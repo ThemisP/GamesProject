@@ -12,6 +12,7 @@ public class TeamScript : MonoBehaviour {
     [Header("Chain Prefabs")]
     public GameObject SpringJoint;
     public GameObject ChainLink;
+    public GameObject LineLink;
 
     private int chainPoints = 5;
 
@@ -52,6 +53,11 @@ public class TeamScript : MonoBehaviour {
             if (script == null) Debug.Log("spring joint script not found");
             else {
                 script.SetHandles(link1Rigid, link2Rigid);
+                GameObject line = Instantiate(LineLink, player1.position + (count * differenceVecStep), player1.rotation);
+                line.transform.parent = gameObject.transform;
+                LineLink lineScript = line.GetComponent<LineLink>();
+                if (lineScript == null) Debug.LogError("Line script not found");
+                else lineScript.SetLineEnds(link1.transform, link2.transform);
                 CreateChain(link2Rigid, differenceVecStep, count + 1);
             }
         }

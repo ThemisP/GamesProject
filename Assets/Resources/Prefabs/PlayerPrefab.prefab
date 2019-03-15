@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 223118671909212872}
   - component: {fileID: 114558971289729654}
   - component: {fileID: 114954132127803122}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: PlayerOverhead
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,7 +108,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 224112611001312870}
-  m_Layer: 5
+  m_Layer: 12
   m_Name: Handle Slide Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -150,7 +150,7 @@ GameObject:
   - component: {fileID: 54228101161094224}
   - component: {fileID: 114971306962235958}
   - component: {fileID: 114281636829982706}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: PlayerPrefab
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -291,7 +291,7 @@ GameObject:
   - component: {fileID: 4808530468726768}
   - component: {fileID: 33696620187231874}
   - component: {fileID: 23768773166036716}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: BulletSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -366,7 +366,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 224062992507986610}
-  m_Layer: 5
+  m_Layer: 12
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -403,7 +403,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224112730735826008}
   - component: {fileID: 114117325000872200}
-  m_Layer: 5
+  m_Layer: 12
   m_Name: Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -492,7 +492,7 @@ GameObject:
   - component: {fileID: 224199618903385848}
   - component: {fileID: 222192754911894242}
   - component: {fileID: 114207152398679666}
-  m_Layer: 5
+  m_Layer: 12
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -566,7 +566,7 @@ GameObject:
   - component: {fileID: 224576681973877474}
   - component: {fileID: 222460886507070668}
   - component: {fileID: 114066010016113914}
-  m_Layer: 5
+  m_Layer: 12
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -640,7 +640,7 @@ GameObject:
   - component: {fileID: 224335339417352516}
   - component: {fileID: 222407951764071128}
   - component: {fileID: 114047954511044974}
-  m_Layer: 5
+  m_Layer: 12
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
