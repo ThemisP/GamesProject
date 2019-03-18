@@ -9,13 +9,17 @@ public class LineLink : MonoBehaviour
 
     private CapsuleCollider ColliderCapsule;
     private LineRenderer Line;
+    private Rigidbody rig;
 
     public float LineWidth;
 
     void Start() {
         Line = gameObject.GetComponent<LineRenderer>();
         ColliderCapsule = gameObject.GetComponent<CapsuleCollider>();
+        rig = gameObject.GetComponent<Rigidbody>();
         ColliderCapsule.radius = LineWidth / 2;
+        ColliderCapsule.center = Vector3.zero;
+
     }
     public void SetLineEnds(Transform start, Transform end) {
         this.StartPoint = start;
@@ -29,9 +33,15 @@ public class LineLink : MonoBehaviour
             Line.SetPosition(0, StartPoint.position);
             Line.SetPosition(1, EndPoint.position);
 
-            ColliderCapsule.transform.position = StartPoint.position + (EndPoint.position - StartPoint.position) / 2;
-            ColliderCapsule.transform.LookAt(StartPoint.position);
-            ColliderCapsule.height = (EndPoint.position - StartPoint.position).magnitude;
+            rig.MovePosition(StartPoint.position + (EndPoint.position - StartPoint.position) / 2);
+            
+            //ColliderCapsule.transform.position = StartPoint.position + (EndPoint.position - StartPoint.position) / 2;
+            ColliderCapsule.transform.LookAt(EndPoint.position);
+            ColliderCapsule.height = (EndPoint.position - StartPoint.position).magnitude - 0.2f;
         }
+    }
+
+    private void OnCollisionEnter(Collision collision) {
+        Debug.Log(collision.gameObject.name);
     }
 }

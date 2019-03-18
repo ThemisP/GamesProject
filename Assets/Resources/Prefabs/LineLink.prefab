@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 3687541782414711520}
   - component: {fileID: 6517088671837109694}
   - component: {fileID: 7194181190849749357}
-  - component: {fileID: 6841148805386216109}
-  - component: {fileID: 8717071193775928371}
+  - component: {fileID: 7679920812020572110}
+  - component: {fileID: 3088025816029606772}
   m_Layer: 11
   m_Name: LineLink
   m_TagString: Untagged
@@ -142,23 +142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LineWidth: 0.06
---- !u!54 &6841148805386216109
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5396570374006309022}
-  serializedVersion: 2
-  m_Mass: 0.01
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!136 &8717071193775928371
+--- !u!136 &7679920812020572110
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -168,7 +152,23 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.03
-  m_Height: 0.5
+  m_Radius: 1
+  m_Height: 1
   m_Direction: 2
   m_Center: {x: 0, y: -1, z: 0.5}
+--- !u!54 &3088025816029606772
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5396570374006309022}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
