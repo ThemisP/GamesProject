@@ -9,11 +9,18 @@ using Assets.Resources.Scripts.Chain;
 
 public class PlayerController : MonoBehaviour
 {
-
-    [SerializeField] private GameObject bulletPrefab;
+    
     [SerializeField] private Transform bulletSpawn;
     [SerializeField] private float speed = 6f;
-    [SerializeField] private Network network;
+
+
+    [Header("Effects")]
+    public ParticleSystem gunParticles;                    // Reference to the particle system.
+    public AudioSource gunAudio;                           // Reference to the audio source.
+    public Light gunLight;                                 // Reference to the light component.
+    private Animator anim;
+
+
     Vector3 movement;
     Vector3 lastKnownPosition;
     Rigidbody playerRigidbody;
@@ -43,6 +50,8 @@ public class PlayerController : MonoBehaviour
         playerRigidbody = GetComponent<Rigidbody>();
         playerRigidbody.freezeRotation = true;
         playerData = GetComponent<PlayerData>();
+
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -71,6 +80,7 @@ public class PlayerController : MonoBehaviour
         UpdateStatusTimer();
 
         Turning();
+        Animating(h, v);
         if (!hitWeaponsUpgrade)
         {
             Fire(fire);
@@ -155,6 +165,15 @@ public class PlayerController : MonoBehaviour
         string bulletId;
         lastShootTime = 0f;
         Vector3 rotation;
+        // Play the gun shot audioclip.
+        gunAudio.Play();
+
+        // Enable the lights.
+        gunLight.enabled = true;
+
+        // Stop the particles from playing if they were, then start the particles.
+        gunParticles.Stop();
+        gunParticles.Play();
         for (int i = 0; i <playerData.currentWeapon.GetNumberOfBullets(); i++) { 
             bulletId = Network.instance.ClientIndex.ToString() + "_" + bulletCount.ToString();
             rotation = bulletSpawn.rotation.eulerAngles;
@@ -170,6 +189,9 @@ public class PlayerController : MonoBehaviour
                                         playerData.currentWeapon.GetDamage());
             bulletCount = (bulletCount + 1) % 1000;
         }
+
+        // Enable the lights.
+        gunLight.enabled = false;
     }
 
     void Dodge(bool hitDodge)
@@ -210,6 +232,14 @@ public class PlayerController : MonoBehaviour
         {
             isDodging = false;
         }
+    }
+
+    void Animating(float h, float v) {
+        // Create a boolean that is true if either of the input axes is non-zero.
+        bool walking = h != 0f || v != 0f;
+
+        // Tell the animator whether or not the player is walking.
+        anim.SetBool("IsWalking", walking);
     }
 
     #region "setters"

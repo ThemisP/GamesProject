@@ -151,7 +151,7 @@ MonoBehaviour:
   - {fileID: 1093750236}
   - {fileID: 1761517776}
   cameraScript: {fileID: 1511272331}
-  PlayerPrefab: {fileID: 1138482734005258, guid: 32e07439584ed3641b043b98c467b25d,
+  PlayerPrefab: {fileID: 6997768275746512601, guid: c541044efbab569458fcc164ee006bcf,
     type: 3}
   TeammatePlayerPrefab: {fileID: 1092823999797046, guid: 0585c2f46ca9c1e4e8b05c9410780eaa,
     type: 3}
@@ -1310,7 +1310,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 733a44441cd2c44bd84e21afccf6ea93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 1968915072372938, guid: 72325a7c033f4d6499cdf836def81fa7,
+  bulletPrefab: {fileID: 6831357091156250762, guid: ed30619641219af43b9b778b2c7c3601,
     type: 3}
 --- !u!4 &1481545986
 Transform:

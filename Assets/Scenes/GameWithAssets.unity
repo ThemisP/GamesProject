@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641234, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -151,7 +151,7 @@ MonoBehaviour:
   - {fileID: 1093750236}
   - {fileID: 1761517776}
   cameraScript: {fileID: 1511272331}
-  PlayerPrefab: {fileID: 1138482734005258, guid: 32e07439584ed3641b043b98c467b25d,
+  PlayerPrefab: {fileID: 6997768275746512601, guid: c541044efbab569458fcc164ee006bcf,
     type: 3}
   TeammatePlayerPrefab: {fileID: 1092823999797046, guid: 0585c2f46ca9c1e4e8b05c9410780eaa,
     type: 3}
@@ -162,7 +162,7 @@ MonoBehaviour:
     type: 3}
   HUD: {fileID: 214384404}
   teamMateIndex: 0
-  team: {fileID: 0}
+  Team: {fileID: 0}
   ClientIndex: 0
 --- !u!4 &81600821
 Transform:
@@ -185,6 +185,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 42247, guid: f57ba0d77c23171489d46735aaf21b26, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1518673152136198, guid: f57ba0d77c23171489d46735aaf21b26, type: 3}
       propertyPath: m_Name
       value: MenuCanvas
@@ -293,10 +297,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 42247, guid: f57ba0d77c23171489d46735aaf21b26, type: 3}
-      propertyPath: m_RootOrder
-      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f57ba0d77c23171489d46735aaf21b26, type: 3}
@@ -1397,7 +1397,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 733a44441cd2c44bd84e21afccf6ea93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 1968915072372938, guid: 72325a7c033f4d6499cdf836def81fa7,
+  bulletPrefab: {fileID: 6831357091156250762, guid: ed30619641219af43b9b778b2c7c3601,
     type: 3}
 --- !u!4 &1481545986
 Transform:

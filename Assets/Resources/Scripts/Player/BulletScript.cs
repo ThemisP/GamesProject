@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BulletScript : MonoBehaviour {
+    [Header("Vfx particles")]
+    public GameObject destroyParticle;
+
     string bullet_id;
 	float bulletDamage = 10;
 	public float lifeTime = 2f;
@@ -38,6 +41,11 @@ public class BulletScript : MonoBehaviour {
         if (obj.tag != "EnemyPlayer" && obj.tag != "Bullet") {
             ObjectHandler.instance.DestroyBullet(this.bullet_id);
         }
+    }
+
+    void OnDestroy() {
+        GameObject particle = Instantiate(destroyParticle, gameObject.transform.position, gameObject.transform.rotation);
+        Destroy(particle, 0.5f);
     }
 
     #region "Setters"
