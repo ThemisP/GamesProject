@@ -158,7 +158,7 @@ public class PlayerController : MonoBehaviour
         for (int i = 0; i <playerData.currentWeapon.GetNumberOfBullets(); i++) { 
             bulletId = Network.instance.ClientIndex.ToString() + "_" + bulletCount.ToString();
             rotation = bulletSpawn.rotation.eulerAngles;
-            if(i!=0) rotation += Vector3.up * ((float)Math.Pow(-1, i) * 10);
+            if(i!=0) rotation += Vector3.up * ((float)Math.Pow(-1, i) * 10); // this is an equation to get alternating + and - for each step.
             ObjectHandler.instance.InstantiateBullet(bulletSpawn.position, rotation,
                                                         playerData.currentWeapon.GetSpeed(), 
                                                         playerData.currentWeapon.GetLifetime(), 

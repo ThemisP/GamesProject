@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 136289694837431260}
   - component: {fileID: 54695335253402784}
   - component: {fileID: 114393733584267296}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: PlayerPrefabTeammate
   m_TagString: Teammate
   m_Icon: {fileID: 0}
@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 4139887973481700}
   - component: {fileID: 33998413116869008}
   - component: {fileID: 23159597597636830}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: BulletSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -213,7 +213,7 @@ GameObject:
   - component: {fileID: 3698288302153666780}
   - component: {fileID: 3444692418540513293}
   - component: {fileID: 6578726063425119034}
-  m_Layer: 5
+  m_Layer: 12
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -285,7 +285,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7591208975425359221}
-  m_Layer: 5
+  m_Layer: 12
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -323,7 +323,7 @@ GameObject:
   - component: {fileID: 5998699917664698685}
   - component: {fileID: 6191660837489948050}
   - component: {fileID: 4185743083799447934}
-  m_Layer: 5
+  m_Layer: 12
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -396,7 +396,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5219888138527289875}
   - component: {fileID: 4571496632339951149}
-  m_Layer: 5
+  m_Layer: 12
   m_Name: Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -486,7 +486,7 @@ GameObject:
   - component: {fileID: 5256341406249695241}
   - component: {fileID: 7146029519083365484}
   - component: {fileID: 2699532148739817080}
-  m_Layer: 5
+  m_Layer: 12
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}

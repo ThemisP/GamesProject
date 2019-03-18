@@ -47,6 +47,6 @@ MonoBehaviour:
     type: 3}
   ChainLink: {fileID: 8527434983762805352, guid: 1cfd8c27377fe5a43b805dd33cea6c11,
     type: 3}
-  tensionConstant: 3
-  dampeningConstant: 2
+  LineLink: {fileID: 5396570374006309022, guid: ae16774ccd34aaa4f915ca9175ee7ee0,
+    type: 3}
   jointRange: 10

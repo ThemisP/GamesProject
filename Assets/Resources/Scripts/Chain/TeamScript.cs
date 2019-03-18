@@ -12,6 +12,7 @@ public class TeamScript : MonoBehaviour {
     [Header("Chain Prefabs")]
     public GameObject SpringJoint;
     public GameObject ChainLink;
+    public GameObject LineLink;
 
     private int chainPoints = 5;
 
@@ -40,7 +41,6 @@ public class TeamScript : MonoBehaviour {
             link2 = Instantiate(ChainLink, player1.position + (count * differenceVecStep), player1.rotation);
         }
         GameObject joint = Instantiate(SpringJoint);
-        link1.transform.parent = gameObject.transform;
         link2.transform.parent = gameObject.transform;
         joint.transform.parent = gameObject.transform;
 
@@ -52,6 +52,11 @@ public class TeamScript : MonoBehaviour {
             if (script == null) Debug.Log("spring joint script not found");
             else {
                 script.SetHandles(link1Rigid, link2Rigid);
+                GameObject line = Instantiate(LineLink, player1.position + (count * differenceVecStep), player1.rotation);
+                LineLink lineScript = line.GetComponent<LineLink>();
+                line.transform.parent = gameObject.transform;
+                if (lineScript == null) Debug.LogError("Line script not found");
+                else lineScript.SetLineEnds(link1.transform, link2.transform);
                 CreateChain(link2Rigid, differenceVecStep, count + 1);
             }
         }
@@ -64,20 +69,4 @@ public class TeamScript : MonoBehaviour {
     public Vector3 getDifference() {
         return (player1.position - player2.position);
     }
-
-    // TODO: Smoothing of movement circle edge 
-    //public Vector3 movementModifier(Vector3 velocity) {
-    //    Vector3 differenceVec = getDifference();
-    //    if (differenceVec.magnitude >= jointRange) {
-    //        /* At this point the connection is at max tension, so we must dampen 
-    //         * the appropriate components of the movement of the player in the 
-    //         * direction in which the force of tension is applied
-    //        */
-    //        float displacement = differenceVec.magnitude - jointRange;
-    //        float force = -tensionConstant * displacement - dampeningConstant*velocity.magnitude;
-    //        Vector3 forceVec = differenceVec.normalized * force;
-    //        return forceVec;
-    //    }
-    //    return Vector3.zero;
-    //}
 }
