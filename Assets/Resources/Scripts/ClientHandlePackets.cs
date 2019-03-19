@@ -26,7 +26,7 @@ public class ClientHandlePackets{
         PacketsTcp.Add(12, HandleDealtDamage);
         PacketsTcp.Add(13, HandleLeaveGame);
         PacketsTcp.Add(14, HandleRecievePlayerBullet);
-        PacketsTcp.Add(15, HandleRoomsFullResponse);
+        PacketsTcp.Add(15, HandleGameReady);
         
         PacketsUdp = new Dictionary<int, Packet_>();
         PacketsUdp.Add(2, HandleReceivePlayersLocations);
@@ -302,13 +302,15 @@ public class ClientHandlePackets{
     }
 
     // PacketNum 15
-    void HandleRoomsFullResponse(byte[] data) {
+    void HandleGameReady(byte[] data) {
         ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
         buffer.WriteBytes(data);
-        int areRoomsFull = buffer.ReadInt();
+        int gameReady = buffer.ReadInt();
         int numberOfFullRooms = buffer.ReadInt();
+        float timer = buffer.ReadFloat();
+        Network.instance.mainMenu.SetStartTimer(timer);
         Network.instance.CallFunctionFromAnotherThread(() => {
-            Network.instance.SetFullRooms(numberOfFullRooms, areRoomsFull);
+            Network.instance.SetGameReady(numberOfFullRooms, gameReady);
         });
     }
     #endregion

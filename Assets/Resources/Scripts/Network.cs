@@ -450,6 +450,7 @@ public class Network : MonoBehaviour {
 
         ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
         buffer.WriteInt(15);
+        buffer.WriteInt(player.GetGameIndex());
         TcpStream.Write(buffer.BuffToArray(), 0, buffer.Length());
     }
     #endregion
@@ -459,8 +460,8 @@ public class Network : MonoBehaviour {
         return GameIsReady;
     } 
 
-    public void SetFullRooms(int numberOfFullRooms, int areRoomsFull) {
-        if (areRoomsFull == 1) {
+    public void SetGameReady(int numberOfFullRooms, int gameReady) {
+        if (gameReady == 1) {
             GameIsReady = true;
         }
 

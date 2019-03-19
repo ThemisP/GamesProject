@@ -89,4 +89,8 @@ public class PlayerInfo {
     public GameObject GetPlayerObj() {
         return this.playerObj;
     }
+
+    public int GetGameIndex() {
+        return this.gameIndex;
+    }
 }

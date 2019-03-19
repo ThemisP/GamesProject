@@ -23,6 +23,8 @@ public class MainMenu : MonoBehaviour {
     public Text Player1InLobby;
     public Text Player2InLobby;
 
+    public Text TimeUntilGameStart;
+
     [Header("Other")]
     public Button PlayButton;
 
@@ -31,6 +33,7 @@ public class MainMenu : MonoBehaviour {
     private float timer2 = 0;
 
     private float timer3 =  0;
+    private float startTimer = -1f;
     public enum MenuState {
         ConnectIp,
         Login,
@@ -73,9 +76,13 @@ public class MainMenu : MonoBehaviour {
                 MainScreenMenu.SetActive(false);
                 LobbyMenu.SetActive(true);
                 EscapeMenu.SetActive(false);
-
+                if (startTimer >= 0f)
+                    TimeUntilGameStart.text = string.Format("starting in: {0} seconds ", startTimer);
+                else
+                    TimeUntilGameStart.text = string.Empty;
                 //update every 1 seconds
                 if (timer > 1f) {
+                    startTimer -= 1f;
                     Player1InLobby.text = Network.instance.player.GetUsername();
                     string p2 = Network.instance.player.GetTeammateUsername();
                     if (p2 != null)
@@ -96,7 +103,7 @@ public class MainMenu : MonoBehaviour {
 
                 // Update every 5 seconds
                 if (timer3 > 5f) {
-                    Network.instance.IsGameReady();
+                    Network.instance.IsGameReady(); 
                     timer3 = 0;
                 } else {
                     timer3 += Time.deltaTime;
@@ -185,6 +192,10 @@ public class MainMenu : MonoBehaviour {
 
     public void LeaveGame() {
         Network.instance.LeaveGame();
+    }
+
+    public void SetStartTimer(float startTimer) {
+        this.startTimer = startTimer;
     }
 
 }
