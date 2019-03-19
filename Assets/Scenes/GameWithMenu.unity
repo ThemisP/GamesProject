@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -196,6 +196,25 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1199045968}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &220792770 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1892866588497692, guid: 8d81c0f34e9ef1441a39c64b9a46ee7d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1199045968}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &220792771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 220792770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ba0e32431bf4ca429227b60c0890694, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
 --- !u!1 &311564632
 GameObject:
   m_ObjectHideFlags: 0
@@ -1059,6 +1078,11 @@ PrefabInstance:
       propertyPath: m_AspectMode
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114706632210558378, guid: 8d81c0f34e9ef1441a39c64b9a46ee7d,
+        type: 3}
+      propertyPath: m_AspectRatio
+      value: 1.4
+      objectReference: {fileID: 0}
     - target: {fileID: 224640378623720826, guid: 8d81c0f34e9ef1441a39c64b9a46ee7d,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -1074,6 +1098,11 @@ PrefabInstance:
       propertyPath: m_AspectMode
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114041043446399274, guid: 8d81c0f34e9ef1441a39c64b9a46ee7d,
+        type: 3}
+      propertyPath: m_AspectRatio
+      value: 1.4
+      objectReference: {fileID: 0}
     - target: {fileID: 224009298400975124, guid: 8d81c0f34e9ef1441a39c64b9a46ee7d,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -1088,6 +1117,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114374232587776074, guid: 8d81c0f34e9ef1441a39c64b9a46ee7d,
+        type: 3}
+      propertyPath: m_Text
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d81c0f34e9ef1441a39c64b9a46ee7d, type: 3}

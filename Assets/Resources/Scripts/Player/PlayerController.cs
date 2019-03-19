@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
     private int bulletCount = 0;//used for bullet id
     private float DodgeTimer = 0f;
     private float StatusTimer = 0f;
-
+    private int clipCount; 
     private PlayerData playerData;
     private bool offline = false;
 
@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour
         playerRigidbody = GetComponent<Rigidbody>();
         playerRigidbody.freezeRotation = true;
         playerData = GetComponent<PlayerData>();
+        clipCount = playerData.currentWeapon.GetMagazine(); //current number of bullets in clip 
     }
 
     // Update is called once per frame
@@ -52,6 +53,7 @@ public class PlayerController : MonoBehaviour
         float v = Input.GetAxisRaw("Vertical"); // w and s keys
         bool fire = Input.GetMouseButton(0);//pressed primary mouse button
         bool hitDodge = Input.GetKey(KeyCode.F);
+        bool reload = Input.GetKey(KeyCode.R);
 
         bool hitHelp = Input.GetKey(KeyCode.H);
         bool hitWeaponsUpgrade = Input.GetKey(KeyCode.E);
@@ -74,6 +76,7 @@ public class PlayerController : MonoBehaviour
         if (!hitWeaponsUpgrade)
         {
             Fire(fire);
+            Reload(reload);
         }
         Dodge(hitDodge);
     }
@@ -146,8 +149,20 @@ public class PlayerController : MonoBehaviour
         {
             if (lastShootTime >= playerData.currentWeapon.GetFirerate())
             {
-                FireGun();
+                //if clip is empty, gun cannot be fired
+                if (clipCount != 0)
+                {
+                    FireGun();
+                }
             }
+        }
+    }
+
+    void Reload(bool reload)
+    {
+        if (reload)
+        {
+            clipCount = playerData.currentWeapon.GetMagazine();
         }
     }
 
@@ -169,6 +184,7 @@ public class PlayerController : MonoBehaviour
                                         playerData.currentWeapon.GetLifetime(), bulletId,
                                         playerData.currentWeapon.GetDamage());
             bulletCount = (bulletCount + 1) % 1000;
+            clipCount--;
         }
     }
 

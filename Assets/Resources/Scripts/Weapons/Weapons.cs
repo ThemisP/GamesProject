@@ -11,16 +11,16 @@ namespace Assets.Resources.Scripts.Weapons {
         //The pattern for each of this is 
         // Weapon(Damage, Lifetime, Firerate, Spread, Speed, NumberOfBullets)
         public Weapon GetPistol() {
-            return new Weapon(10f, 0.7f, 1f, 2f, 8f, 1);
+            return new Weapon(10f, 0.7f, 1f, 2f, 8f,10, 1, "Pistol");
         }
         public Weapon GetAssaultRifle() {
-            return new Weapon(20f, 3f, 0.4f, 1f, 10f, 1);
+            return new Weapon(20f, 3f, 0.4f, 1f, 10f,20, 1,"Assault Rifle");
         }
         public Weapon GetShotgun() {
-            return new Weapon(10f, 0.7f, 1f, 2f, 12f, 3);
+            return new Weapon(10f, 0.7f, 1f, 2f, 12f,8, 3,"Shotgun");
         }
         public Weapon GetSniper() {
-            return new Weapon(50f, 4f, 1.5f, 0.5f, 20f, 1);
+            return new Weapon(50f, 4f, 1.5f, 0.5f, 20f,5, 1,"Sniper");
         }
     }
 
@@ -30,15 +30,19 @@ namespace Assets.Resources.Scripts.Weapons {
         float Firerate; //time between bullet fire
         float Spread;
         float Speed;
+        int Magazine;
         int NumberOfBullets;
+        string weaponName;
 
-        public Weapon(float dmg, float lifetime, float firerate, float spread, float speed, int numberOfBullets) {
+        public Weapon(float dmg, float lifetime, float firerate, float spread, float speed,int magazine, int numberOfBullets, string weaponName) {
             this.Damage = dmg;
             this.Lifetime = lifetime;
             this.Firerate = firerate;
             this.Spread = spread;
             this.Speed = speed;
+            this.Magazine = magazine;
             this.NumberOfBullets = numberOfBullets;
+            this.weaponName = weaponName;
         }
         #region "Getters"
         public float GetDamage() {
@@ -56,8 +60,14 @@ namespace Assets.Resources.Scripts.Weapons {
         public float GetSpeed() {
             return this.Speed;
         }
+        public int GetMagazine(){
+            return this.Magazine;
+        }
         public int GetNumberOfBullets() {
             return this.NumberOfBullets;
+        }
+        public string GetWeaponName(){
+            return this.weaponName;
         }
         #endregion
     }

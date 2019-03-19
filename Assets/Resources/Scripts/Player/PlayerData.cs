@@ -12,12 +12,14 @@ public class PlayerData : MonoBehaviour {
 	private float currentHealth;
     private Text coinCount;
     private Text nodeCount;
+    private Text weaponName;
     private Slider dodgeSlider;
     private int kills = 0, assists = 0, deaths = 0;
 
     private GameObject HUDCanvas;
     private GameObject popupHelp;
     private GameObject popupWeapon;
+    private GameObject activeWeapon; 
     // private GameObject popupStatus;
     private PlayerController playerController;
 
@@ -35,11 +37,13 @@ public class PlayerData : MonoBehaviour {
         GameObject canvas = GameObject.Find("Health");
         GameObject balance = GameObject.Find("Balance");
         GameObject nodes = GameObject.Find("NodesBalance");
+        activeWeapon = GameObject.Find("Weapon Type");
         popupHelp = hud.Find("Help_Popup").gameObject;
         popupWeapon = hud.Find("Weapons_Popup").gameObject;
         // popupStatus = hud.Find("Statuses_Popup").gameObject;
         dodgeSlider = hud.Find("Dodge Cooldown").GetComponent<Slider>();
-        
+        weaponName = activeWeapon.GetComponent<Text>();
+        weaponName.text = currentWeapon.GetWeaponName();
         Button pistolButton = popupWeapon.GetComponent<RectTransform>().Find("Pistol").GetComponent<Button>();
         Button shotgunButton = popupWeapon.GetComponent<RectTransform>().Find("Shotgun").GetComponent<Button>();
         Button rifleButton = popupWeapon.GetComponent<RectTransform>().Find("Rifle").GetComponent<Button>();
@@ -74,6 +78,7 @@ public class PlayerData : MonoBehaviour {
         coinCount.text = "0";
         nodeCount = nodes.GetComponent<Text>();
         nodeCount.text = "0";
+        Debug.Log(weaponName.text);
         currentHealth = maxHealth;
         healthSlider.value = currentHealth / maxHealth;
     }
@@ -82,15 +87,19 @@ public class PlayerData : MonoBehaviour {
         switch (weaponNumber) {
             case 0:
                 this.currentWeapon = Weapons.instance.GetPistol();
+                weaponName.text = currentWeapon.GetWeaponName();
                 break;
             case 1:
                 this.currentWeapon = Weapons.instance.GetShotgun();
+                weaponName.text = currentWeapon.GetWeaponName();
                 break;
             case 2:
                 this.currentWeapon =  Weapons.instance.GetAssaultRifle();
+                weaponName.text = currentWeapon.GetWeaponName();
                 break;
             case 3:
                 this.currentWeapon = Weapons.instance.GetSniper();
+                weaponName.text = currentWeapon.GetWeaponName();
                 break;
             default:
                 Debug.Log("Incorrect weapon number in change weapon");
