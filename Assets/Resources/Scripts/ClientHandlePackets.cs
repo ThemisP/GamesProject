@@ -286,6 +286,8 @@ public class ClientHandlePackets{
         float lifeTime = buffer.ReadFloat();
         float damage = buffer.ReadFloat();
 
+        //TODO: Change this to use the fire function for the player firing the bullet.
+
         ObjectHandler.instance.CallFunctionFromAnotherThread(() => {
             ObjectHandler.instance.InstantiateBullet(new Vector3(posX, posY, posZ),
                                                      new Vector3(0, rotY, 0),

@@ -153,7 +153,7 @@ MonoBehaviour:
   cameraScript: {fileID: 1511272331}
   PlayerPrefab: {fileID: 6997768275746512601, guid: c541044efbab569458fcc164ee006bcf,
     type: 3}
-  TeammatePlayerPrefab: {fileID: 1092823999797046, guid: 0585c2f46ca9c1e4e8b05c9410780eaa,
+  TeammatePlayerPrefab: {fileID: 7379996578734591073, guid: 82da79fe95932644ab8d07b99446f7cd,
     type: 3}
   TeamPrefab: {fileID: 0}
   SimplifiedTeamPrefab: {fileID: 133912441, guid: 54f250d96f914418c981a9ebcb551144,
