@@ -189,7 +189,7 @@ public class Network : MonoBehaviour {
     public void DestroyPlayer(int id, int teamNumber) {
         EnemyPlayerController controller;
         if (playersInGame.TryGetValue(id, out controller)) {
-            playersInGame.Remove(id);
+            // playersInGame.Remove(id);
             Destroy(controller.gameObject, 0f);
         }
     }
@@ -205,13 +205,14 @@ public class Network : MonoBehaviour {
     }
 
     public void Died() {
+        // TODO: Repositioning camera on a player death, and deleting current prefab
         if (TcpClient == null || !TcpClient.Connected) {
             Debug.Log("Disconnected");
             TcpClient.Close();
             TcpClient = null;
             return;
         }
-
+        DestroyPlayer(player.GetGameIndex(), player.GetTeamNumber());
         ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
         buffer.WriteInt(16);
         buffer.WriteInt(player.GetTeamNumber());

@@ -27,6 +27,7 @@ public class ClientHandlePackets{
         PacketsTcp.Add(13, HandleLeaveGame);
         PacketsTcp.Add(14, HandleRecievePlayerBullet);
         PacketsTcp.Add(15, HandleGameReady);
+        PacketsTcp.Add(16, HandleNewGameSignal);
         
         PacketsUdp = new Dictionary<int, Packet_>();
         PacketsUdp.Add(2, HandleReceivePlayersLocations);
@@ -310,6 +311,11 @@ public class ClientHandlePackets{
         Network.instance.CallFunctionFromAnotherThread(() => {
             Network.instance.SetGameReady(numberOfFullRooms, gameReady);
         });
+    }
+
+    // packetnum = 16
+    void HandleNewGameSignal(byte[] data) {
+        Network.instance.mainMenu.JoinRoomSuccessfull();
     }
     #endregion
 }
