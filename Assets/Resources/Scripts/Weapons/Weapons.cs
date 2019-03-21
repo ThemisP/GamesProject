@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
 namespace Assets.Resources.Scripts.Weapons {   
 
-    class Weapons {
+    public class Weapons{
         public static Weapons instance = new Weapons();
+        public GameObject singleMag;
 
         //The pattern for each of this is 
         // Weapon(Damage, Lifetime, Firerate, Spread, Speed, NumberOfBullets)
@@ -44,6 +46,12 @@ namespace Assets.Resources.Scripts.Weapons {
             this.NumberOfBullets = numberOfBullets;
             this.weaponName = weaponName;
         }
+
+        public void showMagazine(int magazine) {
+
+        }
+
+
         #region "Getters"
         public float GetDamage() {
             return this.Damage;
