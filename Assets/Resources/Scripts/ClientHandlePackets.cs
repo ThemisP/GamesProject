@@ -232,8 +232,6 @@ public class ClientHandlePackets{
 
     //Packetnum = 10
     void HandlePlayerDeath(byte[] data) {
-        ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
-        buffer.WriteBytes(data);
 
         Network.instance.CallFunctionFromAnotherThread(() => {
             Network.instance.Died();

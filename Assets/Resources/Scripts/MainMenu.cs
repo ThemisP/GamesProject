@@ -76,10 +76,14 @@ public class MainMenu : MonoBehaviour {
                 MainScreenMenu.SetActive(false);
                 LobbyMenu.SetActive(true);
                 EscapeMenu.SetActive(false);
-                if (startTimer >= 0f)
+                if (Network.instance.GameReady()) {
+                    TimeUntilGameStart.text = "READY!";
+                } else if (startTimer >= 0f){
                     TimeUntilGameStart.text = string.Format("starting in: {0} seconds ", startTimer);
-                else
+                }
+                else{
                     TimeUntilGameStart.text = string.Empty;
+                }
                 //update every 1 seconds
                 if (timer > 1f) {
                     startTimer -= 1f;

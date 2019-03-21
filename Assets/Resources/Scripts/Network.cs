@@ -205,7 +205,20 @@ public class Network : MonoBehaviour {
     }
 
     public void Died() {
-        LeaveGame();
+        if (TcpClient == null || !TcpClient.Connected) {
+            Debug.Log("Disconnected");
+            TcpClient.Close();
+            TcpClient = null;
+            return;
+        }
+
+        ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
+        buffer.WriteInt(16);
+        buffer.WriteInt(player.GetTeamNumber());
+        buffer.WriteInt(player.GetGameIndex());
+        buffer.WriteInt(player.GetRoomIndex());
+        TcpStream.Write(buffer.BuffToArray(), 0, buffer.Length());
+        // LeaveGame(); Leaving game should be different to dying
     }
     public void HandlePlayerDamage(int id, bool isAlive, float health) {
         EnemyPlayerController controller;
