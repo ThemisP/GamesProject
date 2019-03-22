@@ -69,8 +69,8 @@ public class Network : MonoBehaviour {
                 s();
             }            
         }
-        if (player.playerObj == null)
-            CancelInvoke();
+        // if (player.playerObj == null)
+        //     CancelInvoke();
     }
 
     public void CallFunctionFromAnotherThread(Action functionName) {
@@ -206,21 +206,24 @@ public class Network : MonoBehaviour {
 
     public void Died() {
         // TODO: Repositioning camera on a player death, and deleting current prefab
-        if (TcpClient == null || !TcpClient.Connected) {
-            Debug.Log("Disconnected");
-            TcpClient.Close();
-            TcpClient = null;
-            return;
+        DestroySelf();
+        try {
+            ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
+            buffer.WriteInt(16);
+            buffer.WriteInt(player.GetTeamNumber());
+            buffer.WriteInt(player.GetGameIndex());
+            buffer.WriteInt(player.GetRoomIndex());
+            TcpStream.Write(buffer.BuffToArray(), 0, buffer.Length());
+            // LeaveGame(); //Leaving game should be different to dying
+        } catch (Exception e) { 
+            Debug.Log(e.ToString());
         }
-        DestroyPlayer(player.GetGameIndex(), player.GetTeamNumber());
-        ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
-        buffer.WriteInt(16);
-        buffer.WriteInt(player.GetTeamNumber());
-        buffer.WriteInt(player.GetGameIndex());
-        buffer.WriteInt(player.GetRoomIndex());
-        TcpStream.Write(buffer.BuffToArray(), 0, buffer.Length());
-        // LeaveGame(); Leaving game should be different to dying
     }
+
+    public void DestroySelf() {
+        Destroy(player.playerObj);
+    }
+    
     public void HandlePlayerDamage(int id, bool isAlive, float health) {
         EnemyPlayerController controller;
         if(playersInGame.TryGetValue(id, out controller)){
@@ -476,7 +479,7 @@ public class Network : MonoBehaviour {
 
     public void SetGameReady(int numberOfFullRooms, int gameReady) {
         if (gameReady == 1) {
-            GameIsReady = true;
+            GameIsReady = true && player.RoomFull();
         }
 
         NumberOfFullRooms = numberOfFullRooms;

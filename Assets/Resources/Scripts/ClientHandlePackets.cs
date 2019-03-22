@@ -28,6 +28,7 @@ public class ClientHandlePackets{
         PacketsTcp.Add(14, HandleRecievePlayerBullet);
         PacketsTcp.Add(15, HandleGameReady);
         PacketsTcp.Add(16, HandleNewGameSignal);
+        PacketsTcp.Add(17, HandleGameOver);
         
         PacketsUdp = new Dictionary<int, Packet_>();
         PacketsUdp.Add(2, HandleReceivePlayersLocations);
@@ -316,6 +317,13 @@ public class ClientHandlePackets{
     // packetnum = 16
     void HandleNewGameSignal(byte[] data) {
         Network.instance.mainMenu.JoinRoomSuccessfull();
+    }
+
+    // packetnum = 17
+    void HandleGameOver(byte[] data) {
+        Network.instance.CallFunctionFromAnotherThread(() => {
+            Network.instance.mainMenu.GameOver();
+        });
     }
     #endregion
 }

@@ -48,22 +48,23 @@ using UnityEngine;
         }
 
         public float getDifference(){
-            return (player1.position-player2.position).magnitude;
+        if (player1 == null || player2 == null) return 0f;
+        return (player1.position-player2.position).magnitude;
         }
         
-        // TODO: Smoothing of movement circle edge 
+        // TODO: Integrate with new chain model
         public Vector3 movementModifier(float difference, Vector3 movement ){
-            if (difference >= jointRange) {
-                /* At this point the connection is at max tension, so we must dampen 
-                 * the appropriate components of the movement of the player in the 
-                 * direction in which the force of tension is applied
-                */
-                Vector3 movementNormalized = movement.normalized;
-                Vector3 tensionDirection = (player1.position - player2.position).normalized;
-                if (movementNormalized - tensionDirection == Vector3.zero){
-                    return movement * 0f;
-                }
-            }
+            // if (difference >= jointRange) {
+            //     /* At this point the connection is at max tension, so we must dampen 
+            //      * the appropriate components of the movement of the player in the 
+            //      * direction in which the force of tension is applied
+            //     */
+            //     Vector3 movementNormalized = movement.normalized;
+            //     Vector3 tensionDirection = (player1.position - player2.position).normalized;
+            //     if (movementNormalized - tensionDirection == Vector3.zero){
+            //         return movement * 0f;
+            //     }
+            // }
             return movement;
         }
     }

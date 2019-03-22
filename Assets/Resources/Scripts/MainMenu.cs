@@ -13,6 +13,8 @@ public class MainMenu : MonoBehaviour {
     public GameObject LobbyMenu;
     public GameObject EscapeMenu;
 
+    public GameObject SpectateMode;
+
     [Header("InputFields")]
     public InputField ipAddress;
     public InputField username;
@@ -39,7 +41,8 @@ public class MainMenu : MonoBehaviour {
         Login,
         Main,
         Lobby,
-        InGame
+        InGame,
+        Spectate,
     }
 
 	// Use this for initialization
@@ -49,6 +52,14 @@ public class MainMenu : MonoBehaviour {
 
     void Update() {
         switch (this._state) {
+            case MenuState.Spectate:
+                SpectateMode.SetActive(true);
+                ConnectMenu.SetActive(false);
+                LoginMenu.SetActive(false);
+                MainScreenMenu.SetActive(false);
+                LobbyMenu.SetActive(false);
+                EscapeMenu.SetActive(false);
+                break;
             case MenuState.ConnectIp:
                 ConnectMenu.SetActive(true);
                 LoginMenu.SetActive(false);
@@ -200,6 +211,14 @@ public class MainMenu : MonoBehaviour {
 
     public void SetStartTimer(float startTimer) {
         this.startTimer = startTimer;
+    }
+
+    public void SpectateGame() {
+        SetMenuState(MenuState.Spectate);
+    }
+    public void GameOver() {
+        Network.instance.DestroySelf();
+        SetMenuState(MenuState.Lobby);
     }
 
 }

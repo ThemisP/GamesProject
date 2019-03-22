@@ -129,8 +129,8 @@ public class PlayerController : MonoBehaviour
         //Normalise the movement vector to make it proportional to the speed per second
         //Deltatime is the step for the game timer
         movement = movement.normalized * speed * Time.deltaTime;
-        float difference = teamScript.getDifference();
-        movement = teamScript.movementModifier(difference, movement);
+        // float difference = teamScript.getDifference();
+        // movement = teamScript.movementModifier(difference, movement);
         playerRigidbody.MovePosition(transform.position + movement);
     }
 
