@@ -219,6 +219,8 @@ public class MainMenu : MonoBehaviour {
     }
     public void GameOver() {
         username.text = null;
+        username.text = null;
+        roomIndexSelect.text = null;
         SetMenuState(MenuState.Login);
     }
 

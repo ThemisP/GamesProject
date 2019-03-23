@@ -486,6 +486,7 @@ public class Network : MonoBehaviour {
     }   
 
     public void GameOver() {
+        Destroy(Team, 0f);
         DestroySelf();
         GameIsReady = false;
         EnemyPlayerController controller;
@@ -495,6 +496,5 @@ public class Network : MonoBehaviour {
                 Destroy(controller.gameObject, 0f);
             }
         }
-        Destroy(Team, 0f);
     }
 }
