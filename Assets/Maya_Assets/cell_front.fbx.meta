@@ -33,6 +33,23 @@ ModelImporter:
     100054: frameHoriz3
     100056: frameHoriz4
     100058: frameHoriz5
+    100060: door
+    100062: lock
+    100064: struct
+    100066: struct1
+    100068: struct2
+    100070: struct3
+    100072: struct4
+    100074: struct5
+    100076: struct6
+    100078: struct7
+    100080: struct8
+    100082: structVertical
+    100084: structVertical1
+    100086: structVertical2
+    100088: structVertical3
+    100090: structVertical4
+    100092: structVertical5
     400000: bar
     400002: bar1
     400004: bar10
@@ -63,6 +80,23 @@ ModelImporter:
     400054: frameHoriz3
     400056: frameHoriz4
     400058: frameHoriz5
+    400060: door
+    400062: lock
+    400064: struct
+    400066: struct1
+    400068: struct2
+    400070: struct3
+    400072: struct4
+    400074: struct5
+    400076: struct6
+    400078: struct7
+    400080: struct8
+    400082: structVertical
+    400084: structVertical1
+    400086: structVertical2
+    400088: structVertical3
+    400090: structVertical4
+    400092: structVertical5
     2100000: lambert1
     2300000: bar
     2300002: bar1
@@ -92,6 +126,22 @@ ModelImporter:
     2300050: frameHoriz3
     2300052: frameHoriz4
     2300054: frameHoriz5
+    2300056: lock
+    2300058: struct
+    2300060: struct1
+    2300062: struct2
+    2300064: struct3
+    2300066: struct4
+    2300068: struct5
+    2300070: struct6
+    2300072: struct7
+    2300074: struct8
+    2300076: structVertical
+    2300078: structVertical1
+    2300080: structVertical2
+    2300082: structVertical3
+    2300084: structVertical4
+    2300086: structVertical5
     3300000: bar
     3300002: bar1
     3300004: bar10
@@ -120,6 +170,22 @@ ModelImporter:
     3300050: frameHoriz3
     3300052: frameHoriz4
     3300054: frameHoriz5
+    3300056: lock
+    3300058: struct
+    3300060: struct1
+    3300062: struct2
+    3300064: struct3
+    3300066: struct4
+    3300068: struct5
+    3300070: struct6
+    3300072: struct7
+    3300074: struct8
+    3300076: structVertical
+    3300078: structVertical1
+    3300080: structVertical2
+    3300082: structVertical3
+    3300084: structVertical4
+    3300086: structVertical5
     4300000: frameHoriz
     4300002: frameHoriz1
     4300004: frameHoriz2
@@ -148,6 +214,22 @@ ModelImporter:
     4300050: frame11
     4300052: bar6
     4300054: bar11
+    4300056: struct8
+    4300058: struct7
+    4300060: structVertical5
+    4300062: structVertical4
+    4300064: structVertical1
+    4300066: structVertical
+    4300068: struct5
+    4300070: struct3
+    4300072: struct2
+    4300074: struct
+    4300076: struct1
+    4300078: structVertical3
+    4300080: structVertical2
+    4300082: struct4
+    4300084: lock
+    4300086: struct6
   externalObjects: {}
   materials:
     importMaterials: 1
