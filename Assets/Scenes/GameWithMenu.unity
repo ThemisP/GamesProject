@@ -158,7 +158,7 @@ MonoBehaviour:
   TeamPrefab: {fileID: 0}
   SimplifiedTeamPrefab: {fileID: 133912441, guid: 54f250d96f914418c981a9ebcb551144,
     type: 3}
-  EnemyPlayerPrefab: {fileID: 1467978437358472, guid: 7f61c66d86373144a8167730b264dab5,
+  EnemyPlayerPrefab: {fileID: 8299851489490288763, guid: c79c34a8035b93d4da717e24c3631352,
     type: 3}
   HUD: {fileID: 214384404}
   teamMateIndex: 0
@@ -514,6 +514,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224009298400975124, guid: 8d81c0f34e9ef1441a39c64b9a46ee7d,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.50001526
       objectReference: {fileID: 0}
     - target: {fileID: 8932791408797835927, guid: 8d81c0f34e9ef1441a39c64b9a46ee7d,
         type: 3}

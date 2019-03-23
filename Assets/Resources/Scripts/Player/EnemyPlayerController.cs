@@ -32,7 +32,7 @@ public class EnemyPlayerController : MonoBehaviour {
     private float syncDelay = 0f;
     private float syncTime = 0f;
 
-    private bool dead = true;
+    private bool dead = false;
 
     private Queue<Action> RunOnMainThread = new Queue<Action>();
 

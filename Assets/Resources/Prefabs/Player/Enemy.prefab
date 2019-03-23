@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8525758047528652425}
   - component: {fileID: 3598022147154751878}
   - component: {fileID: 2130423746749573089}
-  m_Layer: 12
+  m_Layer: 14
   m_Name: GunBarrelEnd
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5007,7 +5007,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7974388916742596886}
   - component: {fileID: 2309534466521635591}
-  m_Layer: 12
+  m_Layer: 14
   m_Name: Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5094,7 +5094,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3638474789770785733}
   - component: {fileID: 2899257673794883429}
-  m_Layer: 12
+  m_Layer: 14
   m_Name: Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5177,7 +5177,7 @@ GameObject:
   - component: {fileID: 1596399619298341192}
   - component: {fileID: 6321948318665568367}
   - component: {fileID: 331657939971406345}
-  m_Layer: 12
+  m_Layer: 14
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5287,7 +5287,7 @@ GameObject:
   - component: {fileID: 1332346403673494145}
   - component: {fileID: 6358412835858261289}
   - component: {fileID: 5266625809687686588}
-  m_Layer: 12
+  m_Layer: 14
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5361,7 +5361,7 @@ GameObject:
   - component: {fileID: 2327668723468992114}
   - component: {fileID: 818850113436529234}
   - component: {fileID: 4323246230895193321}
-  m_Layer: 12
+  m_Layer: 14
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5434,7 +5434,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2551976691047527780}
   - component: {fileID: 4004489220720981520}
-  m_Layer: 12
+  m_Layer: 14
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5518,9 +5518,9 @@ GameObject:
   - component: {fileID: 6129820022410414582}
   - component: {fileID: 5718249855503616366}
   - component: {fileID: 3459316100097330277}
-  m_Layer: 12
+  m_Layer: 14
   m_Name: Enemy
-  m_TagString: Player
+  m_TagString: EnemyPlayer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5704,6 +5704,9 @@ MonoBehaviour:
   gunParticles: {fileID: 0}
   gunAudio: {fileID: 0}
   gunLight: {fileID: 0}
+  reviveTrigger: {fileID: 0}
+  playerModel: {fileID: 0}
+  playerCollider: {fileID: 0}
 --- !u!1 &9199779875601562632
 GameObject:
   m_ObjectHideFlags: 0
@@ -5713,7 +5716,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2933606644869667048}
-  m_Layer: 12
+  m_Layer: 14
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
