@@ -47,6 +47,8 @@ public class Network : MonoBehaviour {
 
     private Queue<Action> RunOnMainThread = new Queue<Action>();
 
+    private bool GameIsReady;
+    private int NumberOfFullRooms;
     public void Awake() {
         HUD.SetActive(false);
         playersInGame = new Dictionary<int, EnemyPlayerController>();
@@ -67,8 +69,8 @@ public class Network : MonoBehaviour {
                 s();
             }            
         }
-        if (player.playerObj == null)
-            CancelInvoke();
+        // if (player.playerObj == null)
+        //     CancelInvoke();
     }
 
     public void CallFunctionFromAnotherThread(Action functionName) {
@@ -130,7 +132,6 @@ public class Network : MonoBehaviour {
         player.SetPlayerObj(playerObj);
         cameraScript.SetTarget(playerObj.transform);
         InvokeRepeating("SendPlayerPos", 0f, 0.1f); //Every 0.1 seconds, repeated calls to send player position to server.
-        //GetPlayersInGame();
     }
 
     public void JoinGameOffline() {
@@ -188,7 +189,7 @@ public class Network : MonoBehaviour {
     public void DestroyPlayer(int id, int teamNumber) {
         EnemyPlayerController controller;
         if (playersInGame.TryGetValue(id, out controller)) {
-            playersInGame.Remove(id);
+            // playersInGame.Remove(id);
             Destroy(controller.gameObject, 0f);
         }
     }
@@ -204,8 +205,25 @@ public class Network : MonoBehaviour {
     }
 
     public void Died() {
-        LeaveGame();
+        // TODO: Repositioning camera on a player death, and deleting current prefab
+        DestroySelf();
+        try {
+            ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
+            buffer.WriteInt(16);
+            buffer.WriteInt(player.GetTeamNumber());
+            buffer.WriteInt(player.GetGameIndex());
+            buffer.WriteInt(player.GetRoomIndex());
+            TcpStream.Write(buffer.BuffToArray(), 0, buffer.Length());
+            // LeaveGame(); //Leaving game should be different to dying
+        } catch (Exception e) { 
+            Debug.Log(e.ToString());
+        }
     }
+
+    public void DestroySelf() {
+        Destroy(player.playerObj);
+    }
+    
     public void HandlePlayerDamage(int id, bool isAlive, float health) {
         EnemyPlayerController controller;
         if(playersInGame.TryGetValue(id, out controller)){
@@ -439,7 +457,31 @@ public class Network : MonoBehaviour {
         TcpStream.Write(buffer.BuffToArray(), 0, buffer.Length());
     }
 
+    public void IsGameReady() {
+        if (TcpClient == null || !TcpClient.Connected) {
+            TcpClient.Close();
+            TcpClient = null;
+            Debug.Log("Disconnected");
+            return;
+        }
+
+        ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
+        buffer.WriteInt(15);
+        buffer.WriteInt(player.GetGameIndex());
+        TcpStream.Write(buffer.BuffToArray(), 0, buffer.Length());
+    }
     #endregion
 
     #endregion
+    public bool GameReady() {
+        return GameIsReady;
+    } 
+
+    public void SetGameReady(int numberOfFullRooms, int gameReady) {
+        if (gameReady == 1) {
+            GameIsReady = true && player.RoomFull();
+        }
+
+        NumberOfFullRooms = numberOfFullRooms;
+    }
 }

@@ -9,7 +9,7 @@ using Assets.Resources.Scripts.Chain;
 
 public class PlayerController : MonoBehaviour
 {
-    
+
     [SerializeField] private Transform bulletSpawn;
     [SerializeField] private float speed = 6f;
 
@@ -82,7 +82,7 @@ public class PlayerController : MonoBehaviour
                 return;
             } else {
                 playerData.StopReviving();
-                TimeToRevive = 0f; 
+                TimeToRevive = 0f;
             }
         }
 
@@ -146,7 +146,7 @@ public class PlayerController : MonoBehaviour
         //    springForce = teamScript.movementModifier(playerRigidbody.velocity);
         //    playerRigidbody.AddForce(springForce);
         //}
-        
+
         playerRigidbody.MovePosition(transform.position + movement);
     }
 
@@ -194,17 +194,17 @@ public class PlayerController : MonoBehaviour
         // Stop the particles from playing if they were, then start the particles.
         gunParticles.Stop();
         gunParticles.Play();
-        for (int i = 0; i <playerData.currentWeapon.GetNumberOfBullets(); i++) { 
+        for (int i = 0; i <playerData.currentWeapon.GetNumberOfBullets(); i++) {
             bulletId = Network.instance.ClientIndex.ToString() + "_" + bulletCount.ToString();
             rotation = bulletSpawn.rotation.eulerAngles;
             if(i!=0) rotation += Vector3.up * ((float)Math.Pow(-1, i) * 10); // this is an equation to get alternating + and - for each step.
             ObjectHandler.instance.InstantiateBullet(bulletSpawn.position, rotation,
-                                                        playerData.currentWeapon.GetSpeed(), 
-                                                        playerData.currentWeapon.GetLifetime(), 
+                                                        playerData.currentWeapon.GetSpeed(),
+                                                        playerData.currentWeapon.GetLifetime(),
                                                         bulletId, playerData.currentWeapon.GetDamage(),
                                                         Network.instance.player.GetTeamNumber());
             if(!offline) Network.instance.SendBullet(bulletSpawn.position, rotation.y,
-                                        playerData.currentWeapon.GetSpeed(), 
+                                        playerData.currentWeapon.GetSpeed(),
                                         playerData.currentWeapon.GetLifetime(), bulletId,
                                         playerData.currentWeapon.GetDamage());
             bulletCount = (bulletCount + 1) % 1000;
@@ -233,7 +233,7 @@ public class PlayerController : MonoBehaviour
             //check if teammate its friendly bullet;
             //if(bulletScript.GetBulletId().StartsWith(Network.instance.player.GetTeammateUsername()))
             if (bulletScript.GetBulletTeam() == Network.instance.player.GetTeamNumber()) {
-            } else { 
+            } else {
                 playerData.takeDamage(bulletScript.GetBulletDamage(), bulletScript.GetBulletId());
 
                 if (!offline) Network.instance.SendPlayerDamage(bulletScript.GetBulletDamage(), bulletScript.GetBulletId());

@@ -20,6 +20,7 @@ public class PlayerInfo {
     public PlayerInfo() {
         this.username = "Default";
         inRoom = false;
+        teammateUsername = null;
     }
 
     #region "Setters"
@@ -88,5 +89,13 @@ public class PlayerInfo {
 	
     public GameObject GetPlayerObj() {
         return this.playerObj;
+    }
+
+    public int GetGameIndex() {
+        return this.gameIndex;
+    }
+
+    public bool RoomFull() {
+        return teammateUsername != null;
     }
 }

@@ -13,6 +13,8 @@ public class MainMenu : MonoBehaviour {
     public GameObject LobbyMenu;
     public GameObject EscapeMenu;
 
+    public GameObject SpectateMode;
+
     [Header("InputFields")]
     public InputField ipAddress;
     public InputField username;
@@ -23,18 +25,24 @@ public class MainMenu : MonoBehaviour {
     public Text Player1InLobby;
     public Text Player2InLobby;
 
+    public Text TimeUntilGameStart;
+
     [Header("Other")]
     public Button PlayButton;
 
     private MenuState _state;
     private float timer = 0;
     private float timer2 = 0;
+
+    private float timer3 =  0;
+    private float startTimer = -1f;
     public enum MenuState {
         ConnectIp,
         Login,
         Main,
         Lobby,
-        InGame
+        InGame,
+        Spectate,
     }
 
 	// Use this for initialization
@@ -44,6 +52,14 @@ public class MainMenu : MonoBehaviour {
 
     void Update() {
         switch (this._state) {
+            case MenuState.Spectate:
+                SpectateMode.SetActive(true);
+                ConnectMenu.SetActive(false);
+                LoginMenu.SetActive(false);
+                MainScreenMenu.SetActive(false);
+                LobbyMenu.SetActive(false);
+                EscapeMenu.SetActive(false);
+                break;
             case MenuState.ConnectIp:
                 ConnectMenu.SetActive(true);
                 LoginMenu.SetActive(false);
@@ -71,9 +87,17 @@ public class MainMenu : MonoBehaviour {
                 MainScreenMenu.SetActive(false);
                 LobbyMenu.SetActive(true);
                 EscapeMenu.SetActive(false);
-
+                if (Network.instance.GameReady()) {
+                    TimeUntilGameStart.text = "READY!";
+                } else if (startTimer >= 0f){
+                    TimeUntilGameStart.text = string.Format("starting in: {0} seconds ", startTimer);
+                }
+                else{
+                    TimeUntilGameStart.text = string.Empty;
+                }
                 //update every 1 seconds
                 if (timer > 1f) {
+                    startTimer -= 1f;
                     Player1InLobby.text = Network.instance.player.GetUsername();
                     string p2 = Network.instance.player.GetTeammateUsername();
                     if (p2 != null)
@@ -91,6 +115,14 @@ public class MainMenu : MonoBehaviour {
                 } else {
                     timer2 += Time.deltaTime;
                 }
+
+                // Update every 5 seconds
+                if (timer3 > 5f) {
+                    Network.instance.IsGameReady(); 
+                    timer3 = 0;
+                } else {
+                    timer3 += Time.deltaTime;
+                }
                 
                 break;
             case MenuState.InGame:
@@ -105,6 +137,7 @@ public class MainMenu : MonoBehaviour {
                     else
                         EscapeMenu.SetActive(false);
                 }
+
                 break;
         }
     }
@@ -153,7 +186,9 @@ public class MainMenu : MonoBehaviour {
     }
 
     public void EnterMainGame() {
-        Network.instance.JoinGame(0);
+        if (Network.instance.GameReady())
+            Network.instance.JoinGame(0);
+        else Debug.Log("Can't enter main game, not all players present");
     }
 
     public void JoinGameSuccessfull() {
@@ -172,6 +207,18 @@ public class MainMenu : MonoBehaviour {
 
     public void LeaveGame() {
         Network.instance.LeaveGame();
+    }
+
+    public void SetStartTimer(float startTimer) {
+        this.startTimer = startTimer;
+    }
+
+    public void SpectateGame() {
+        SetMenuState(MenuState.Spectate);
+    }
+    public void GameOver() {
+        Network.instance.DestroySelf();
+        SetMenuState(MenuState.Lobby);
     }
 
 }

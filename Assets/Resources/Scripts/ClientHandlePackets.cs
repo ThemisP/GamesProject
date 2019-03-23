@@ -26,7 +26,10 @@ public class ClientHandlePackets{
         PacketsTcp.Add(12, HandleDealtDamage);
         PacketsTcp.Add(13, HandleLeaveGame);
         PacketsTcp.Add(14, HandleRecievePlayerBullet);
-
+        PacketsTcp.Add(15, HandleGameReady);
+        PacketsTcp.Add(16, HandleNewGameSignal);
+        PacketsTcp.Add(17, HandleGameOver);
+        
         PacketsUdp = new Dictionary<int, Packet_>();
         PacketsUdp.Add(2, HandleReceivePlayersLocations);
     }
@@ -132,7 +135,10 @@ public class ClientHandlePackets{
         if (finished == 1) {
             Network.instance.player.JoinRoom(roomIndex);
             Network.instance.mainMenu.CreateGameSuccessfull();
-        } else {
+        } else if (finished == -1) {
+            Debug.Log("Failed to create a room, all game rooms taken, find another game to join");
+        }
+        else {
             Debug.Log("Failed to create a room!");
         }
     }
@@ -228,8 +234,6 @@ public class ClientHandlePackets{
 
     //Packetnum = 10
     void HandlePlayerDeath(byte[] data) {
-        ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
-        buffer.WriteBytes(data);
 
         Network.instance.CallFunctionFromAnotherThread(() => {
             Network.instance.Died();
@@ -296,6 +300,31 @@ public class ClientHandlePackets{
                                                      bulletId,
                                                      damage,
                                                      bulletTeam);
+        });
+    }
+
+    // PacketNum 15
+    void HandleGameReady(byte[] data) {
+        ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
+        buffer.WriteBytes(data);
+        int gameReady = buffer.ReadInt();
+        int numberOfFullRooms = buffer.ReadInt();
+        float timer = buffer.ReadFloat();
+        Network.instance.mainMenu.SetStartTimer(timer);
+        Network.instance.CallFunctionFromAnotherThread(() => {
+            Network.instance.SetGameReady(numberOfFullRooms, gameReady);
+        });
+    }
+
+    // packetnum = 16
+    void HandleNewGameSignal(byte[] data) {
+        Network.instance.mainMenu.JoinRoomSuccessfull();
+    }
+
+    // packetnum = 17
+    void HandleGameOver(byte[] data) {
+        Network.instance.CallFunctionFromAnotherThread(() => {
+            Network.instance.mainMenu.GameOver();
         });
     }
     #endregion
