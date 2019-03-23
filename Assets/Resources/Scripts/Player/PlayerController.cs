@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
     private int bulletCount = 0;//used for bullet id
     private float DodgeTimer = 0f;
     private float StatusTimer = 0f;
-    private int clipCount; 
+    public int clipCount; 
     private PlayerData playerData;
     private bool offline = false;
 
@@ -60,7 +60,6 @@ public class PlayerController : MonoBehaviour
         bool hitStatus = Input.GetKey(KeyCode.Q);
 
         Move(h, v);
-
         playerData.PopupHelp(hitHelp);
         playerData.PopupWeapons(hitWeaponsUpgrade);
         // playerData.PopupStatuses(hitStatus);
@@ -68,7 +67,6 @@ public class PlayerController : MonoBehaviour
         speed = playerData.currentStatus.GetSpeed();
         // IsDodging();
         // playerData.takeDamage(playerData.currentStatus.GetDamage());
-
         UpdateDodgeTimer();
         UpdateStatusTimer();
 
@@ -76,7 +74,15 @@ public class PlayerController : MonoBehaviour
         if (!hitWeaponsUpgrade)
         {
             Fire(fire);
+            if (fire)
+            {
+                playerData.UpdateMagazine();
+            }
             Reload(reload);
+            if (reload)
+            {
+                playerData.UpdateMagazine();
+            }
         }
         Dodge(hitDodge);
     }

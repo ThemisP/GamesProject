@@ -13,13 +13,15 @@ public class PlayerData : MonoBehaviour {
     private Text coinCount;
     private Text nodeCount;
     private Text weaponName;
+    private Text ammoRemaining;
     private Slider dodgeSlider;
     private int kills = 0, assists = 0, deaths = 0;
 
     private GameObject HUDCanvas;
     private GameObject popupHelp;
     private GameObject popupWeapon;
-    private GameObject activeWeapon; 
+    private GameObject activeWeapon;
+    private GameObject currentMagazine;
     // private GameObject popupStatus;
     private PlayerController playerController;
 
@@ -32,12 +34,14 @@ public class PlayerData : MonoBehaviour {
 
     //Change back to Start when fixed HUD
     void Start() {
+        playerController = GetComponent<PlayerController>();
         HUDCanvas = GameObject.Find("HUDPrefab");
         RectTransform hud = HUDCanvas.GetComponent<RectTransform>();
         GameObject canvas = GameObject.Find("Health");
         GameObject balance = GameObject.Find("Balance");
         GameObject nodes = GameObject.Find("NodesBalance");
         activeWeapon = GameObject.Find("Weapon Type");
+        currentMagazine = GameObject.Find("Magazine");
         popupHelp = hud.Find("Help_Popup").gameObject;
         popupWeapon = hud.Find("Weapons_Popup").gameObject;
         // popupStatus = hud.Find("Statuses_Popup").gameObject;
@@ -78,6 +82,9 @@ public class PlayerData : MonoBehaviour {
         nodeCount.text = "0";
         weaponName = activeWeapon.GetComponentInChildren<Text>();
         weaponName.text = "Pistol";
+
+        ammoRemaining = currentMagazine.GetComponentInChildren<Text>();
+        ammoRemaining.text = "10";
         currentHealth = maxHealth;
         healthSlider.value = currentHealth / maxHealth;
     }
@@ -186,7 +193,12 @@ public class PlayerData : MonoBehaviour {
     public float getCurrentHealth()
     {
         return currentHealth;
-    }  
+    } 
+    
+    public int getClipCount()
+    {
+        return playerController.clipCount;
+    }
 
     public void UpdateDamageDealt(float damageDealt){
         this.damageDealt += damageDealt;
@@ -194,5 +206,10 @@ public class PlayerData : MonoBehaviour {
 
     public void RefreshHealth(){
         this.currentHealth = maxHealth;
+    }
+
+    public void UpdateMagazine() {
+        int currentClip = getClipCount();
+        ammoRemaining.text = currentClip.ToString();
     }
 }

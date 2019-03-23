@@ -8,7 +8,7 @@ namespace Assets.Resources.Scripts.Weapons {
 
     public class Weapons{
         public static Weapons instance = new Weapons();
-        public GameObject singleMag;
+        //public GameObject singleMag;
 
         //The pattern for each of this is 
         // Weapon(Damage, Lifetime, Firerate, Spread, Speed, NumberOfBullets)
@@ -47,9 +47,15 @@ namespace Assets.Resources.Scripts.Weapons {
             this.weaponName = weaponName;
         }
 
-        public void showMagazine(int magazine) {
+        //public void showMagazine(int magazine) {
+        //    Vector3 showMag;
+        //    //illustrate the magazine clip of the gun currently being used in 
+        //    //a way that this can be updated as the gun used by the player changes
+            
+        //}
 
-        }
+
+
 
 
         #region "Getters"
