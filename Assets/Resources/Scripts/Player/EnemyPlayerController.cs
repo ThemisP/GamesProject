@@ -14,6 +14,11 @@ public class EnemyPlayerController : MonoBehaviour {
     public Light gunLight;                                 // Reference to the light component.
     private Animator anim;
 
+    [Header("Revive")]
+    public GameObject reviveTrigger;
+    public GameObject playerModel;
+    public CapsuleCollider playerCollider;
+
     private int PlayerID;
     private string Username;
     private int TeamNumber;
@@ -26,6 +31,8 @@ public class EnemyPlayerController : MonoBehaviour {
     private float lastSynchronizationTime = 0f;
     private float syncDelay = 0f;
     private float syncTime = 0f;
+
+    private bool dead = true;
 
     private Queue<Action> RunOnMainThread = new Queue<Action>();
 
@@ -46,21 +53,22 @@ public class EnemyPlayerController : MonoBehaviour {
                 s();
             }
         }
+        if (!dead) {
+            if (health > 0)
+                healthSlider.value = health / maxHealth;
+            else
+                healthSlider.value = 0;
 
-        if (health > 0)
-            healthSlider.value = health / maxHealth;
-        else
-            healthSlider.value = 0;
-
-        syncTime += Time.deltaTime;
-        //Debug.Log("Player pos (" + playerPos + "), player rot (" + playerRot + ")");
-        bool walking = false;
-        if (Mathf.Abs(Vector3.Distance(transform.position, playerPos)) > 2f) walking = true;
-        anim.SetBool("IsWalking", walking);
-        if (syncDelay != 0) {
-            playerRigidbody.MovePosition(Vector3.Lerp(transform.position, playerPos, syncTime / syncDelay));
+            syncTime += Time.deltaTime;
+            //Debug.Log("Player pos (" + playerPos + "), player rot (" + playerRot + ")");
+            bool walking = false;
+            if (Mathf.Abs(Vector3.Distance(transform.position, playerPos)) > 2f) walking = true;
+            anim.SetBool("IsWalking", walking);
+            if (syncDelay != 0) {
+                playerRigidbody.MovePosition(Vector3.Lerp(transform.position, playerPos, syncTime / syncDelay));
+            }
+            playerRigidbody.rotation = Quaternion.Lerp(playerRigidbody.rotation, Quaternion.Euler(playerRot), .3f);
         }
-        playerRigidbody.rotation = Quaternion.Lerp(playerRigidbody.rotation, Quaternion.Euler(playerRot), .3f);
     }
 
     public void CallFunctionFromAnotherThread(Action functionName) {
@@ -124,6 +132,18 @@ public class EnemyPlayerController : MonoBehaviour {
     }
     public void SetHealth(float amount) {
         this.health = amount;
+    }
+    public void Died() {
+        dead = true;
+        playerModel.SetActive(false);
+        playerCollider.enabled = false;
+        reviveTrigger.SetActive(true);
+    }
+    public void Revived() {
+        dead = false;
+        reviveTrigger.SetActive(false);
+        playerCollider.enabled = true;
+        playerModel.SetActive(true);
     }
     #endregion
 

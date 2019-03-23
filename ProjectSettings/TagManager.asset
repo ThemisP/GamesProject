@@ -9,6 +9,7 @@ TagManager:
   - Bullet
   - Arena
   - Teammate
+  - Revive
   layers:
   - Default
   - TransparentFX

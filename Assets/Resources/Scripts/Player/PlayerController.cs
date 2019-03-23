@@ -43,6 +43,10 @@ public class PlayerController : MonoBehaviour
     private PlayerData playerData;
     private bool offline = false;
 
+    private bool AbleToRevive = false;
+    private float TimeToRevive = 3f;
+    private float MaxReviveTime = 3f;
+
     // Use this for initialization
     void Awake()
     {
@@ -60,11 +64,27 @@ public class PlayerController : MonoBehaviour
         float h = Input.GetAxisRaw("Horizontal");// a and d keys
         float v = Input.GetAxisRaw("Vertical"); // w and s keys
         bool fire = Input.GetMouseButton(0);//pressed primary mouse button
-        bool hitDodge = Input.GetKey(KeyCode.F);
+        bool hitDodge = Input.GetMouseButton(1); //pressed rightClick
 
         bool hitHelp = Input.GetKey(KeyCode.H);
         bool hitWeaponsUpgrade = Input.GetKey(KeyCode.E);
         bool hitStatus = Input.GetKey(KeyCode.Q);
+        bool reviving = Input.GetKey(KeyCode.F);
+
+        if (AbleToRevive) {
+            if (reviving) {
+                TimeToRevive += Time.deltaTime;
+                playerData.Reviving(TimeToRevive / MaxReviveTime);
+                if (TimeToRevive > MaxReviveTime) {
+                    Debug.Log("Revive teammate");
+                    TimeToRevive = 0f;
+                }
+                return;
+            } else {
+                playerData.StopReviving();
+                TimeToRevive = 0f; 
+            }
+        }
 
         Move(h, v);
 
@@ -219,7 +239,20 @@ public class PlayerController : MonoBehaviour
                 if (!offline) Network.instance.SendPlayerDamage(bulletScript.GetBulletDamage(), bulletScript.GetBulletId());
                 ObjectHandler.instance.DestroyBullet(bulletScript.GetBulletId());
             }
-        } 
+        } else if(obj.tag == "Revive") {
+            Debug.Log("Reviving");
+            AbleToRevive = true;
+            playerData.ReviveButton(true);
+        }
+    }
+
+    private void OnTriggerExit(Collider collision) {
+        GameObject obj = collision.gameObject;
+        if(obj.tag == "Revive") {
+            Debug.Log("Stop reviving");
+            AbleToRevive = false;
+            playerData.ReviveButton(false);
+        }
     }
 
     public void IsDodging()

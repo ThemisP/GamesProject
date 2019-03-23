@@ -18,6 +18,8 @@ public class PlayerData : MonoBehaviour {
     private GameObject HUDCanvas;
     private GameObject popupHelp;
     private GameObject popupWeapon;
+    private GameObject holdToRevive;
+    private GameObject ReviveSlider;
     // private GameObject popupStatus;
     private PlayerController playerController;
 
@@ -39,6 +41,9 @@ public class PlayerData : MonoBehaviour {
         popupWeapon = hud.Find("Weapons_Popup").gameObject;
         // popupStatus = hud.Find("Statuses_Popup").gameObject;
         dodgeSlider = hud.Find("Dodge Cooldown").GetComponent<Slider>();
+        holdToRevive = hud.Find("Revive_Button").gameObject;
+        ReviveSlider = hud.Find("Revive_Slider").gameObject; 
+
         
         Button pistolButton = popupWeapon.GetComponent<RectTransform>().Find("Pistol").GetComponent<Button>();
         Button shotgunButton = popupWeapon.GetComponent<RectTransform>().Find("Shotgun").GetComponent<Button>();
@@ -68,6 +73,8 @@ public class PlayerData : MonoBehaviour {
         HUDCanvas.SetActive(true);
         popupHelp.SetActive(false);
         popupWeapon.SetActive(false);
+        holdToRevive.SetActive(false);
+        ReviveSlider.SetActive(false);
         // popupStatus.SetActive(false);
         healthSlider = canvas.GetComponent<Slider>();
         coinCount = balance.GetComponent<Text>();
@@ -164,6 +171,23 @@ public class PlayerData : MonoBehaviour {
         } else {
             popupWeapon.SetActive(false);
         }
+    }
+
+    public void ReviveButton(bool active) {
+        if(active) {
+            holdToRevive.SetActive(true);
+        } else {
+            holdToRevive.SetActive(false);
+        }
+    }
+
+    public void Reviving(float value) {
+        ReviveSlider.SetActive(true);
+        ReviveSlider.GetComponent<Slider>().value = value;
+    }
+    public void StopReviving() {
+        ReviveSlider.GetComponent<Slider>().value = 0f;
+        ReviveSlider.SetActive(false);
     }
 
     // public void PopupStatuses(bool active){
