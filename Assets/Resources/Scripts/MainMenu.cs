@@ -186,8 +186,9 @@ public class MainMenu : MonoBehaviour {
     }
 
     public void EnterMainGame() {
-        if (Network.instance.GameReady())
+        if (Network.instance.GameReady()) {
             Network.instance.JoinGame(0);
+        }
         else Debug.Log("Can't enter main game, not all players present");
     }
 
@@ -217,8 +218,8 @@ public class MainMenu : MonoBehaviour {
         SetMenuState(MenuState.Spectate);
     }
     public void GameOver() {
-        Network.instance.DestroySelf();
-        SetMenuState(MenuState.Lobby);
+        username.text = null;
+        SetMenuState(MenuState.Login);
     }
 
 }
