@@ -189,7 +189,7 @@ public class Network : MonoBehaviour {
     public void DestroyPlayer(int id, int teamNumber) {
         EnemyPlayerController controller;
         if (playersInGame.TryGetValue(id, out controller)) {
-            playersInGame.Remove(id);
+            // playersInGame.Remove(id);
             Destroy(controller.gameObject, 0f);
         }
     }
@@ -221,7 +221,7 @@ public class Network : MonoBehaviour {
     }
 
     public void DestroySelf() {
-        Destroy(player.playerObj, 0f);
+        Destroy(player.playerObj);
     }
     
     public void HandlePlayerDamage(int id, bool isAlive, float health) {
@@ -483,18 +483,5 @@ public class Network : MonoBehaviour {
         }
 
         NumberOfFullRooms = numberOfFullRooms;
-    }   
-
-    public void GameOver() {
-        Destroy(Team, 0f);
-        DestroySelf();
-        GameIsReady = false;
-        EnemyPlayerController controller;
-        foreach(KeyValuePair<int, EnemyPlayerController> enemy in playersInGame) {
-            if (playersInGame.TryGetValue(enemy.Key, out controller)) {
-                playersInGame.Remove(enemy.Key);
-                Destroy(controller.gameObject, 0f);
-            }
-        }
     }
 }
