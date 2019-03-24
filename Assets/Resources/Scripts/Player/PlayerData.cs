@@ -148,6 +148,9 @@ public class PlayerData : MonoBehaviour {
         // it checks whether there are enough coins to use.
         if(this.coins + newCoins > 0){
             coins += newCoins;
+            GameObject balance = GameObject.Find("Balance");
+            coinCount = balance.GetComponent<Text>();
+            coinCount.text = coins.ToString();
             return true;
         } else {
             return false;

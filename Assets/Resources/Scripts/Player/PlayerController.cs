@@ -219,7 +219,11 @@ public class PlayerController : MonoBehaviour
                 if (!offline) Network.instance.SendPlayerDamage(bulletScript.GetBulletDamage(), bulletScript.GetBulletId());
                 ObjectHandler.instance.DestroyBullet(bulletScript.GetBulletId());
             }
-        } 
+        }
+        else if (obj.CompareTag("Coin")){
+            obj.SetActive(false);
+            Boolean succcess = playerData.addCoinsIfAvailable(10);
+        }
     }
 
     public void IsDodging()

@@ -2,20 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CoinScript : MonoBehaviour {
-    float lifetime = 2f;
-    private void Update() {
-        lifetime = Time.deltaTime;
-        if(lifetime % 5.0 == 0) { }
-            
+public class CoinScript : MonoBehaviour
+{
 
-    }
-
-
-
-    private void OnCollisionEnter(Collision other)
+    // Update is called once per frame
+    void Update()
     {
-        
+        transform.Rotate(new Vector3(15, 30, 45) * Time.deltaTime);
     }
 }
-
