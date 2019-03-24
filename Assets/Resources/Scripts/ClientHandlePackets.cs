@@ -323,8 +323,9 @@ public class ClientHandlePackets{
 
     // packetnum = 17
     void HandleGameOver(byte[] data) {
+        Network.instance.mainMenu.GameOver();
         Network.instance.CallFunctionFromAnotherThread(() => {
-            Network.instance.mainMenu.GameOver();
+            Network.instance.GameOver();
         });
     }
     #endregion
