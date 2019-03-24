@@ -24,7 +24,6 @@ public class Network : MonoBehaviour {
     public CameraFollow cameraScript;
     public GameObject PlayerPrefab;
     public GameObject TeammatePlayerPrefab;
-    public GameObject TeamPrefab; //could we do <PlayerPrefab,TeammatePlayerPrefab> ??? 
     public GameObject SimplifiedTeamPrefab;
     public GameObject EnemyPlayerPrefab;
     public GameObject HUD;
