@@ -515,16 +515,6 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 224009298400975124, guid: 8d81c0f34e9ef1441a39c64b9a46ee7d,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0.50001526
-      objectReference: {fileID: 0}
-    - target: {fileID: 8932791408797835927, guid: 8d81c0f34e9ef1441a39c64b9a46ee7d,
-        type: 3}
-      propertyPath: m_Name
-      value: Revive_Slider
-      objectReference: {fileID: 0}
     - target: {fileID: 9191654937153980501, guid: 8d81c0f34e9ef1441a39c64b9a46ee7d,
         type: 3}
       propertyPath: m_SizeDelta.y
