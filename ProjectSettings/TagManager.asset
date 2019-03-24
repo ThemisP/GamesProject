@@ -4,12 +4,12 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Teammate
-  - Circle
-  - EnemyPlayer
   - HUD
+  - EnemyPlayer
   - Bullet
   - Arena
+  - Teammate
+  - Revive
   layers:
   - Default
   - TransparentFX
@@ -21,11 +21,11 @@ TagManager:
   - 
   - PostProcessing
   - Floor
-  - 
-  - 
-  - 
-  - 
-  - 
+  - ChainLink
+  - LineLink
+  - Team
+  - Bullet
+  - Enemy
   - 
   - 
   - 

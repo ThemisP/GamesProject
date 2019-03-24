@@ -13,9 +13,8 @@ GameObject:
   - component: {fileID: 23643575175268474}
   - component: {fileID: 136578768151488168}
   - component: {fileID: 54045221035424990}
-  - component: {fileID: 2011524565500935651}
   - component: {fileID: 114262634495356538}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: PlayerPrefabEnemy
   m_TagString: EnemyPlayer
   m_Icon: {fileID: 0}
@@ -113,18 +112,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!114 &2011524565500935651
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1467978437358472}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2fb306058324c34daee55f8b748a489, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114262634495356538
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -226,7 +213,7 @@ GameObject:
   - component: {fileID: 3868454989263839221}
   - component: {fileID: 8567962781434177585}
   - component: {fileID: 9068649787658682262}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -299,7 +286,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5744297467669047095}
   - component: {fileID: 6173817178436614177}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -387,7 +374,7 @@ GameObject:
   - component: {fileID: 7716073318751185586}
   - component: {fileID: 8908951114641000829}
   - component: {fileID: 133205318536026683}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -463,7 +450,7 @@ GameObject:
   - component: {fileID: 586963414891417399}
   - component: {fileID: 916396033908616249}
   - component: {fileID: 1461365829740599520}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -571,7 +558,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5137485792956493547}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
