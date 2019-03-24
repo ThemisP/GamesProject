@@ -141,6 +141,11 @@ public class PlayerController : MonoBehaviour
         //Normalise the movement vector to make it proportional to the speed per second
         //Deltatime is the step for the game timer
         movement = movement.normalized * speed * Time.deltaTime;
+        //if (teamScript != null) {
+        //    Vector3 springForce;
+        //    springForce = teamScript.movementModifier(playerRigidbody.velocity);
+        //    playerRigidbody.AddForce(springForce);
+        //}
 
         playerRigidbody.MovePosition(transform.position + movement);
     }
@@ -250,9 +255,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void IsDodging(bool dodgeKey)
+    public void IsDodging()
     {
-        if (dodgeKey && (DodgeTimer == DodgeCooldown))
+        if (Input.GetKey(KeyCode.F) && (DodgeTimer == DodgeCooldown))
         {
             isDodging = true;
         }
