@@ -10,6 +10,7 @@ TagManager:
   - Arena
   - Teammate
   - Coin
+  - Pill
   layers:
   - Default
   - TransparentFX

@@ -209,6 +209,7 @@ public class PlayerData : MonoBehaviour {
 
     public void RefreshHealth(){
         this.currentHealth = maxHealth;
+        healthSlider.value = currentHealth / maxHealth;
     }
 
     public void UpdateMagazine() {

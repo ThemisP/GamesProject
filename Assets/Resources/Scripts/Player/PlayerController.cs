@@ -224,6 +224,10 @@ public class PlayerController : MonoBehaviour
             obj.SetActive(false);
             Boolean succcess = playerData.addCoinsIfAvailable(10);
         }
+        else if (obj.CompareTag("Pill")){
+            obj.SetActive(false);
+            playerData.RefreshHealth();
+        }
     }
 
     public void IsDodging()
