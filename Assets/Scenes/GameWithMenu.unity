@@ -89,7 +89,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -155,7 +155,6 @@ MonoBehaviour:
     type: 3}
   TeammatePlayerPrefab: {fileID: 7379996578734591073, guid: 82da79fe95932644ab8d07b99446f7cd,
     type: 3}
-  TeamPrefab: {fileID: 0}
   SimplifiedTeamPrefab: {fileID: 133912441, guid: 54f250d96f914418c981a9ebcb551144,
     type: 3}
   EnemyPlayerPrefab: {fileID: 8299851489490288763, guid: c79c34a8035b93d4da717e24c3631352,
@@ -368,7 +367,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1304845734281962, guid: 8d81c0f34e9ef1441a39c64b9a46ee7d, type: 3}
       propertyPath: m_Name
-      value: HUDPrefab1
+      value: HUDPrefab
       objectReference: {fileID: 0}
     - target: {fileID: 224140089287466776, guid: 8d81c0f34e9ef1441a39c64b9a46ee7d,
         type: 3}
