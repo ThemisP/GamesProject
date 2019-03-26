@@ -35,6 +35,12 @@ public class PlayerController : MonoBehaviour
     public float DodgeCooldown = 3f;
     public bool isDodging;
 
+    [Header("Revive")]
+    public GameObject reviveTrigger;
+    public GameObject playerModel;
+    public CapsuleCollider playerCollider;
+    private bool dead = false;
+
 
     private int bulletCount = 0;//used for bullet id
     private float DodgeTimer = 0f;
@@ -46,6 +52,7 @@ public class PlayerController : MonoBehaviour
     private bool AbleToRevive = false;
     private float TimeToRevive = 3f;
     private float MaxReviveTime = 3f;
+
 
     // Use this for initialization
     void Awake()
@@ -61,51 +68,52 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        float h = Input.GetAxisRaw("Horizontal");// a and d keys
-        float v = Input.GetAxisRaw("Vertical"); // w and s keys
-        bool fire = Input.GetMouseButton(0);//pressed primary mouse button
-        bool hitDodge = Input.GetMouseButton(1); //pressed rightClick
+        if (!dead) {
+            float h = Input.GetAxisRaw("Horizontal");// a and d keys
+            float v = Input.GetAxisRaw("Vertical"); // w and s keys
+            bool fire = Input.GetMouseButton(0);//pressed primary mouse button
+            bool hitDodge = Input.GetMouseButton(1); //pressed rightClick
 
-        bool hitHelp = Input.GetKey(KeyCode.H);
-        bool hitWeaponsUpgrade = Input.GetKey(KeyCode.E);
-        bool hitStatus = Input.GetKey(KeyCode.Q);
-        bool reviving = Input.GetKey(KeyCode.F);
+            bool hitHelp = Input.GetKey(KeyCode.H);
+            bool hitWeaponsUpgrade = Input.GetKey(KeyCode.E);
+            bool hitStatus = Input.GetKey(KeyCode.Q);
+            bool reviving = Input.GetKey(KeyCode.F);
 
-        if (AbleToRevive) {
-            if (reviving) {
-                TimeToRevive += Time.deltaTime;
-                playerData.Reviving(TimeToRevive / MaxReviveTime);
-                if (TimeToRevive > MaxReviveTime) {
-                    Debug.Log("Revive teammate");
+            if (AbleToRevive) {
+                if (reviving) {
+                    TimeToRevive += Time.deltaTime;
+                    playerData.Reviving(TimeToRevive / MaxReviveTime);
+                    if (TimeToRevive > MaxReviveTime) {
+                        Debug.Log("Revive teammate");
+                        TimeToRevive = 0f;
+                    }
+                    return;
+                } else {
+                    playerData.StopReviving();
                     TimeToRevive = 0f;
                 }
-                return;
-            } else {
-                playerData.StopReviving();
-                TimeToRevive = 0f;
             }
+
+            Move(h, v);
+
+            playerData.PopupHelp(hitHelp);
+            playerData.PopupWeapons(hitWeaponsUpgrade);
+            // playerData.PopupStatuses(hitStatus);
+
+            speed = playerData.currentStatus.GetSpeed();
+            // IsDodging();
+            // playerData.takeDamage(playerData.currentStatus.GetDamage());
+
+            UpdateDodgeTimer();
+            UpdateStatusTimer();
+
+            Turning();
+            Animating(h, v);
+            if (!hitWeaponsUpgrade) {
+                Fire(fire);
+            }
+            Dodge(hitDodge);
         }
-
-        Move(h, v);
-
-        playerData.PopupHelp(hitHelp);
-        playerData.PopupWeapons(hitWeaponsUpgrade);
-        // playerData.PopupStatuses(hitStatus);
-
-        speed = playerData.currentStatus.GetSpeed();
-        // IsDodging();
-        // playerData.takeDamage(playerData.currentStatus.GetDamage());
-
-        UpdateDodgeTimer();
-        UpdateStatusTimer();
-
-        Turning();
-        Animating(h, v);
-        if (!hitWeaponsUpgrade)
-        {
-            Fire(fire);
-        }
-        Dodge(hitDodge);
     }
 
     void UpdateDodgeTimer()
@@ -284,6 +292,18 @@ public class PlayerController : MonoBehaviour
     public void SetTeamController(TeamScript script)
     {
         this.teamScript = script;
+    }
+    public void Died() {
+        dead = true;
+        playerModel.SetActive(false);
+        playerCollider.enabled = false;
+        reviveTrigger.SetActive(true);
+    }
+    public void Revived() {
+        dead = false;
+        reviveTrigger.SetActive(false);
+        playerCollider.enabled = true;
+        playerModel.SetActive(true);
     }
     #endregion
 

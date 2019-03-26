@@ -290,17 +290,31 @@ public class ClientHandlePackets{
         float lifeTime = buffer.ReadFloat();
         float damage = buffer.ReadFloat();
 
-        //TODO: Change this to use the fire function for the player firing the bullet.
+        int indexForStringSplit = bulletId.IndexOf("_");
+        int playerIndex = int.Parse(bulletId.Substring(0, indexForStringSplit));
 
-        ObjectHandler.instance.CallFunctionFromAnotherThread(() => {
-            ObjectHandler.instance.InstantiateBullet(new Vector3(posX, posY, posZ),
-                                                     new Vector3(0, rotY, 0),
-                                                     speed,
-                                                     lifeTime,
-                                                     bulletId,
-                                                     damage,
-                                                     bulletTeam);
-        });
+        EnemyPlayerController controller;
+        //TODO: Change this to use the fire function for the player firing the bullet.
+        if(Network.instance.playersInGame.TryGetValue(playerIndex, out controller)) {
+            controller.CallFunctionFromAnotherThread(() => {
+                controller.Fire(new Vector3(posX, posY, posZ), new Vector3(0, rotY, 0),
+                                                             speed,
+                                                             lifeTime,
+                                                             bulletId,
+                                                             damage,
+                                                             bulletTeam);
+            });
+        } else {
+            ObjectHandler.instance.CallFunctionFromAnotherThread(() => {
+                ObjectHandler.instance.InstantiateBullet(new Vector3(posX, posY, posZ),
+                                                         new Vector3(0, rotY, 0),
+                                                         speed,
+                                                         lifeTime,
+                                                         bulletId,
+                                                         damage,
+                                                         bulletTeam);
+            });
+        }
     }
 
     // PacketNum 15
