@@ -48,7 +48,7 @@ Projector:
   m_AspectRatio: 1
   m_Orthographic: 1
   m_OrthographicSize: 50
-  m_Material: {fileID: 2100000, guid: 1922f6b36972a4445b256e63165fcc48, type: 2}
+  m_Material: {fileID: 2100000, guid: 610976a48a990044db4e6e2ae3284325, type: 2}
   m_IgnoreLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -64,7 +64,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14f00420cb38c0647b3643885a830a02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fogTexture: {fileID: 8400000, guid: 00de5bc9fed93c54896ddde96d76679b, type: 2}
+  fogTexture: {fileID: 8400000, guid: 9560af703a554b14582edd3ce27e6ffa, type: 2}
   blurShader: {fileID: 4800000, guid: 0a48badeeca0ee144ae9d2d6416f02b4, type: 3}
   upsample: 2
   blur: 1
@@ -133,9 +133,9 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 8192
+    m_Bits: 262144
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 8400000, guid: 00de5bc9fed93c54896ddde96d76679b, type: 2}
+  m_TargetTexture: {fileID: 8400000, guid: 9560af703a554b14582edd3ce27e6ffa, type: 2}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 0

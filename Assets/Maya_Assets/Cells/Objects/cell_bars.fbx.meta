@@ -1,0 +1,174 @@
+fileFormatVersion: 2
+guid: 9da348b82eaa4d742806c68d765b7947
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: bar
+    100002: bar10
+    100004: bar11
+    100006: bar12
+    100008: bar13
+    100010: bar14
+    100012: bar15
+    100014: bar6
+    100016: bar7
+    100018: bar8
+    100020: bar9
+    100022: //RootNode
+    100024: struct10
+    100026: struct8
+    100028: struct9
+    100030: structVertical
+    100032: structVertical5
+    400000: bar
+    400002: bar10
+    400004: bar11
+    400006: bar12
+    400008: bar13
+    400010: bar14
+    400012: bar15
+    400014: bar6
+    400016: bar7
+    400018: bar8
+    400020: bar9
+    400022: //RootNode
+    400024: struct10
+    400026: struct8
+    400028: struct9
+    400030: structVertical
+    400032: structVertical5
+    2100000: lambert1
+    2300000: bar
+    2300002: bar10
+    2300004: bar11
+    2300006: bar12
+    2300008: bar13
+    2300010: bar14
+    2300012: bar15
+    2300014: bar6
+    2300016: bar7
+    2300018: bar8
+    2300020: bar9
+    2300022: struct10
+    2300024: struct8
+    2300026: struct9
+    2300028: structVertical
+    2300030: structVertical5
+    3300000: bar
+    3300002: bar10
+    3300004: bar11
+    3300006: bar12
+    3300008: bar13
+    3300010: bar14
+    3300012: bar15
+    3300014: bar6
+    3300016: bar7
+    3300018: bar8
+    3300020: bar9
+    3300022: struct10
+    3300024: struct8
+    3300026: struct9
+    3300028: structVertical
+    3300030: structVertical5
+    4300000: bar10
+    4300002: bar9
+    4300004: bar8
+    4300006: bar7
+    4300008: bar6
+    4300010: bar
+    4300012: struct8
+    4300014: structVertical5
+    4300016: structVertical
+    4300018: struct9
+    4300020: struct10
+    4300022: bar11
+    4300024: bar12
+    4300026: bar13
+    4300028: bar14
+    4300030: bar15
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
