@@ -29,6 +29,7 @@ public class ClientHandlePackets{
         PacketsTcp.Add(15, HandleGameReady);
         PacketsTcp.Add(16, HandleNewGameSignal);
         PacketsTcp.Add(17, HandleGameOver);
+        PacketsTcp.Add(18, HandlePlayerRevive);
         
         PacketsUdp = new Dictionary<int, Packet_>();
         PacketsUdp.Add(2, HandleReceivePlayersLocations);
@@ -223,20 +224,24 @@ public class ClientHandlePackets{
         float health = buffer.ReadFloat();
         ObjectHandler.instance.CallFunctionFromAnotherThread(() => {
             ObjectHandler.instance.DestroyBullet(bulletId);
+            Network.instance.HandlePlayerDamage(clientId, isAlive, health);
         });
-        Network.instance.HandlePlayerDamage(clientId, isAlive, health);
-        if (!isAlive) {
-            Network.instance.CallFunctionFromAnotherThread(() => {
-                Network.instance.DestroyPlayer(clientId, teamNumber);
-            });
-        }
+        
+        //if (!isAlive) {
+        //    Network.instance.CallFunctionFromAnotherThread(() => {
+        //        Network.instance.DestroyPlayer(clientId, teamNumber);
+        //    });
+        //}
     }
 
     //Packetnum = 10
     void HandlePlayerDeath(byte[] data) {
 
+        //Network.instance.CallFunctionFromAnotherThread(() => {
+        //    Network.instance.Died();
+        //});
         Network.instance.CallFunctionFromAnotherThread(() => {
-            Network.instance.Died();
+            Network.instance.playerController.Died();
         });
     }
 
@@ -248,9 +253,12 @@ public class ClientHandlePackets{
         int playerTeam = buffer.ReadInt();
 
         Network.instance.CallFunctionFromAnotherThread(() => {
-            Network.instance.DestroyPlayer(playerIndex, playerTeam);
+            //Network.instance.DestroyPlayer(playerIndex, playerTeam);
+            EnemyPlayerController controller;
+            if(Network.instance.playersInGame.TryGetValue(playerIndex, out controller)){
+                controller.Died();
+            }
         });
-
     }
 
     // Packetnum = 12
@@ -340,6 +348,22 @@ public class ClientHandlePackets{
         Network.instance.mainMenu.GameOver();
         Network.instance.CallFunctionFromAnotherThread(() => {
             Network.instance.GameOver();
+        });
+    }
+
+    //Packetnum = 18
+    void HandlePlayerRevive(byte[] data) {
+        ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
+        buffer.WriteBytes(data);
+        int playerIndex = buffer.ReadInt();
+        Debug.Log("Reviving player " + playerIndex);
+        Network.instance.CallFunctionFromAnotherThread(() => {
+            EnemyPlayerController controller;
+            if (Network.instance.playersInGame.TryGetValue(playerIndex, out controller)) {
+                controller.Revived();
+            } else {
+                Network.instance.playerController.Revived();
+            }
         });
     }
     #endregion

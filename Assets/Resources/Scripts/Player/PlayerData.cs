@@ -211,4 +211,8 @@ public class PlayerData : MonoBehaviour {
     public void RefreshHealth(){
         this.currentHealth = maxHealth;
     }
+
+    public void SethealthFromRevive() {
+        this.currentHealth = 30f;
+    }
 }

@@ -36,6 +36,7 @@ public class Network : MonoBehaviour {
 
     public IPEndPoint IPend;
     public PlayerInfo player;
+    public PlayerController playerController;
     [HideInInspector] public int teamMateIndex;
     [HideInInspector]  public GameObject Team;
 
@@ -128,6 +129,9 @@ public class Network : MonoBehaviour {
         if (player.playerNumber == 1) spawnpoint.position = spawnpoint.position + Vector3.forward * 2;
         else spawnpoint.position = spawnpoint.position + Vector3.forward * -2;
         GameObject playerObj = GameObject.Instantiate(PlayerPrefab, spawnpoint.position, spawnpoint.rotation);
+        PlayerController playerContr = playerObj.GetComponent<PlayerController>();
+        if (playerContr == null) Debug.LogError("PlayerController not found when joining game");
+        else playerController = playerContr;
         player.SetPlayerObj(playerObj);
         cameraScript.SetTarget(playerObj.transform);
         InvokeRepeating("SendPlayerPos", 0f, 0.1f); //Every 0.1 seconds, repeated calls to send player position to server.
@@ -138,6 +142,9 @@ public class Network : MonoBehaviour {
         Transform spawnpoint = spawnpoints[0];
         GameObject playerObj = GameObject.Instantiate(PlayerPrefab, spawnpoint.position, spawnpoint.rotation);
         player.SetPlayerObj(playerObj);
+        PlayerController playerContr = playerObj.GetComponent<PlayerController>();
+        if (playerContr == null) Debug.LogError("PlayerController not found when joining game");
+        else playerController = playerContr;
 
         GameObject teammateObj = GameObject.Instantiate(TeammatePlayerPrefab, spawnpoint.position + Vector3.forward * 2, spawnpoint.rotation);
         Team = GameObject.Instantiate(SimplifiedTeamPrefab, new Vector3(0,1,0), Quaternion.Euler(new Vector3(0,0,0)));
@@ -227,6 +234,8 @@ public class Network : MonoBehaviour {
         EnemyPlayerController controller;
         if(playersInGame.TryGetValue(id, out controller)){
             controller.SetHealth(health);
+            if (!isAlive)
+                controller.Died();
         }
     }
     #endregion
@@ -467,6 +476,20 @@ public class Network : MonoBehaviour {
         ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
         buffer.WriteInt(15);
         buffer.WriteInt(player.GetGameIndex());
+        TcpStream.Write(buffer.BuffToArray(), 0, buffer.Length());
+    }
+
+    public void RevivedTeammate() {
+        if (TcpClient == null || !TcpClient.Connected) {
+            TcpClient.Close();
+            TcpClient = null;
+            Debug.Log("Disconnected");
+            return;
+        }
+
+        ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
+        buffer.WriteInt(18);
+        buffer.WriteInt(teamMateIndex);
         TcpStream.Write(buffer.BuffToArray(), 0, buffer.Length());
     }
     #endregion

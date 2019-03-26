@@ -138,6 +138,7 @@ public class EnemyPlayerController : MonoBehaviour {
         reviveTrigger.SetActive(false);
         playerCollider.enabled = true;
         playerModel.SetActive(true);
+        health = 30f;
     }
     #endregion
 

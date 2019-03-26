@@ -84,6 +84,7 @@ public class PlayerController : MonoBehaviour
                     TimeToRevive += Time.deltaTime;
                     playerData.Reviving(TimeToRevive / MaxReviveTime);
                     if (TimeToRevive > MaxReviveTime) {
+                        Network.instance.RevivedTeammate();
                         Debug.Log("Revive teammate");
                         TimeToRevive = 0f;
                     }
@@ -304,6 +305,7 @@ public class PlayerController : MonoBehaviour
         reviveTrigger.SetActive(false);
         playerCollider.enabled = true;
         playerModel.SetActive(true);
+        playerData.SethealthFromRevive();
     }
     #endregion
 
