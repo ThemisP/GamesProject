@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 33862484533955512}
   - component: {fileID: 23329547670664904}
   - component: {fileID: 114158299440707106}
-  m_Layer: 13
+  m_Layer: 18
   m_Name: View Visualisation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,7 +58,7 @@ MeshRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b610771e4886dcd43b4a2e39e5342e8e, type: 2}
+  - {fileID: 2100000, guid: f2e481fbf1efa0545ac6b081a8b1f967, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -94,10 +94,10 @@ MonoBehaviour:
   viewAngle: 361
   enemyMask:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 16384
   objectMask:
     serializedVersion: 2
-    m_Bits: 2048
+    m_Bits: 32768
   meshResolution: 1
   edgeResolveIterations: 4
   edgeDstThreshold: 0.5
