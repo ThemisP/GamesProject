@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.574817, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2579,13 +2579,13 @@ MonoBehaviour:
   - {fileID: 1093750236}
   - {fileID: 1761517776}
   cameraScript: {fileID: 1511272331}
-  PlayerPrefab: {fileID: 1138482734005258, guid: 32e07439584ed3641b043b98c467b25d,
+  PlayerPrefab: {fileID: 6997768275746512601, guid: c541044efbab569458fcc164ee006bcf,
     type: 3}
-  TeammatePlayerPrefab: {fileID: 1092823999797046, guid: 0585c2f46ca9c1e4e8b05c9410780eaa,
+  TeammatePlayerPrefab: {fileID: 7379996578734591073, guid: 82da79fe95932644ab8d07b99446f7cd,
     type: 3}
   SimplifiedTeamPrefab: {fileID: 133912441, guid: 54f250d96f914418c981a9ebcb551144,
     type: 3}
-  EnemyPlayerPrefab: {fileID: 1467978437358472, guid: 7f61c66d86373144a8167730b264dab5,
+  EnemyPlayerPrefab: {fileID: 8299851489490288763, guid: c79c34a8035b93d4da717e24c3631352,
     type: 3}
   HUD: {fileID: 214384404}
   teamMateIndex: 0
@@ -14572,6 +14572,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967294
+      objectReference: {fileID: 0}
+    - target: {fileID: 2775769030271778406, guid: 2f4c5dcbcf0a26e4e99b0168ccf48f9b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2775769030271778405, guid: 2f4c5dcbcf0a26e4e99b0168ccf48f9b,
         type: 3}
@@ -39491,7 +39496,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1093750235}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 20.22, y: 1, z: 8.44}
+  m_LocalPosition: {x: 20.22, y: 0, z: 8.44}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1379871628}
@@ -42802,12 +42807,12 @@ PrefabInstance:
     - target: {fileID: 224218900441856234, guid: 8d81c0f34e9ef1441a39c64b9a46ee7d,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.625
+      value: -0.75
       objectReference: {fileID: 0}
     - target: {fileID: 224218900441856234, guid: 8d81c0f34e9ef1441a39c64b9a46ee7d,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.625
+      value: -0.75
       objectReference: {fileID: 0}
     - target: {fileID: 224632857993965514, guid: 8d81c0f34e9ef1441a39c64b9a46ee7d,
         type: 3}
@@ -51815,7 +51820,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 733a44441cd2c44bd84e21afccf6ea93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 1968915072372938, guid: 72325a7c033f4d6499cdf836def81fa7,
+  bulletPrefab: {fileID: 6831357091156250762, guid: ed30619641219af43b9b778b2c7c3601,
     type: 3}
 --- !u!4 &1481545986
 Transform:
@@ -53027,7 +53032,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 3895
+    m_Bits: 261943
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -62291,7 +62296,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1761517775}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10, y: 1, z: 0}
+  m_LocalPosition: {x: -10, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1379871628}
