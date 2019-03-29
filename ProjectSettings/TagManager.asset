@@ -10,6 +10,7 @@ TagManager:
   - Arena
   - Teammate
   - Revive
+  - Circle
   layers:
   - Default
   - TransparentFX
@@ -26,10 +27,10 @@ TagManager:
   - Team
   - Bullet
   - Enemy
-  - 
-  - 
-  - 
-  - 
+  - SolidObjects
+  - SeeThroughObjects
+  - Enemies
+  - Fov
   - 
   - 
   - 

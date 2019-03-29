@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 136578768151488168}
   - component: {fileID: 54045221035424990}
   - component: {fileID: 114262634495356538}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: PlayerPrefabEnemy
   m_TagString: EnemyPlayer
   m_Icon: {fileID: 0}
@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1467978437358472}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: -0.899, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4950742730664568}
@@ -125,6 +125,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthSlider: {fileID: 6173817178436614177}
+  gunParticles: {fileID: 0}
+  gunAudio: {fileID: 0}
+  gunLight: {fileID: 0}
+  reviveTrigger: {fileID: 0}
+  playerModel: {fileID: 0}
+  playerCollider: {fileID: 0}
 --- !u!1 &1565622289118868
 GameObject:
   m_ObjectHideFlags: 0
@@ -136,7 +142,7 @@ GameObject:
   - component: {fileID: 4950742730664568}
   - component: {fileID: 33552657265079930}
   - component: {fileID: 23471878975317638}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: BulletSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -213,7 +219,7 @@ GameObject:
   - component: {fileID: 3868454989263839221}
   - component: {fileID: 8567962781434177585}
   - component: {fileID: 9068649787658682262}
-  m_Layer: 5
+  m_Layer: 14
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -286,7 +292,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5744297467669047095}
   - component: {fileID: 6173817178436614177}
-  m_Layer: 5
+  m_Layer: 14
   m_Name: Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -374,7 +380,7 @@ GameObject:
   - component: {fileID: 7716073318751185586}
   - component: {fileID: 8908951114641000829}
   - component: {fileID: 133205318536026683}
-  m_Layer: 5
+  m_Layer: 14
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -450,7 +456,7 @@ GameObject:
   - component: {fileID: 586963414891417399}
   - component: {fileID: 916396033908616249}
   - component: {fileID: 1461365829740599520}
-  m_Layer: 5
+  m_Layer: 14
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -558,7 +564,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5137485792956493547}
-  m_Layer: 5
+  m_Layer: 14
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
