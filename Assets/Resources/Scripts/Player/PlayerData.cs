@@ -12,14 +12,21 @@ public class PlayerData : MonoBehaviour {
 	private float currentHealth;
     private Text coinCount;
     private Text nodeCount;
+    private Text weaponName;
+    private Text ammoRemaining;
     private Slider dodgeSlider;
     private int kills = 0, assists = 0, deaths = 0;
 
     private GameObject HUDCanvas;
     private GameObject popupHelp;
     private GameObject popupWeapon;
+<<<<<<< HEAD
     private GameObject holdToRevive;
     private GameObject ReviveSlider;
+=======
+    private GameObject activeWeapon;
+    private GameObject currentMagazine;
+>>>>>>> 64d0947113f0c8e666a263ed9d8bcdf992e52360
     // private GameObject popupStatus;
     private PlayerController playerController;
 
@@ -32,19 +39,25 @@ public class PlayerData : MonoBehaviour {
 
     //Change back to Start when fixed HUD
     void Start() {
+        playerController = GetComponent<PlayerController>();
         HUDCanvas = GameObject.Find("HUDPrefab");
         RectTransform hud = HUDCanvas.GetComponent<RectTransform>();
         GameObject canvas = GameObject.Find("Health");
         GameObject balance = GameObject.Find("Balance");
         GameObject nodes = GameObject.Find("NodesBalance");
+        activeWeapon = GameObject.Find("Weapon Type");
+        currentMagazine = GameObject.Find("Magazine");
         popupHelp = hud.Find("Help_Popup").gameObject;
         popupWeapon = hud.Find("Weapons_Popup").gameObject;
         // popupStatus = hud.Find("Statuses_Popup").gameObject;
         dodgeSlider = hud.Find("Dodge Cooldown").GetComponent<Slider>();
+<<<<<<< HEAD
         holdToRevive = hud.Find("Revive_Button").gameObject;
         ReviveSlider = hud.Find("Revive_Slider").gameObject; 
 
         
+=======
+>>>>>>> 64d0947113f0c8e666a263ed9d8bcdf992e52360
         Button pistolButton = popupWeapon.GetComponent<RectTransform>().Find("Pistol").GetComponent<Button>();
         Button shotgunButton = popupWeapon.GetComponent<RectTransform>().Find("Shotgun").GetComponent<Button>();
         Button rifleButton = popupWeapon.GetComponent<RectTransform>().Find("Rifle").GetComponent<Button>();
@@ -81,6 +94,11 @@ public class PlayerData : MonoBehaviour {
         coinCount.text = "0";
         nodeCount = nodes.GetComponent<Text>();
         nodeCount.text = "0";
+        weaponName = activeWeapon.GetComponentInChildren<Text>();
+        weaponName.text = "Pistol";
+
+        ammoRemaining = currentMagazine.GetComponentInChildren<Text>();
+        ammoRemaining.text = "10";
         currentHealth = maxHealth;
         healthSlider.value = currentHealth / maxHealth;
     }
@@ -89,15 +107,19 @@ public class PlayerData : MonoBehaviour {
         switch (weaponNumber) {
             case 0:
                 this.currentWeapon = Weapons.instance.GetPistol();
+                weaponName.text = "Pistol";
                 break;
             case 1:
                 this.currentWeapon = Weapons.instance.GetShotgun();
+                weaponName.text = "Shotgun";
                 break;
             case 2:
                 this.currentWeapon =  Weapons.instance.GetAssaultRifle();
+                weaponName.text = "Assault Rifle";
                 break;
             case 3:
                 this.currentWeapon = Weapons.instance.GetSniper();
+                weaponName.text = "Sniper";
                 break;
             default:
                 Debug.Log("Incorrect weapon number in change weapon");
@@ -140,6 +162,9 @@ public class PlayerData : MonoBehaviour {
         // it checks whether there are enough coins to use.
         if(this.coins + newCoins > 0){
             coins += newCoins;
+            GameObject balance = GameObject.Find("Balance");
+            coinCount = balance.GetComponent<Text>();
+            coinCount.text = coins.ToString();
             return true;
         } else {
             return false;
@@ -202,7 +227,12 @@ public class PlayerData : MonoBehaviour {
     public float getCurrentHealth()
     {
         return currentHealth;
-    }  
+    } 
+    
+    public int getClipCount()
+    {
+        return playerController.clipCount;
+    }
 
     public void UpdateDamageDealt(float damageDealt){
         this.damageDealt += damageDealt;
@@ -210,5 +240,11 @@ public class PlayerData : MonoBehaviour {
 
     public void RefreshHealth(){
         this.currentHealth = maxHealth;
+        healthSlider.value = currentHealth / maxHealth;
+    }
+
+    public void UpdateMagazine() {
+        int currentClip = getClipCount();
+        ammoRemaining.text = currentClip.ToString();
     }
 }
