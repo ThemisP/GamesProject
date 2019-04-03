@@ -54,12 +54,8 @@ public class PlayerController : MonoBehaviour
         playerRigidbody = GetComponent<Rigidbody>();
         playerRigidbody.freezeRotation = true;
         playerData = GetComponent<PlayerData>();
-<<<<<<< HEAD
-
         anim = GetComponent<Animator>();
-=======
         clipCount = playerData.currentWeapon.GetMagazine(); //current number of bullets in clip 
->>>>>>> 64d0947113f0c8e666a263ed9d8bcdf992e52360
     }
 
     // Update is called once per frame
@@ -68,12 +64,8 @@ public class PlayerController : MonoBehaviour
         float h = Input.GetAxisRaw("Horizontal");// a and d keys
         float v = Input.GetAxisRaw("Vertical"); // w and s keys
         bool fire = Input.GetMouseButton(0);//pressed primary mouse button
-<<<<<<< HEAD
         bool hitDodge = Input.GetMouseButton(1); //pressed rightClick
-=======
-        bool hitDodge = Input.GetKey(KeyCode.F);
         bool reload = Input.GetKey(KeyCode.R);
->>>>>>> 64d0947113f0c8e666a263ed9d8bcdf992e52360
 
         bool hitHelp = Input.GetKey(KeyCode.H);
         bool hitWeaponsUpgrade = Input.GetKey(KeyCode.E);
@@ -268,7 +260,6 @@ public class PlayerController : MonoBehaviour
                 if (!offline) Network.instance.SendPlayerDamage(bulletScript.GetBulletDamage(), bulletScript.GetBulletId());
                 ObjectHandler.instance.DestroyBullet(bulletScript.GetBulletId());
             }
-<<<<<<< HEAD
         } else if(obj.tag == "Revive") {
             Debug.Log("Reviving");
             AbleToRevive = true;
@@ -282,7 +273,6 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Stop reviving");
             AbleToRevive = false;
             playerData.ReviveButton(false);
-=======
         }
         else if (obj.CompareTag("Coin")){
             obj.SetActive(false);
@@ -291,7 +281,6 @@ public class PlayerController : MonoBehaviour
         else if (obj.CompareTag("Pill")){
             obj.SetActive(false);
             playerData.RefreshHealth();
->>>>>>> 64d0947113f0c8e666a263ed9d8bcdf992e52360
         }
     }
 

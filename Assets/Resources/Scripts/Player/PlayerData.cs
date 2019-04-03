@@ -20,13 +20,10 @@ public class PlayerData : MonoBehaviour {
     private GameObject HUDCanvas;
     private GameObject popupHelp;
     private GameObject popupWeapon;
-<<<<<<< HEAD
     private GameObject holdToRevive;
     private GameObject ReviveSlider;
-=======
     private GameObject activeWeapon;
     private GameObject currentMagazine;
->>>>>>> 64d0947113f0c8e666a263ed9d8bcdf992e52360
     // private GameObject popupStatus;
     private PlayerController playerController;
 
@@ -51,13 +48,9 @@ public class PlayerData : MonoBehaviour {
         popupWeapon = hud.Find("Weapons_Popup").gameObject;
         // popupStatus = hud.Find("Statuses_Popup").gameObject;
         dodgeSlider = hud.Find("Dodge Cooldown").GetComponent<Slider>();
-<<<<<<< HEAD
         holdToRevive = hud.Find("Revive_Button").gameObject;
         ReviveSlider = hud.Find("Revive_Slider").gameObject; 
 
-        
-=======
->>>>>>> 64d0947113f0c8e666a263ed9d8bcdf992e52360
         Button pistolButton = popupWeapon.GetComponent<RectTransform>().Find("Pistol").GetComponent<Button>();
         Button shotgunButton = popupWeapon.GetComponent<RectTransform>().Find("Shotgun").GetComponent<Button>();
         Button rifleButton = popupWeapon.GetComponent<RectTransform>().Find("Rifle").GetComponent<Button>();
