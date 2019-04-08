@@ -240,4 +240,8 @@ public class PlayerData : MonoBehaviour {
         int currentClip = getClipCount();
         ammoRemaining.text = currentClip.ToString();
     }
+
+    public void SethealthFromRevive() {
+        this.currentHealth = 30f;
+    }
 }
