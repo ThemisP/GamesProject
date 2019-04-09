@@ -43,7 +43,7 @@ public class PlayerData : MonoBehaviour {
         GameObject balance = GameObject.Find("Balance");
         GameObject nodes = GameObject.Find("NodesBalance");
         activeWeapon = GameObject.Find("Weapon Type");
-        currentMagazine = GameObject.Find("Magazine");
+        currentMagazine = hud.Find("Magazine").gameObject;
         popupHelp = hud.Find("Help_Popup").gameObject;
         popupWeapon = hud.Find("Weapons_Popup").gameObject;
         // popupStatus = hud.Find("Statuses_Popup").gameObject;

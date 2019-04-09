@@ -19,7 +19,7 @@ namespace Assets.Resources.Scripts.Weapons {
             return new Weapon(20f, 3f, 0.4f, 1f, 10f,20, 1,"Assault Rifle");
         }
         public Weapon GetShotgun() {
-            return new Weapon(10f, 0.7f, 1f, 2f, 12f,8, 3,"Shotgun");
+            return new Weapon(10f, 0.7f, 1f, 2f, 12f,9, 3,"Shotgun");
         }
         public Weapon GetSniper() {
             return new Weapon(50f, 4f, 1.5f, 0.5f, 20f,5, 1,"Sniper");
