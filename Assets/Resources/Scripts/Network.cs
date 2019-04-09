@@ -49,6 +49,7 @@ public class Network : MonoBehaviour {
 
     private bool GameIsReady;
     private int NumberOfFullRooms;
+    public bool waitingForAllReceive = false;
     public void Awake() {
         HUD.SetActive(false);
         playersInGame = new Dictionary<int, EnemyPlayerController>();
@@ -472,7 +473,9 @@ public class Network : MonoBehaviour {
             Debug.Log("Disconnected");
             return;
         }
-
+        if (waitingForAllReceive) {
+            return;
+        }
         ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
         buffer.WriteInt(15);
         buffer.WriteInt(player.GetGameIndex());
@@ -499,12 +502,8 @@ public class Network : MonoBehaviour {
         return GameIsReady;
     } 
 
-    public void SetGameReady(int numberOfFullRooms, int gameReady) {
-        if (gameReady == 1) {
-            GameIsReady = true && player.RoomFull();
-        }
-
-        NumberOfFullRooms = numberOfFullRooms;
+    public void SetGameReady() {
+        GameIsReady = true;
     }   
 
     public void GameOver() {
@@ -517,6 +516,17 @@ public class Network : MonoBehaviour {
                 playersInGame.Remove(enemy.Key);
                 Destroy(controller.gameObject, 0f);
             }
+        }
+    }
+
+    public void ReceiveGameReady() {
+        try {
+            ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
+            buffer.WriteInt(19);
+            buffer.WriteInt(player.GetGameIndex());
+            TcpStream.Write(buffer.BuffToArray(), 0, buffer.Length());
+        } catch (Exception e) {
+            Debug.Log(e.ToString());
         }
     }
 }
