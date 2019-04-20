@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8449609417240458471}
   - component: {fileID: 8294116418210806375}
   - component: {fileID: 6649945608007652270}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: cell_crate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,7 +88,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4215665963372642419}
   - component: {fileID: 4020821249379981565}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

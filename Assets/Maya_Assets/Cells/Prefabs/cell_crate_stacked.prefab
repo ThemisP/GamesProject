@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 732510086209715656}
   - component: {fileID: 1214806938364582236}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 5715483768619677435}
   - component: {fileID: 1111454227600999941}
   - component: {fileID: 8108689774538365798}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: cell_crate (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -132,7 +132,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7573274530752816097}
   - component: {fileID: 6377134994338848620}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 5686526374231220751}
   - component: {fileID: 5238545724385799311}
   - component: {fileID: 7485203757755499846}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: cell_crate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -255,7 +255,7 @@ GameObject:
   - component: {fileID: 5402319193881244983}
   - component: {fileID: 7554798105246535471}
   - component: {fileID: 636096872184789980}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: cell_crate (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -332,7 +332,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1965135954304171836}
   - component: {fileID: 8057895929712345167}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -377,7 +377,7 @@ GameObject:
   - component: {fileID: 5061773640446372826}
   - component: {fileID: 6623527039283818218}
   - component: {fileID: 7996125516489274613}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: cell_crate (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -454,7 +454,7 @@ GameObject:
   m_Component:
   - component: {fileID: 83491137592006299}
   - component: {fileID: 893191549531868693}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -497,7 +497,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 654688187104555087}
-  m_Layer: 9
+  m_Layer: 15
   m_Name: cell_crate_stacked
   m_TagString: Untagged
   m_Icon: {fileID: 0}
