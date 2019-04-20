@@ -106,15 +106,9 @@ public class EnemyPlayerController : MonoBehaviour {
         gunParticles.Stop();
         gunParticles.Play();
 
-        ObjectHandler.instance.CallFunctionFromAnotherThread(() => {
-            ObjectHandler.instance.InstantiateBullet(pos,
-                                                     rot,
-                                                     speed,
-                                                     lifeTime,
-                                                     bulletId,
-                                                     damage,
-                                                     bulletTeam);
-        });
+        
+        ObjectHandler.instance.InstantiateBullet(pos,rot,speed,lifeTime,bulletId,damage,bulletTeam);
+        
 
         // Enable the lights.
         gunLight.enabled = false;
@@ -144,6 +138,7 @@ public class EnemyPlayerController : MonoBehaviour {
         reviveTrigger.SetActive(false);
         playerCollider.enabled = true;
         playerModel.SetActive(true);
+        health = 30f;
     }
     #endregion
 
