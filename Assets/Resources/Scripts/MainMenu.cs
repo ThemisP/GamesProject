@@ -12,6 +12,7 @@ public class MainMenu : MonoBehaviour {
     public GameObject MainScreenMenu;
     public GameObject LobbyMenu;
     public GameObject EscapeMenu;
+    public GameObject BackgroundImage;
 
     public GameObject SpectateMode;
 
@@ -59,6 +60,7 @@ public class MainMenu : MonoBehaviour {
                 MainScreenMenu.SetActive(false);
                 LobbyMenu.SetActive(false);
                 EscapeMenu.SetActive(false);
+                BackgroundImage.SetActive(false);
                 break;
             case MenuState.ConnectIp:
                 ConnectMenu.SetActive(true);
@@ -66,6 +68,7 @@ public class MainMenu : MonoBehaviour {
                 MainScreenMenu.SetActive(false);
                 LobbyMenu.SetActive(false);
                 EscapeMenu.SetActive(false);
+                BackgroundImage.SetActive(true);
                 break;
             case MenuState.Login:
                 ConnectMenu.SetActive(false);
@@ -73,6 +76,7 @@ public class MainMenu : MonoBehaviour {
                 MainScreenMenu.SetActive(false);
                 LobbyMenu.SetActive(false);
                 EscapeMenu.SetActive(false);
+                BackgroundImage.SetActive(true);
                 break;
             case MenuState.Main:
                 ConnectMenu.SetActive(false);
@@ -80,6 +84,7 @@ public class MainMenu : MonoBehaviour {
                 MainScreenMenu.SetActive(true);
                 LobbyMenu.SetActive(false);
                 EscapeMenu.SetActive(false);
+                BackgroundImage.SetActive(true);
                 break;
             case MenuState.Lobby:
                 ConnectMenu.SetActive(false);
@@ -87,6 +92,7 @@ public class MainMenu : MonoBehaviour {
                 MainScreenMenu.SetActive(false);
                 LobbyMenu.SetActive(true);
                 EscapeMenu.SetActive(false);
+                BackgroundImage.SetActive(true);
                 if (Network.instance.GameReady()) {
                     TimeUntilGameStart.text = "READY!";
                 } else if (startTimer >= 0f){
@@ -130,6 +136,7 @@ public class MainMenu : MonoBehaviour {
                 LoginMenu.SetActive(false);
                 MainScreenMenu.SetActive(false);
                 LobbyMenu.SetActive(false);
+                BackgroundImage.SetActive(false);
                 bool escape = Input.GetKeyDown(KeyCode.Escape);
                 if (escape) {
                     if (!EscapeMenu.activeSelf)

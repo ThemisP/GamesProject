@@ -5232,9 +5232,8 @@ Transform:
   m_LocalPosition: {x: 1.58, y: 0, z: 0}
   m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_Children:
-  - {fileID: 6909174215326907333}
-  - {fileID: 5699286650416680680}
-  - {fileID: 503554910275245643}
+  - {fileID: 6721430780595394554}
+  - {fileID: 5995066545985826182}
   - {fileID: 8069364482283410377}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -5419,6 +5418,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
+  playerController: {fileID: 2583667910425754293}
 --- !u!1 &7167303711011555286
 GameObject:
   m_ObjectHideFlags: 0
@@ -5573,7 +5573,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4686483767827240, guid: b0798e916ddedb346af887f18bd67a46, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4686483767827240, guid: b0798e916ddedb346af887f18bd67a46, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

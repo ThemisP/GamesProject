@@ -33,7 +33,6 @@ public class PlayerController : MonoBehaviour
     float lastShootTime = 0;
     [Header("Player Abilities")]
     public float DodgeCooldown = 3f;
-    public bool isDodging;
 
     [Header("Revive")]
     public GameObject reviveTrigger;
@@ -48,6 +47,7 @@ public class PlayerController : MonoBehaviour
 
     private PlayerData playerData;
     private bool offline = false;
+    private bool isDodging = false;
 
     private bool AbleToRevive = false;
     private float TimeToRevive = 3f;
@@ -119,8 +119,20 @@ public class PlayerController : MonoBehaviour
 
     void UpdateDodgeTimer()
     {
-        if (DodgeTimer < DodgeCooldown)
+        if (DodgeTimer < DodgeCooldown) {
             DodgeTimer += Time.deltaTime;
+        } else {
+            DodgeTimer = DodgeCooldown;
+        }
+        if (DodgeTimer > 0.5f) {
+            isDodging = false;
+
+            anim.SetBool("isDodging", isDodging);
+        } else {
+            isDodging = true;
+
+            anim.SetBool("isDodging", isDodging);
+        }
         playerData.DodgeCooldown(DodgeCooldown, DodgeTimer);
     }
 
@@ -149,6 +161,7 @@ public class PlayerController : MonoBehaviour
         movement.Set(h, 0f, v);
         //Normalise the movement vector to make it proportional to the speed per second
         //Deltatime is the step for the game timer
+        
         movement = movement.normalized * speed * Time.deltaTime;
         //if (teamScript != null) {
         //    Vector3 springForce;
@@ -227,8 +240,11 @@ public class PlayerController : MonoBehaviour
     {
         if (hitDodge)
         {
-            if (DodgeTimer > DodgeCooldown)
+            if (DodgeTimer >= DodgeCooldown)
             {
+                Vector3 move = transform.rotation * Vector3.forward * 3;
+                
+                playerRigidbody.MovePosition(Vector3.Lerp(transform.position, transform.position + move, 10f*Time.deltaTime));
                 DodgeTimer = 0f;
             }
         }
@@ -238,15 +254,17 @@ public class PlayerController : MonoBehaviour
     {
         GameObject obj = collision.gameObject;
         if (obj.tag == "Bullet") {
-            BulletScript bulletScript = obj.GetComponent<BulletScript>();
-            //check if teammate its friendly bullet;
-            //if(bulletScript.GetBulletId().StartsWith(Network.instance.player.GetTeammateUsername()))
-            if (bulletScript.GetBulletTeam() == Network.instance.player.GetTeamNumber()) {
-            } else {
-                playerData.takeDamage(bulletScript.GetBulletDamage(), bulletScript.GetBulletId());
+            if (isDodging) {
+                BulletScript bulletScript = obj.GetComponent<BulletScript>();
+                //check if teammate its friendly bullet;
+                //if(bulletScript.GetBulletId().StartsWith(Network.instance.player.GetTeammateUsername()))
+                if (bulletScript.GetBulletTeam() == Network.instance.player.GetTeamNumber()) {
+                } else {
+                    playerData.takeDamage(bulletScript.GetBulletDamage(), bulletScript.GetBulletId());
 
-                if (!offline) Network.instance.SendPlayerDamage(bulletScript.GetBulletDamage(), bulletScript.GetBulletId());
-                ObjectHandler.instance.DestroyBullet(bulletScript.GetBulletId());
+                    if (!offline) Network.instance.SendPlayerDamage(bulletScript.GetBulletDamage(), bulletScript.GetBulletId());
+                    ObjectHandler.instance.DestroyBullet(bulletScript.GetBulletId());
+                }
             }
         } else if(obj.tag == "Revive") {
             Debug.Log("Reviving");
@@ -263,19 +281,7 @@ public class PlayerController : MonoBehaviour
             playerData.ReviveButton(false);
         }
     }
-
-    public void IsDodging()
-    {
-        if (Input.GetKey(KeyCode.F) && (DodgeTimer == DodgeCooldown))
-        {
-            isDodging = true;
-        }
-        else
-        {
-            isDodging = false;
-        }
-    }
-
+     
     void Animating(float h, float v) {
         // Create a boolean that is true if either of the input axes is non-zero.
         bool walking = h != 0f || v != 0f;
@@ -308,5 +314,9 @@ public class PlayerController : MonoBehaviour
         playerData.SethealthFromRevive();
     }
     #endregion
-
+    #region "Getters"
+    public bool isOffline() {
+        return this.offline;
+    }
+    #endregion
 }
