@@ -159,6 +159,8 @@ public class Network : MonoBehaviour {
     
         player.SetOffline(true);
         cameraScript.SetTarget(playerObj.transform);
+
+        ShrinkCircle.circleAccess.StartCircle();
     }
 
     public void SpawnPlayer(int id, string username, int team, Vector3 pos, Vector3 rot) {
