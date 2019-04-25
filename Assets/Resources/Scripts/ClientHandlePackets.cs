@@ -147,8 +147,8 @@ public class ClientHandlePackets{
     void HandleGetPlayersInRoom(byte[] data) {
         ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
         buffer.WriteBytes(data);
-        int numberOfPlayers = buffer.ReadInt();
-        for (int i = 0; i < numberOfPlayers; i++) {
+        int playersReceived = buffer.ReadInt();
+        for (int i = 0; i < playersReceived; i++) {
             string user = buffer.ReadString();
             if (user != Network.instance.player.GetUsername())
                 Network.instance.player.SetTeammateUsername(user);

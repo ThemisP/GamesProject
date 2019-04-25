@@ -508,7 +508,7 @@ public class Network : MonoBehaviour {
 
     public void SetGameReady(int numberOfFullRooms, int gameReady) {
         if (gameReady == 1) {
-            GameIsReady = true && player.RoomFull();
+            GameIsReady = true; // && player.RoomFull();
         }
 
         NumberOfFullRooms = numberOfFullRooms;

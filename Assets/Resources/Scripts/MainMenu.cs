@@ -93,12 +93,12 @@ public class MainMenu : MonoBehaviour {
                 LobbyMenu.SetActive(true);
                 EscapeMenu.SetActive(false);
                 BackgroundImage.SetActive(true);
+            
                 if (Network.instance.GameReady()) {
                     TimeUntilGameStart.text = "READY!";
                 } else if (startTimer >= 0f){
                     TimeUntilGameStart.text = string.Format("starting in: {0} seconds ", startTimer);
-                }
-                else{
+                } else{
                     TimeUntilGameStart.text = string.Empty;
                 }
                 //update every 1 seconds
@@ -116,6 +116,7 @@ public class MainMenu : MonoBehaviour {
 
                 //update every 2 seconds
                 if(timer2 > 2f) {
+                    Debug.Log("get players from menu");
                     Network.instance.GetPlayersInRoom();
                     timer2 = 0;
                 } else {

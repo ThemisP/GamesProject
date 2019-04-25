@@ -168,8 +168,8 @@ public class PlayerController : MonoBehaviour
         movement.Set(h, 0f, v);
         //Normalise the movement vector to make it proportional to the speed per second
         //Deltatime is the step for the game timer
-        
-        movement = movement.normalized * speed * Time.deltaTime;
+        if(isDodging) movement = movement.normalized * (speed+10) * Time.deltaTime;
+        else movement = movement.normalized * speed * Time.deltaTime;
         //if (teamScript != null) {
         //    Vector3 springForce;
         //    springForce = teamScript.movementModifier(playerRigidbody.velocity);
@@ -249,9 +249,6 @@ public class PlayerController : MonoBehaviour
         {
             if (DodgeTimer >= DodgeCooldown)
             {
-                Vector3 move = transform.rotation * Vector3.forward * 3;
-                
-                playerRigidbody.MovePosition(Vector3.Lerp(transform.position, transform.position + move, 10f*Time.deltaTime));
                 DodgeTimer = 0f;
             }
         }

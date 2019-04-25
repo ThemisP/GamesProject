@@ -41,7 +41,7 @@ public class EnemyPlayerController : MonoBehaviour {
         playerRigidbody = GetComponent<Rigidbody>();
         if (playerRigidbody == null) Debug.LogError("Not found rigid body component");
         playerRigidbody.freezeRotation = true;
-        playerPos = transform.position;
+        playerPos = transform.position; 
         playerRot = transform.rotation.eulerAngles;
         anim = GetComponent<Animator>();
     }
