@@ -53,6 +53,8 @@ public class PlayerController : MonoBehaviour
     private float TimeToRevive = 3f;
     private float MaxReviveTime = 3f;
 
+    private bool waitingForGameStart = true;
+
 
     // Use this for initialization
     void Awake()
@@ -69,11 +71,16 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         if (!dead) {
-            float h = Input.GetAxisRaw("Horizontal");// a and d keys
-            float v = Input.GetAxisRaw("Vertical"); // w and s keys
-            bool fire = Input.GetMouseButton(0);//pressed primary mouse button
-            bool hitDodge = Input.GetMouseButton(1); //pressed rightClick
-
+            float h = 0f;// a and d keys
+            float v = 0f; // w and s keys
+            bool fire = false;//pressed primary mouse button
+            bool hitDodge = false; //pressed rightClick
+            if(!waitingForGameStart) {
+                h = Input.GetAxisRaw("Horizontal");// a and d keys
+                v = Input.GetAxisRaw("Vertical"); // w and s keys
+                fire = Input.GetMouseButton(0);//pressed primary mouse button
+                hitDodge = Input.GetMouseButton(1); //pressed rightClick
+            }
             bool hitHelp = Input.GetKey(KeyCode.H);
             bool hitWeaponsUpgrade = Input.GetKey(KeyCode.E);
             bool hitStatus = Input.GetKey(KeyCode.Q);
@@ -291,6 +298,10 @@ public class PlayerController : MonoBehaviour
     }
 
     #region "setters"
+
+    public void SetWaitingForGame(bool waiting) {
+        waitingForGameStart = waiting;
+    }
     public void SetOffline(bool set)
     {
         this.offline = set;

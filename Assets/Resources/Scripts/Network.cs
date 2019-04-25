@@ -150,7 +150,7 @@ public class Network : MonoBehaviour {
         Team = GameObject.Instantiate(SimplifiedTeamPrefab, new Vector3(0,1,0), Quaternion.Euler(new Vector3(0,0,0)));
 
         TeamScript script = Team.GetComponent<TeamScript>();
-        if (script != null) script.SetPlayers(playerObj.transform, teammateObj.transform);
+        if (script != null) StartCoroutine(SpawnChainAndSetPlayers(playerObj.transform, teammateObj.transform, script));
         else Debug.Log("teamScript error");
 
         PlayerController controller = playerObj.GetComponent<PlayerController>();
@@ -159,8 +159,13 @@ public class Network : MonoBehaviour {
     
         player.SetOffline(true);
         cameraScript.SetTarget(playerObj.transform);
-
         ShrinkCircle.circleAccess.StartCircle();
+    }
+
+    IEnumerator SpawnChainAndSetPlayers(Transform p1, Transform p2, TeamScript script) {
+        yield return new WaitForSecondsRealtime(4);
+        script.SetPlayers(p1, p2);
+        playerController.SetWaitingForGame(false);
     }
 
     public void SpawnPlayer(int id, string username, int team, Vector3 pos, Vector3 rot) {
@@ -172,7 +177,7 @@ public class Network : MonoBehaviour {
             Team = GameObject.Instantiate(SimplifiedTeamPrefab, new Vector3(0,1,0), Quaternion.Euler(new Vector3(0,0,0)));
             
             TeamScript script = Team.GetComponent<TeamScript>();
-            if (script != null) script.SetPlayers(player.GetPlayerObj().transform, playerObj.transform);
+            if (script != null) StartCoroutine(SpawnChainAndSetPlayers(player.GetPlayerObj().transform, playerObj.transform, script));
             else Debug.Log("teamScript error");
 
             PlayerController teammateController = player.GetPlayerObj().GetComponent<PlayerController>();
