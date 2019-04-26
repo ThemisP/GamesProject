@@ -134,11 +134,11 @@ public class PlayerController : MonoBehaviour
         if (DodgeTimer > 0.5f) {
             isDodging = false;
 
-            anim.SetBool("isDodging", isDodging);
+            anim.SetBool("Dodging", isDodging);
         } else {
             isDodging = true;
 
-            anim.SetBool("isDodging", isDodging);
+            anim.SetBool("Dodging", isDodging);
         }
         playerData.DodgeCooldown(DodgeCooldown, DodgeTimer);
     }
