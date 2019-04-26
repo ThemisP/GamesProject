@@ -49,6 +49,7 @@ public class Network : MonoBehaviour {
 
     private bool GameIsReady;
     private int NumberOfFullRooms;
+    public bool waitingForAllReceive = false;
     public void Awake() {
         HUD.SetActive(false);
         playersInGame = new Dictionary<int, EnemyPlayerController>();
@@ -60,14 +61,14 @@ public class Network : MonoBehaviour {
     void Start () {
         ClientHandlePackets.instance.InitMessages();
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
         if (RunOnMainThread.Count > 0) {
             lock (RunOnMainThread) {
                 Action s = RunOnMainThread.Dequeue();
                 s();
-            }            
+            }
         }
         // if (player.playerObj == null)
         //     CancelInvoke();
@@ -156,7 +157,7 @@ public class Network : MonoBehaviour {
         PlayerController controller = playerObj.GetComponent<PlayerController>();
         if (controller != null) controller.SetTeamController(script);
         else Debug.Log("cannot find controller");
-    
+
         player.SetOffline(true);
         cameraScript.SetTarget(playerObj.transform);
         ShrinkCircle.circleAccess.StartCircle();
@@ -175,7 +176,7 @@ public class Network : MonoBehaviour {
         if (team == player.GetTeamNumber()) {
             playerObj = GameObject.Instantiate(TeammatePlayerPrefab, pos, Quaternion.Euler(rot));
             Team = GameObject.Instantiate(SimplifiedTeamPrefab, new Vector3(0,1,0), Quaternion.Euler(new Vector3(0,0,0)));
-            
+
             TeamScript script = Team.GetComponent<TeamScript>();
             if (script != null) StartCoroutine(SpawnChainAndSetPlayers(player.GetPlayerObj().transform, playerObj.transform, script));
             else Debug.Log("teamScript error");
@@ -228,7 +229,7 @@ public class Network : MonoBehaviour {
             buffer.WriteInt(player.GetRoomIndex());
             TcpStream.Write(buffer.BuffToArray(), 0, buffer.Length());
             // LeaveGame(); //Leaving game should be different to dying
-        } catch (Exception e) { 
+        } catch (Exception e) {
             Debug.Log(e.ToString());
         }
     }
@@ -236,7 +237,7 @@ public class Network : MonoBehaviour {
     public void DestroySelf() {
         Destroy(player.playerObj, 0f);
     }
-    
+
     public void HandlePlayerDamage(int id, bool isAlive, float health) {
         EnemyPlayerController controller;
         if(playersInGame.TryGetValue(id, out controller)){
@@ -309,7 +310,7 @@ public class Network : MonoBehaviour {
             }
 
             //Handle Data
-            ClientHandlePackets.instance.HandleData(myBytes);            
+            ClientHandlePackets.instance.HandleData(myBytes);
 
             if (TcpClient == null) return;
             TcpStream.BeginRead(asyncBuff, 0, 8192, OnReceiveTcp, null);
@@ -362,7 +363,7 @@ public class Network : MonoBehaviour {
         ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
         buffer.WriteInt(2);
         buffer.WriteInt(MaxPlayers);
-        TcpStream.Write(buffer.BuffToArray(), 0, buffer.Length());    
+        TcpStream.Write(buffer.BuffToArray(), 0, buffer.Length());
     }
 
     public void GetPlayersInRoom() {
@@ -391,7 +392,7 @@ public class Network : MonoBehaviour {
         buffer.WriteInt(roomIndex);
         TcpStream.Write(buffer.BuffToArray(), 0, buffer.Length());
     }
-    
+
     public void JoinGame(int GameIndex) {
         if (TcpClient == null || !TcpClient.Connected) {
             TcpClient.Close();
@@ -479,7 +480,9 @@ public class Network : MonoBehaviour {
             Debug.Log("Disconnected");
             return;
         }
-
+        if (waitingForAllReceive) {
+            return;
+        }
         ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
         buffer.WriteInt(15);
         buffer.WriteInt(player.GetGameIndex());
@@ -504,15 +507,11 @@ public class Network : MonoBehaviour {
     #endregion
     public bool GameReady() {
         return GameIsReady;
-    } 
+    }
 
-    public void SetGameReady(int numberOfFullRooms, int gameReady) {
-        if (gameReady == 1) {
-            GameIsReady = true; // && player.RoomFull();
-        }
-
-        NumberOfFullRooms = numberOfFullRooms;
-    }   
+    public void SetGameReady() {
+        GameIsReady = true;
+    }
 
     public void GameOver() {
         Destroy(Team, 0f);
@@ -524,6 +523,17 @@ public class Network : MonoBehaviour {
                 playersInGame.Remove(enemy.Key);
                 Destroy(controller.gameObject, 0f);
             }
+        }
+    }
+
+    public void ReceiveGameReady() {
+        try {
+            ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
+            buffer.WriteInt(19);
+            buffer.WriteInt(player.GetGameIndex());
+            TcpStream.Write(buffer.BuffToArray(), 0, buffer.Length());
+        } catch (Exception e) {
+            Debug.Log(e.ToString());
         }
     }
 }
