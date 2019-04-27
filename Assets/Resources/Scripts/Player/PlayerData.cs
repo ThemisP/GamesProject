@@ -21,7 +21,7 @@ public class PlayerData : MonoBehaviour {
     private GameObject holdToRevive;
     private GameObject ReviveSlider;
     // private GameObject popupStatus;
-    private PlayerController playerController;
+    public PlayerController playerController;
 
 	private int coins = 0;
     private int nodePoints = 0;
@@ -29,6 +29,7 @@ public class PlayerData : MonoBehaviour {
 
     public Weapon currentWeapon = Weapons.instance.GetPistol();
     public Status currentStatus = Statuses.instance.GetHealthy();
+    private float circleTimer = 0f;
 
     //Change back to Start when fixed HUD
     void Start() {
@@ -42,9 +43,8 @@ public class PlayerData : MonoBehaviour {
         // popupStatus = hud.Find("Statuses_Popup").gameObject;
         dodgeSlider = hud.Find("Dodge Cooldown").GetComponent<Slider>();
         holdToRevive = hud.Find("Revive_Button").gameObject;
-        ReviveSlider = hud.Find("Revive_Slider").gameObject; 
+        ReviveSlider = hud.Find("Revive_Slider").gameObject;
 
-        
         Button pistolButton = popupWeapon.GetComponent<RectTransform>().Find("Pistol").GetComponent<Button>();
         Button shotgunButton = popupWeapon.GetComponent<RectTransform>().Find("Shotgun").GetComponent<Button>();
         Button rifleButton = popupWeapon.GetComponent<RectTransform>().Find("Rifle").GetComponent<Button>();
@@ -69,7 +69,6 @@ public class PlayerData : MonoBehaviour {
         // invincibleButton.onClick.AddListener(() => ChangeStatus(3));
         // paralyzedButton.onClick.AddListener(() => ChangeStatus(4));
 
-
         HUDCanvas.SetActive(true);
         popupHelp.SetActive(false);
         popupWeapon.SetActive(false);
@@ -83,6 +82,17 @@ public class PlayerData : MonoBehaviour {
         nodeCount.text = "0";
         currentHealth = maxHealth;
         healthSlider.value = currentHealth / maxHealth;
+    }
+    private void Update() {
+        circleTimer += Time.deltaTime;
+        if (circleTimer > 2f) {
+            circleTimer = 0f;
+            if (!ShrinkCircle.circleAccess.isInCircle(this.transform)) {
+                takeDamage(5.0f, "");
+                if(!playerController.isOffline()) Network.instance.SendPlayerDamage(5.0f, "");
+
+            }
+        }
     }
 
     void ChangeWeapon(int weaponNumber) {
@@ -106,10 +116,11 @@ public class PlayerData : MonoBehaviour {
     }
 
     public void takeDamage(float amount, string bulletId){
-        currentHealth -= amount;
-        if (currentHealth - amount > 0){
+        if (currentHealth - amount > 0) {
+            currentHealth -= amount;
             healthSlider.value = currentHealth/maxHealth;
         } else {
+            currentHealth = 0;
             healthSlider.value = 0f;
         }
     }

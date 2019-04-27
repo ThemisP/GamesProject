@@ -33,7 +33,6 @@ public class PlayerController : MonoBehaviour
     float lastShootTime = 0;
     [Header("Player Abilities")]
     public float DodgeCooldown = 3f;
-    public bool isDodging;
 
     [Header("Revive")]
     public GameObject reviveTrigger;
@@ -48,10 +47,13 @@ public class PlayerController : MonoBehaviour
 
     private PlayerData playerData;
     private bool offline = false;
+    private bool isDodging = false;
 
     private bool AbleToRevive = false;
     private float TimeToRevive = 3f;
     private float MaxReviveTime = 3f;
+
+    private bool waitingForGameStart = true;
 
 
     // Use this for initialization
@@ -69,11 +71,16 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         if (!dead) {
-            float h = Input.GetAxisRaw("Horizontal");// a and d keys
-            float v = Input.GetAxisRaw("Vertical"); // w and s keys
-            bool fire = Input.GetMouseButton(0);//pressed primary mouse button
-            bool hitDodge = Input.GetMouseButton(1); //pressed rightClick
-
+            float h = 0f;// a and d keys
+            float v = 0f; // w and s keys
+            bool fire = false;//pressed primary mouse button
+            bool hitDodge = false; //pressed rightClick
+            if(!waitingForGameStart) {
+                h = Input.GetAxisRaw("Horizontal");// a and d keys
+                v = Input.GetAxisRaw("Vertical"); // w and s keys
+                fire = Input.GetMouseButton(0);//pressed primary mouse button
+                hitDodge = Input.GetMouseButton(1); //pressed rightClick
+            }
             bool hitHelp = Input.GetKey(KeyCode.H);
             bool hitWeaponsUpgrade = Input.GetKey(KeyCode.E);
             bool hitStatus = Input.GetKey(KeyCode.Q);
@@ -119,8 +126,20 @@ public class PlayerController : MonoBehaviour
 
     void UpdateDodgeTimer()
     {
-        if (DodgeTimer < DodgeCooldown)
+        if (DodgeTimer < DodgeCooldown) {
             DodgeTimer += Time.deltaTime;
+        } else {
+            DodgeTimer = DodgeCooldown;
+        }
+        if (DodgeTimer > 0.5f) {
+            isDodging = false;
+
+            anim.SetBool("Dodging", isDodging);
+        } else {
+            isDodging = true;
+
+            anim.SetBool("Dodging", isDodging);
+        }
         playerData.DodgeCooldown(DodgeCooldown, DodgeTimer);
     }
 
@@ -149,7 +168,8 @@ public class PlayerController : MonoBehaviour
         movement.Set(h, 0f, v);
         //Normalise the movement vector to make it proportional to the speed per second
         //Deltatime is the step for the game timer
-        movement = movement.normalized * speed * Time.deltaTime;
+        if(isDodging) movement = movement.normalized * (speed+10) * Time.deltaTime;
+        else movement = movement.normalized * speed * Time.deltaTime;
         //if (teamScript != null) {
         //    Vector3 springForce;
         //    springForce = teamScript.movementModifier(playerRigidbody.velocity);
@@ -227,7 +247,7 @@ public class PlayerController : MonoBehaviour
     {
         if (hitDodge)
         {
-            if (DodgeTimer > DodgeCooldown)
+            if (DodgeTimer >= DodgeCooldown)
             {
                 DodgeTimer = 0f;
             }
@@ -238,15 +258,17 @@ public class PlayerController : MonoBehaviour
     {
         GameObject obj = collision.gameObject;
         if (obj.tag == "Bullet") {
-            BulletScript bulletScript = obj.GetComponent<BulletScript>();
-            //check if teammate its friendly bullet;
-            //if(bulletScript.GetBulletId().StartsWith(Network.instance.player.GetTeammateUsername()))
-            if (bulletScript.GetBulletTeam() == Network.instance.player.GetTeamNumber()) {
-            } else {
-                playerData.takeDamage(bulletScript.GetBulletDamage(), bulletScript.GetBulletId());
+            if (isDodging) {
+                BulletScript bulletScript = obj.GetComponent<BulletScript>();
+                //check if teammate its friendly bullet;
+                //if(bulletScript.GetBulletId().StartsWith(Network.instance.player.GetTeammateUsername()))
+                if (bulletScript.GetBulletTeam() == Network.instance.player.GetTeamNumber()) {
+                } else {
+                    playerData.takeDamage(bulletScript.GetBulletDamage(), bulletScript.GetBulletId());
 
-                if (!offline) Network.instance.SendPlayerDamage(bulletScript.GetBulletDamage(), bulletScript.GetBulletId());
-                ObjectHandler.instance.DestroyBullet(bulletScript.GetBulletId());
+                    if (!offline) Network.instance.SendPlayerDamage(bulletScript.GetBulletDamage(), bulletScript.GetBulletId());
+                    ObjectHandler.instance.DestroyBullet(bulletScript.GetBulletId());
+                }
             }
         } else if(obj.tag == "Revive") {
             Debug.Log("Reviving");
@@ -263,19 +285,7 @@ public class PlayerController : MonoBehaviour
             playerData.ReviveButton(false);
         }
     }
-
-    public void IsDodging()
-    {
-        if (Input.GetKey(KeyCode.F) && (DodgeTimer == DodgeCooldown))
-        {
-            isDodging = true;
-        }
-        else
-        {
-            isDodging = false;
-        }
-    }
-
+     
     void Animating(float h, float v) {
         // Create a boolean that is true if either of the input axes is non-zero.
         bool walking = h != 0f || v != 0f;
@@ -285,6 +295,10 @@ public class PlayerController : MonoBehaviour
     }
 
     #region "setters"
+
+    public void SetWaitingForGame(bool waiting) {
+        waitingForGameStart = waiting;
+    }
     public void SetOffline(bool set)
     {
         this.offline = set;
@@ -308,5 +322,9 @@ public class PlayerController : MonoBehaviour
         playerData.SethealthFromRevive();
     }
     #endregion
-
+    #region "Getters"
+    public bool isOffline() {
+        return this.offline;
+    }
+    #endregion
 }

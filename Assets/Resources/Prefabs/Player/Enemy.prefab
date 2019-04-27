@@ -5856,12 +5856,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthSlider: {fileID: 2309534466521635591}
-  gunParticles: {fileID: 0}
-  gunAudio: {fileID: 0}
-  gunLight: {fileID: 0}
-  reviveTrigger: {fileID: 0}
-  playerModel: {fileID: 0}
-  playerCollider: {fileID: 0}
+  gunParticles: {fileID: 1981483896800828587}
+  gunAudio: {fileID: 2130423746749573089}
+  gunLight: {fileID: 3598022147154751878}
+  reviveTrigger: {fileID: 5855845488938445371}
+  playerModel: {fileID: 6672603163680331041}
+  playerCollider: {fileID: 5718249855503616366}
 --- !u!114 &2101338283970689369
 MonoBehaviour:
   m_ObjectHideFlags: 0
