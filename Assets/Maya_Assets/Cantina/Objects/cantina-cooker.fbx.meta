@@ -97,6 +97,11 @@ ModelImporter:
     100182: stove5
     100184: stove6
     100186: stove7
+    100188: leg
+    100190: leg1
+    100192: leg2
+    100194: leg3
+    100196: legs
     400000: //RootNode
     400002: cooker_main1
     400004: dial
@@ -191,6 +196,11 @@ ModelImporter:
     400182: stove5
     400184: stove6
     400186: stove7
+    400188: leg
+    400190: leg1
+    400192: leg2
+    400194: leg3
+    400196: legs
     2100000: lambert2
     2100002: lambert1
     2300000: cooker_main1
@@ -276,6 +286,10 @@ ModelImporter:
     2300160: round1 5
     2300162: round1 6
     2300164: round1 7
+    2300166: leg
+    2300168: leg1
+    2300170: leg2
+    2300172: leg3
     3300000: cooker_main1
     3300002: dial
     3300004: dial1
@@ -359,6 +373,10 @@ ModelImporter:
     3300160: round1 5
     3300162: round1 6
     3300164: round1 7
+    3300166: leg
+    3300168: leg1
+    3300170: leg2
+    3300172: leg3
     4300000: oven
     4300002: oven1
     4300004: cooker_main1
@@ -442,6 +460,10 @@ ModelImporter:
     4300160: line_small1
     4300162: line_small2
     4300164: line_small3
+    4300166: leg
+    4300168: leg1
+    4300170: leg2
+    4300172: leg3
   externalObjects: {}
   materials:
     importMaterials: 1
