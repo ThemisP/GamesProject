@@ -1,0 +1,306 @@
+fileFormatVersion: 2
+guid: 50d7a53ec3cfb3b4ab0a2a57d5ccb527
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: base
+    100002: base 1
+    100004: base 2
+    100006: base 3
+    100008: base 4
+    100010: base 5
+    100012: base 6
+    100014: base 7
+    100016: container
+    100018: container1
+    100020: container2
+    100022: container3
+    100024: container4
+    100026: container5
+    100028: container6
+    100030: container7
+    100032: frame
+    100034: hand
+    100036: hand 1
+    100038: hand 2
+    100040: hand 3
+    100042: hand 4
+    100044: hand 5
+    100046: hand 6
+    100048: hand 7
+    100050: handle
+    100052: handle 1
+    100054: //RootNode
+    100056: leg
+    100058: leg1
+    100060: leg2
+    100062: leg3
+    100064: mug2
+    100066: mug3
+    100068: mug_bottom
+    100070: mug_bottom 1
+    100072: mug_main
+    100074: mug_main 1
+    100076: pSphere4
+    100078: pSphere4 1
+    100080: pSphere4 2
+    100082: pSphere4 3
+    100084: pSphere4 4
+    100086: pSphere4 5
+    100088: pSphere4 6
+    100090: pSphere4 7
+    100092: top1
+    100094: top3
+    100096: top4
+    100098: top5
+    400000: base
+    400002: base 1
+    400004: base 2
+    400006: base 3
+    400008: base 4
+    400010: base 5
+    400012: base 6
+    400014: base 7
+    400016: container
+    400018: container1
+    400020: container2
+    400022: container3
+    400024: container4
+    400026: container5
+    400028: container6
+    400030: container7
+    400032: frame
+    400034: hand
+    400036: hand 1
+    400038: hand 2
+    400040: hand 3
+    400042: hand 4
+    400044: hand 5
+    400046: hand 6
+    400048: hand 7
+    400050: handle
+    400052: handle 1
+    400054: //RootNode
+    400056: leg
+    400058: leg1
+    400060: leg2
+    400062: leg3
+    400064: mug2
+    400066: mug3
+    400068: mug_bottom
+    400070: mug_bottom 1
+    400072: mug_main
+    400074: mug_main 1
+    400076: pSphere4
+    400078: pSphere4 1
+    400080: pSphere4 2
+    400082: pSphere4 3
+    400084: pSphere4 4
+    400086: pSphere4 5
+    400088: pSphere4 6
+    400090: pSphere4 7
+    400092: top1
+    400094: top3
+    400096: top4
+    400098: top5
+    2100000: lambert1
+    2300000: base
+    2300002: base 1
+    2300004: base 2
+    2300006: base 3
+    2300008: base 4
+    2300010: base 5
+    2300012: base 6
+    2300014: base 7
+    2300016: hand
+    2300018: hand 1
+    2300020: hand 2
+    2300022: hand 3
+    2300024: hand 4
+    2300026: hand 5
+    2300028: hand 6
+    2300030: hand 7
+    2300032: handle
+    2300034: handle 1
+    2300036: leg
+    2300038: leg1
+    2300040: leg2
+    2300042: leg3
+    2300044: mug_bottom
+    2300046: mug_bottom 1
+    2300048: mug_main
+    2300050: mug_main 1
+    2300052: pSphere4
+    2300054: pSphere4 1
+    2300056: pSphere4 2
+    2300058: pSphere4 3
+    2300060: pSphere4 4
+    2300062: pSphere4 5
+    2300064: pSphere4 6
+    2300066: pSphere4 7
+    2300068: top1
+    2300070: top3
+    2300072: top4
+    2300074: top5
+    3300000: base
+    3300002: base 1
+    3300004: base 2
+    3300006: base 3
+    3300008: base 4
+    3300010: base 5
+    3300012: base 6
+    3300014: base 7
+    3300016: hand
+    3300018: hand 1
+    3300020: hand 2
+    3300022: hand 3
+    3300024: hand 4
+    3300026: hand 5
+    3300028: hand 6
+    3300030: hand 7
+    3300032: handle
+    3300034: handle 1
+    3300036: leg
+    3300038: leg1
+    3300040: leg2
+    3300042: leg3
+    3300044: mug_bottom
+    3300046: mug_bottom 1
+    3300048: mug_main
+    3300050: mug_main 1
+    3300052: pSphere4
+    3300054: pSphere4 1
+    3300056: pSphere4 2
+    3300058: pSphere4 3
+    3300060: pSphere4 4
+    3300062: pSphere4 5
+    3300064: pSphere4 6
+    3300066: pSphere4 7
+    3300068: top1
+    3300070: top3
+    3300072: top4
+    3300074: top5
+    4300000: leg3
+    4300002: leg2
+    4300004: leg1
+    4300006: leg
+    4300008: top1
+    4300010: top3
+    4300012: top4
+    4300014: top5
+    4300016: pSphere4
+    4300018: hand
+    4300020: base
+    4300022: pSphere4
+    4300024: hand
+    4300026: base
+    4300028: pSphere4
+    4300030: hand
+    4300032: base
+    4300034: pSphere4
+    4300036: hand
+    4300038: base
+    4300040: mug_main
+    4300042: mug_bottom
+    4300044: handle
+    4300046: pSphere4
+    4300048: hand
+    4300050: base
+    4300052: pSphere4
+    4300054: hand
+    4300056: base
+    4300058: pSphere4
+    4300060: hand
+    4300062: base
+    4300064: pSphere4
+    4300066: hand
+    4300068: base
+    4300070: mug_main
+    4300072: mug_bottom
+    4300074: handle
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
