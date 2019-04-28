@@ -32935,6 +32935,11 @@ PrefabInstance:
       propertyPath: m_TargetTexture
       value: 
       objectReference: {fileID: 8400000, guid: 2cfe13c825a59304cb920eede02b5217, type: 2}
+    - target: {fileID: 6764101293683505823, guid: adbaf13b4db1440439cdc9c95d965898,
+        type: 3}
+      propertyPath: orthographic size
+      value: 65
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: adbaf13b4db1440439cdc9c95d965898, type: 3}
 --- !u!4 &905135886 stripped
@@ -42995,25 +43000,33 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 583413438, guid: 8d81c0f34e9ef1441a39c64b9a46ee7d, type: 3}
-      propertyPath: m_RootOrder
-      value: 4
+      propertyPath: m_AnchoredPosition.x
+      value: -135
       objectReference: {fileID: 0}
     - target: {fileID: 2045468658, guid: 8d81c0f34e9ef1441a39c64b9a46ee7d, type: 3}
-      propertyPath: m_RootOrder
-      value: 5
+      propertyPath: m_AnchoredPosition.x
+      value: -55
       objectReference: {fileID: 0}
     - target: {fileID: 1637552172, guid: 8d81c0f34e9ef1441a39c64b9a46ee7d, type: 3}
-      propertyPath: m_RootOrder
-      value: 6
+      propertyPath: m_AnchoredPosition.x
+      value: -55
       objectReference: {fileID: 0}
     - target: {fileID: 1085257732, guid: 8d81c0f34e9ef1441a39c64b9a46ee7d, type: 3}
-      propertyPath: m_RootOrder
-      value: 7
+      propertyPath: m_AnchoredPosition.x
+      value: -55
       objectReference: {fileID: 0}
     - target: {fileID: 1400648579499909065, guid: 8d81c0f34e9ef1441a39c64b9a46ee7d,
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1144621271, guid: 8d81c0f34e9ef1441a39c64b9a46ee7d, type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 1144621271, guid: 8d81c0f34e9ef1441a39c64b9a46ee7d, type: 3}
+      propertyPath: m_FontData.m_MinSize
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114195460954091976, guid: 8d81c0f34e9ef1441a39c64b9a46ee7d, type: 3}

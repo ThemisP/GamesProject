@@ -30,9 +30,11 @@ public class PlayerData : MonoBehaviour {
 	private int coins = 0;
     private int nodePoints = 0;
     private float damageDealt = 0;
+    public int bulletsLeft;
 
     public Weapon currentWeapon = Weapons.instance.GetPistol();
     public Status currentStatus = Statuses.instance.GetHealthy();
+    public bool upgradeFlag = false;
 
     //Change back to Start when fixed HUD
     void Start() {
@@ -55,12 +57,15 @@ public class PlayerData : MonoBehaviour {
         Button shotgunButton = popupWeapon.GetComponent<RectTransform>().Find("Shotgun").GetComponent<Button>();
         Button rifleButton = popupWeapon.GetComponent<RectTransform>().Find("Rifle").GetComponent<Button>();
         Button sniperButton = popupWeapon.GetComponent<RectTransform>().Find("Sniper").GetComponent<Button>();
+        Button upgradeRangeButton = popupWeapon.GetComponent<RectTransform>().Find("+Range").GetComponent<Button>();
+        Button upgradeDamageButton = popupWeapon.GetComponent<RectTransform>().Find("+Power").GetComponent<Button>();
+        Button upgradeCapacityButton = popupWeapon.GetComponent<RectTransform>().Find("+Capacity").GetComponent<Button>();
 
 
-        pistolButton.onClick.AddListener(() => ChangeWeapon(0));
-        shotgunButton.onClick.AddListener(() => ChangeWeapon(1));
-        rifleButton.onClick.AddListener(() => ChangeWeapon(2));
-        sniperButton.onClick.AddListener(() => ChangeWeapon(3));
+        pistolButton.onClick.AddListener(() => UpgradeWeapon("Pistol"));
+        shotgunButton.onClick.AddListener(() => UpgradeWeapon("Shotgun"));
+        rifleButton.onClick.AddListener(() => UpgradeWeapon("Assault Rifle"));
+        sniperButton.onClick.AddListener(() => UpgradeWeapon("Sniper"));
 
         // Button healthyButton = popupStatus.GetComponent<RectTransform>().Find("Healthy").GetComponent<Button>();
         // Button burntButton = popupStatus.GetComponent<RectTransform>().Find("Burnt").GetComponent<Button>();
@@ -96,27 +101,47 @@ public class PlayerData : MonoBehaviour {
         healthSlider.value = currentHealth / maxHealth;
     }
 
-    void ChangeWeapon(int weaponNumber) {
-        switch (weaponNumber) {
-            case 0:
-                this.currentWeapon = Weapons.instance.GetPistol();
-                weaponName.text = "Pistol";
-                break;
-            case 1:
-                this.currentWeapon = Weapons.instance.GetShotgun();
-                weaponName.text = "Shotgun";
-                break;
-            case 2:
-                this.currentWeapon =  Weapons.instance.GetAssaultRifle();
-                weaponName.text = "Assault Rifle";
-                break;
-            case 3:
-                this.currentWeapon = Weapons.instance.GetSniper();
-                weaponName.text = "Sniper";
-                break;
-            default:
-                Debug.Log("Incorrect weapon number in change weapon");
-                break;
+    void UpgradeWeapon(string newWeapon) {
+        Debug.Log(newWeapon);
+
+        /* Will eventually be where currency check will be in the future */ 
+        if (currentWeapon.GetWeaponName().Equals("Pistol"))
+        {
+            /*Stage 1:  Upgrade from pistol to either Shotgun, Assault_Rifle or Sniper */
+
+            switch (newWeapon)
+            {
+                case "Shotgun":
+                    upgradeFlag = true;
+                    this.currentWeapon = Weapons.instance.GetShotgun();
+                    weaponName.text = "Shotgun";
+                    ammoRemaining.text = bulletsLeft.ToString();
+
+                    break;
+                case "Assault Rifle":
+                    upgradeFlag = true;
+                    this.currentWeapon = Weapons.instance.GetAssaultRifle();
+                    weaponName.text = "Assault Rifle";
+                    ammoRemaining.text = bulletsLeft.ToString();
+                    
+
+                    break;
+                case "Sniper":
+                    upgradeFlag = true;
+                    this.currentWeapon = Weapons.instance.GetSniper();
+                    weaponName.text = "Sniper";
+                    ammoRemaining.text = bulletsLeft.ToString();
+                   
+
+                    break;
+                default:
+                    Debug.Log("Invalid Action. ");
+                    break;
+            }
+        }
+        else
+        {
+            
         }
     }
 
@@ -222,11 +247,6 @@ public class PlayerData : MonoBehaviour {
         return currentHealth;
     } 
     
-    public int getClipCount()
-    {
-        return playerController.clipCount;
-    }
-
     public void UpdateDamageDealt(float damageDealt){
         this.damageDealt += damageDealt;
     }   
@@ -237,11 +257,36 @@ public class PlayerData : MonoBehaviour {
     }
 
     public void UpdateMagazine() {
-        int currentClip = getClipCount();
+        int currentClip = bulletsLeft;
         ammoRemaining.text = currentClip.ToString();
     }
 
     public void SethealthFromRevive() {
         this.currentHealth = 30f;
     }
+
+    //public Weapon changeWeapon(Weapon oldWeapon)
+    //    {
+    //        string item = oldWeapon.GetWeaponName();
+    //        /*sets potential value to new weapon */
+
+    //        Weapon acquiredWeapon = new Weapon(10f, 0.7f, 1f, 2f, 8f, 10, 1, "Pistol");
+
+    //        switch (item)
+    //        {
+    //            case "Assault Rifle":
+    //                acquiredWeapon = Weapons.instance.GetAssaultRifle();
+    //                break;
+    //            case "Shotgun":
+    //                acquiredWeapon = Weapons.instance.GetShotgun();
+    //                break;
+    //            case "Sniper":
+    //                acquiredWeapon = Weapons.instance.GetSniper();
+    //                break;
+    //            default:
+    //                Debug.Log("Invalid Action. ");
+    //                break;
+    //        }
+    //        return acquiredWeapon;
+    //    }
 }

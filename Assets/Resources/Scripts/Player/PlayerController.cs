@@ -51,6 +51,7 @@ public class PlayerController : MonoBehaviour
     private bool AbleToRevive = false;
     private float TimeToRevive = 3f;
     private float MaxReviveTime = 3f;
+    private Weapon weaponReference;
 
     // Use this for initialization
     void Awake()
@@ -70,6 +71,7 @@ public class PlayerController : MonoBehaviour
         {
             float h = Input.GetAxisRaw("Horizontal");// a and d keys
             float v = Input.GetAxisRaw("Vertical"); // w and s keys
+            weaponReference = playerData.currentWeapon;
             bool fire = Input.GetMouseButton(0);//pressed primary mouse button
             bool hitDodge = Input.GetMouseButton(1); //pressed rightClick
             bool reload = Input.GetKey(KeyCode.R);
@@ -77,6 +79,7 @@ public class PlayerController : MonoBehaviour
             bool hitWeaponsUpgrade = Input.GetKey(KeyCode.E);
             bool hitStatus = Input.GetKey(KeyCode.Q);
             bool reviving = Input.GetKey(KeyCode.F);
+            Debug.Log(playerData.currentWeapon.GetWeaponName());
 
             if (AbleToRevive)
             {
@@ -98,10 +101,12 @@ public class PlayerController : MonoBehaviour
                     TimeToRevive = 0f;
                 }
             }
-
             Move(h, v);
             playerData.PopupHelp(hitHelp);
             playerData.PopupWeapons(hitWeaponsUpgrade);
+            if (hitWeaponsUpgrade && playerData.upgradeFlag) {
+                clipCount = weaponReference.GetMagazine();
+            }
             // playerData.PopupStatuses(hitStatus);
 
             speed = playerData.currentStatus.GetSpeed();
@@ -127,6 +132,8 @@ public class PlayerController : MonoBehaviour
             }
             Dodge(hitDodge);
         }
+        playerData.bulletsLeft = clipCount;
+        playerData.upgradeFlag = false;
     }
 
     void UpdateDodgeTimer()
@@ -162,12 +169,6 @@ public class PlayerController : MonoBehaviour
         //Normalise the movement vector to make it proportional to the speed per second
         //Deltatime is the step for the game timer
         movement = movement.normalized * speed * Time.deltaTime;
-        //if (teamScript != null) {
-        //    Vector3 springForce;
-        //    springForce = teamScript.movementModifier(playerRigidbody.velocity);
-        //    playerRigidbody.AddForce(springForce);
-        //}
-
         playerRigidbody.MovePosition(transform.position + movement);
     }
 
@@ -318,6 +319,11 @@ public class PlayerController : MonoBehaviour
             isDodging = false;
         }
     }
+
+    //public int getClipCount()
+    //{
+    //    return this.clipCount;
+    //}
 
     void Animating(float h, float v)
     {
