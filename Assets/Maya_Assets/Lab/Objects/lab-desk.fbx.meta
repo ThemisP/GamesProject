@@ -1,0 +1,284 @@
+fileFormatVersion: 2
+guid: 4573ffe39b767e243b0c0d10d3ed2b05
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: back
+    100002: back 1
+    100004: back 2
+    100006: binder
+    100008: binder1
+    100010: binder2
+    100012: binders
+    100014: computer
+    100016: drawer1
+    100018: drawer2
+    100020: drawer3
+    100022: drawer_pull
+    100024: drawer_pull1
+    100026: drawer_pull2
+    100028: drawer_unit
+    100030: drawers
+    100032: frame
+    100034: handle
+    100036: handle 1
+    100038: keyboard
+    100040: //RootNode
+    100042: left
+    100044: left 1
+    100046: left 2
+    100048: leg
+    100050: leg1
+    100052: leg2
+    100054: leg3
+    100056: monitor
+    100058: mouse
+    100060: mug
+    100062: mug1
+    100064: mug_bottom
+    100066: mug_bottom 1
+    100068: mug_main
+    100070: mug_main 1
+    100072: neck
+    100074: pc
+    100076: right
+    100078: right 1
+    100080: right 2
+    100082: stand
+    100084: top1
+    100086: glass
+    400000: back
+    400002: back 1
+    400004: back 2
+    400006: binder
+    400008: binder1
+    400010: binder2
+    400012: binders
+    400014: computer
+    400016: drawer1
+    400018: drawer2
+    400020: drawer3
+    400022: drawer_pull
+    400024: drawer_pull1
+    400026: drawer_pull2
+    400028: drawer_unit
+    400030: drawers
+    400032: frame
+    400034: handle
+    400036: handle 1
+    400038: keyboard
+    400040: //RootNode
+    400042: left
+    400044: left 1
+    400046: left 2
+    400048: leg
+    400050: leg1
+    400052: leg2
+    400054: leg3
+    400056: monitor
+    400058: mouse
+    400060: mug
+    400062: mug1
+    400064: mug_bottom
+    400066: mug_bottom 1
+    400068: mug_main
+    400070: mug_main 1
+    400072: neck
+    400074: pc
+    400076: right
+    400078: right 1
+    400080: right 2
+    400082: stand
+    400084: top1
+    400086: glass
+    2100000: lambert1
+    2100002: lambert2
+    2100004: lambert3
+    2300000: back
+    2300002: back 1
+    2300004: back 2
+    2300006: drawer1
+    2300008: drawer2
+    2300010: drawer3
+    2300012: drawer_pull
+    2300014: drawer_pull1
+    2300016: drawer_pull2
+    2300018: drawer_unit
+    2300020: handle
+    2300022: handle 1
+    2300024: keyboard
+    2300026: left
+    2300028: left 1
+    2300030: left 2
+    2300032: leg
+    2300034: leg1
+    2300036: leg2
+    2300038: leg3
+    2300040: monitor
+    2300042: mouse
+    2300044: mug_bottom
+    2300046: mug_bottom 1
+    2300048: mug_main
+    2300050: mug_main 1
+    2300052: neck
+    2300054: pc
+    2300056: right
+    2300058: right 1
+    2300060: right 2
+    2300062: stand
+    2300064: top1
+    2300066: glass
+    3300000: back
+    3300002: back 1
+    3300004: back 2
+    3300006: drawer1
+    3300008: drawer2
+    3300010: drawer3
+    3300012: drawer_pull
+    3300014: drawer_pull1
+    3300016: drawer_pull2
+    3300018: drawer_unit
+    3300020: handle
+    3300022: handle 1
+    3300024: keyboard
+    3300026: left
+    3300028: left 1
+    3300030: left 2
+    3300032: leg
+    3300034: leg1
+    3300036: leg2
+    3300038: leg3
+    3300040: monitor
+    3300042: mouse
+    3300044: mug_bottom
+    3300046: mug_bottom 1
+    3300048: mug_main
+    3300050: mug_main 1
+    3300052: neck
+    3300054: pc
+    3300056: right
+    3300058: right 1
+    3300060: right 2
+    3300062: stand
+    3300064: top1
+    3300066: glass
+    4300000: mug_main
+    4300002: mug_bottom
+    4300004: handle
+    4300006: back
+    4300008: right
+    4300010: left
+    4300012: back
+    4300014: right
+    4300016: left
+    4300018: back
+    4300020: right
+    4300022: left
+    4300024: mug_main
+    4300026: mug_bottom
+    4300028: handle
+    4300030: pc
+    4300032: stand
+    4300034: neck
+    4300036: monitor
+    4300038: keyboard
+    4300040: mouse
+    4300042: leg3
+    4300044: leg2
+    4300046: leg1
+    4300048: leg
+    4300050: top1
+    4300052: drawer_unit
+    4300054: drawer1
+    4300056: drawer2
+    4300058: drawer3
+    4300060: drawer_pull
+    4300062: drawer_pull1
+    4300064: drawer_pull2
+    4300066: glass
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
