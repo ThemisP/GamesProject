@@ -30,7 +30,8 @@ public class ClientHandlePackets{
         PacketsTcp.Add(16, HandleNewGameSignal);
         PacketsTcp.Add(17, HandleGameOver);
         PacketsTcp.Add(18, HandlePlayerRevive);
-        
+        PacketsTcp.Add(19, HandleAllPlayersReceived);
+
         PacketsUdp = new Dictionary<int, Packet_>();
         PacketsUdp.Add(2, HandleReceivePlayersLocations);
     }
@@ -87,7 +88,6 @@ public class ClientHandlePackets{
             float velZ = buffer.ReadFloat();
 
             float rotY = buffer.ReadFloat();
-
             EnemyPlayerController controller;
             if (Network.instance.playersInGame.TryGetValue(playerId, out controller)) {
                 controller.CallFunctionFromAnotherThread(() => {
@@ -330,12 +330,21 @@ public class ClientHandlePackets{
         ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
         buffer.WriteBytes(data);
         int gameReady = buffer.ReadInt();
-        int numberOfFullRooms = buffer.ReadInt();
         float timer = buffer.ReadFloat();
         Network.instance.mainMenu.SetStartTimer(timer);
-        Network.instance.CallFunctionFromAnotherThread(() => {
-            Network.instance.SetGameReady(numberOfFullRooms, gameReady);
-        });
+        if (gameReady == 1) {
+            Network.instance.waitingForAllReceive = true;
+            Network.instance.CallFunctionFromAnotherThread(() => {
+                Network.instance.ReceiveGameReady();
+                }
+                );
+        }
+    }
+
+    //packetnum = 19
+    void HandleAllPlayersReceived(byte[] data) {
+        Debug.Log("Here");
+        Network.instance.CallFunctionFromAnotherThread(() => Network.instance.SetGameReady());
     }
 
     // packetnum = 16
