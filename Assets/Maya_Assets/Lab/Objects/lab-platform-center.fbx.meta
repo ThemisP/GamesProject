@@ -1,0 +1,1672 @@
+fileFormatVersion: 2
+guid: 46a33f06f87a5b64bb7936955efff829
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: floor
+    100002: floor 1
+    100004: floor 2
+    100006: floor 3
+    100008: floor3
+    100010: floor3 1
+    100012: floor3 2
+    100014: group1
+    100016: joint
+    100018: joint 1
+    100020: joint 2
+    100022: joint1
+    100024: joint1 1
+    100026: joint1 2
+    100028: joint2
+    100030: joint2 1
+    100032: joint2 10
+    100034: joint2 11
+    100036: joint2 12
+    100038: joint2 13
+    100040: joint2 14
+    100042: joint2 15
+    100044: joint2 2
+    100046: joint2 3
+    100048: joint2 4
+    100050: joint2 5
+    100052: joint2 6
+    100054: joint2 7
+    100056: joint2 8
+    100058: joint2 9
+    100060: joint3
+    100062: joint3 1
+    100064: joint3 10
+    100066: joint3 11
+    100068: joint3 12
+    100070: joint3 13
+    100072: joint3 14
+    100074: joint3 15
+    100076: joint3 2
+    100078: joint3 3
+    100080: joint3 4
+    100082: joint3 5
+    100084: joint3 6
+    100086: joint3 7
+    100088: joint3 8
+    100090: joint3 9
+    100092: joint4
+    100094: joint4 1
+    100096: joint4 2
+    100098: joint5
+    100100: joint5 1
+    100102: joint5 2
+    100104: joints4
+    100106: joints4 1
+    100108: joints4 10
+    100110: joints4 11
+    100112: joints4 12
+    100114: joints4 13
+    100116: joints4 14
+    100118: joints4 15
+    100120: joints4 2
+    100122: joints4 3
+    100124: joints4 4
+    100126: joints4 5
+    100128: joints4 6
+    100130: joints4 7
+    100132: joints4 8
+    100134: joints4 9
+    100136: //RootNode
+    100138: lab_center_rail
+    100140: lab_center_rail10
+    100142: lab_center_rail11
+    100144: lab_center_rail12
+    100146: lab_center_rail13
+    100148: lab_center_rail14
+    100150: lab_center_rail15
+    100152: lab_center_rail16
+    100154: lab_center_rail17
+    100156: lab_center_rail18
+    100158: lab_center_rail19
+    100160: lab_center_rail2
+    100162: lab_center_rail21
+    100164: lab_center_rail22
+    100166: lab_center_rail3
+    100168: lab_center_rail4
+    100170: lab_center_rail5
+    100172: lab_center_rail6
+    100174: lab_platform
+    100176: lab_platform 1
+    100178: lab_platform 2
+    100180: lab_platform_section1
+    100182: lab_platform_section2
+    100184: lab_platform_section3
+    100186: left
+    100188: left 1
+    100190: left 2
+    100192: left1
+    100194: left1 1
+    100196: left1 2
+    100198: left9
+    100200: left9 1
+    100202: left9 10
+    100204: left9 11
+    100206: left9 12
+    100208: left9 13
+    100210: left9 14
+    100212: left9 15
+    100214: left9 16
+    100216: left9 17
+    100218: left9 2
+    100220: left9 3
+    100222: left9 4
+    100224: left9 5
+    100226: left9 6
+    100228: left9 7
+    100230: left9 8
+    100232: left9 9
+    100234: rail
+    100236: rail 1
+    100238: rail 10
+    100240: rail 11
+    100242: rail 12
+    100244: rail 13
+    100246: rail 14
+    100248: rail 15
+    100250: rail 16
+    100252: rail 17
+    100254: rail 18
+    100256: rail 19
+    100258: rail 2
+    100260: rail 20
+    100262: rail 21
+    100264: rail 22
+    100266: rail 23
+    100268: rail 3
+    100270: rail 4
+    100272: rail 5
+    100274: rail 6
+    100276: rail 7
+    100278: rail 8
+    100280: rail 9
+    100282: rail1
+    100284: rail1 1
+    100286: rail1 10
+    100288: rail1 11
+    100290: rail1 12
+    100292: rail1 13
+    100294: rail1 14
+    100296: rail1 15
+    100298: rail1 16
+    100300: rail1 17
+    100302: rail1 18
+    100304: rail1 19
+    100306: rail1 2
+    100308: rail1 20
+    100310: rail1 21
+    100312: rail1 22
+    100314: rail1 23
+    100316: rail1 3
+    100318: rail1 4
+    100320: rail1 5
+    100322: rail1 6
+    100324: rail1 7
+    100326: rail1 8
+    100328: rail1 9
+    100330: rail10
+    100332: rail10 1
+    100334: rail10 10
+    100336: rail10 11
+    100338: rail10 12
+    100340: rail10 13
+    100342: rail10 14
+    100344: rail10 15
+    100346: rail10 16
+    100348: rail10 17
+    100350: rail10 2
+    100352: rail10 3
+    100354: rail10 4
+    100356: rail10 5
+    100358: rail10 6
+    100360: rail10 7
+    100362: rail10 8
+    100364: rail10 9
+    100366: rail2
+    100368: rail2 1
+    100370: rail2 10
+    100372: rail2 11
+    100374: rail2 12
+    100376: rail2 13
+    100378: rail2 14
+    100380: rail2 15
+    100382: rail2 16
+    100384: rail2 17
+    100386: rail2 18
+    100388: rail2 19
+    100390: rail2 2
+    100392: rail2 20
+    100394: rail2 21
+    100396: rail2 22
+    100398: rail2 23
+    100400: rail2 3
+    100402: rail2 4
+    100404: rail2 5
+    100406: rail2 6
+    100408: rail2 7
+    100410: rail2 8
+    100412: rail2 9
+    100414: rail3
+    100416: rail3 1
+    100418: rail3 10
+    100420: rail3 11
+    100422: rail3 12
+    100424: rail3 13
+    100426: rail3 14
+    100428: rail3 15
+    100430: rail3 16
+    100432: rail3 17
+    100434: rail3 2
+    100436: rail3 3
+    100438: rail3 4
+    100440: rail3 5
+    100442: rail3 6
+    100444: rail3 7
+    100446: rail3 8
+    100448: rail3 9
+    100450: rail4
+    100452: rail4 1
+    100454: rail4 10
+    100456: rail4 11
+    100458: rail4 12
+    100460: rail4 13
+    100462: rail4 14
+    100464: rail4 15
+    100466: rail4 16
+    100468: rail4 17
+    100470: rail4 2
+    100472: rail4 3
+    100474: rail4 4
+    100476: rail4 5
+    100478: rail4 6
+    100480: rail4 7
+    100482: rail4 8
+    100484: rail4 9
+    100486: rail5
+    100488: rail5 1
+    100490: rail5 10
+    100492: rail5 11
+    100494: rail5 12
+    100496: rail5 13
+    100498: rail5 14
+    100500: rail5 15
+    100502: rail5 16
+    100504: rail5 17
+    100506: rail5 2
+    100508: rail5 3
+    100510: rail5 4
+    100512: rail5 5
+    100514: rail5 6
+    100516: rail5 7
+    100518: rail5 8
+    100520: rail5 9
+    100522: rail6
+    100524: rail6 1
+    100526: rail6 10
+    100528: rail6 11
+    100530: rail6 12
+    100532: rail6 13
+    100534: rail6 14
+    100536: rail6 15
+    100538: rail6 16
+    100540: rail6 17
+    100542: rail6 2
+    100544: rail6 3
+    100546: rail6 4
+    100548: rail6 5
+    100550: rail6 6
+    100552: rail6 7
+    100554: rail6 8
+    100556: rail6 9
+    100558: rail7
+    100560: rail7 1
+    100562: rail7 10
+    100564: rail7 11
+    100566: rail7 12
+    100568: rail7 13
+    100570: rail7 14
+    100572: rail7 15
+    100574: rail7 16
+    100576: rail7 17
+    100578: rail7 2
+    100580: rail7 3
+    100582: rail7 4
+    100584: rail7 5
+    100586: rail7 6
+    100588: rail7 7
+    100590: rail7 8
+    100592: rail7 9
+    100594: rail8
+    100596: rail8 1
+    100598: rail8 10
+    100600: rail8 11
+    100602: rail8 12
+    100604: rail8 13
+    100606: rail8 14
+    100608: rail8 15
+    100610: rail8 16
+    100612: rail8 17
+    100614: rail8 2
+    100616: rail8 3
+    100618: rail8 4
+    100620: rail8 5
+    100622: rail8 6
+    100624: rail8 7
+    100626: rail8 8
+    100628: rail8 9
+    100630: rail9
+    100632: rail9 1
+    100634: rail9 10
+    100636: rail9 11
+    100638: rail9 12
+    100640: rail9 13
+    100642: rail9 14
+    100644: rail9 15
+    100646: rail9 16
+    100648: rail9 17
+    100650: rail9 2
+    100652: rail9 3
+    100654: rail9 4
+    100656: rail9 5
+    100658: rail9 6
+    100660: rail9 7
+    100662: rail9 8
+    100664: rail9 9
+    100666: rails
+    100668: rails 1
+    100670: rails 2
+    100672: rails1
+    100674: rails1 1
+    100676: rails1 2
+    100678: rails12
+    100680: rails12 1
+    100682: rails12 10
+    100684: rails12 11
+    100686: rails12 12
+    100688: rails12 13
+    100690: rails12 14
+    100692: rails12 15
+    100694: rails12 16
+    100696: rails12 17
+    100698: rails12 2
+    100700: rails12 3
+    100702: rails12 4
+    100704: rails12 5
+    100706: rails12 6
+    100708: rails12 7
+    100710: rails12 8
+    100712: rails12 9
+    400000: floor
+    400002: floor 1
+    400004: floor 2
+    400006: floor 3
+    400008: floor3
+    400010: floor3 1
+    400012: floor3 2
+    400014: group1
+    400016: joint
+    400018: joint 1
+    400020: joint 2
+    400022: joint1
+    400024: joint1 1
+    400026: joint1 2
+    400028: joint2
+    400030: joint2 1
+    400032: joint2 10
+    400034: joint2 11
+    400036: joint2 12
+    400038: joint2 13
+    400040: joint2 14
+    400042: joint2 15
+    400044: joint2 2
+    400046: joint2 3
+    400048: joint2 4
+    400050: joint2 5
+    400052: joint2 6
+    400054: joint2 7
+    400056: joint2 8
+    400058: joint2 9
+    400060: joint3
+    400062: joint3 1
+    400064: joint3 10
+    400066: joint3 11
+    400068: joint3 12
+    400070: joint3 13
+    400072: joint3 14
+    400074: joint3 15
+    400076: joint3 2
+    400078: joint3 3
+    400080: joint3 4
+    400082: joint3 5
+    400084: joint3 6
+    400086: joint3 7
+    400088: joint3 8
+    400090: joint3 9
+    400092: joint4
+    400094: joint4 1
+    400096: joint4 2
+    400098: joint5
+    400100: joint5 1
+    400102: joint5 2
+    400104: joints4
+    400106: joints4 1
+    400108: joints4 10
+    400110: joints4 11
+    400112: joints4 12
+    400114: joints4 13
+    400116: joints4 14
+    400118: joints4 15
+    400120: joints4 2
+    400122: joints4 3
+    400124: joints4 4
+    400126: joints4 5
+    400128: joints4 6
+    400130: joints4 7
+    400132: joints4 8
+    400134: joints4 9
+    400136: //RootNode
+    400138: lab_center_rail
+    400140: lab_center_rail10
+    400142: lab_center_rail11
+    400144: lab_center_rail12
+    400146: lab_center_rail13
+    400148: lab_center_rail14
+    400150: lab_center_rail15
+    400152: lab_center_rail16
+    400154: lab_center_rail17
+    400156: lab_center_rail18
+    400158: lab_center_rail19
+    400160: lab_center_rail2
+    400162: lab_center_rail21
+    400164: lab_center_rail22
+    400166: lab_center_rail3
+    400168: lab_center_rail4
+    400170: lab_center_rail5
+    400172: lab_center_rail6
+    400174: lab_platform
+    400176: lab_platform 1
+    400178: lab_platform 2
+    400180: lab_platform_section1
+    400182: lab_platform_section2
+    400184: lab_platform_section3
+    400186: left
+    400188: left 1
+    400190: left 2
+    400192: left1
+    400194: left1 1
+    400196: left1 2
+    400198: left9
+    400200: left9 1
+    400202: left9 10
+    400204: left9 11
+    400206: left9 12
+    400208: left9 13
+    400210: left9 14
+    400212: left9 15
+    400214: left9 16
+    400216: left9 17
+    400218: left9 2
+    400220: left9 3
+    400222: left9 4
+    400224: left9 5
+    400226: left9 6
+    400228: left9 7
+    400230: left9 8
+    400232: left9 9
+    400234: rail
+    400236: rail 1
+    400238: rail 10
+    400240: rail 11
+    400242: rail 12
+    400244: rail 13
+    400246: rail 14
+    400248: rail 15
+    400250: rail 16
+    400252: rail 17
+    400254: rail 18
+    400256: rail 19
+    400258: rail 2
+    400260: rail 20
+    400262: rail 21
+    400264: rail 22
+    400266: rail 23
+    400268: rail 3
+    400270: rail 4
+    400272: rail 5
+    400274: rail 6
+    400276: rail 7
+    400278: rail 8
+    400280: rail 9
+    400282: rail1
+    400284: rail1 1
+    400286: rail1 10
+    400288: rail1 11
+    400290: rail1 12
+    400292: rail1 13
+    400294: rail1 14
+    400296: rail1 15
+    400298: rail1 16
+    400300: rail1 17
+    400302: rail1 18
+    400304: rail1 19
+    400306: rail1 2
+    400308: rail1 20
+    400310: rail1 21
+    400312: rail1 22
+    400314: rail1 23
+    400316: rail1 3
+    400318: rail1 4
+    400320: rail1 5
+    400322: rail1 6
+    400324: rail1 7
+    400326: rail1 8
+    400328: rail1 9
+    400330: rail10
+    400332: rail10 1
+    400334: rail10 10
+    400336: rail10 11
+    400338: rail10 12
+    400340: rail10 13
+    400342: rail10 14
+    400344: rail10 15
+    400346: rail10 16
+    400348: rail10 17
+    400350: rail10 2
+    400352: rail10 3
+    400354: rail10 4
+    400356: rail10 5
+    400358: rail10 6
+    400360: rail10 7
+    400362: rail10 8
+    400364: rail10 9
+    400366: rail2
+    400368: rail2 1
+    400370: rail2 10
+    400372: rail2 11
+    400374: rail2 12
+    400376: rail2 13
+    400378: rail2 14
+    400380: rail2 15
+    400382: rail2 16
+    400384: rail2 17
+    400386: rail2 18
+    400388: rail2 19
+    400390: rail2 2
+    400392: rail2 20
+    400394: rail2 21
+    400396: rail2 22
+    400398: rail2 23
+    400400: rail2 3
+    400402: rail2 4
+    400404: rail2 5
+    400406: rail2 6
+    400408: rail2 7
+    400410: rail2 8
+    400412: rail2 9
+    400414: rail3
+    400416: rail3 1
+    400418: rail3 10
+    400420: rail3 11
+    400422: rail3 12
+    400424: rail3 13
+    400426: rail3 14
+    400428: rail3 15
+    400430: rail3 16
+    400432: rail3 17
+    400434: rail3 2
+    400436: rail3 3
+    400438: rail3 4
+    400440: rail3 5
+    400442: rail3 6
+    400444: rail3 7
+    400446: rail3 8
+    400448: rail3 9
+    400450: rail4
+    400452: rail4 1
+    400454: rail4 10
+    400456: rail4 11
+    400458: rail4 12
+    400460: rail4 13
+    400462: rail4 14
+    400464: rail4 15
+    400466: rail4 16
+    400468: rail4 17
+    400470: rail4 2
+    400472: rail4 3
+    400474: rail4 4
+    400476: rail4 5
+    400478: rail4 6
+    400480: rail4 7
+    400482: rail4 8
+    400484: rail4 9
+    400486: rail5
+    400488: rail5 1
+    400490: rail5 10
+    400492: rail5 11
+    400494: rail5 12
+    400496: rail5 13
+    400498: rail5 14
+    400500: rail5 15
+    400502: rail5 16
+    400504: rail5 17
+    400506: rail5 2
+    400508: rail5 3
+    400510: rail5 4
+    400512: rail5 5
+    400514: rail5 6
+    400516: rail5 7
+    400518: rail5 8
+    400520: rail5 9
+    400522: rail6
+    400524: rail6 1
+    400526: rail6 10
+    400528: rail6 11
+    400530: rail6 12
+    400532: rail6 13
+    400534: rail6 14
+    400536: rail6 15
+    400538: rail6 16
+    400540: rail6 17
+    400542: rail6 2
+    400544: rail6 3
+    400546: rail6 4
+    400548: rail6 5
+    400550: rail6 6
+    400552: rail6 7
+    400554: rail6 8
+    400556: rail6 9
+    400558: rail7
+    400560: rail7 1
+    400562: rail7 10
+    400564: rail7 11
+    400566: rail7 12
+    400568: rail7 13
+    400570: rail7 14
+    400572: rail7 15
+    400574: rail7 16
+    400576: rail7 17
+    400578: rail7 2
+    400580: rail7 3
+    400582: rail7 4
+    400584: rail7 5
+    400586: rail7 6
+    400588: rail7 7
+    400590: rail7 8
+    400592: rail7 9
+    400594: rail8
+    400596: rail8 1
+    400598: rail8 10
+    400600: rail8 11
+    400602: rail8 12
+    400604: rail8 13
+    400606: rail8 14
+    400608: rail8 15
+    400610: rail8 16
+    400612: rail8 17
+    400614: rail8 2
+    400616: rail8 3
+    400618: rail8 4
+    400620: rail8 5
+    400622: rail8 6
+    400624: rail8 7
+    400626: rail8 8
+    400628: rail8 9
+    400630: rail9
+    400632: rail9 1
+    400634: rail9 10
+    400636: rail9 11
+    400638: rail9 12
+    400640: rail9 13
+    400642: rail9 14
+    400644: rail9 15
+    400646: rail9 16
+    400648: rail9 17
+    400650: rail9 2
+    400652: rail9 3
+    400654: rail9 4
+    400656: rail9 5
+    400658: rail9 6
+    400660: rail9 7
+    400662: rail9 8
+    400664: rail9 9
+    400666: rails
+    400668: rails 1
+    400670: rails 2
+    400672: rails1
+    400674: rails1 1
+    400676: rails1 2
+    400678: rails12
+    400680: rails12 1
+    400682: rails12 10
+    400684: rails12 11
+    400686: rails12 12
+    400688: rails12 13
+    400690: rails12 14
+    400692: rails12 15
+    400694: rails12 16
+    400696: rails12 17
+    400698: rails12 2
+    400700: rails12 3
+    400702: rails12 4
+    400704: rails12 5
+    400706: rails12 6
+    400708: rails12 7
+    400710: rails12 8
+    400712: rails12 9
+    2100000: lambert3
+    2100002: lambert4
+    2100004: lambert1
+    2300000: floor
+    2300002: floor3
+    2300004: floor3 1
+    2300006: floor3 2
+    2300008: joint
+    2300010: joint 1
+    2300012: joint 2
+    2300014: joint1
+    2300016: joint1 1
+    2300018: joint1 2
+    2300020: joint2
+    2300022: joint2 1
+    2300024: joint2 10
+    2300026: joint2 11
+    2300028: joint2 12
+    2300030: joint2 13
+    2300032: joint2 14
+    2300034: joint2 15
+    2300036: joint2 2
+    2300038: joint2 3
+    2300040: joint2 4
+    2300042: joint2 5
+    2300044: joint2 6
+    2300046: joint2 7
+    2300048: joint2 8
+    2300050: joint2 9
+    2300052: joint3
+    2300054: joint3 1
+    2300056: joint3 10
+    2300058: joint3 11
+    2300060: joint3 12
+    2300062: joint3 13
+    2300064: joint3 14
+    2300066: joint3 15
+    2300068: joint3 2
+    2300070: joint3 3
+    2300072: joint3 4
+    2300074: joint3 5
+    2300076: joint3 6
+    2300078: joint3 7
+    2300080: joint3 8
+    2300082: joint3 9
+    2300084: joint4
+    2300086: joint4 1
+    2300088: joint4 2
+    2300090: joint5
+    2300092: joint5 1
+    2300094: joint5 2
+    2300096: left
+    2300098: left 1
+    2300100: left 2
+    2300102: left1
+    2300104: left1 1
+    2300106: left1 2
+    2300108: left9
+    2300110: left9 1
+    2300112: left9 10
+    2300114: left9 11
+    2300116: left9 12
+    2300118: left9 13
+    2300120: left9 14
+    2300122: left9 15
+    2300124: left9 16
+    2300126: left9 17
+    2300128: left9 2
+    2300130: left9 3
+    2300132: left9 4
+    2300134: left9 5
+    2300136: left9 6
+    2300138: left9 7
+    2300140: left9 8
+    2300142: left9 9
+    2300144: rail
+    2300146: rail 1
+    2300148: rail 10
+    2300150: rail 11
+    2300152: rail 12
+    2300154: rail 13
+    2300156: rail 14
+    2300158: rail 15
+    2300160: rail 16
+    2300162: rail 17
+    2300164: rail 18
+    2300166: rail 19
+    2300168: rail 2
+    2300170: rail 20
+    2300172: rail 21
+    2300174: rail 22
+    2300176: rail 23
+    2300178: rail 3
+    2300180: rail 4
+    2300182: rail 5
+    2300184: rail 6
+    2300186: rail 7
+    2300188: rail 8
+    2300190: rail 9
+    2300192: rail1
+    2300194: rail1 1
+    2300196: rail1 10
+    2300198: rail1 11
+    2300200: rail1 12
+    2300202: rail1 13
+    2300204: rail1 14
+    2300206: rail1 15
+    2300208: rail1 16
+    2300210: rail1 17
+    2300212: rail1 18
+    2300214: rail1 19
+    2300216: rail1 2
+    2300218: rail1 20
+    2300220: rail1 21
+    2300222: rail1 22
+    2300224: rail1 23
+    2300226: rail1 3
+    2300228: rail1 4
+    2300230: rail1 5
+    2300232: rail1 6
+    2300234: rail1 7
+    2300236: rail1 8
+    2300238: rail1 9
+    2300240: rail10
+    2300242: rail10 1
+    2300244: rail10 10
+    2300246: rail10 11
+    2300248: rail10 12
+    2300250: rail10 13
+    2300252: rail10 14
+    2300254: rail10 15
+    2300256: rail10 16
+    2300258: rail10 17
+    2300260: rail10 2
+    2300262: rail10 3
+    2300264: rail10 4
+    2300266: rail10 5
+    2300268: rail10 6
+    2300270: rail10 7
+    2300272: rail10 8
+    2300274: rail10 9
+    2300276: rail2
+    2300278: rail2 1
+    2300280: rail2 10
+    2300282: rail2 11
+    2300284: rail2 12
+    2300286: rail2 13
+    2300288: rail2 14
+    2300290: rail2 15
+    2300292: rail2 16
+    2300294: rail2 17
+    2300296: rail2 18
+    2300298: rail2 19
+    2300300: rail2 2
+    2300302: rail2 20
+    2300304: rail2 21
+    2300306: rail2 22
+    2300308: rail2 23
+    2300310: rail2 3
+    2300312: rail2 4
+    2300314: rail2 5
+    2300316: rail2 6
+    2300318: rail2 7
+    2300320: rail2 8
+    2300322: rail2 9
+    2300324: rail3
+    2300326: rail3 1
+    2300328: rail3 10
+    2300330: rail3 11
+    2300332: rail3 12
+    2300334: rail3 13
+    2300336: rail3 14
+    2300338: rail3 15
+    2300340: rail3 16
+    2300342: rail3 17
+    2300344: rail3 2
+    2300346: rail3 3
+    2300348: rail3 4
+    2300350: rail3 5
+    2300352: rail3 6
+    2300354: rail3 7
+    2300356: rail3 8
+    2300358: rail3 9
+    2300360: rail4
+    2300362: rail4 1
+    2300364: rail4 10
+    2300366: rail4 11
+    2300368: rail4 12
+    2300370: rail4 13
+    2300372: rail4 14
+    2300374: rail4 15
+    2300376: rail4 16
+    2300378: rail4 17
+    2300380: rail4 2
+    2300382: rail4 3
+    2300384: rail4 4
+    2300386: rail4 5
+    2300388: rail4 6
+    2300390: rail4 7
+    2300392: rail4 8
+    2300394: rail4 9
+    2300396: rail5
+    2300398: rail5 1
+    2300400: rail5 10
+    2300402: rail5 11
+    2300404: rail5 12
+    2300406: rail5 13
+    2300408: rail5 14
+    2300410: rail5 15
+    2300412: rail5 16
+    2300414: rail5 17
+    2300416: rail5 2
+    2300418: rail5 3
+    2300420: rail5 4
+    2300422: rail5 5
+    2300424: rail5 6
+    2300426: rail5 7
+    2300428: rail5 8
+    2300430: rail5 9
+    2300432: rail6
+    2300434: rail6 1
+    2300436: rail6 10
+    2300438: rail6 11
+    2300440: rail6 12
+    2300442: rail6 13
+    2300444: rail6 14
+    2300446: rail6 15
+    2300448: rail6 16
+    2300450: rail6 17
+    2300452: rail6 2
+    2300454: rail6 3
+    2300456: rail6 4
+    2300458: rail6 5
+    2300460: rail6 6
+    2300462: rail6 7
+    2300464: rail6 8
+    2300466: rail6 9
+    2300468: rail7
+    2300470: rail7 1
+    2300472: rail7 10
+    2300474: rail7 11
+    2300476: rail7 12
+    2300478: rail7 13
+    2300480: rail7 14
+    2300482: rail7 15
+    2300484: rail7 16
+    2300486: rail7 17
+    2300488: rail7 2
+    2300490: rail7 3
+    2300492: rail7 4
+    2300494: rail7 5
+    2300496: rail7 6
+    2300498: rail7 7
+    2300500: rail7 8
+    2300502: rail7 9
+    2300504: rail8
+    2300506: rail8 1
+    2300508: rail8 10
+    2300510: rail8 11
+    2300512: rail8 12
+    2300514: rail8 13
+    2300516: rail8 14
+    2300518: rail8 15
+    2300520: rail8 16
+    2300522: rail8 17
+    2300524: rail8 2
+    2300526: rail8 3
+    2300528: rail8 4
+    2300530: rail8 5
+    2300532: rail8 6
+    2300534: rail8 7
+    2300536: rail8 8
+    2300538: rail8 9
+    2300540: rail9
+    2300542: rail9 1
+    2300544: rail9 10
+    2300546: rail9 11
+    2300548: rail9 12
+    2300550: rail9 13
+    2300552: rail9 14
+    2300554: rail9 15
+    2300556: rail9 16
+    2300558: rail9 17
+    2300560: rail9 2
+    2300562: rail9 3
+    2300564: rail9 4
+    2300566: rail9 5
+    2300568: rail9 6
+    2300570: rail9 7
+    2300572: rail9 8
+    2300574: rail9 9
+    3300000: floor
+    3300002: floor3
+    3300004: floor3 1
+    3300006: floor3 2
+    3300008: joint
+    3300010: joint 1
+    3300012: joint 2
+    3300014: joint1
+    3300016: joint1 1
+    3300018: joint1 2
+    3300020: joint2
+    3300022: joint2 1
+    3300024: joint2 10
+    3300026: joint2 11
+    3300028: joint2 12
+    3300030: joint2 13
+    3300032: joint2 14
+    3300034: joint2 15
+    3300036: joint2 2
+    3300038: joint2 3
+    3300040: joint2 4
+    3300042: joint2 5
+    3300044: joint2 6
+    3300046: joint2 7
+    3300048: joint2 8
+    3300050: joint2 9
+    3300052: joint3
+    3300054: joint3 1
+    3300056: joint3 10
+    3300058: joint3 11
+    3300060: joint3 12
+    3300062: joint3 13
+    3300064: joint3 14
+    3300066: joint3 15
+    3300068: joint3 2
+    3300070: joint3 3
+    3300072: joint3 4
+    3300074: joint3 5
+    3300076: joint3 6
+    3300078: joint3 7
+    3300080: joint3 8
+    3300082: joint3 9
+    3300084: joint4
+    3300086: joint4 1
+    3300088: joint4 2
+    3300090: joint5
+    3300092: joint5 1
+    3300094: joint5 2
+    3300096: left
+    3300098: left 1
+    3300100: left 2
+    3300102: left1
+    3300104: left1 1
+    3300106: left1 2
+    3300108: left9
+    3300110: left9 1
+    3300112: left9 10
+    3300114: left9 11
+    3300116: left9 12
+    3300118: left9 13
+    3300120: left9 14
+    3300122: left9 15
+    3300124: left9 16
+    3300126: left9 17
+    3300128: left9 2
+    3300130: left9 3
+    3300132: left9 4
+    3300134: left9 5
+    3300136: left9 6
+    3300138: left9 7
+    3300140: left9 8
+    3300142: left9 9
+    3300144: rail
+    3300146: rail 1
+    3300148: rail 10
+    3300150: rail 11
+    3300152: rail 12
+    3300154: rail 13
+    3300156: rail 14
+    3300158: rail 15
+    3300160: rail 16
+    3300162: rail 17
+    3300164: rail 18
+    3300166: rail 19
+    3300168: rail 2
+    3300170: rail 20
+    3300172: rail 21
+    3300174: rail 22
+    3300176: rail 23
+    3300178: rail 3
+    3300180: rail 4
+    3300182: rail 5
+    3300184: rail 6
+    3300186: rail 7
+    3300188: rail 8
+    3300190: rail 9
+    3300192: rail1
+    3300194: rail1 1
+    3300196: rail1 10
+    3300198: rail1 11
+    3300200: rail1 12
+    3300202: rail1 13
+    3300204: rail1 14
+    3300206: rail1 15
+    3300208: rail1 16
+    3300210: rail1 17
+    3300212: rail1 18
+    3300214: rail1 19
+    3300216: rail1 2
+    3300218: rail1 20
+    3300220: rail1 21
+    3300222: rail1 22
+    3300224: rail1 23
+    3300226: rail1 3
+    3300228: rail1 4
+    3300230: rail1 5
+    3300232: rail1 6
+    3300234: rail1 7
+    3300236: rail1 8
+    3300238: rail1 9
+    3300240: rail10
+    3300242: rail10 1
+    3300244: rail10 10
+    3300246: rail10 11
+    3300248: rail10 12
+    3300250: rail10 13
+    3300252: rail10 14
+    3300254: rail10 15
+    3300256: rail10 16
+    3300258: rail10 17
+    3300260: rail10 2
+    3300262: rail10 3
+    3300264: rail10 4
+    3300266: rail10 5
+    3300268: rail10 6
+    3300270: rail10 7
+    3300272: rail10 8
+    3300274: rail10 9
+    3300276: rail2
+    3300278: rail2 1
+    3300280: rail2 10
+    3300282: rail2 11
+    3300284: rail2 12
+    3300286: rail2 13
+    3300288: rail2 14
+    3300290: rail2 15
+    3300292: rail2 16
+    3300294: rail2 17
+    3300296: rail2 18
+    3300298: rail2 19
+    3300300: rail2 2
+    3300302: rail2 20
+    3300304: rail2 21
+    3300306: rail2 22
+    3300308: rail2 23
+    3300310: rail2 3
+    3300312: rail2 4
+    3300314: rail2 5
+    3300316: rail2 6
+    3300318: rail2 7
+    3300320: rail2 8
+    3300322: rail2 9
+    3300324: rail3
+    3300326: rail3 1
+    3300328: rail3 10
+    3300330: rail3 11
+    3300332: rail3 12
+    3300334: rail3 13
+    3300336: rail3 14
+    3300338: rail3 15
+    3300340: rail3 16
+    3300342: rail3 17
+    3300344: rail3 2
+    3300346: rail3 3
+    3300348: rail3 4
+    3300350: rail3 5
+    3300352: rail3 6
+    3300354: rail3 7
+    3300356: rail3 8
+    3300358: rail3 9
+    3300360: rail4
+    3300362: rail4 1
+    3300364: rail4 10
+    3300366: rail4 11
+    3300368: rail4 12
+    3300370: rail4 13
+    3300372: rail4 14
+    3300374: rail4 15
+    3300376: rail4 16
+    3300378: rail4 17
+    3300380: rail4 2
+    3300382: rail4 3
+    3300384: rail4 4
+    3300386: rail4 5
+    3300388: rail4 6
+    3300390: rail4 7
+    3300392: rail4 8
+    3300394: rail4 9
+    3300396: rail5
+    3300398: rail5 1
+    3300400: rail5 10
+    3300402: rail5 11
+    3300404: rail5 12
+    3300406: rail5 13
+    3300408: rail5 14
+    3300410: rail5 15
+    3300412: rail5 16
+    3300414: rail5 17
+    3300416: rail5 2
+    3300418: rail5 3
+    3300420: rail5 4
+    3300422: rail5 5
+    3300424: rail5 6
+    3300426: rail5 7
+    3300428: rail5 8
+    3300430: rail5 9
+    3300432: rail6
+    3300434: rail6 1
+    3300436: rail6 10
+    3300438: rail6 11
+    3300440: rail6 12
+    3300442: rail6 13
+    3300444: rail6 14
+    3300446: rail6 15
+    3300448: rail6 16
+    3300450: rail6 17
+    3300452: rail6 2
+    3300454: rail6 3
+    3300456: rail6 4
+    3300458: rail6 5
+    3300460: rail6 6
+    3300462: rail6 7
+    3300464: rail6 8
+    3300466: rail6 9
+    3300468: rail7
+    3300470: rail7 1
+    3300472: rail7 10
+    3300474: rail7 11
+    3300476: rail7 12
+    3300478: rail7 13
+    3300480: rail7 14
+    3300482: rail7 15
+    3300484: rail7 16
+    3300486: rail7 17
+    3300488: rail7 2
+    3300490: rail7 3
+    3300492: rail7 4
+    3300494: rail7 5
+    3300496: rail7 6
+    3300498: rail7 7
+    3300500: rail7 8
+    3300502: rail7 9
+    3300504: rail8
+    3300506: rail8 1
+    3300508: rail8 10
+    3300510: rail8 11
+    3300512: rail8 12
+    3300514: rail8 13
+    3300516: rail8 14
+    3300518: rail8 15
+    3300520: rail8 16
+    3300522: rail8 17
+    3300524: rail8 2
+    3300526: rail8 3
+    3300528: rail8 4
+    3300530: rail8 5
+    3300532: rail8 6
+    3300534: rail8 7
+    3300536: rail8 8
+    3300538: rail8 9
+    3300540: rail9
+    3300542: rail9 1
+    3300544: rail9 10
+    3300546: rail9 11
+    3300548: rail9 12
+    3300550: rail9 13
+    3300552: rail9 14
+    3300554: rail9 15
+    3300556: rail9 16
+    3300558: rail9 17
+    3300560: rail9 2
+    3300562: rail9 3
+    3300564: rail9 4
+    3300566: rail9 5
+    3300568: rail9 6
+    3300570: rail9 7
+    3300572: rail9 8
+    3300574: rail9 9
+    4300000: floor
+    4300002: rail
+    4300004: rail1
+    4300006: rail2
+    4300008: rail3
+    4300010: rail4
+    4300012: rail5
+    4300014: rail6
+    4300016: rail7
+    4300018: rail8
+    4300020: rail9
+    4300022: rail10
+    4300024: left9
+    4300026: rail
+    4300028: rail1
+    4300030: rail2
+    4300032: rail3
+    4300034: rail4
+    4300036: rail5
+    4300038: rail6
+    4300040: rail7
+    4300042: rail8
+    4300044: rail9
+    4300046: rail10
+    4300048: left9
+    4300050: joint2
+    4300052: joint3
+    4300054: rail
+    4300056: rail1
+    4300058: rail2
+    4300060: rail3
+    4300062: rail4
+    4300064: rail5
+    4300066: rail6
+    4300068: rail7
+    4300070: rail8
+    4300072: rail9
+    4300074: rail10
+    4300076: left9
+    4300078: joint2
+    4300080: joint3
+    4300082: rail
+    4300084: rail1
+    4300086: rail2
+    4300088: rail3
+    4300090: rail4
+    4300092: rail5
+    4300094: rail6
+    4300096: rail7
+    4300098: rail8
+    4300100: rail9
+    4300102: rail10
+    4300104: left9
+    4300106: joint2
+    4300108: joint3
+    4300110: rail
+    4300112: rail1
+    4300114: rail2
+    4300116: rail3
+    4300118: rail4
+    4300120: rail5
+    4300122: rail6
+    4300124: rail7
+    4300126: rail8
+    4300128: rail9
+    4300130: rail10
+    4300132: left9
+    4300134: joint2
+    4300136: joint3
+    4300138: rail
+    4300140: rail1
+    4300142: rail2
+    4300144: rail3
+    4300146: rail4
+    4300148: rail5
+    4300150: rail6
+    4300152: rail7
+    4300154: rail8
+    4300156: rail9
+    4300158: rail10
+    4300160: left9
+    4300162: joint2
+    4300164: joint3
+    4300166: rail
+    4300168: rail1
+    4300170: rail2
+    4300172: rail3
+    4300174: rail4
+    4300176: rail5
+    4300178: rail6
+    4300180: rail7
+    4300182: rail8
+    4300184: rail9
+    4300186: rail10
+    4300188: left9
+    4300190: joint2
+    4300192: joint3
+    4300194: rail
+    4300196: rail1
+    4300198: rail2
+    4300200: rail3
+    4300202: rail4
+    4300204: rail5
+    4300206: rail6
+    4300208: rail7
+    4300210: rail8
+    4300212: rail9
+    4300214: rail10
+    4300216: left9
+    4300218: joint2
+    4300220: joint3
+    4300222: rail
+    4300224: rail1
+    4300226: rail2
+    4300228: rail3
+    4300230: rail4
+    4300232: rail5
+    4300234: rail6
+    4300236: rail7
+    4300238: rail8
+    4300240: rail9
+    4300242: rail10
+    4300244: left9
+    4300246: joint2
+    4300248: joint3
+    4300250: rail
+    4300252: rail1
+    4300254: rail2
+    4300256: rail3
+    4300258: rail4
+    4300260: rail5
+    4300262: rail6
+    4300264: rail7
+    4300266: rail8
+    4300268: rail9
+    4300270: rail10
+    4300272: left9
+    4300274: joint2
+    4300276: joint3
+    4300278: rail
+    4300280: rail1
+    4300282: rail2
+    4300284: rail3
+    4300286: rail4
+    4300288: rail5
+    4300290: rail6
+    4300292: rail7
+    4300294: rail8
+    4300296: rail9
+    4300298: rail10
+    4300300: left9
+    4300302: joint2
+    4300304: joint3
+    4300306: rail
+    4300308: rail1
+    4300310: rail2
+    4300312: rail3
+    4300314: rail4
+    4300316: rail5
+    4300318: rail6
+    4300320: rail7
+    4300322: rail8
+    4300324: rail9
+    4300326: rail10
+    4300328: left9
+    4300330: joint2
+    4300332: joint3
+    4300334: rail
+    4300336: rail1
+    4300338: rail2
+    4300340: rail3
+    4300342: rail4
+    4300344: rail5
+    4300346: rail6
+    4300348: rail7
+    4300350: rail8
+    4300352: rail9
+    4300354: rail10
+    4300356: left9
+    4300358: joint2
+    4300360: joint3
+    4300362: rail
+    4300364: rail1
+    4300366: rail2
+    4300368: rail3
+    4300370: rail4
+    4300372: rail5
+    4300374: rail6
+    4300376: rail7
+    4300378: rail8
+    4300380: rail9
+    4300382: rail10
+    4300384: left9
+    4300386: joint2
+    4300388: joint3
+    4300390: floor3
+    4300392: left
+    4300394: rail
+    4300396: rail1
+    4300398: rail2
+    4300400: left1
+    4300402: rail
+    4300404: rail1
+    4300406: rail2
+    4300408: joint1
+    4300410: joint
+    4300412: joint4
+    4300414: joint5
+    4300416: rail
+    4300418: rail1
+    4300420: rail2
+    4300422: rail3
+    4300424: rail4
+    4300426: rail5
+    4300428: rail6
+    4300430: rail7
+    4300432: rail8
+    4300434: rail9
+    4300436: rail10
+    4300438: left9
+    4300440: joint2
+    4300442: joint3
+    4300444: rail
+    4300446: rail1
+    4300448: rail2
+    4300450: rail3
+    4300452: rail4
+    4300454: rail5
+    4300456: rail6
+    4300458: rail7
+    4300460: rail8
+    4300462: rail9
+    4300464: rail10
+    4300466: left9
+    4300468: joint2
+    4300470: joint3
+    4300472: floor3
+    4300474: left
+    4300476: rail
+    4300478: rail1
+    4300480: rail2
+    4300482: left1
+    4300484: rail
+    4300486: rail1
+    4300488: rail2
+    4300490: joint1
+    4300492: joint
+    4300494: joint4
+    4300496: joint5
+    4300498: rail
+    4300500: rail1
+    4300502: rail2
+    4300504: rail3
+    4300506: rail4
+    4300508: rail5
+    4300510: rail6
+    4300512: rail7
+    4300514: rail8
+    4300516: rail9
+    4300518: rail10
+    4300520: left9
+    4300522: joint2
+    4300524: joint3
+    4300526: floor3
+    4300528: left
+    4300530: rail
+    4300532: rail1
+    4300534: rail2
+    4300536: left1
+    4300538: rail
+    4300540: rail1
+    4300542: rail2
+    4300544: joint1
+    4300546: joint
+    4300548: joint4
+    4300550: joint5
+    4300552: rail
+    4300554: rail1
+    4300556: rail2
+    4300558: rail3
+    4300560: rail4
+    4300562: rail5
+    4300564: rail6
+    4300566: rail7
+    4300568: rail8
+    4300570: rail9
+    4300572: rail10
+    4300574: left9
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
