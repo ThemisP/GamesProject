@@ -62,7 +62,7 @@ public class EnemyPlayerController : MonoBehaviour {
             syncTime += Time.deltaTime;
             //Debug.Log("Player pos (" + playerPos + "), player rot (" + playerRot + ")");
             bool walking = false;
-            if (Mathf.Abs(Vector3.Distance(transform.position, playerPos)) > 2f) walking = true;
+            if (Mathf.Abs(Vector3.Distance(transform.position, playerPos)) > 0.5f) walking = true;
             anim.SetBool("IsWalking", walking);
             if (syncDelay != 0) {
                 playerRigidbody.MovePosition(Vector3.Lerp(transform.position, playerPos, syncTime / syncDelay));
@@ -87,13 +87,6 @@ public class EnemyPlayerController : MonoBehaviour {
         this.playerRot = rot;
     }
 
-    void Animating(float h, float v) {
-        // Create a boolean that is true if either of the input axes is non-zero.
-        bool walking = h != 0f || v != 0f;
-
-        // Tell the animator whether or not the player is walking.
-        anim.SetBool("IsWalking", walking);
-    }
 
     public void Fire(Vector3 pos, Vector3 rot, float speed, float lifeTime, string bulletId, float damage, int bulletTeam) {
         // Play the gun shot audioclip.

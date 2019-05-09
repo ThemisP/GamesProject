@@ -30,7 +30,7 @@ public class BulletScript : MonoBehaviour {
     void OnCollisionEnter(Collision collision) {        
         if (bullet_id.StartsWith(Network.instance.ClientIndex.ToString())) {            
             GameObject obj = collision.gameObject;
-            if (obj.tag != "EnemyPlayer" && obj.tag!="Bullet") {
+            if (obj.tag != "EnemyPlayer" && obj.tag!="Bullet" && obj.tag != "EnemyRevive") {
                 ObjectHandler.instance.DestroyBullet(this.bullet_id);
             }
         }
@@ -38,7 +38,7 @@ public class BulletScript : MonoBehaviour {
 
     void OnTriggerEnter(Collider collision) {
         GameObject obj = collision.gameObject;
-        if (obj.tag != "EnemyPlayer" && obj.tag != "Bullet") {
+        if (obj.tag != "EnemyPlayer" && obj.tag != "Bullet" && obj.tag != "EnemyRevive") {
             ObjectHandler.instance.DestroyBullet(this.bullet_id);
         }
     }

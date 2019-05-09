@@ -354,7 +354,10 @@ public class ClientHandlePackets{
 
     // packetnum = 17
     void HandleGameOver(byte[] data) {
-        Network.instance.mainMenu.GameOver();
+        ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
+        buffer.WriteBytes(data);
+        bool won = (buffer.ReadInt() == 0) ? false : true;
+        Network.instance.mainMenu.GameOver(won);
         Network.instance.CallFunctionFromAnotherThread(() => {
             Network.instance.GameOver();
         });

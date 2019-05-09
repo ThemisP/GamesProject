@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2130423746749573089}
   m_Layer: 14
   m_Name: GunBarrelEnd
-  m_TagString: Untagged
+  m_TagString: EnemyPlayer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5096,7 +5096,7 @@ GameObject:
   - component: {fileID: 2899257673794883429}
   m_Layer: 14
   m_Name: Gun
-  m_TagString: Untagged
+  m_TagString: EnemyPlayer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5287,7 +5287,7 @@ GameObject:
   - component: {fileID: 8210128392465258387}
   - component: {fileID: 2928749976241741541}
   - component: {fileID: 7003240997362864175}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5333,7 +5333,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 47a664389465cce4e98b9ce049dd39ba, type: 2}
+  - {fileID: 2100000, guid: 313e86668fceef0449290ae7703c2e66, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5437,9 +5437,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6269668793337207078}
   - component: {fileID: 6206134174615754987}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: ReviveTrigger
-  m_TagString: Revive
+  m_TagString: EnemyRevive
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5557,7 +5557,7 @@ GameObject:
   - component: {fileID: 3690005159402792288}
   m_Layer: 0
   m_Name: PlayerModel
-  m_TagString: Untagged
+  m_TagString: EnemyPlayer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5570,7 +5570,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6672603163680331041}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.19999999, y: 0.59999996, z: 0}
+  m_LocalPosition: {x: 0.19999999, y: 0, z: 0}
   m_LocalScale: {x: 0.83333325, y: 0.83333325, z: 0.83333325}
   m_Children:
   - {fileID: 3638474789770785733}
@@ -5592,7 +5592,7 @@ GameObject:
   - component: {fileID: 4004489220720981520}
   m_Layer: 14
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: EnemyPlayer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

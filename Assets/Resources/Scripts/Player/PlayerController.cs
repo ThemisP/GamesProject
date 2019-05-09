@@ -134,11 +134,11 @@ public class PlayerController : MonoBehaviour
         if (DodgeTimer > 0.5f) {
             isDodging = false;
 
-            anim.SetBool("Dodging", isDodging);
+            //anim.SetBool("Dodging", isDodging);
         } else {
             isDodging = true;
 
-            anim.SetBool("Dodging", isDodging);
+            //anim.SetBool("Dodging", isDodging);
         }
         playerData.DodgeCooldown(DodgeCooldown, DodgeTimer);
     }
@@ -257,21 +257,23 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter(Collider collision)
     {
         GameObject obj = collision.gameObject;
-        if (obj.tag == "Bullet") {
-            if (isDodging) {
-                BulletScript bulletScript = obj.GetComponent<BulletScript>();
-                //check if teammate its friendly bullet;
-                //if(bulletScript.GetBulletId().StartsWith(Network.instance.player.GetTeammateUsername()))
-                if (bulletScript.GetBulletTeam() == Network.instance.player.GetTeamNumber()) {
-                } else {
-                    playerData.takeDamage(bulletScript.GetBulletDamage(), bulletScript.GetBulletId());
+        if (obj.tag == "EnemyBullet") {
+            if (!isDodging) {
+                if (!dead) {
+                    BulletScript bulletScript = obj.GetComponent<BulletScript>();
+                    //check if teammate its friendly bullet;
+                    //if(bulletScript.GetBulletId().StartsWith(Network.instance.player.GetTeammateUsername()))
+                    if (bulletScript.GetBulletTeam() == Network.instance.player.GetTeamNumber()) {
+                    } else {
+                        playerData.takeDamage(bulletScript.GetBulletDamage(), bulletScript.GetBulletId());
 
-                    if (!offline) Network.instance.SendPlayerDamage(bulletScript.GetBulletDamage(), bulletScript.GetBulletId());
-                    ObjectHandler.instance.DestroyBullet(bulletScript.GetBulletId());
+                        if (!offline) Network.instance.SendPlayerDamage(bulletScript.GetBulletDamage(), bulletScript.GetBulletId());
+                        ObjectHandler.instance.DestroyBullet(bulletScript.GetBulletId());
+                    }
                 }
             }
         } else if(obj.tag == "Revive") {
-            Debug.Log("Reviving");
+            Debug.Log(obj.tag);
             AbleToRevive = true;
             playerData.ReviveButton(true);
         }

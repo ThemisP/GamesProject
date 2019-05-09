@@ -218,9 +218,7 @@ public class Network : MonoBehaviour {
         mainMenu.SetMenuState(MainMenu.MenuState.Main);
     }
 
-    public void Died() {
-        // TODO: Repositioning camera on a player death, and deleting current prefab
-        DestroySelf();
+    public void Died() {        
         try {
             ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
             buffer.WriteInt(16);
@@ -228,7 +226,7 @@ public class Network : MonoBehaviour {
             buffer.WriteInt(player.GetGameIndex());
             buffer.WriteInt(player.GetRoomIndex());
             TcpStream.Write(buffer.BuffToArray(), 0, buffer.Length());
-            // LeaveGame(); //Leaving game should be different to dying
+            
         } catch (Exception e) {
             Debug.Log(e.ToString());
         }

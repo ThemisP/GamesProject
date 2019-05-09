@@ -225,7 +225,12 @@ public class MainMenu : MonoBehaviour {
     public void SpectateGame() {
         SetMenuState(MenuState.Spectate);
     }
-    public void GameOver() {
+    public void GameOver(bool won) {
+        if (won) {
+            Debug.Log("won");
+        } else {
+            Debug.Log("Lost");
+        }
         username.text = null;
         username.text = null;
         roomIndexSelect.text = null;

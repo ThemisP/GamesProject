@@ -9,8 +9,9 @@ public class ObjectHandler : MonoBehaviour {
  	private Queue<Action> RunOnMainThread = new Queue<Action>();
     private Dictionary<string, GameObject> Bullets;
     public GameObject bulletPrefab;
-	// Use this for initialization
-	void Start () {
+    public GameObject bulletEnemyPrefab;
+    // Use this for initialization
+    void Start () {
         instance = this;
         Bullets = new Dictionary<string, GameObject>();
 	}
@@ -42,7 +43,11 @@ public class ObjectHandler : MonoBehaviour {
     }
 
     public void InstantiateBullet(Vector3 pos, Vector3 rot, float speed, float lifetime, string bulletId, float damage, int bulletTeam){
-        GameObject bullet = GameObject.Instantiate(this.bulletPrefab, pos, Quaternion.Euler(rot));
+        GameObject bullet;
+        if (bulletTeam == Network.instance.player.GetTeamNumber() )
+            bullet = GameObject.Instantiate(this.bulletPrefab, pos, Quaternion.Euler(rot));
+        else
+            bullet = GameObject.Instantiate(this.bulletEnemyPrefab, pos, Quaternion.Euler(rot));
         //Rigidbody rigbod = bullet.GetComponent<Rigidbody>();
         //if (rigbod != null) rigbod.velocity = Vector3.forward*speed;
         //else Debug.LogError("Rigid body for bullet prefab spawn not found!");

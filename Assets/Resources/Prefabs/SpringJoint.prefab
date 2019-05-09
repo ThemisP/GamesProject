@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3115db6d9d844d04ea383b0b5685a643, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 1
+  range: 0.5
   tensionConstant: 2
   dampeningConstant: 0
 --- !u!136 &742977908351037627

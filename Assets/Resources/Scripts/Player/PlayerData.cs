@@ -225,5 +225,6 @@ public class PlayerData : MonoBehaviour {
 
     public void SethealthFromRevive() {
         this.currentHealth = 30f;
+        healthSlider.value = 30f;
     }
 }

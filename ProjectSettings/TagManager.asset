@@ -11,6 +11,8 @@ TagManager:
   - Teammate
   - Revive
   - Circle
+  - EnemyBullet
+  - EnemyRevive
   layers:
   - Default
   - TransparentFX
@@ -31,8 +33,8 @@ TagManager:
   - SeeThroughObjects
   - Enemies
   - Fov
-  - 
-  - 
+  - EnemyBullet
+  - EnemyRevive
   - 
   - 
   - 
