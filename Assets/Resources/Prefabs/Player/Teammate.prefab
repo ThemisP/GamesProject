@@ -5787,7 +5787,7 @@ GameObject:
   - component: {fileID: 5560566330670514865}
   - component: {fileID: 6620973665389519595}
   - component: {fileID: 3868645541584380946}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: Cylinder
   m_TagString: Revive
   m_Icon: {fileID: 0}
@@ -5863,7 +5863,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1456991178655975302}
   - component: {fileID: 3411089533679091554}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: ReviveTrigger
   m_TagString: Revive
   m_Icon: {fileID: 0}

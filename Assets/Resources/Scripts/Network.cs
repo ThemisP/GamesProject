@@ -160,7 +160,7 @@ public class Network : MonoBehaviour {
 
         player.SetOffline(true);
         cameraScript.SetTarget(playerObj.transform);
-        ShrinkCircle.circleAccess.StartCircle();
+        ShrinkCircle.instance.StartCircle();
     }
 
     IEnumerator SpawnChainAndSetPlayers(Transform p1, Transform p2, TeamScript script) {
@@ -204,7 +204,8 @@ public class Network : MonoBehaviour {
         EnemyPlayerController controller;
         if (playersInGame.TryGetValue(id, out controller)) {
             playersInGame.Remove(id);
-            Destroy(controller.gameObject, 0f);
+            Destroy(controller.gameObject, 2f);
+            HUD.SetActive(false);
         }
     }
 
@@ -232,16 +233,35 @@ public class Network : MonoBehaviour {
         }
     }
 
-    public void DestroySelf() {
-        Destroy(player.playerObj, 0f);
-    }
-
     public void HandlePlayerDamage(int id, bool isAlive, float health) {
         EnemyPlayerController controller;
         if(playersInGame.TryGetValue(id, out controller)){
             controller.SetHealth(health);
             if (!isAlive)
                 controller.Died();
+        }
+    }
+
+    public bool GameReady() {
+        return GameIsReady;
+    }
+
+    public void SetGameReady() {
+        GameIsReady = true;
+    }
+
+    public void GameOver(bool won) {
+        Team.GetComponent<TeamScript>().DestroyChain();
+        HUD.SetActive(false);
+        Destroy(player.playerObj, 2f);
+        GameIsReady = false;
+        EnemyPlayerController controller;
+        mainMenu.GameOver(won);
+        foreach (KeyValuePair<int, EnemyPlayerController> enemy in playersInGame) {
+            if (playersInGame.TryGetValue(enemy.Key, out controller)) {
+                playersInGame.Remove(enemy.Key);
+                Destroy(controller.gameObject, 0f);
+            }
         }
     }
     #endregion
@@ -503,26 +523,7 @@ public class Network : MonoBehaviour {
     #endregion
 
     #endregion
-    public bool GameReady() {
-        return GameIsReady;
-    }
-
-    public void SetGameReady() {
-        GameIsReady = true;
-    }
-
-    public void GameOver() {
-        Destroy(Team, 0f);
-        DestroySelf();
-        GameIsReady = false;
-        EnemyPlayerController controller;
-        foreach(KeyValuePair<int, EnemyPlayerController> enemy in playersInGame) {
-            if (playersInGame.TryGetValue(enemy.Key, out controller)) {
-                playersInGame.Remove(enemy.Key);
-                Destroy(controller.gameObject, 0f);
-            }
-        }
-    }
+    
 
     public void ReceiveGameReady() {
         try {

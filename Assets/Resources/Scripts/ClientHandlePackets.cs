@@ -31,6 +31,7 @@ public class ClientHandlePackets{
         PacketsTcp.Add(17, HandleGameOver);
         PacketsTcp.Add(18, HandlePlayerRevive);
         PacketsTcp.Add(19, HandleAllPlayersReceived);
+        PacketsTcp.Add(20, HandleShrinkCircleTimer);
 
         PacketsUdp = new Dictionary<int, Packet_>();
         PacketsUdp.Add(2, HandleReceivePlayersLocations);
@@ -359,7 +360,7 @@ public class ClientHandlePackets{
         bool won = (buffer.ReadInt() == 0) ? false : true;
         Network.instance.mainMenu.GameOver(won);
         Network.instance.CallFunctionFromAnotherThread(() => {
-            Network.instance.GameOver();
+            Network.instance.GameOver(won);
         });
     }
 
@@ -377,6 +378,14 @@ public class ClientHandlePackets{
                 Network.instance.playerController.Revived();
             }
         });
+    }
+
+    // Packetnum = 20
+    void HandleShrinkCircleTimer(byte[] data) {
+        ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
+        buffer.WriteBytes(data);
+        float circleTimer = buffer.ReadFloat();
+        ShrinkCircle.instance.CircleTimer(circleTimer);
     }
     #endregion
 }

@@ -90,7 +90,7 @@ public class PlayerData : MonoBehaviour {
         circleTimer += Time.deltaTime;
         if (circleTimer > 2f) {
             circleTimer = 0f;
-            if (!ShrinkCircle.circleAccess.isInCircle(this.transform)) {
+            if (!ShrinkCircle.instance.isInCircle(this.transform)) {
                 takeDamage(5.0f, "");
                 if(!playerController.isOffline()) Network.instance.SendPlayerDamage(5.0f, "");
 
