@@ -7,6 +7,8 @@ using System;
 public class EnemyPlayerController : MonoBehaviour {
 
     public Slider healthSlider;
+    public Text userName;
+    public PlayerInfo enemyInfo;
 
     [Header("Effects")]
     public ParticleSystem gunParticles;                    // Reference to the particle system.
@@ -17,6 +19,7 @@ public class EnemyPlayerController : MonoBehaviour {
     [Header("Revive")]
     public GameObject reviveTrigger;
     public GameObject playerModel;
+    private GameObject canvas;
     public CapsuleCollider playerCollider;
 
     private int PlayerID;
@@ -39,11 +42,13 @@ public class EnemyPlayerController : MonoBehaviour {
     // Use this for initialization
     void Start () {
         playerRigidbody = GetComponent<Rigidbody>();
+        enemyInfo = GetComponent<PlayerInfo>();
         if (playerRigidbody == null) Debug.LogError("Not found rigid body component");
         playerRigidbody.freezeRotation = true;
         playerPos = transform.position;
         playerRot = transform.rotation.eulerAngles;
         anim = GetComponent<Animator>();
+        userName = canvas.GetComponent<Text>();
     }
 	
 	void FixedUpdate () {
@@ -53,6 +58,8 @@ public class EnemyPlayerController : MonoBehaviour {
                 s();
             }
         }
+        userName.text = enemyInfo.GetUsername();
+        Debug.Log(userName.text);
         if (!dead) {
             if (health > 0)
                 healthSlider.value = health / maxHealth;

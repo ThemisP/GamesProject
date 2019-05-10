@@ -14,6 +14,7 @@ public class PlayerData : MonoBehaviour {
     private Text nodeCount;
     private Text weaponName;
     private Text ammoRemaining;
+    private Text userName;
     private Slider dodgeSlider;
     private int kills = 0, assists = 0, deaths = 0;
 

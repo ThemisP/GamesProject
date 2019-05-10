@@ -260,13 +260,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e11b2ad73d6f2c04a8cfec08532caeb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 9212487471537120563, guid: ed30619641219af43b9b778b2c7c3601,
-    type: 3}
   bulletSpawn: {fileID: 4808530468726768}
   speed: 6
-  network: {fileID: 0}
+  gunParticles: {fileID: 0}
+  gunAudio: {fileID: 0}
+  gunLight: {fileID: 0}
   DodgeCooldown: 3
   isDodging: 0
+  reviveTrigger: {fileID: 0}
+  playerModel: {fileID: 0}
+  playerCollider: {fileID: 0}
+  clipCount: 0
 --- !u!114 &114281636829982706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -280,6 +284,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
+  bulletsLeft: 0
+  upgradeFlag: 0
 --- !u!1 &1408367885694928
 GameObject:
   m_ObjectHideFlags: 0
