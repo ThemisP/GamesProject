@@ -20,6 +20,7 @@ public class PlayerData : MonoBehaviour {
     private GameObject popupWeapon;
     private GameObject holdToRevive;
     private GameObject ReviveSlider;
+    private GameObject DamageBloodHUD;
     // private GameObject popupStatus;
     public PlayerController playerController;
 
@@ -38,6 +39,8 @@ public class PlayerData : MonoBehaviour {
         GameObject canvas = GameObject.Find("Health");
         GameObject balance = GameObject.Find("Balance");
         GameObject nodes = GameObject.Find("NodesBalance");
+        DamageBloodHUD = hud.Find("BloodDamage").gameObject;
+        DamageBloodHUD.SetActive(false);
         popupHelp = hud.Find("Help_Popup").gameObject;
         popupWeapon = hud.Find("Weapons_Popup").gameObject;
         // popupStatus = hud.Find("Statuses_Popup").gameObject;
@@ -123,6 +126,15 @@ public class PlayerData : MonoBehaviour {
             currentHealth = 0;
             healthSlider.value = 0f;
         }
+        CameraFollow script = Camera.main.GetComponent<CameraFollow>();
+        if (script != null) script.ShakeCamera();
+        else Debug.LogWarning("CameraFollow script not found");
+        StartCoroutine(DamageBloodHUDReveal());
+    }
+    IEnumerator DamageBloodHUDReveal() {
+        DamageBloodHUD.SetActive(true);
+        yield return new WaitForSecondsRealtime(0.5f);
+        DamageBloodHUD.SetActive(false);
     }
     //finds the amount of skill points held by the user
     public int getSkillPoints()

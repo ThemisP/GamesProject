@@ -269,6 +269,8 @@ public class PlayerController : MonoBehaviour
 
                         if (!offline) Network.instance.SendPlayerDamage(bulletScript.GetBulletDamage(), bulletScript.GetBulletId());
                         ObjectHandler.instance.DestroyBullet(bulletScript.GetBulletId());
+                        CameraFollow script = Camera.main.GetComponent<CameraFollow>();
+                        script.ShakeCamera();
                     }
                 }
             }
