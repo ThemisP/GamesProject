@@ -90,12 +90,13 @@ namespace Assets.Resources.Scripts.Weapons {
         public void SetRange(Weapon weapon)
         {
             float weaponRange = weapon.Lifetime;
-            weapon.Lifetime = 1.25f * weaponRange;
+            weapon.Lifetime = 1.1f * weaponRange;
 
         }
 
         public void SetCapacity(Weapon weapon)
         {
+
             int weaponMagazine = weapon.Magazine;
             weapon.Magazine = (int) Math.Round(1.25f * weaponMagazine);
 

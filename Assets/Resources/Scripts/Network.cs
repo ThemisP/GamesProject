@@ -41,6 +41,7 @@ public class Network : MonoBehaviour {
     [HideInInspector]  public GameObject Team;
 
     public Dictionary<int, EnemyPlayerController> playersInGame;
+    public Dictionary<int, string> usernamesToAllocate;
 
     [HideInInspector] public int ClientIndex;//server related (something like a unique id very simple though)
     private byte[] asyncBuff;
@@ -53,6 +54,7 @@ public class Network : MonoBehaviour {
     public void Awake() {
         HUD.SetActive(false);
         playersInGame = new Dictionary<int, EnemyPlayerController>();
+        usernamesToAllocate = new Dictionary<int, string>();
         instance = this;
         player = new PlayerInfo();
     }
@@ -166,6 +168,7 @@ public class Network : MonoBehaviour {
         if (id == ClientIndex) return;
         if (playersInGame.ContainsKey(id)) return;
         GameObject playerObj;
+        usernamesToAllocate.Add(id, username);
         if (team == player.GetTeamNumber()) {
             playerObj = GameObject.Instantiate(TeammatePlayerPrefab, pos, Quaternion.Euler(rot));
             Team = GameObject.Instantiate(SimplifiedTeamPrefab, new Vector3(0,1,0), Quaternion.Euler(new Vector3(0,0,0)));
