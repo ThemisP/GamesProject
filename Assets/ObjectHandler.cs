@@ -30,15 +30,13 @@ public class ObjectHandler : MonoBehaviour {
                 loopRun = false;
             
         }
-        Transform pillGroup = GameObject.Find("HealthSpawns").transform;
-        i = 0;
+        Transform pillGroup = GameObject.Find("PillSpawns").transform;
+        i = 1;
         loopRun = true;
-        while (true) {
+        while (loopRun) {
             Transform pillX = pillGroup.Find("Pill (" + i + ")");
             if (pillX != null) {
-                Debug.Log(i);
-                Debug.Log("!)");
-                Coins.Add("Pill (" + i + ")", pillX.gameObject);
+                Pills.Add("Pill (" + i + ")", pillX.gameObject);
                 i++;
             } else
                 loopRun = false;
@@ -109,7 +107,6 @@ public class ObjectHandler : MonoBehaviour {
     }
 
     public void DisablePill(string id) {
-        Debug.Log(id);
         GameObject pill;
         if (Pills.TryGetValue(id, out pill)) {
             pill.SetActive(false);

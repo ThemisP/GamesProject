@@ -74,8 +74,7 @@ namespace Assets.Resources.Scripts.Weapons {
         #region "Setters"
         public void SetRange(Weapon weapon) {
             float weaponRange = weapon.Lifetime;
-            weapon.Lifetime = 1.1f + weaponRange;
-
+            weapon.Lifetime = 0.2f + weaponRange;
         }
 
         public void SetCapacity(Weapon weapon) {

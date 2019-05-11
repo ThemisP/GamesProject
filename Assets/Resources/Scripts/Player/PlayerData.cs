@@ -27,6 +27,14 @@ public class PlayerData : MonoBehaviour {
     private GameObject activeWeapon;
     private GameObject currentMagazine;
     private GameObject balance;
+
+    private Button pistolButton;
+    private Button shotgunButton;
+    private Button rifleButton;
+    private Button sniperButton;
+    private Button upgradeRangeButton;
+    private Button upgradeDamageButton;
+    private Button upgradeCapacityButton;
     // private GameObject popupStatus;
     public PlayerController playerController;
 
@@ -53,18 +61,19 @@ public class PlayerData : MonoBehaviour {
         currentMagazine = hud.Find("Magazine").gameObject;
         popupHelp = hud.Find("Help_Popup").gameObject;
         popupWeapon = hud.Find("Weapons_Popup").gameObject;
+        activeWeapon = hud.Find("WeaponName").gameObject;
         // popupStatus = hud.Find("Statuses_Popup").gameObject;
         dodgeSlider = hud.Find("Dodge Cooldown").GetComponent<Slider>();
         holdToRevive = hud.Find("Revive_Button").gameObject;
         ReviveSlider = hud.Find("Revive_Slider").gameObject;
 
-        Button pistolButton = popupWeapon.GetComponent<RectTransform>().Find("Pistol").GetComponent<Button>();
-        Button shotgunButton = popupWeapon.GetComponent<RectTransform>().Find("Shotgun").GetComponent<Button>();
-        Button rifleButton = popupWeapon.GetComponent<RectTransform>().Find("Rifle").GetComponent<Button>();
-        Button sniperButton = popupWeapon.GetComponent<RectTransform>().Find("Sniper").GetComponent<Button>();
-        Button upgradeRangeButton = popupWeapon.GetComponent<RectTransform>().Find("+Range").GetComponent<Button>();
-        Button upgradeDamageButton = popupWeapon.GetComponent<RectTransform>().Find("+Power").GetComponent<Button>();
-        Button upgradeCapacityButton = popupWeapon.GetComponent<RectTransform>().Find("+Capacity").GetComponent<Button>();
+        pistolButton = popupWeapon.GetComponent<RectTransform>().Find("Pistol").GetComponent<Button>();
+        shotgunButton = popupWeapon.GetComponent<RectTransform>().Find("Shotgun").GetComponent<Button>();
+        rifleButton = popupWeapon.GetComponent<RectTransform>().Find("Rifle").GetComponent<Button>();
+        sniperButton = popupWeapon.GetComponent<RectTransform>().Find("Sniper").GetComponent<Button>();
+        upgradeRangeButton = popupWeapon.GetComponent<RectTransform>().Find("+Range").GetComponent<Button>();
+        upgradeDamageButton = popupWeapon.GetComponent<RectTransform>().Find("+Power").GetComponent<Button>();
+        upgradeCapacityButton = popupWeapon.GetComponent<RectTransform>().Find("+Capacity").GetComponent<Button>();
 
         pistolButton.onClick.AddListener(() => UpgradeWeapon("Pistol"));
         shotgunButton.onClick.AddListener(() => UpgradeWeapon("Shotgun"));
@@ -98,8 +107,8 @@ public class PlayerData : MonoBehaviour {
         coinCount.text = "0";
         nodeCount = nodes.GetComponent<Text>();
         nodeCount.text = "0";
-        //weaponName = activeWeapon.GetComponentInChildren<Text>();
-        //weaponName.text = "Pistol";
+        weaponName = activeWeapon.GetComponent<Text>();
+        weaponName.text = "Pistol";
 
         ammoRemaining = currentMagazine.GetComponentInChildren<Text>();
         ammoRemaining.text = "10";
@@ -128,27 +137,31 @@ public class PlayerData : MonoBehaviour {
 
             switch (newWeapon) {
                 case "Shotgun":
-                    upgradeFlag = true;
-                    this.currentWeapon = Weapons.instance.GetShotgun();
-                    weaponName.text = "Shotgun";
-                    ammoRemaining.text = bulletsLeft.ToString();
-
+                    if (addCoinsIfAvailable(-10)) {
+                        upgradeFlag = true;
+                        this.currentWeapon = Weapons.instance.GetShotgun();
+                        weaponName.text = "Shotgun";
+                        ammoRemaining.text = bulletsLeft.ToString();
+                        DisableGunButtons();
+                    }
                     break;
                 case "Assault Rifle":
-                    upgradeFlag = true;
-                    this.currentWeapon = Weapons.instance.GetAssaultRifle();
-                    weaponName.text = "Assault Rifle";
-                    ammoRemaining.text = bulletsLeft.ToString();
-
-
+                    if (addCoinsIfAvailable(-10)) {
+                        upgradeFlag = true;
+                        this.currentWeapon = Weapons.instance.GetAssaultRifle();
+                        weaponName.text = "Assault Rifle";
+                        ammoRemaining.text = bulletsLeft.ToString();
+                        DisableGunButtons();
+                    }
                     break;
                 case "Sniper":
-                    upgradeFlag = true;
-                    this.currentWeapon = Weapons.instance.GetSniper();
-                    weaponName.text = "Sniper";
-                    ammoRemaining.text = bulletsLeft.ToString();
-
-
+                    if (addCoinsIfAvailable(-10)) {
+                        upgradeFlag = true;
+                        this.currentWeapon = Weapons.instance.GetSniper();
+                        weaponName.text = "Sniper";
+                        ammoRemaining.text = bulletsLeft.ToString();
+                        DisableGunButtons();
+                    }
                     break;
                 default:
                     Debug.Log("Invalid Action. ");
@@ -178,6 +191,12 @@ public class PlayerData : MonoBehaviour {
         }
     }
 
+    void DisableGunButtons() {
+        pistolButton.enabled = false;
+        shotgunButton.enabled = false;
+        rifleButton.enabled = false;
+        sniperButton.enabled = false;
+    }
     public void takeDamage(float amount, string bulletId){
         if (currentHealth - amount > 0) {
             currentHealth -= amount;
@@ -221,10 +240,10 @@ public class PlayerData : MonoBehaviour {
     {
         //This statement is when we use -ve value coins to buy items,
         // it checks whether there are enough coins to use.        
-        if (this.coins + newCoins > 0) {
+        if (this.coins + newCoins >= 0) {
             coins += newCoins;
-            coinCount = balance.GetComponent<Text>();
-            coinCount.text = coins.ToString();
+            balance.GetComponent<Text>().text = coins.ToString();
+            //balance.text = coins.ToString();
             return true;
         } else {
             return false;

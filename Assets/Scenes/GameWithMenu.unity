@@ -329,7 +329,7 @@ GameObject:
   m_Component:
   - component: {fileID: 520025488}
   m_Layer: 0
-  m_Name: HealthSpawns
+  m_Name: PillSpawns
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
