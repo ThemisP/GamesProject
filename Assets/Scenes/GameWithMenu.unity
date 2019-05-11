@@ -707,6 +707,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 24.435974
       objectReference: {fileID: 0}
+    - target: {fileID: 9204344930378040171, guid: 8d81c0f34e9ef1441a39c64b9a46ee7d,
+        type: 3}
+      propertyPath: m_Name
+      value: Bullets_Remaining
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d81c0f34e9ef1441a39c64b9a46ee7d, type: 3}
 --- !u!1 &1379871627

@@ -18,22 +18,30 @@ public class ObjectHandler : MonoBehaviour {
         Bullets = new Dictionary<string, GameObject>();
         Coins = new Dictionary<string, GameObject>();
         Pills = new Dictionary<string, GameObject>();
-        Transform coinGroup = GameObject.Find("CoinSpawns").transform;        
+        Transform coinGroup = GameObject.Find("CoinSpawns").transform;
         int i = 1;
-        while (true) {
+        bool loopRun = true;
+        while (loopRun) {
             Transform coinX = coinGroup.Find("Coin (" + i + ")");
-            if (coinX == null) break;
-            Coins.Add("Coin (" + i + ")", coinX.gameObject);
-            i++;
+            if (coinX != null) {
+                Coins.Add("Coin (" + i + ")", coinX.gameObject);
+                i++;
+            } else
+                loopRun = false;
             
         }
         Transform pillGroup = GameObject.Find("HealthSpawns").transform;
         i = 0;
+        loopRun = true;
         while (true) {
             Transform pillX = pillGroup.Find("Pill (" + i + ")");
-            if (pillX == null) break;
-            Coins.Add("Pill (" + i + ")", pillX.gameObject);
-            i++;
+            if (pillX != null) {
+                Debug.Log(i);
+                Debug.Log("!)");
+                Coins.Add("Pill (" + i + ")", pillX.gameObject);
+                i++;
+            } else
+                loopRun = false;
         }
     }
 	
@@ -101,6 +109,7 @@ public class ObjectHandler : MonoBehaviour {
     }
 
     public void DisablePill(string id) {
+        Debug.Log(id);
         GameObject pill;
         if (Pills.TryGetValue(id, out pill)) {
             pill.SetActive(false);

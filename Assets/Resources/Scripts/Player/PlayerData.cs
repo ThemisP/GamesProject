@@ -12,6 +12,9 @@ public class PlayerData : MonoBehaviour {
 	private float currentHealth;
     private Text coinCount;
     private Text nodeCount;
+    private Text weaponName;
+    private Text ammoRemaining;
+    private Text userName;
     private Slider dodgeSlider;
     private int kills = 0, assists = 0, deaths = 0;
 
@@ -21,26 +24,33 @@ public class PlayerData : MonoBehaviour {
     private GameObject holdToRevive;
     private GameObject ReviveSlider;
     private GameObject DamageBloodHUD;
+    private GameObject activeWeapon;
+    private GameObject currentMagazine;
+    private GameObject balance;
     // private GameObject popupStatus;
     public PlayerController playerController;
 
 	private int coins = 0;
     private int nodePoints = 0;
     private float damageDealt = 0;
+    public int bulletsLeft;
 
     public Weapon currentWeapon = Weapons.instance.GetPistol();
     public Status currentStatus = Statuses.instance.GetHealthy();
     private float circleTimer = 0f;
+
+    public bool upgradeFlag = false;
 
     //Change back to Start when fixed HUD
     void Start() {
         HUDCanvas = GameObject.Find("HUDPrefab");
         RectTransform hud = HUDCanvas.GetComponent<RectTransform>();
         GameObject canvas = GameObject.Find("Health");
-        GameObject balance = GameObject.Find("Balance");
+        balance = GameObject.Find("Balance");
         GameObject nodes = GameObject.Find("NodesBalance");
         DamageBloodHUD = hud.Find("BloodDamage").gameObject;
         DamageBloodHUD.SetActive(false);
+        currentMagazine = hud.Find("Magazine").gameObject;
         popupHelp = hud.Find("Help_Popup").gameObject;
         popupWeapon = hud.Find("Weapons_Popup").gameObject;
         // popupStatus = hud.Find("Statuses_Popup").gameObject;
@@ -52,12 +62,17 @@ public class PlayerData : MonoBehaviour {
         Button shotgunButton = popupWeapon.GetComponent<RectTransform>().Find("Shotgun").GetComponent<Button>();
         Button rifleButton = popupWeapon.GetComponent<RectTransform>().Find("Rifle").GetComponent<Button>();
         Button sniperButton = popupWeapon.GetComponent<RectTransform>().Find("Sniper").GetComponent<Button>();
+        Button upgradeRangeButton = popupWeapon.GetComponent<RectTransform>().Find("+Range").GetComponent<Button>();
+        Button upgradeDamageButton = popupWeapon.GetComponent<RectTransform>().Find("+Power").GetComponent<Button>();
+        Button upgradeCapacityButton = popupWeapon.GetComponent<RectTransform>().Find("+Capacity").GetComponent<Button>();
 
-
-        pistolButton.onClick.AddListener(() => ChangeWeapon(0));
-        shotgunButton.onClick.AddListener(() => ChangeWeapon(1));
-        rifleButton.onClick.AddListener(() => ChangeWeapon(2));
-        sniperButton.onClick.AddListener(() => ChangeWeapon(3));
+        pistolButton.onClick.AddListener(() => UpgradeWeapon("Pistol"));
+        shotgunButton.onClick.AddListener(() => UpgradeWeapon("Shotgun"));
+        rifleButton.onClick.AddListener(() => UpgradeWeapon("Assault Rifle"));
+        sniperButton.onClick.AddListener(() => UpgradeWeapon("Sniper"));
+        upgradeCapacityButton.onClick.AddListener(() => UpgradeWeapon("+Capacity"));
+        upgradeDamageButton.onClick.AddListener(() => UpgradeWeapon("+Power"));
+        upgradeRangeButton.onClick.AddListener(() => UpgradeWeapon("+Range"));
 
         // Button healthyButton = popupStatus.GetComponent<RectTransform>().Find("Healthy").GetComponent<Button>();
         // Button burntButton = popupStatus.GetComponent<RectTransform>().Find("Burnt").GetComponent<Button>();
@@ -83,6 +98,11 @@ public class PlayerData : MonoBehaviour {
         coinCount.text = "0";
         nodeCount = nodes.GetComponent<Text>();
         nodeCount.text = "0";
+        //weaponName = activeWeapon.GetComponentInChildren<Text>();
+        //weaponName.text = "Pistol";
+
+        ammoRemaining = currentMagazine.GetComponentInChildren<Text>();
+        ammoRemaining.text = "10";
         currentHealth = maxHealth;
         healthSlider.value = currentHealth / maxHealth;
     }
@@ -98,23 +118,63 @@ public class PlayerData : MonoBehaviour {
         }
     }
 
-    void ChangeWeapon(int weaponNumber) {
-        switch (weaponNumber) {
-            case 0:
-                this.currentWeapon = Weapons.instance.GetPistol();
-                break;
-            case 1:
-                this.currentWeapon = Weapons.instance.GetShotgun();
-                break;
-            case 2:
-                this.currentWeapon =  Weapons.instance.GetAssaultRifle();
-                break;
-            case 3:
-                this.currentWeapon = Weapons.instance.GetSniper();
-                break;
-            default:
-                Debug.Log("Incorrect weapon number in change weapon");
-                break;
+    void UpgradeWeapon(string newWeapon) {
+        Debug.Log(newWeapon);
+
+
+        /* Will eventually be where currency check will be in the future */
+        if (currentWeapon.GetWeaponName().Equals("Pistol")) {
+            /*Stage 1:  Upgrade from pistol to either Shotgun, Assault_Rifle or Sniper */
+
+            switch (newWeapon) {
+                case "Shotgun":
+                    upgradeFlag = true;
+                    this.currentWeapon = Weapons.instance.GetShotgun();
+                    weaponName.text = "Shotgun";
+                    ammoRemaining.text = bulletsLeft.ToString();
+
+                    break;
+                case "Assault Rifle":
+                    upgradeFlag = true;
+                    this.currentWeapon = Weapons.instance.GetAssaultRifle();
+                    weaponName.text = "Assault Rifle";
+                    ammoRemaining.text = bulletsLeft.ToString();
+
+
+                    break;
+                case "Sniper":
+                    upgradeFlag = true;
+                    this.currentWeapon = Weapons.instance.GetSniper();
+                    weaponName.text = "Sniper";
+                    ammoRemaining.text = bulletsLeft.ToString();
+
+
+                    break;
+                default:
+                    Debug.Log("Invalid Action. ");
+                    break;
+            }
+        } else {
+            switch (newWeapon) {
+                case "+Range":
+                    upgradeFlag = true;
+                    this.currentWeapon.SetRange(currentWeapon);
+                    break;
+
+                case "+Power":
+                    upgradeFlag = true;
+                    this.currentWeapon.SetDamage(currentWeapon);
+                    break;
+
+                case "+Capacity":
+                    upgradeFlag = true;
+                    this.currentWeapon.SetCapacity(currentWeapon);
+                    break;
+
+                default:
+                    Debug.Log("Invalid upgrade");
+                    break;
+            }
         }
     }
 
@@ -160,14 +220,16 @@ public class PlayerData : MonoBehaviour {
     public bool addCoinsIfAvailable(int newCoins)
     {
         //This statement is when we use -ve value coins to buy items,
-        // it checks whether there are enough coins to use.
-        if(this.coins + newCoins > 0){
+        // it checks whether there are enough coins to use.        
+        if (this.coins + newCoins > 0) {
             coins += newCoins;
+            coinCount = balance.GetComponent<Text>();
+            coinCount.text = coins.ToString();
             return true;
         } else {
             return false;
         }
-        
+
     }
 
     public int getNodePoints()
@@ -227,7 +289,7 @@ public class PlayerData : MonoBehaviour {
         currentHealth += amount;
         if (currentHealth > maxHealth) currentHealth = maxHealth;
         healthSlider.value = currentHealth / maxHealth;
-        Network.instance.SendPlayerHealth(currentHealth);
+        if(!playerController.isOffline()) Network.instance.SendPlayerHealth(currentHealth);
         return true;
     }
 

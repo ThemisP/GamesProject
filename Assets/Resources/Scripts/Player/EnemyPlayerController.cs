@@ -7,6 +7,7 @@ using System;
 public class EnemyPlayerController : MonoBehaviour {
 
     public Slider healthSlider;
+    public Text UsernameDisplay;
 
     [Header("Effects")]
     public ParticleSystem gunParticles;                    // Reference to the particle system.
@@ -110,6 +111,7 @@ public class EnemyPlayerController : MonoBehaviour {
     #region "Setters"
     public void SetUsername(string username) {
         this.Username = username;
+        UsernameDisplay.text = username;
     }
     public void SetTeamNumber(int teamNumber) {
         this.TeamNumber = teamNumber;
