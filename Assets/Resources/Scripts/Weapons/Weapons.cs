@@ -9,18 +9,18 @@ namespace Assets.Resources.Scripts.Weapons {
         public static Weapons instance = new Weapons();
 
         //The pattern for each of this is 
-        // Weapon(Damage, Lifetime, Firerate, Spread, Speed, NumberOfBullets)
+        // Weapon(Damage, Lifetime, Firerate, Spread, Speed, Magazine, NumberOfBullets, ReloadSpeed, name)
         public Weapon GetPistol() {
-            return new Weapon(10f, 0.7f, 1f, 2f, 8f, 10, 1, "Pistol");
+            return new Weapon(10f, 0.7f, 1f, 2f, 8f, 10, 1, 0.8f, "Pistol");
         }
         public Weapon GetAssaultRifle() {
-            return new Weapon(20f, 3f, 0.4f, 1f, 10f, 20, 1, "Assault Rifle");
+            return new Weapon(20f, 3f, 0.4f, 1f, 10f, 20, 1, 1f, "Assault Rifle");
         }
         public Weapon GetShotgun() {
-            return new Weapon(10f, 0.7f, 1f, 2f, 12f, 9, 3, "Shotgun");
+            return new Weapon(10f, 0.7f, 1f, 2f, 12f, 4, 3, 1.3f, "Shotgun");
         }
         public Weapon GetSniper() {
-            return new Weapon(50f, 4f, 1.5f, 0.5f, 20f, 5, 1, "Sniper");
+            return new Weapon(50f, 4f, 1.5f, 0.5f, 20f, 5, 1, 1.5f, "Sniper");
         }
     }
 
@@ -32,9 +32,10 @@ namespace Assets.Resources.Scripts.Weapons {
         float Speed;
         int Magazine;
         int NumberOfBullets;
+        float ReloadTime;
         string weaponName;
 
-        public Weapon(float dmg, float lifetime, float firerate, float spread, float speed, int magazine, int numberOfBullets, string weaponName) {
+        public Weapon(float dmg, float lifetime, float firerate, float spread, float speed, int magazine, int numberOfBullets, float reloadTime, string weaponName) {
             this.Damage = dmg;
             this.Lifetime = lifetime;
             this.Firerate = firerate;
@@ -42,6 +43,7 @@ namespace Assets.Resources.Scripts.Weapons {
             this.Speed = speed;
             this.Magazine = magazine;
             this.NumberOfBullets = numberOfBullets;
+            this.ReloadTime = reloadTime;
             this.weaponName = weaponName;
         }
         #region "Getters"
@@ -65,6 +67,9 @@ namespace Assets.Resources.Scripts.Weapons {
         }
         public int GetNumberOfBullets() {
             return this.NumberOfBullets;
+        }
+        public float GetReloadTime() {
+            return this.ReloadTime;
         }
         public string GetWeaponName() {
             return this.weaponName;

@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
     private int bulletCount = 0;//used for bullet id
     private float DodgeTimer = 0f;
     private float StatusTimer = 0f;
-
+    private int clipCount;
     private PlayerData playerData;
     private bool offline = false;
     private bool isDodging = false;
@@ -52,6 +52,7 @@ public class PlayerController : MonoBehaviour
     private bool AbleToRevive = false;
     private float TimeToRevive = 3f;
     private float MaxReviveTime = 3f;
+    private float ReloadTime = 0f;
 
     private bool waitingForGameStart = true;
 
@@ -65,6 +66,7 @@ public class PlayerController : MonoBehaviour
         playerData = GetComponent<PlayerData>();
 
         anim = GetComponent<Animator>();
+        clipCount = playerData.currentWeapon.GetMagazine();
     }
 
     // Update is called once per frame
@@ -75,11 +77,13 @@ public class PlayerController : MonoBehaviour
             float v = 0f; // w and s keys
             bool fire = false;//pressed primary mouse button
             bool hitDodge = false; //pressed rightClick
+            bool hitReload = false;
             if(!waitingForGameStart) {
                 h = Input.GetAxisRaw("Horizontal");// a and d keys
                 v = Input.GetAxisRaw("Vertical"); // w and s keys
                 fire = Input.GetMouseButton(0);//pressed primary mouse button
                 hitDodge = Input.GetMouseButton(1); //pressed rightClick
+                hitReload = Input.GetKeyDown(KeyCode.R);
             }
             bool hitHelp = Input.GetKey(KeyCode.H);
             bool hitWeaponsUpgrade = Input.GetKey(KeyCode.E);
@@ -115,10 +119,19 @@ public class PlayerController : MonoBehaviour
             UpdateDodgeTimer();
             UpdateStatusTimer();
 
+            if (hitReload && clipCount < playerData.currentWeapon.GetMagazine()) {
+                Reload();
+                ReloadTime = playerData.currentWeapon.GetReloadTime();
+            }
             Turning();
             Animating(h, v);
+            if(ReloadTime >= 0) {
+                ReloadTime -= Time.deltaTime;
+            }
             if (!hitWeaponsUpgrade) {
-                Fire(fire);
+                if (ReloadTime <= 0) {
+                    Fire(fire);
+                }
             }
             Dodge(hitDodge);
         }
@@ -205,7 +218,9 @@ public class PlayerController : MonoBehaviour
         {
             if (lastShootTime >= playerData.currentWeapon.GetFirerate())
             {
-                FireGun();
+                if (clipCount > 0) {
+                    FireGun();
+                }
             }
         }
     }
@@ -238,6 +253,8 @@ public class PlayerController : MonoBehaviour
                                         playerData.currentWeapon.GetDamage());
             bulletCount = (bulletCount + 1) % 1000;
         }
+
+        clipCount--;
 
         // Enable the lights.
         gunLight.enabled = false;
@@ -334,10 +351,18 @@ public class PlayerController : MonoBehaviour
         playerModel.SetActive(true);
         playerData.SethealthFromRevive();
     }
+
+    public void Reload() {
+        this.clipCount = playerData.currentWeapon.GetMagazine();
+    }
     #endregion
     #region "Getters"
     public bool isOffline() {
         return this.offline;
+    }
+
+    public int GetBulletsLeft() {
+        return this.clipCount;
     }
     #endregion
 }

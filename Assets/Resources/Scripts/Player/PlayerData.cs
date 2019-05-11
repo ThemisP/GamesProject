@@ -41,7 +41,6 @@ public class PlayerData : MonoBehaviour {
 	private int coins = 0;
     private int nodePoints = 0;
     private float damageDealt = 0;
-    public int bulletsLeft;
 
     public Weapon currentWeapon = Weapons.instance.GetPistol();
     public Status currentStatus = Statuses.instance.GetHealthy();
@@ -125,13 +124,10 @@ public class PlayerData : MonoBehaviour {
 
             }
         }
+        ammoRemaining.text = playerController.GetBulletsLeft().ToString() + " / " + currentWeapon.GetMagazine();
     }
 
     void UpgradeWeapon(string newWeapon) {
-        Debug.Log(newWeapon);
-
-
-        /* Will eventually be where currency check will be in the future */
         if (currentWeapon.GetWeaponName().Equals("Pistol")) {
             /*Stage 1:  Upgrade from pistol to either Shotgun, Assault_Rifle or Sniper */
 
@@ -141,7 +137,8 @@ public class PlayerData : MonoBehaviour {
                         upgradeFlag = true;
                         this.currentWeapon = Weapons.instance.GetShotgun();
                         weaponName.text = "Shotgun";
-                        ammoRemaining.text = bulletsLeft.ToString();
+                        playerController.Reload();
+                        ammoRemaining.text = playerController.GetBulletsLeft().ToString() + " / " + currentWeapon.GetMagazine();
                         DisableGunButtons();
                     }
                     break;
@@ -150,7 +147,8 @@ public class PlayerData : MonoBehaviour {
                         upgradeFlag = true;
                         this.currentWeapon = Weapons.instance.GetAssaultRifle();
                         weaponName.text = "Assault Rifle";
-                        ammoRemaining.text = bulletsLeft.ToString();
+                        playerController.Reload();
+                        ammoRemaining.text = playerController.GetBulletsLeft().ToString() + " / " + currentWeapon.GetMagazine();
                         DisableGunButtons();
                     }
                     break;
@@ -159,7 +157,8 @@ public class PlayerData : MonoBehaviour {
                         upgradeFlag = true;
                         this.currentWeapon = Weapons.instance.GetSniper();
                         weaponName.text = "Sniper";
-                        ammoRemaining.text = bulletsLeft.ToString();
+                        playerController.Reload();
+                        ammoRemaining.text = playerController.GetBulletsLeft().ToString() + " / " + currentWeapon.GetMagazine();
                         DisableGunButtons();
                     }
                     break;
