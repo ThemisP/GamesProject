@@ -84,5 +84,30 @@ namespace Assets.Resources.Scripts.Weapons {
             return this.weaponName;
         }
         #endregion
+
+
+        #region "Setters"
+        public void SetRange(Weapon weapon)
+        {
+            float weaponRange = weapon.Lifetime;
+            weapon.Lifetime = 1.25f * weaponRange;
+
+        }
+
+        public void SetCapacity(Weapon weapon)
+        {
+            int weaponMagazine = weapon.Magazine;
+            weapon.Magazine = (int) Math.Round(1.25f * weaponMagazine);
+
+        }
+
+        public void SetDamage(Weapon weapon)
+        {
+            float weaponDamage = weapon.Damage;
+            weapon.Lifetime = 1.25f * weaponDamage;
+
+        }
+        #endregion
+
     }
 }

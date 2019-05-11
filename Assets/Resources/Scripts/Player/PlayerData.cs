@@ -67,6 +67,9 @@ public class PlayerData : MonoBehaviour {
         shotgunButton.onClick.AddListener(() => UpgradeWeapon("Shotgun"));
         rifleButton.onClick.AddListener(() => UpgradeWeapon("Assault Rifle"));
         sniperButton.onClick.AddListener(() => UpgradeWeapon("Sniper"));
+        upgradeCapacityButton.onClick.AddListener(() => UpgradeWeapon("+Capacity"));
+        upgradeDamageButton.onClick.AddListener(() => UpgradeWeapon("+Power"));
+        upgradeRangeButton.onClick.AddListener(() => UpgradeWeapon("+Range"));
 
         // Button healthyButton = popupStatus.GetComponent<RectTransform>().Find("Healthy").GetComponent<Button>();
         // Button burntButton = popupStatus.GetComponent<RectTransform>().Find("Burnt").GetComponent<Button>();
@@ -104,6 +107,7 @@ public class PlayerData : MonoBehaviour {
 
     void UpgradeWeapon(string newWeapon) {
         Debug.Log(newWeapon);
+        
 
         /* Will eventually be where currency check will be in the future */ 
         if (currentWeapon.GetWeaponName().Equals("Pistol"))
@@ -142,7 +146,27 @@ public class PlayerData : MonoBehaviour {
         }
         else
         {
-            
+            switch (newWeapon)
+            {
+                case "+Range":
+                    upgradeFlag = true;
+                    this.currentWeapon.SetRange(currentWeapon);
+                    break;
+
+                case "+Power":
+                    upgradeFlag = true;
+                    this.currentWeapon.SetDamage(currentWeapon);
+                    break;
+
+                case "+Capacity":
+                    upgradeFlag = true;
+                    this.currentWeapon.SetCapacity(currentWeapon);
+                    break;
+
+                default:
+                    Debug.Log("Invalid upgrade");
+                    break;
+            }
         }
     }
 
