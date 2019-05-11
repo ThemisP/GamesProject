@@ -135,6 +135,7 @@ public class Network : MonoBehaviour {
         else playerController = playerContr;
         player.SetPlayerObj(playerObj);
         cameraScript.SetTarget(playerObj.transform);
+        ObjectHandler.instance.InstantiateCollectibles();
         InvokeRepeating("SendPlayerPos", 0f, 0.1f); //Every 0.1 seconds, repeated calls to send player position to server.
     }
 
@@ -160,11 +161,11 @@ public class Network : MonoBehaviour {
 
         player.SetOffline(true);
         cameraScript.SetTarget(playerObj.transform);
-        ShrinkCircle.circleAccess.StartCircle();
+        ShrinkCircle.instance.StartCircle();
     }
 
     IEnumerator SpawnChainAndSetPlayers(Transform p1, Transform p2, TeamScript script) {
-        yield return new WaitForSecondsRealtime(4);
+        yield return new WaitForSecondsRealtime(2);
         script.SetPlayers(p1, p2);
         playerController.SetWaitingForGame(false);
     }
@@ -204,7 +205,16 @@ public class Network : MonoBehaviour {
         EnemyPlayerController controller;
         if (playersInGame.TryGetValue(id, out controller)) {
             playersInGame.Remove(id);
-            Destroy(controller.gameObject, 0f);
+            Destroy(controller.gameObject, 2f);
+            HUD.SetActive(false);
+        }
+    }
+
+    public void SetHealthPlayer(int id, float amount) {
+        EnemyPlayerController controller;
+        if (playersInGame.TryGetValue(id, out controller)) {
+            playersInGame.Remove(id);
+            controller.SetHealth(amount);
         }
     }
 
@@ -218,9 +228,7 @@ public class Network : MonoBehaviour {
         mainMenu.SetMenuState(MainMenu.MenuState.Main);
     }
 
-    public void Died() {
-        // TODO: Repositioning camera on a player death, and deleting current prefab
-        DestroySelf();
+    public void Died() {        
         try {
             ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
             buffer.WriteInt(16);
@@ -228,14 +236,10 @@ public class Network : MonoBehaviour {
             buffer.WriteInt(player.GetGameIndex());
             buffer.WriteInt(player.GetRoomIndex());
             TcpStream.Write(buffer.BuffToArray(), 0, buffer.Length());
-            // LeaveGame(); //Leaving game should be different to dying
+            
         } catch (Exception e) {
             Debug.Log(e.ToString());
         }
-    }
-
-    public void DestroySelf() {
-        Destroy(player.playerObj, 0f);
     }
 
     public void HandlePlayerDamage(int id, bool isAlive, float health) {
@@ -244,6 +248,29 @@ public class Network : MonoBehaviour {
             controller.SetHealth(health);
             if (!isAlive)
                 controller.Died();
+        }
+    }
+
+    public bool GameReady() {
+        return GameIsReady;
+    }
+
+    public void SetGameReady() {
+        GameIsReady = true;
+    }
+
+    public void GameOver(bool won) {
+        Team.GetComponent<TeamScript>().DestroyChain();
+        HUD.SetActive(false);
+        Destroy(player.playerObj, 2f);
+        GameIsReady = false;
+        EnemyPlayerController controller;
+        mainMenu.GameOver(won);
+        foreach (KeyValuePair<int, EnemyPlayerController> enemy in playersInGame) {
+            if (playersInGame.TryGetValue(enemy.Key, out controller)) {
+                playersInGame.Remove(enemy.Key);
+                Destroy(controller.gameObject, 0f);
+            }
         }
     }
     #endregion
@@ -502,29 +529,40 @@ public class Network : MonoBehaviour {
         buffer.WriteInt(teamMateIndex);
         TcpStream.Write(buffer.BuffToArray(), 0, buffer.Length());
     }
-    #endregion
 
-    #endregion
-    public bool GameReady() {
-        return GameIsReady;
-    }
-
-    public void SetGameReady() {
-        GameIsReady = true;
-    }
-
-    public void GameOver() {
-        Destroy(Team, 0f);
-        DestroySelf();
-        GameIsReady = false;
-        EnemyPlayerController controller;
-        foreach(KeyValuePair<int, EnemyPlayerController> enemy in playersInGame) {
-            if (playersInGame.TryGetValue(enemy.Key, out controller)) {
-                playersInGame.Remove(enemy.Key);
-                Destroy(controller.gameObject, 0f);
-            }
+    //coinOrPill 0 == coin / 1 == Pill
+    public void SendCollectiblesDestroy(string id, int coinOrPill) {
+        if (TcpClient == null || !TcpClient.Connected) {
+            TcpClient.Close();
+            TcpClient = null;
+            Debug.Log("Disconnected");
+            return;
         }
+
+        ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
+        buffer.WriteInt(20);
+        buffer.WriteInt(coinOrPill);
+        buffer.WriteString(id);
+        TcpStream.Write(buffer.BuffToArray(), 0, buffer.Length());
     }
+
+    public void SendPlayerHealth(float health) {
+        if (TcpClient == null || !TcpClient.Connected) {
+            TcpClient.Close();
+            TcpClient = null;
+            Debug.Log("Disconnected");
+            return;
+        }
+
+        ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
+        buffer.WriteInt(21);
+        buffer.WriteFloat(health);
+        TcpStream.Write(buffer.BuffToArray(), 0, buffer.Length());
+    }
+    #endregion
+
+    #endregion
+    
 
     public void ReceiveGameReady() {
         try {

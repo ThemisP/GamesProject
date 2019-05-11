@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ShrinkCircle : MonoBehaviour
 {
-    public static ShrinkCircle circleAccess;
+    public static ShrinkCircle instance;
     [Range(0, 360)]
 	public int Segments;
     [Range(0, 5000)]
@@ -17,7 +17,10 @@ public class ShrinkCircle : MonoBehaviour
     public int currentStageIndex = 0;
 
     #region Private Members
+    private float maxCircleTime = 600f;
+    private float currentCircleTimeRatio;
     private float startingRadius;
+    private float currentRadius;
 	private RenderCircleLine circle;
 	private LineRenderer renderer;
     private float startPauseTime;
@@ -28,7 +31,7 @@ public class ShrinkCircle : MonoBehaviour
 
     void Start()
     {
-        circleAccess = this;
+        instance = this;
         workingCircle = false;
         startingRadius = Radius;
         renderer = gameObject.GetComponent<LineRenderer>();
@@ -42,26 +45,41 @@ public class ShrinkCircle : MonoBehaviour
     void Update ()
     {
         if (workingCircle) {
-            if (!Shrinking) {
-                if ((Time.time - startPauseTime) >= PauseDurations[currentStageIndex]) {
-                    Shrinking = true;
-                }
-            } else {
-                if (Radius <= initialRadius * Stages[currentStageIndex]) {
-                    Shrinking = false;
-                    startPauseTime = Time.time;
-                    if ((currentStageIndex + 1) < Stages.Count)
-                        currentStageIndex++;
-                }
+            Radius = Mathf.Lerp(currentRadius, initialRadius*currentCircleTimeRatio, Time.deltaTime * 1f);
+            currentRadius = Radius;
+            circle.Draw(Segments, Radius, Radius);
+            Circle.transform.localScale = new Vector3(Radius, 1, Radius);
+        }
+    }
+
+    private void CircleShrink() {
+        if (!Shrinking) {
+            if ((Time.time - startPauseTime) >= PauseDurations[currentStageIndex]) {
+                Shrinking = true;
             }
-
-
-            if (Shrinking) {
-                Radius = Mathf.Lerp(Radius, 0, Time.deltaTime * SpeedShrinking);
-                circle.Draw(Segments, Radius, Radius);
-                Circle.transform.localScale = new Vector3(Radius, 1, Radius);
+        } else {
+            if (Radius <= initialRadius * Stages[currentStageIndex]) {
+                Shrinking = false;
+                startPauseTime = Time.time;
+                if ((currentStageIndex + 1) < Stages.Count)
+                    currentStageIndex++;
             }
         }
+
+
+        if (Shrinking) {
+            Radius = Mathf.Lerp(Radius, 0, Time.deltaTime * SpeedShrinking);
+            circle.Draw(Segments, Radius, Radius);
+            Circle.transform.localScale = new Vector3(Radius, 1, Radius);
+        }
+    }
+
+    public void CircleTimer( float circleShrinkTimer) {
+        if(!workingCircle) {
+            workingCircle = true;
+            currentRadius = initialRadius;
+        }
+        currentCircleTimeRatio = 1 - circleShrinkTimer / maxCircleTime;
     }
 
     public void StartCircle() {

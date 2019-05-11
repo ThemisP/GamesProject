@@ -15,6 +15,7 @@ public class TeamScript : MonoBehaviour {
     public GameObject LineLink;
 
     private int chainPoints = 5;
+    private List<GameObject> ChainRelatedObjects = new List<GameObject>();
 
     [SerializeField] private float jointRange = 5f;
     private float separationRatio;
@@ -41,8 +42,10 @@ public class TeamScript : MonoBehaviour {
             link2 = player2.gameObject;
         } else {
             link2 = Instantiate(ChainLink, player1.position + (count * differenceVecStep), player1.rotation);
+            ChainRelatedObjects.Add(link2);
         }
         GameObject joint = Instantiate(SpringJoint);
+        ChainRelatedObjects.Add(joint);
         link2.transform.parent = gameObject.transform;
         joint.transform.parent = gameObject.transform;
 
@@ -55,6 +58,7 @@ public class TeamScript : MonoBehaviour {
             else {
                 script.SetHandles(link1Rigid, link2Rigid);
                 GameObject line = Instantiate(LineLink, player1.position + (count * differenceVecStep), player1.rotation);
+                ChainRelatedObjects.Add(line);
                 LineLink lineScript = line.GetComponent<LineLink>();
                 line.transform.parent = gameObject.transform;
                 if (lineScript == null) Debug.LogError("Line script not found");
@@ -70,5 +74,13 @@ public class TeamScript : MonoBehaviour {
 
     public Vector3 getDifference() {
         return (player1.position - player2.position);
+    }
+
+    public void DestroyChain() {
+        foreach(GameObject item in ChainRelatedObjects) {
+            Destroy(item);
+        }
+        ChainRelatedObjects.Clear();
+        Destroy(this, 0.5f);
     }
 }

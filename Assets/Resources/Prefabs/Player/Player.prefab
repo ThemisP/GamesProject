@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5995066545985826182}
   - component: {fileID: 2435266993313791569}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: ReviveTrigger
   m_TagString: Revive
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 4096148165749089502}
   m_Layer: 12
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -136,9 +136,9 @@ GameObject:
   - component: {fileID: 1770614797663668402}
   - component: {fileID: 3642455768212627665}
   - component: {fileID: 8475158352052868871}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: Cylinder
-  m_TagString: Untagged
+  m_TagString: Revive
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -218,7 +218,7 @@ GameObject:
   - component: {fileID: 1882040304352433042}
   m_Layer: 12
   m_Name: GunBarrelEnd
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5401,7 +5401,6 @@ MonoBehaviour:
   gunAudio: {fileID: 1882040304352433042}
   gunLight: {fileID: 7459288245324536328}
   DodgeCooldown: 3
-  isDodging: 0
   reviveTrigger: {fileID: 1351849316215013549}
   playerModel: {fileID: 7167303711011555286}
   playerCollider: {fileID: 5351144422714748608}
@@ -5430,7 +5429,7 @@ GameObject:
   - component: {fileID: 6721430780595394554}
   m_Layer: 12
   m_Name: PlayerModel
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5464,7 +5463,7 @@ GameObject:
   - component: {fileID: 7490079457421486560}
   m_Layer: 12
   m_Name: Gun
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

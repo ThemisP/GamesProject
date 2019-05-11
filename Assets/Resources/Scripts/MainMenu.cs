@@ -13,6 +13,8 @@ public class MainMenu : MonoBehaviour {
     public GameObject LobbyMenu;
     public GameObject EscapeMenu;
     public GameObject BackgroundImage;
+    public GameObject VictoryImage;
+    public GameObject LostImage;
 
     public GameObject SpectateMode;
 
@@ -225,7 +227,20 @@ public class MainMenu : MonoBehaviour {
     public void SpectateGame() {
         SetMenuState(MenuState.Spectate);
     }
-    public void GameOver() {
+    public void GameOver(bool won) {
+        StartCoroutine(GameOverScreen(won));
+    }
+
+    IEnumerator GameOverScreen(bool won) {
+        if (won) {
+            VictoryImage.SetActive(true);
+        } else {
+            LostImage.SetActive(true);
+        }
+        yield return new WaitForSecondsRealtime(4);
+        VictoryImage.SetActive(false);
+        LostImage.SetActive(false);
+
         username.text = null;
         username.text = null;
         roomIndexSelect.text = null;
