@@ -164,7 +164,7 @@ public class Network : MonoBehaviour {
     }
 
     IEnumerator SpawnChainAndSetPlayers(Transform p1, Transform p2, TeamScript script) {
-        yield return new WaitForSecondsRealtime(4);
+        yield return new WaitForSecondsRealtime(2);
         script.SetPlayers(p1, p2);
         playerController.SetWaitingForGame(false);
     }
