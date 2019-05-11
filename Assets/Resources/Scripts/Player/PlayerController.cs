@@ -53,6 +53,7 @@ public class PlayerController : MonoBehaviour
     private float TimeToRevive = 3f;
     private float MaxReviveTime = 3f;
     private float ReloadTime = 0f;
+    private bool Reloaded = false;
 
     private bool waitingForGameStart = true;
 
@@ -119,14 +120,19 @@ public class PlayerController : MonoBehaviour
             UpdateDodgeTimer();
             UpdateStatusTimer();
 
-            if (hitReload && clipCount < playerData.currentWeapon.GetMagazine()) {
-                Reload();
+            if (hitReload && clipCount < playerData.currentWeapon.GetMagazine()) {                
                 ReloadTime = playerData.currentWeapon.GetReloadTime();
+                Reloaded = true;
             }
             Turning();
             Animating(h, v);
-            if(ReloadTime >= 0) {
+            if (ReloadTime >= 0) {
                 ReloadTime -= Time.deltaTime;
+            } else {
+                if (Reloaded) {
+                    Reload();
+                    Reloaded = false;
+                }
             }
             if (!hitWeaponsUpgrade) {
                 if (ReloadTime <= 0) {
