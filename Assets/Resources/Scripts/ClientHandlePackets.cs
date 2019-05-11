@@ -32,6 +32,8 @@ public class ClientHandlePackets{
         PacketsTcp.Add(18, HandlePlayerRevive);
         PacketsTcp.Add(19, HandleAllPlayersReceived);
         PacketsTcp.Add(20, HandleShrinkCircleTimer);
+        PacketsTcp.Add(21, HandleDisableCollectibles);
+        PacketsTcp.Add(22, HandleHealthPlayer);
 
         PacketsUdp = new Dictionary<int, Packet_>();
         PacketsUdp.Add(2, HandleReceivePlayersLocations);
@@ -386,6 +388,31 @@ public class ClientHandlePackets{
         buffer.WriteBytes(data);
         float circleTimer = buffer.ReadFloat();
         ShrinkCircle.instance.CircleTimer(circleTimer);
+    }
+
+    //Packetnum = 21
+    void HandleDisableCollectibles(byte[] data) {
+        ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
+        buffer.WriteBytes(data);
+        int coinOrPill = buffer.ReadInt();
+        string id = buffer.ReadString();
+        ObjectHandler.instance.CallFunctionFromAnotherThread(() => {
+            if (coinOrPill == 0)
+                ObjectHandler.instance.DisableCoin(id);
+            else
+                ObjectHandler.instance.DisablePill(id);
+        });
+    }
+    
+    //Packetnum = 22
+    void HandleHealthPlayer(byte[] data) {
+        ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
+        buffer.WriteBytes(data);
+        int id = buffer.ReadInt();
+        int team = buffer.ReadInt();
+        float health = buffer.ReadFloat();
+
+        Network.instance.SetHealthPlayer(id, health);
     }
     #endregion
 }

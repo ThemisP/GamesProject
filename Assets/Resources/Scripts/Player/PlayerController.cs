@@ -278,6 +278,15 @@ public class PlayerController : MonoBehaviour
             Debug.Log(obj.tag);
             AbleToRevive = true;
             playerData.ReviveButton(true);
+        } else if (obj.CompareTag("Coin")) {
+            ObjectHandler.instance.DisableCoin(obj.name);
+            Network.instance.SendCollectiblesDestroy(obj.name, 0);// 0 for coins 1 for pills
+            bool succcess = playerData.addCoinsIfAvailable(10);
+        } else if (obj.CompareTag("Pill")) {
+            if (playerData.RefreshHealth(20f)) {
+                obj.SetActive(false);
+                Network.instance.SendCollectiblesDestroy(obj.name, 1);// 0 for coins 1 for pills
+            }
         }
     }
 

@@ -222,6 +222,15 @@ public class PlayerData : MonoBehaviour {
     //     }
     // }
 
+    public bool RefreshHealth(float amount) {
+        if (currentHealth >= maxHealth) return false;
+        currentHealth += amount;
+        if (currentHealth > maxHealth) currentHealth = maxHealth;
+        healthSlider.value = currentHealth / maxHealth;
+        Network.instance.SendPlayerHealth(currentHealth);
+        return true;
+    }
+
     public float getCurrentHealth()
     {
         return currentHealth;

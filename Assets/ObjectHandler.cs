@@ -10,11 +10,32 @@ public class ObjectHandler : MonoBehaviour {
     private Dictionary<string, GameObject> Bullets;
     public GameObject bulletPrefab;
     public GameObject bulletEnemyPrefab;
+    private Dictionary<string, GameObject> Coins;
+    private Dictionary<string, GameObject> Pills;
     // Use this for initialization
     void Start () {
         instance = this;
         Bullets = new Dictionary<string, GameObject>();
-	}
+        Coins = new Dictionary<string, GameObject>();
+        Pills = new Dictionary<string, GameObject>();
+        Transform coinGroup = GameObject.Find("CoinSpawns").transform;        
+        int i = 1;
+        while (true) {
+            Transform coinX = coinGroup.Find("Coin (" + i + ")");
+            if (coinX == null) break;
+            Coins.Add("Coin (" + i + ")", coinX.gameObject);
+            i++;
+            
+        }
+        Transform pillGroup = GameObject.Find("HealthSpawns").transform;
+        i = 0;
+        while (true) {
+            Transform pillX = pillGroup.Find("Pill (" + i + ")");
+            if (pillX == null) break;
+            Coins.Add("Pill (" + i + ")", pillX.gameObject);
+            i++;
+        }
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -61,6 +82,29 @@ public class ObjectHandler : MonoBehaviour {
         } else Debug.LogError("BulletScript not found for bullet prefab!");
 
         if(bulletScript!=null)Bullets.Add(bulletId, bullet);
+    }
+
+    public void InstantiateCollectibles() {
+        foreach (GameObject coin in Coins.Values) {
+            coin.SetActive(true);
+        }
+        foreach (GameObject pill in Pills.Values) {
+            pill.SetActive(true);
+        }
+    }
+
+    public void DisableCoin(string id) {
+        GameObject coin;
+        if(Coins.TryGetValue(id, out coin)) {
+            coin.SetActive(false);            
+        }
+    }
+
+    public void DisablePill(string id) {
+        GameObject pill;
+        if (Pills.TryGetValue(id, out pill)) {
+            pill.SetActive(false);
+        }
     }
 
     public void DestroyAll() {

@@ -135,6 +135,7 @@ public class Network : MonoBehaviour {
         else playerController = playerContr;
         player.SetPlayerObj(playerObj);
         cameraScript.SetTarget(playerObj.transform);
+        ObjectHandler.instance.InstantiateCollectibles();
         InvokeRepeating("SendPlayerPos", 0f, 0.1f); //Every 0.1 seconds, repeated calls to send player position to server.
     }
 
@@ -206,6 +207,14 @@ public class Network : MonoBehaviour {
             playersInGame.Remove(id);
             Destroy(controller.gameObject, 2f);
             HUD.SetActive(false);
+        }
+    }
+
+    public void SetHealthPlayer(int id, float amount) {
+        EnemyPlayerController controller;
+        if (playersInGame.TryGetValue(id, out controller)) {
+            playersInGame.Remove(id);
+            controller.SetHealth(amount);
         }
     }
 
@@ -518,6 +527,36 @@ public class Network : MonoBehaviour {
         ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
         buffer.WriteInt(18);
         buffer.WriteInt(teamMateIndex);
+        TcpStream.Write(buffer.BuffToArray(), 0, buffer.Length());
+    }
+
+    //coinOrPill 0 == coin / 1 == Pill
+    public void SendCollectiblesDestroy(string id, int coinOrPill) {
+        if (TcpClient == null || !TcpClient.Connected) {
+            TcpClient.Close();
+            TcpClient = null;
+            Debug.Log("Disconnected");
+            return;
+        }
+
+        ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
+        buffer.WriteInt(20);
+        buffer.WriteInt(coinOrPill);
+        buffer.WriteString(id);
+        TcpStream.Write(buffer.BuffToArray(), 0, buffer.Length());
+    }
+
+    public void SendPlayerHealth(float health) {
+        if (TcpClient == null || !TcpClient.Connected) {
+            TcpClient.Close();
+            TcpClient = null;
+            Debug.Log("Disconnected");
+            return;
+        }
+
+        ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
+        buffer.WriteInt(21);
+        buffer.WriteFloat(health);
         TcpStream.Write(buffer.BuffToArray(), 0, buffer.Length());
     }
     #endregion
