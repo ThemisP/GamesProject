@@ -14,7 +14,7 @@ public class ClientHandlePackets{
     public void InitMessages() {
         PacketsTcp = new Dictionary<int, Packet_>();
         PacketsTcp.Add(1, HandleWelcomeMessage);
-        //handleLoginSuccess....
+        PacketsTcp.Add(2, HandleLoginResponse);
         PacketsTcp.Add(3, HandleCreateRoomResponse);
         PacketsTcp.Add(4, HandleGetPlayersInRoom);
         PacketsTcp.Add(5, HandleJoinRoomResponse);
@@ -91,19 +91,20 @@ public class ClientHandlePackets{
             float velZ = buffer.ReadFloat();
 
             float rotY = buffer.ReadFloat();
+            float health = buffer.ReadFloat();
             EnemyPlayerController controller;
             if (Network.instance.playersInGame.TryGetValue(playerId, out controller)) {
                 controller.CallFunctionFromAnotherThread(() => {
                     controller.SetPlayerPosAndRot(new Vector3(posX, posY, posZ),
                                                   new Vector3(0, rotY, 0),
-                                                  new Vector3(velX, velY, velZ));
+                                                  new Vector3(velX, velY, velZ), health);
                 });
             } else {
                 Debug.LogWarning("Getting info for an unregistered player");
                 Network.instance.CallFunctionFromAnotherThread(() => {
                     Network.instance.SpawnPlayer(playerId, playerUsername, playerTeam,
                                                     new Vector3(posX, posY, posZ),
-                                                    new Vector3(0, rotY, 0));
+                                                    new Vector3(0, rotY, 0), health);
                 });
             }
         }
@@ -129,6 +130,14 @@ public class ClientHandlePackets{
         buffer.WriteFloat(10.2f);
         //Debug.Log("send");
         Network.instance.UdpClient.Send(buffer.BuffToArray(), buffer.Length());
+    }
+    //Packetnum = 2
+    void HandleLoginResponse(byte[] data) {
+        ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
+        buffer.WriteBytes(data);
+        int successful = buffer.ReadInt();
+        string msg = buffer.ReadString();
+        Network.instance.mainMenu.LoginResponse(successful, msg);
     }
     //Packetnum = 3
     void HandleCreateRoomResponse(byte[] data) {
@@ -205,12 +214,13 @@ public class ClientHandlePackets{
             float posY = buffer.ReadFloat();
             float posZ = buffer.ReadFloat();
             float rotY = buffer.ReadFloat();
+            float health = buffer.ReadFloat();
             
             //Testing
             Network.instance.CallFunctionFromAnotherThread(() => {
                 Network.instance.SpawnPlayer(playerId ,playerUsername, playerTeam,
                                              new Vector3(posX, posY, posZ),
-                                             new Vector3(0, rotY, 0));
+                                             new Vector3(0, rotY, 0), health);
             });
         }
     }
