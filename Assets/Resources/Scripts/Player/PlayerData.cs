@@ -188,6 +188,7 @@ public class PlayerData : MonoBehaviour {
         if (currentWeapon.GetWeaponName().Equals("Pistol")) {
             /*Stage 1:  Upgrade from pistol to either Shotgun, Assault_Rifle or Sniper */
             TextAssist.gameObject.SetActive(true);
+
             switch (newWeapon) {
 
                 case "Shotgun":
@@ -205,12 +206,15 @@ public class PlayerData : MonoBehaviour {
                         rangeCost.text = (10 * upgradeCount).ToString();
                         powerCost.text = (10 * upgradeCount).ToString();
                         capacityCost.text = (10 * upgradeCount).ToString();
+
                     }
                     else
                     {
                         assist_text.text = "You don't have enough to upgrade your Pistol into a Shotgun";
                         Debug.Log("You don't have enough to upgrade your Pistol into a Shotgun");
+                        
                     }
+
                     break;
                 case "Assault Rifle":
                     if (addCoinsIfAvailable(-10)) {
@@ -322,6 +326,7 @@ public class PlayerData : MonoBehaviour {
                     break;
             }
         }
+        StartCoroutine(Delay(2.5f));
     }
 
     void DisableGunButtons() {
@@ -471,7 +476,7 @@ public class PlayerData : MonoBehaviour {
         if (assist_text.isActiveAndEnabled)
         {
             TextAssist.gameObject.SetActive(true);
-            yield return new WaitForSecondsRealtime(x/2.0f);
+            yield return new WaitForSecondsRealtime(x);
             TextAssist.gameObject.SetActive(false);
         }
         else
