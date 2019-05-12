@@ -170,7 +170,7 @@ public class Network : MonoBehaviour {
         playerController.SetWaitingForGame(false);
     }
 
-    public void SpawnPlayer(int id, string username, int team, Vector3 pos, Vector3 rot) {
+    public void SpawnPlayer(int id, string username, int team, Vector3 pos, Vector3 rot, float health) {
         if (id == ClientIndex) return;
         if (playersInGame.ContainsKey(id)) return;
         GameObject playerObj;
@@ -195,6 +195,7 @@ public class Network : MonoBehaviour {
             controller.SetPlayerId(id);
             controller.SetUsername(username);
             controller.SetTeamNumber(team);
+            controller.SetHealth(health);
             playersInGame.Add(id, controller);
         }
 

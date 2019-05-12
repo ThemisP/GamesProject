@@ -58,7 +58,6 @@ public class PlayerData : MonoBehaviour {
 	private int coins = 0;
     private int nodePoints = 0;
     private float damageDealt = 0;
-    public int bulletsLeft;
     private int upgradeCount = 0;
 
     public Weapon currentWeapon = Weapons.instance.GetPistol();
@@ -174,17 +173,12 @@ public class PlayerData : MonoBehaviour {
 
             }
         }
-        //if (assist_text.isActiveAndEnabled)
-        //{
-        //    TextAssist.gameObject.SetActive(true);
-            Delay(2.5f);
-        //}
+        ammoRemaining.text = playerController.GetBulletsLeft().ToString() + " / " + currentWeapon.GetMagazine();
+
     }
 
     void UpgradeWeapon(string newWeapon) {
-        Debug.Log(newWeapon);
 
-        /* Will eventually be where currency check will be in the future */
         if (currentWeapon.GetWeaponName().Equals("Pistol")) {
             /*Stage 1:  Upgrade from pistol to either Shotgun, Assault_Rifle or Sniper */
             TextAssist.gameObject.SetActive(true);
@@ -196,7 +190,8 @@ public class PlayerData : MonoBehaviour {
                         upgradeFlag = true;
                         this.currentWeapon = Weapons.instance.GetShotgun();
                         weaponName.text = "Shotgun";
-                        ammoRemaining.text = bulletsLeft.ToString();
+                        playerController.Reload();
+                        ammoRemaining.text = playerController.GetBulletsLeft().ToString() + " / " + currentWeapon.GetMagazine();
                         DisableGunButtons();
                         upgradeCount++;
                         assist_text.text = "Upgrade Sucessful";
@@ -221,7 +216,8 @@ public class PlayerData : MonoBehaviour {
                         upgradeFlag = true;
                         this.currentWeapon = Weapons.instance.GetAssaultRifle();
                         weaponName.text = "Assault Rifle";
-                        ammoRemaining.text = bulletsLeft.ToString();
+                        playerController.Reload();
+                        ammoRemaining.text = playerController.GetBulletsLeft().ToString() + " / " + currentWeapon.GetMagazine();
                         DisableGunButtons();
                         upgradeCount++;
                         assist_text.text = "Upgrade Sucessful";
@@ -244,7 +240,8 @@ public class PlayerData : MonoBehaviour {
                         upgradeFlag = true;
                         this.currentWeapon = Weapons.instance.GetSniper();
                         weaponName.text = "Sniper";
-                        ammoRemaining.text = bulletsLeft.ToString();
+                        playerController.Reload();
+                        ammoRemaining.text = playerController.GetBulletsLeft().ToString() + " / " + currentWeapon.GetMagazine();
                         DisableGunButtons();
                         upgradeCount++;
                         assist_text.text = "Upgrade Sucessful";
@@ -254,6 +251,7 @@ public class PlayerData : MonoBehaviour {
                         rangeCost.text = (10 * upgradeCount).ToString();
                         powerCost.text = (10 * upgradeCount).ToString();
                         capacityCost.text = (10 * upgradeCount).ToString();
+
                     }
                     else
                     {
@@ -295,6 +293,7 @@ public class PlayerData : MonoBehaviour {
                         rangeCost.text = (10 * upgradeCount).ToString();
                         powerCost.text = (10 * upgradeCount).ToString();
                         capacityCost.text = (10 * upgradeCount).ToString();
+
                     }
                     else
                     {
@@ -313,6 +312,7 @@ public class PlayerData : MonoBehaviour {
                         rangeCost.text = (10 * upgradeCount).ToString();
                         powerCost.text = (10 * upgradeCount).ToString();
                         capacityCost.text = (10 * upgradeCount).ToString();
+                        playerController.Reload();
                     }
                     else
                     {
@@ -327,6 +327,7 @@ public class PlayerData : MonoBehaviour {
             }
         }
         StartCoroutine(Delay(2.5f));
+        ammoRemaining.text = playerController.GetBulletsLeft().ToString() + " / " + currentWeapon.GetMagazine();
     }
 
     void DisableGunButtons() {
@@ -477,6 +478,7 @@ public class PlayerData : MonoBehaviour {
         {
             TextAssist.gameObject.SetActive(true);
             yield return new WaitForSecondsRealtime(x);
+            Debug.Log("Co-Routine called");
             TextAssist.gameObject.SetActive(false);
         }
         else

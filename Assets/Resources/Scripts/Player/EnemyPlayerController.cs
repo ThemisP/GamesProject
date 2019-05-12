@@ -78,7 +78,7 @@ public class EnemyPlayerController : MonoBehaviour {
         }
     }
 
-    public void SetPlayerPosAndRot(Vector3 pos, Vector3 rot, Vector3 vel) {
+    public void SetPlayerPosAndRot(Vector3 pos, Vector3 rot, Vector3 vel, float health) {
         syncTime = 0f;
         syncDelay = Time.time - lastSynchronizationTime;
         lastSynchronizationTime = Time.time;
@@ -86,6 +86,7 @@ public class EnemyPlayerController : MonoBehaviour {
         //Debug.Log("received " + rot);
         this.playerPos = pos + vel*syncDelay;
         this.playerRot = rot;
+        this.health = health;
     }
 
 

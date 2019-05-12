@@ -169,7 +169,12 @@ public class MainMenu : MonoBehaviour {
     public void Login() {
         if (string.IsNullOrEmpty(username.text)) return;
         Network.instance.Login(username.text);
-        SetMenuState(MenuState.Main);
+    }
+
+    public void LoginResponse(int successful, string msg) {
+        if(successful == 1) 
+            SetMenuState(MenuState.Main);
+        Debug.Log(msg);
     }
 
     public void CreateGame() {
