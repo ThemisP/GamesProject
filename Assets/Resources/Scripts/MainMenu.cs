@@ -217,7 +217,7 @@ public class MainMenu : MonoBehaviour {
     }
 
     public void QuitMain() {
-
+        Network.instance.LeaveRoom();
         SetMenuState(MenuState.Main);
     }
 

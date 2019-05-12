@@ -34,6 +34,7 @@ public class ClientHandlePackets{
         PacketsTcp.Add(20, HandleShrinkCircleTimer);
         PacketsTcp.Add(21, HandleDisableCollectibles);
         PacketsTcp.Add(22, HandleHealthPlayer);
+        PacketsTcp.Add(23, TestConnectionToServer);
 
         PacketsUdp = new Dictionary<int, Packet_>();
         PacketsUdp.Add(2, HandleReceivePlayersLocations);
@@ -423,6 +424,13 @@ public class ClientHandlePackets{
         float health = buffer.ReadFloat();
 
         Network.instance.SetHealthPlayer(id, health);
+    }
+
+    //Packetnum = 23
+    void TestConnectionToServer(byte[] data) {
+        ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
+        buffer.WriteInt(100);
+        Network.instance.TcpStream.Write(buffer.BuffToArray(), 0, buffer.Length());
     }
     #endregion
 }
