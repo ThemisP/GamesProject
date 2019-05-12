@@ -264,6 +264,7 @@ public class Network : MonoBehaviour {
         Team.GetComponent<TeamScript>().DestroyChain();
         HUD.SetActive(false);
         Destroy(player.playerObj, 2f);
+        waitingForAllReceive = false;
         GameIsReady = false;
         EnemyPlayerController controller;
         mainMenu.GameOver(won);

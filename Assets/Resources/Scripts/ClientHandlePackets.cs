@@ -351,7 +351,7 @@ public class ClientHandlePackets{
             Network.instance.CallFunctionFromAnotherThread(() => {
                 Network.instance.ReceiveGameReady();
                 }
-                );
+            );
         }
     }
 
