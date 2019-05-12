@@ -137,8 +137,6 @@ public class PlayerData : MonoBehaviour {
         healthSlider = canvas.GetComponent<Slider>();
         coinCount = balance.GetComponent<Text>();
         coinCount.text = "0";
-        nodeCount = nodes.GetComponent<Text>();
-        nodeCount.text = "0";
         weaponName = activeWeapon.GetComponent<Text>();
         weaponName.text = "Pistol";
 
