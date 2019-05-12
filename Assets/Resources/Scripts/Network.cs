@@ -140,7 +140,7 @@ public class Network : MonoBehaviour {
         int teamNumber = this.player.GetTeamNumber();
 
         Transform spawnpoint;
-        if (SpawnPoints.TryGetValue((teamNumber + 1) % SpawnPoints.Count, out spawnpoint)) {
+        if (SpawnPoints.Count > 0 && SpawnPoints.TryGetValue((teamNumber + 1) % SpawnPoints.Count, out spawnpoint)) {
             if (player.playerNumber == 1) spawnpoint.position = spawnpoint.position + Vector3.forward * 2;
             else spawnpoint.position = spawnpoint.position + Vector3.forward * -2;
             GameObject playerObj = GameObject.Instantiate(PlayerPrefab, spawnpoint.position, spawnpoint.rotation);
@@ -159,7 +159,7 @@ public class Network : MonoBehaviour {
     public void JoinGameOffline() {
         HUD.SetActive(true);
         Transform spawnpoint;
-        if (SpawnPoints.TryGetValue((0 + 1) % SpawnPoints.Count, out spawnpoint)) {
+        if (SpawnPoints.Count > 0 && SpawnPoints.TryGetValue((0 + 1) % SpawnPoints.Count, out spawnpoint)) {
             GameObject playerObj = GameObject.Instantiate(PlayerPrefab, spawnpoint.position, spawnpoint.rotation);
             player.SetPlayerObj(playerObj);
             PlayerController playerContr = playerObj.GetComponent<PlayerController>();
