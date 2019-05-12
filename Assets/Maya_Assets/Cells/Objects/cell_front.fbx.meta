@@ -1,138 +1,202 @@
 fileFormatVersion: 2
-guid: c81e9336843870544b38d6ddca35bad4
+guid: 355d51e5f8f251c4780f6f03c2c65195
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: bar
-    100002: bar10
-    100004: bar3
-    100006: bar4
-    100008: bar5
-    100010: bar6
-    100012: bar7
-    100014: bar8
-    100016: bar9
-    100018: //RootNode
-    100020: door
-    100022: lock
-    100024: struct
-    100026: struct1
-    100028: struct2
-    100030: struct3
-    100032: struct4
-    100034: struct5
-    100036: struct6
-    100038: struct7
-    100040: struct8
-    100042: structVertical
-    100044: structVertical1
-    100046: structVertical2
-    100048: structVertical3
-    100050: structVertical4
-    100052: structVertical5
-    400000: bar
-    400002: bar10
-    400004: bar3
-    400006: bar4
-    400008: bar5
-    400010: bar6
-    400012: bar7
-    400014: bar8
-    400016: bar9
-    400018: //RootNode
-    400020: door
-    400022: lock
-    400024: struct
-    400026: struct1
-    400028: struct2
-    400030: struct3
-    400032: struct4
-    400034: struct5
-    400036: struct6
-    400038: struct7
-    400040: struct8
-    400042: structVertical
-    400044: structVertical1
-    400046: structVertical2
-    400048: structVertical3
-    400050: structVertical4
-    400052: structVertical5
+    100000: bar10
+    100002: bar10 1
+    100004: bar10 2
+    100006: bar11
+    100008: bar11 1
+    100010: bar11 2
+    100012: bar12
+    100014: bar12 1
+    100016: bar12 2
+    100018: bar6
+    100020: bar6 1
+    100022: bar6 2
+    100024: bar7
+    100026: bar7 1
+    100028: bar7 2
+    100030: bar8
+    100032: bar8 1
+    100034: bar8 2
+    100036: bar9
+    100038: bar9 1
+    100040: bar9 2
+    100042: //RootNode
+    100044: left
+    100046: lock1
+    100048: mid
+    100050: right
+    100052: struct2
+    100054: struct2 1
+    100056: struct2 2
+    100058: struct3
+    100060: struct3 1
+    100062: struct3 2
+    100064: struct8
+    100066: struct8 1
+    100068: struct8 2
+    100070: structVertical4
+    100072: structVertical4 1
+    100074: structVertical4 2
+    100076: structVertical5
+    100078: structVertical5 1
+    100080: structVertical5 2
+    400000: bar10
+    400002: bar10 1
+    400004: bar10 2
+    400006: bar11
+    400008: bar11 1
+    400010: bar11 2
+    400012: bar12
+    400014: bar12 1
+    400016: bar12 2
+    400018: bar6
+    400020: bar6 1
+    400022: bar6 2
+    400024: bar7
+    400026: bar7 1
+    400028: bar7 2
+    400030: bar8
+    400032: bar8 1
+    400034: bar8 2
+    400036: bar9
+    400038: bar9 1
+    400040: bar9 2
+    400042: //RootNode
+    400044: left
+    400046: lock1
+    400048: mid
+    400050: right
+    400052: struct2
+    400054: struct2 1
+    400056: struct2 2
+    400058: struct3
+    400060: struct3 1
+    400062: struct3 2
+    400064: struct8
+    400066: struct8 1
+    400068: struct8 2
+    400070: structVertical4
+    400072: structVertical4 1
+    400074: structVertical4 2
+    400076: structVertical5
+    400078: structVertical5 1
+    400080: structVertical5 2
     2100000: lambert1
-    2300000: bar
-    2300002: bar10
-    2300004: bar3
-    2300006: bar4
-    2300008: bar5
-    2300010: bar6
-    2300012: bar7
-    2300014: bar8
-    2300016: bar9
-    2300018: lock
-    2300020: struct
-    2300022: struct1
-    2300024: struct2
-    2300026: struct3
-    2300028: struct4
-    2300030: struct5
-    2300032: struct6
-    2300034: struct7
-    2300036: struct8
-    2300038: structVertical
-    2300040: structVertical1
-    2300042: structVertical2
-    2300044: structVertical3
-    2300046: structVertical4
-    2300048: structVertical5
-    3300000: bar
-    3300002: bar10
-    3300004: bar3
-    3300006: bar4
-    3300008: bar5
-    3300010: bar6
-    3300012: bar7
-    3300014: bar8
-    3300016: bar9
-    3300018: lock
-    3300020: struct
-    3300022: struct1
-    3300024: struct2
-    3300026: struct3
-    3300028: struct4
-    3300030: struct5
-    3300032: struct6
-    3300034: struct7
-    3300036: struct8
-    3300038: structVertical
-    3300040: structVertical1
-    3300042: structVertical2
-    3300044: structVertical3
-    3300046: structVertical4
-    3300048: structVertical5
-    4300000: bar10
-    4300002: bar9
-    4300004: bar8
-    4300006: bar7
-    4300008: bar6
-    4300010: bar
-    4300012: struct8
-    4300014: struct7
-    4300016: structVertical5
-    4300018: structVertical4
-    4300020: structVertical1
-    4300022: structVertical
-    4300024: struct5
-    4300026: struct3
-    4300028: struct2
-    4300030: struct
-    4300032: struct1
-    4300034: structVertical3
-    4300036: structVertical2
-    4300038: struct4
-    4300040: lock
-    4300042: bar5
-    4300044: bar3
-    4300046: bar4
-    4300048: struct6
+    2300000: bar10
+    2300002: bar10 1
+    2300004: bar10 2
+    2300006: bar11
+    2300008: bar11 1
+    2300010: bar11 2
+    2300012: bar12
+    2300014: bar12 1
+    2300016: bar12 2
+    2300018: bar6
+    2300020: bar6 1
+    2300022: bar6 2
+    2300024: bar7
+    2300026: bar7 1
+    2300028: bar7 2
+    2300030: bar8
+    2300032: bar8 1
+    2300034: bar8 2
+    2300036: bar9
+    2300038: bar9 1
+    2300040: bar9 2
+    2300042: lock1
+    2300044: struct2
+    2300046: struct2 1
+    2300048: struct2 2
+    2300050: struct3
+    2300052: struct3 1
+    2300054: struct3 2
+    2300056: struct8
+    2300058: struct8 1
+    2300060: struct8 2
+    2300062: structVertical4
+    2300064: structVertical4 1
+    2300066: structVertical4 2
+    2300068: structVertical5
+    2300070: structVertical5 1
+    2300072: structVertical5 2
+    3300000: bar10
+    3300002: bar10 1
+    3300004: bar10 2
+    3300006: bar11
+    3300008: bar11 1
+    3300010: bar11 2
+    3300012: bar12
+    3300014: bar12 1
+    3300016: bar12 2
+    3300018: bar6
+    3300020: bar6 1
+    3300022: bar6 2
+    3300024: bar7
+    3300026: bar7 1
+    3300028: bar7 2
+    3300030: bar8
+    3300032: bar8 1
+    3300034: bar8 2
+    3300036: bar9
+    3300038: bar9 1
+    3300040: bar9 2
+    3300042: lock1
+    3300044: struct2
+    3300046: struct2 1
+    3300048: struct2 2
+    3300050: struct3
+    3300052: struct3 1
+    3300054: struct3 2
+    3300056: struct8
+    3300058: struct8 1
+    3300060: struct8 2
+    3300062: structVertical4
+    3300064: structVertical4 1
+    3300066: structVertical4 2
+    3300068: structVertical5
+    3300070: structVertical5 1
+    3300072: structVertical5 2
+    4300000: bar11
+    4300002: bar12
+    4300004: structVertical4
+    4300006: structVertical5
+    4300008: bar10
+    4300010: struct8
+    4300012: bar8
+    4300014: bar9
+    4300016: bar6
+    4300018: bar7
+    4300020: struct2
+    4300022: struct3
+    4300024: lock1
+    4300026: bar11
+    4300028: bar12
+    4300030: structVertical4
+    4300032: structVertical5
+    4300034: bar10
+    4300036: struct8
+    4300038: bar8
+    4300040: bar9
+    4300042: bar6
+    4300044: bar7
+    4300046: struct2
+    4300048: struct3
+    4300050: bar11
+    4300052: bar12
+    4300054: structVertical4
+    4300056: structVertical5
+    4300058: bar10
+    4300060: struct8
+    4300062: bar8
+    4300064: bar9
+    4300066: bar6
+    4300068: bar7
+    4300070: struct2
+    4300072: struct3
   externalObjects: {}
   materials:
     importMaterials: 1

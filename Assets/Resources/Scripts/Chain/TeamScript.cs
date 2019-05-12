@@ -32,6 +32,7 @@ public class TeamScript : MonoBehaviour {
     private void CreateChain() {
         Vector3 differenceVecStep = getDifference() * 1 / (float)chainPoints;
         player1.transform.parent = gameObject.transform;
+        
         CreateChain(player1, differenceVecStep, 0);
     }
     private void CreateChain(Rigidbody link1, Vector3 differenceVecStep, int count) {

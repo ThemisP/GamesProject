@@ -1,0 +1,552 @@
+fileFormatVersion: 2
+guid: 123ed03145763e945bb43265ccce915f
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: cooker_main1
+    100004: dial
+    100006: dial1
+    100008: dial2
+    100010: dial3
+    100012: dial4
+    100014: dial5
+    100016: dial6
+    100018: dial7
+    100020: dials
+    100022: line
+    100024: line 1
+    100026: line 2
+    100028: line 3
+    100030: line 4
+    100032: line 5
+    100034: line 6
+    100036: line 7
+    100038: line1
+    100040: line1 1
+    100042: line1 2
+    100044: line1 3
+    100046: line1 4
+    100048: line1 5
+    100050: line1 6
+    100052: line1 7
+    100054: line2
+    100056: line2 1
+    100058: line2 2
+    100060: line2 3
+    100062: line2 4
+    100064: line2 5
+    100066: line2 6
+    100068: line2 7
+    100070: line3
+    100072: line3 1
+    100074: line3 2
+    100076: line3 3
+    100078: line3 4
+    100080: line3 5
+    100082: line3 6
+    100084: line3 7
+    100086: line_small
+    100088: line_small 1
+    100090: line_small 2
+    100092: line_small 3
+    100094: line_small 4
+    100096: line_small 5
+    100098: line_small 6
+    100100: line_small 7
+    100102: line_small1
+    100104: line_small1 1
+    100106: line_small1 2
+    100108: line_small1 3
+    100110: line_small1 4
+    100112: line_small1 5
+    100114: line_small1 6
+    100116: line_small1 7
+    100118: line_small2
+    100120: line_small2 1
+    100122: line_small2 2
+    100124: line_small2 3
+    100126: line_small2 4
+    100128: line_small2 5
+    100130: line_small2 6
+    100132: line_small2 7
+    100134: line_small3
+    100136: line_small3 1
+    100138: line_small3 2
+    100140: line_small3 3
+    100142: line_small3 4
+    100144: line_small3 5
+    100146: line_small3 6
+    100148: line_small3 7
+    100150: oven
+    100152: oven1
+    100154: round1
+    100156: round1 1
+    100158: round1 2
+    100160: round1 3
+    100162: round1 4
+    100164: round1 5
+    100166: round1 6
+    100168: round1 7
+    100170: stove
+    100172: stove 1
+    100174: stove1
+    100176: stove2
+    100178: stove3
+    100180: stove4
+    100182: stove5
+    100184: stove6
+    100186: stove7
+    100188: leg
+    100190: leg1
+    100192: leg2
+    100194: leg3
+    100196: legs
+    400000: //RootNode
+    400002: cooker_main1
+    400004: dial
+    400006: dial1
+    400008: dial2
+    400010: dial3
+    400012: dial4
+    400014: dial5
+    400016: dial6
+    400018: dial7
+    400020: dials
+    400022: line
+    400024: line 1
+    400026: line 2
+    400028: line 3
+    400030: line 4
+    400032: line 5
+    400034: line 6
+    400036: line 7
+    400038: line1
+    400040: line1 1
+    400042: line1 2
+    400044: line1 3
+    400046: line1 4
+    400048: line1 5
+    400050: line1 6
+    400052: line1 7
+    400054: line2
+    400056: line2 1
+    400058: line2 2
+    400060: line2 3
+    400062: line2 4
+    400064: line2 5
+    400066: line2 6
+    400068: line2 7
+    400070: line3
+    400072: line3 1
+    400074: line3 2
+    400076: line3 3
+    400078: line3 4
+    400080: line3 5
+    400082: line3 6
+    400084: line3 7
+    400086: line_small
+    400088: line_small 1
+    400090: line_small 2
+    400092: line_small 3
+    400094: line_small 4
+    400096: line_small 5
+    400098: line_small 6
+    400100: line_small 7
+    400102: line_small1
+    400104: line_small1 1
+    400106: line_small1 2
+    400108: line_small1 3
+    400110: line_small1 4
+    400112: line_small1 5
+    400114: line_small1 6
+    400116: line_small1 7
+    400118: line_small2
+    400120: line_small2 1
+    400122: line_small2 2
+    400124: line_small2 3
+    400126: line_small2 4
+    400128: line_small2 5
+    400130: line_small2 6
+    400132: line_small2 7
+    400134: line_small3
+    400136: line_small3 1
+    400138: line_small3 2
+    400140: line_small3 3
+    400142: line_small3 4
+    400144: line_small3 5
+    400146: line_small3 6
+    400148: line_small3 7
+    400150: oven
+    400152: oven1
+    400154: round1
+    400156: round1 1
+    400158: round1 2
+    400160: round1 3
+    400162: round1 4
+    400164: round1 5
+    400166: round1 6
+    400168: round1 7
+    400170: stove
+    400172: stove 1
+    400174: stove1
+    400176: stove2
+    400178: stove3
+    400180: stove4
+    400182: stove5
+    400184: stove6
+    400186: stove7
+    400188: leg
+    400190: leg1
+    400192: leg2
+    400194: leg3
+    400196: legs
+    2100000: lambert2
+    2100002: lambert1
+    2300000: cooker_main1
+    2300002: dial
+    2300004: dial1
+    2300006: dial2
+    2300008: dial3
+    2300010: dial4
+    2300012: dial5
+    2300014: dial6
+    2300016: dial7
+    2300018: line
+    2300020: line 1
+    2300022: line 2
+    2300024: line 3
+    2300026: line 4
+    2300028: line 5
+    2300030: line 6
+    2300032: line 7
+    2300034: line1
+    2300036: line1 1
+    2300038: line1 2
+    2300040: line1 3
+    2300042: line1 4
+    2300044: line1 5
+    2300046: line1 6
+    2300048: line1 7
+    2300050: line2
+    2300052: line2 1
+    2300054: line2 2
+    2300056: line2 3
+    2300058: line2 4
+    2300060: line2 5
+    2300062: line2 6
+    2300064: line2 7
+    2300066: line3
+    2300068: line3 1
+    2300070: line3 2
+    2300072: line3 3
+    2300074: line3 4
+    2300076: line3 5
+    2300078: line3 6
+    2300080: line3 7
+    2300082: line_small
+    2300084: line_small 1
+    2300086: line_small 2
+    2300088: line_small 3
+    2300090: line_small 4
+    2300092: line_small 5
+    2300094: line_small 6
+    2300096: line_small 7
+    2300098: line_small1
+    2300100: line_small1 1
+    2300102: line_small1 2
+    2300104: line_small1 3
+    2300106: line_small1 4
+    2300108: line_small1 5
+    2300110: line_small1 6
+    2300112: line_small1 7
+    2300114: line_small2
+    2300116: line_small2 1
+    2300118: line_small2 2
+    2300120: line_small2 3
+    2300122: line_small2 4
+    2300124: line_small2 5
+    2300126: line_small2 6
+    2300128: line_small2 7
+    2300130: line_small3
+    2300132: line_small3 1
+    2300134: line_small3 2
+    2300136: line_small3 3
+    2300138: line_small3 4
+    2300140: line_small3 5
+    2300142: line_small3 6
+    2300144: line_small3 7
+    2300146: oven
+    2300148: oven1
+    2300150: round1
+    2300152: round1 1
+    2300154: round1 2
+    2300156: round1 3
+    2300158: round1 4
+    2300160: round1 5
+    2300162: round1 6
+    2300164: round1 7
+    2300166: leg
+    2300168: leg1
+    2300170: leg2
+    2300172: leg3
+    3300000: cooker_main1
+    3300002: dial
+    3300004: dial1
+    3300006: dial2
+    3300008: dial3
+    3300010: dial4
+    3300012: dial5
+    3300014: dial6
+    3300016: dial7
+    3300018: line
+    3300020: line 1
+    3300022: line 2
+    3300024: line 3
+    3300026: line 4
+    3300028: line 5
+    3300030: line 6
+    3300032: line 7
+    3300034: line1
+    3300036: line1 1
+    3300038: line1 2
+    3300040: line1 3
+    3300042: line1 4
+    3300044: line1 5
+    3300046: line1 6
+    3300048: line1 7
+    3300050: line2
+    3300052: line2 1
+    3300054: line2 2
+    3300056: line2 3
+    3300058: line2 4
+    3300060: line2 5
+    3300062: line2 6
+    3300064: line2 7
+    3300066: line3
+    3300068: line3 1
+    3300070: line3 2
+    3300072: line3 3
+    3300074: line3 4
+    3300076: line3 5
+    3300078: line3 6
+    3300080: line3 7
+    3300082: line_small
+    3300084: line_small 1
+    3300086: line_small 2
+    3300088: line_small 3
+    3300090: line_small 4
+    3300092: line_small 5
+    3300094: line_small 6
+    3300096: line_small 7
+    3300098: line_small1
+    3300100: line_small1 1
+    3300102: line_small1 2
+    3300104: line_small1 3
+    3300106: line_small1 4
+    3300108: line_small1 5
+    3300110: line_small1 6
+    3300112: line_small1 7
+    3300114: line_small2
+    3300116: line_small2 1
+    3300118: line_small2 2
+    3300120: line_small2 3
+    3300122: line_small2 4
+    3300124: line_small2 5
+    3300126: line_small2 6
+    3300128: line_small2 7
+    3300130: line_small3
+    3300132: line_small3 1
+    3300134: line_small3 2
+    3300136: line_small3 3
+    3300138: line_small3 4
+    3300140: line_small3 5
+    3300142: line_small3 6
+    3300144: line_small3 7
+    3300146: oven
+    3300148: oven1
+    3300150: round1
+    3300152: round1 1
+    3300154: round1 2
+    3300156: round1 3
+    3300158: round1 4
+    3300160: round1 5
+    3300162: round1 6
+    3300164: round1 7
+    3300166: leg
+    3300168: leg1
+    3300170: leg2
+    3300172: leg3
+    4300000: oven
+    4300002: oven1
+    4300004: cooker_main1
+    4300006: dial
+    4300008: dial1
+    4300010: dial2
+    4300012: dial3
+    4300014: dial4
+    4300016: dial5
+    4300018: dial6
+    4300020: dial7
+    4300022: line
+    4300024: line1
+    4300026: line2
+    4300028: line3
+    4300030: round1
+    4300032: line_small
+    4300034: line_small1
+    4300036: line_small2
+    4300038: line_small3
+    4300040: line
+    4300042: line1
+    4300044: line2
+    4300046: line3
+    4300048: round1
+    4300050: line_small
+    4300052: line_small1
+    4300054: line_small2
+    4300056: line_small3
+    4300058: line
+    4300060: line1
+    4300062: line2
+    4300064: line3
+    4300066: round1
+    4300068: line_small
+    4300070: line_small1
+    4300072: line_small2
+    4300074: line_small3
+    4300076: line
+    4300078: line1
+    4300080: line2
+    4300082: line3
+    4300084: round1
+    4300086: line_small
+    4300088: line_small1
+    4300090: line_small2
+    4300092: line_small3
+    4300094: line
+    4300096: line1
+    4300098: line2
+    4300100: line3
+    4300102: round1
+    4300104: line_small
+    4300106: line_small1
+    4300108: line_small2
+    4300110: line_small3
+    4300112: line
+    4300114: line1
+    4300116: line2
+    4300118: line3
+    4300120: round1
+    4300122: line_small
+    4300124: line_small1
+    4300126: line_small2
+    4300128: line_small3
+    4300130: line
+    4300132: line1
+    4300134: line2
+    4300136: line3
+    4300138: round1
+    4300140: line_small
+    4300142: line_small1
+    4300144: line_small2
+    4300146: line_small3
+    4300148: line
+    4300150: line1
+    4300152: line2
+    4300154: line3
+    4300156: round1
+    4300158: line_small
+    4300160: line_small1
+    4300162: line_small2
+    4300164: line_small3
+    4300166: leg
+    4300168: leg1
+    4300170: leg2
+    4300172: leg3
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
