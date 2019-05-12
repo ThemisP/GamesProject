@@ -39,7 +39,6 @@ public class Network : MonoBehaviour {
     public PlayerController playerController;
     [HideInInspector] public int teamMateIndex;
     [HideInInspector]  public GameObject Team;
-
     public Dictionary<int, EnemyPlayerController> playersInGame;
 
     [HideInInspector] public int ClientIndex;//server related (something like a unique id very simple though)
@@ -263,6 +262,7 @@ public class Network : MonoBehaviour {
     public void GameOver(bool won) {
         Team.GetComponent<TeamScript>().DestroyChain();
         HUD.SetActive(false);
+        playerController.playerData.EndGame();
         Destroy(player.playerObj, 2f);
         waitingForAllReceive = false;
         GameIsReady = false;

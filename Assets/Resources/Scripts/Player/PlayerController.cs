@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour
     private float DodgeTimer = 0f;
     private float StatusTimer = 0f;
     private int clipCount;
-    private PlayerData playerData;
+    public PlayerData playerData;
     private bool offline = false;
     private bool isDodging = false;
 
