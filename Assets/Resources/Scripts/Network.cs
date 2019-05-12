@@ -19,8 +19,7 @@ public class Network : MonoBehaviour {
     public bool shouldHandleData;
 
     [Header("Other Settings")]
-    public MainMenu mainMenu;
-    public Transform[] spawnpoints;
+    public MainMenu mainMenu;    
     public CameraFollow cameraScript;
     public GameObject PlayerPrefab;
     public GameObject TeammatePlayerPrefab;
@@ -45,6 +44,7 @@ public class Network : MonoBehaviour {
     private byte[] asyncBuff;
 
     private Queue<Action> RunOnMainThread = new Queue<Action>();
+    private Dictionary<int, Transform> SpawnPoints;
 
     private bool GameIsReady;
     private int NumberOfFullRooms;
@@ -52,8 +52,21 @@ public class Network : MonoBehaviour {
     public void Awake() {
         HUD.SetActive(false);
         playersInGame = new Dictionary<int, EnemyPlayerController>();
+        SpawnPoints = new Dictionary<int, Transform>();
         instance = this;
         player = new PlayerInfo();
+        Transform spawnPointGroup = GameObject.Find("SpawnPoints").transform;
+        int i = 1;
+        bool loopRun = true;
+        while (loopRun) {
+            Transform spawnpointX = spawnPointGroup.Find("SpawnPoint (" + i + ")");
+            if (spawnpointX != null) {
+                SpawnPoints.Add(i, spawnpointX.transform);
+                i++;
+            } else
+                loopRun = false;
+
+        }
     }
 
     // Use this for initialization
@@ -125,42 +138,51 @@ public class Network : MonoBehaviour {
     public void JoinGame() {
         HUD.SetActive(true);
         int teamNumber = this.player.GetTeamNumber();
-        Transform spawnpoint = spawnpoints[teamNumber % 2];
-        if (player.playerNumber == 1) spawnpoint.position = spawnpoint.position + Vector3.forward * 2;
-        else spawnpoint.position = spawnpoint.position + Vector3.forward * -2;
-        GameObject playerObj = GameObject.Instantiate(PlayerPrefab, spawnpoint.position, spawnpoint.rotation);
-        PlayerController playerContr = playerObj.GetComponent<PlayerController>();
-        if (playerContr == null) Debug.LogError("PlayerController not found when joining game");
-        else playerController = playerContr;
-        player.SetPlayerObj(playerObj);
-        cameraScript.SetTarget(playerObj.transform);
-        ObjectHandler.instance.InstantiateCollectibles();
-        InvokeRepeating("SendPlayerPos", 0f, 0.1f); //Every 0.1 seconds, repeated calls to send player position to server.
+
+        Transform spawnpoint;
+        if (SpawnPoints.TryGetValue((teamNumber + 1) % SpawnPoints.Count, out spawnpoint)) {
+            if (player.playerNumber == 1) spawnpoint.position = spawnpoint.position + Vector3.forward * 2;
+            else spawnpoint.position = spawnpoint.position + Vector3.forward * -2;
+            GameObject playerObj = GameObject.Instantiate(PlayerPrefab, spawnpoint.position, spawnpoint.rotation);
+            PlayerController playerContr = playerObj.GetComponent<PlayerController>();
+            if (playerContr == null) Debug.LogError("PlayerController not found when joining game");
+            else playerController = playerContr;
+            player.SetPlayerObj(playerObj);
+            cameraScript.SetTarget(playerObj.transform);
+            ObjectHandler.instance.InstantiateCollectibles();
+            InvokeRepeating("SendPlayerPos", 0f, 0.1f); //Every 0.1 seconds, repeated calls to send player position to server.
+        } else {
+            Debug.LogError("SpawnPoint transform not found");
+        }
     }
 
     public void JoinGameOffline() {
         HUD.SetActive(true);
-        Transform spawnpoint = spawnpoints[0];
-        GameObject playerObj = GameObject.Instantiate(PlayerPrefab, spawnpoint.position, spawnpoint.rotation);
-        player.SetPlayerObj(playerObj);
-        PlayerController playerContr = playerObj.GetComponent<PlayerController>();
-        if (playerContr == null) Debug.LogError("PlayerController not found when joining game");
-        else playerController = playerContr;
+        Transform spawnpoint;
+        if (SpawnPoints.TryGetValue((0 + 1) % SpawnPoints.Count, out spawnpoint)) {
+            GameObject playerObj = GameObject.Instantiate(PlayerPrefab, spawnpoint.position, spawnpoint.rotation);
+            player.SetPlayerObj(playerObj);
+            PlayerController playerContr = playerObj.GetComponent<PlayerController>();
+            if (playerContr == null) Debug.LogError("PlayerController not found when joining game");
+            else playerController = playerContr;
 
-        GameObject teammateObj = GameObject.Instantiate(TeammatePlayerPrefab, spawnpoint.position + Vector3.forward * 2, spawnpoint.rotation);
-        Team = GameObject.Instantiate(SimplifiedTeamPrefab, new Vector3(0,1,0), Quaternion.Euler(new Vector3(0,0,0)));
+            GameObject teammateObj = GameObject.Instantiate(TeammatePlayerPrefab, spawnpoint.position + Vector3.forward * 2, spawnpoint.rotation);
+            Team = GameObject.Instantiate(SimplifiedTeamPrefab, new Vector3(0, 1, 0), Quaternion.Euler(new Vector3(0, 0, 0)));
 
-        TeamScript script = Team.GetComponent<TeamScript>();
-        if (script != null) StartCoroutine(SpawnChainAndSetPlayers(playerObj.transform, teammateObj.transform, script));
-        else Debug.Log("teamScript error");
+            TeamScript script = Team.GetComponent<TeamScript>();
+            if (script != null) StartCoroutine(SpawnChainAndSetPlayers(playerObj.transform, teammateObj.transform, script));
+            else Debug.Log("teamScript error");
 
-        PlayerController controller = playerObj.GetComponent<PlayerController>();
-        if (controller != null) controller.SetTeamController(script);
-        else Debug.Log("cannot find controller");
+            PlayerController controller = playerObj.GetComponent<PlayerController>();
+            if (controller != null) controller.SetTeamController(script);
+            else Debug.Log("cannot find controller");
 
-        player.SetOffline(true);
-        cameraScript.SetTarget(playerObj.transform);
-        ShrinkCircle.instance.StartCircle();
+            player.SetOffline(true);
+            cameraScript.SetTarget(playerObj.transform);
+            ShrinkCircle.instance.StartCircle();
+        } else {
+            Debug.LogError("Spawnpoint transform not found");
+        }
     }
 
     IEnumerator SpawnChainAndSetPlayers(Transform p1, Transform p2, TeamScript script) {
