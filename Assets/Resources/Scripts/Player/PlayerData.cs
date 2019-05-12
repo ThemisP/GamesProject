@@ -53,6 +53,8 @@ public class PlayerData : MonoBehaviour {
     private Button upgradeDamageButton;
     private Button upgradeCapacityButton;
 
+    private GameObject upgradeCover;
+
 
     // private GameObject popupStatus;
     private PlayerData startingData;
@@ -97,6 +99,7 @@ public class PlayerData : MonoBehaviour {
         upgradeRangeButton = popupWeapon.GetComponent<RectTransform>().Find("+Range").GetComponent<Button>();
         upgradeDamageButton = popupWeapon.GetComponent<RectTransform>().Find("+Power").GetComponent<Button>();
         upgradeCapacityButton = popupWeapon.GetComponent<RectTransform>().Find("+Capacity").GetComponent<Button>();
+        upgradeCover = popupWeapon.GetComponent<RectTransform>().Find("Upgrade Cover").gameObject;
 
         pistolButton.onClick.AddListener(() => UpgradeWeapon("Pistol"));
         shotgunButton.onClick.AddListener(() => UpgradeWeapon("Shotgun"));
@@ -204,7 +207,7 @@ public class PlayerData : MonoBehaviour {
                         rangeCost.text = (10 * upgradeCount).ToString();
                         powerCost.text = (10 * upgradeCount).ToString();
                         capacityCost.text = (10 * upgradeCount).ToString();
-
+                        upgradeCover.SetActive(false);
                     }
                     else
                     {
@@ -230,6 +233,7 @@ public class PlayerData : MonoBehaviour {
                         rangeCost.text = (10 * upgradeCount).ToString();
                         powerCost.text = (10 * upgradeCount).ToString();
                         capacityCost.text = (10 * upgradeCount).ToString();
+                        upgradeCover.SetActive(false);
 
                     }
                     else
@@ -254,6 +258,7 @@ public class PlayerData : MonoBehaviour {
                         rangeCost.text = (10 * upgradeCount).ToString();
                         powerCost.text = (10 * upgradeCount).ToString();
                         capacityCost.text = (10 * upgradeCount).ToString();
+                        upgradeCover.SetActive(false);
 
                     }
                     else
@@ -503,5 +508,6 @@ public class PlayerData : MonoBehaviour {
         shotgunButton.enabled = true;
         rifleButton.enabled = true;
         sniperButton.enabled = true;
+        upgradeCover.SetActive(true);
     }
 }
