@@ -339,10 +339,10 @@ public class PlayerData : MonoBehaviour {
     }
 
     void DisableGunButtons() {
-        pistolButton.enabled = false;
-        shotgunButton.enabled = false;
-        rifleButton.enabled = false;
-        sniperButton.enabled = false;
+        pistolButton.interactable = false;
+        shotgunButton.interactable = false;
+        rifleButton.interactable = false;
+        sniperButton.interactable = false;
     }
 
     public void takeDamage(float amount, string bulletId){
@@ -505,10 +505,10 @@ public class PlayerData : MonoBehaviour {
 
     public void EndGame()
     {
-        pistolButton.enabled = true;
-        shotgunButton.enabled = true;
-        rifleButton.enabled = true;
-        sniperButton.enabled = true;
+        pistolButton.interactable = true;
+        shotgunButton.interactable = true;
+        rifleButton.interactable = true;
+        sniperButton.interactable = true;
         upgradeCover.SetActive(true);
     }
 }
