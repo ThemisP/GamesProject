@@ -344,6 +344,7 @@ public class PlayerData : MonoBehaviour {
         rifleButton.enabled = false;
         sniperButton.enabled = false;
     }
+
     public void takeDamage(float amount, string bulletId){
         if (currentHealth - amount > 0) {
             currentHealth -= amount;
