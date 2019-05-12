@@ -106,6 +106,7 @@ public class PlayerController : MonoBehaviour
 
             playerData.PopupHelp(hitHelp);
             playerData.PopupWeapons(hitWeaponsUpgrade);
+            playerData.Delay(2.5f); /*Timer for the text_assist*/
             // playerData.PopupStatuses(hitStatus);
 
             speed = playerData.currentStatus.GetSpeed();

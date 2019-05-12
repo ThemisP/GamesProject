@@ -15,6 +15,13 @@ public class PlayerData : MonoBehaviour {
     private Text weaponName;
     private Text ammoRemaining;
     private Text userName;
+    private Text shotgunCost;
+    private Text rifleCost;
+    private Text sniperCost;
+    private Text rangeCost;
+    private Text powerCost;
+    private Text capacityCost;
+    private Text assist_text;
     private Slider dodgeSlider;
     private int kills = 0, assists = 0, deaths = 0;
 
@@ -28,6 +35,14 @@ public class PlayerData : MonoBehaviour {
     private GameObject currentMagazine;
     private GameObject balance;
 
+    private Transform TextAssist;
+    private Transform shotgunRef;
+    private Transform rifleRef;
+    private Transform sniperRef;
+    private Transform rangeRef;
+    private Transform powerRef;
+    private Transform capacityRef;
+
     private Button pistolButton;
     private Button shotgunButton;
     private Button rifleButton;
@@ -35,6 +50,8 @@ public class PlayerData : MonoBehaviour {
     private Button upgradeRangeButton;
     private Button upgradeDamageButton;
     private Button upgradeCapacityButton;
+
+
     // private GameObject popupStatus;
     public PlayerController playerController;
 
@@ -42,6 +59,7 @@ public class PlayerData : MonoBehaviour {
     private int nodePoints = 0;
     private float damageDealt = 0;
     public int bulletsLeft;
+    private int upgradeCount = 0;
 
     public Weapon currentWeapon = Weapons.instance.GetPistol();
     public Status currentStatus = Statuses.instance.GetHealthy();
@@ -62,6 +80,7 @@ public class PlayerData : MonoBehaviour {
         popupHelp = hud.Find("Help_Popup").gameObject;
         popupWeapon = hud.Find("Weapons_Popup").gameObject;
         activeWeapon = hud.Find("WeaponName").gameObject;
+        TextAssist = hud.GetComponentInChildren<RectTransform>().Find("Text_Assist");
         // popupStatus = hud.Find("Statuses_Popup").gameObject;
         dodgeSlider = hud.Find("Dodge Cooldown").GetComponent<Slider>();
         holdToRevive = hud.Find("Revive_Button").gameObject;
@@ -83,6 +102,13 @@ public class PlayerData : MonoBehaviour {
         upgradeDamageButton.onClick.AddListener(() => UpgradeWeapon("+Power"));
         upgradeRangeButton.onClick.AddListener(() => UpgradeWeapon("+Range"));
 
+        shotgunRef = popupWeapon.GetComponentInChildren<RectTransform>().Find("Shotgun Cost");
+        rifleRef = popupWeapon.GetComponentInChildren<RectTransform>().Find("Rifle Cost");
+        sniperRef = popupWeapon.GetComponentInChildren<RectTransform>().Find("Sniper Cost");
+        rangeRef = popupWeapon.GetComponentInChildren<RectTransform>().Find("Range Cost");
+        powerRef = popupWeapon.GetComponentInChildren<RectTransform>().Find("Power Cost");
+        capacityRef = popupWeapon.GetComponentInChildren<RectTransform>().Find("Capacity Cost");
+
         // Button healthyButton = popupStatus.GetComponent<RectTransform>().Find("Healthy").GetComponent<Button>();
         // Button burntButton = popupStatus.GetComponent<RectTransform>().Find("Burnt").GetComponent<Button>();
         // Button poisonedButton = popupStatus.GetComponent<RectTransform>().Find("Poisoned").GetComponent<Button>();
@@ -99,8 +125,10 @@ public class PlayerData : MonoBehaviour {
         HUDCanvas.SetActive(true);
         popupHelp.SetActive(false);
         popupWeapon.SetActive(false);
+        TextAssist.gameObject.SetActive(false);
         holdToRevive.SetActive(false);
         ReviveSlider.SetActive(false);
+        TextAssist.gameObject.SetActive(false);
         // popupStatus.SetActive(false);
         healthSlider = canvas.GetComponent<Slider>();
         coinCount = balance.GetComponent<Text>();
@@ -114,6 +142,27 @@ public class PlayerData : MonoBehaviour {
         ammoRemaining.text = "10";
         currentHealth = maxHealth;
         healthSlider.value = currentHealth / maxHealth;
+
+        assist_text = TextAssist.GetComponent<Text>();
+
+        shotgunCost = shotgunRef.GetComponentInChildren<Text>();
+        shotgunCost.text = "10";
+
+        rifleCost = rifleRef.GetComponentInChildren<Text>();
+        rifleCost.text = "10";
+        sniperCost = sniperRef.GetComponentInChildren<Text>();
+        sniperCost.text = "10";
+        rangeCost = rangeRef.GetComponentInChildren<Text>();
+        rangeCost.text = " ";
+        powerCost = powerRef.GetComponentInChildren<Text>();
+        powerCost.text = " ";
+        capacityCost = capacityRef.GetComponentInChildren<Text>();
+        capacityCost.text = " ";
+
+
+
+        //assist_text.text = "You should not be able to see this...";
+        upgradeCount = 0;   
     }
     private void Update() {
         circleTimer += Time.deltaTime;
@@ -125,17 +174,22 @@ public class PlayerData : MonoBehaviour {
 
             }
         }
+        //if (assist_text.isActiveAndEnabled)
+        //{
+        //    TextAssist.gameObject.SetActive(true);
+            Delay(2.5f);
+        //}
     }
 
     void UpgradeWeapon(string newWeapon) {
         Debug.Log(newWeapon);
 
-
         /* Will eventually be where currency check will be in the future */
         if (currentWeapon.GetWeaponName().Equals("Pistol")) {
             /*Stage 1:  Upgrade from pistol to either Shotgun, Assault_Rifle or Sniper */
-
+            TextAssist.gameObject.SetActive(true);
             switch (newWeapon) {
+
                 case "Shotgun":
                     if (addCoinsIfAvailable(-10)) {
                         upgradeFlag = true;
@@ -143,6 +197,19 @@ public class PlayerData : MonoBehaviour {
                         weaponName.text = "Shotgun";
                         ammoRemaining.text = bulletsLeft.ToString();
                         DisableGunButtons();
+                        upgradeCount++;
+                        assist_text.text = "Upgrade Sucessful";
+                        sniperCost.text = " ";
+                        rifleCost.text = " ";
+                        shotgunCost.text = " ";
+                        rangeCost.text = (10 * upgradeCount).ToString();
+                        powerCost.text = (10 * upgradeCount).ToString();
+                        capacityCost.text = (10 * upgradeCount).ToString();
+                    }
+                    else
+                    {
+                        assist_text.text = "You don't have enough to upgrade your Pistol into a Shotgun";
+                        Debug.Log("You don't have enough to upgrade your Pistol into a Shotgun");
                     }
                     break;
                 case "Assault Rifle":
@@ -152,6 +219,20 @@ public class PlayerData : MonoBehaviour {
                         weaponName.text = "Assault Rifle";
                         ammoRemaining.text = bulletsLeft.ToString();
                         DisableGunButtons();
+                        upgradeCount++;
+                        assist_text.text = "Upgrade Sucessful";
+                        sniperCost.text = " ";
+                        rifleCost.text = " ";
+                        shotgunCost.text = " ";
+                        rangeCost.text = (10 * upgradeCount).ToString();
+                        powerCost.text = (10 * upgradeCount).ToString();
+                        capacityCost.text = (10 * upgradeCount).ToString();
+
+                    }
+                    else
+                    {
+                        assist_text.text = "You don't have enough to upgrade your Pistol into an Assault Rifle";
+                        Debug.Log("You don't have enough to upgrade your Pistol into an Assault Rifle");
                     }
                     break;
                 case "Sniper":
@@ -161,6 +242,19 @@ public class PlayerData : MonoBehaviour {
                         weaponName.text = "Sniper";
                         ammoRemaining.text = bulletsLeft.ToString();
                         DisableGunButtons();
+                        upgradeCount++;
+                        assist_text.text = "Upgrade Sucessful";
+                        sniperCost.text = " ";
+                        rifleCost.text = " ";
+                        shotgunCost.text = " ";
+                        rangeCost.text = (10 * upgradeCount).ToString();
+                        powerCost.text = (10 * upgradeCount).ToString();
+                        capacityCost.text = (10 * upgradeCount).ToString();
+                    }
+                    else
+                    {
+                        assist_text.text = "You don't have enough to upgrade your Pistol into a Sniper";
+                        Debug.Log("You don't have enough to upgrade your Pistol into a Sniper");
                     }
                     break;
                 default:
@@ -170,18 +264,57 @@ public class PlayerData : MonoBehaviour {
         } else {
             switch (newWeapon) {
                 case "+Range":
-                    upgradeFlag = true;
-                    this.currentWeapon.SetRange(currentWeapon);
+                    if (addCoinsIfAvailable(-10 * upgradeCount))
+                    {
+                        upgradeFlag = true;
+                        this.currentWeapon.SetRange(currentWeapon);
+                        upgradeCount++;
+                        assist_text.text = "Upgrade Sucessful";
+                        rangeCost.text = (10 * upgradeCount).ToString();
+                        powerCost.text = (10 * upgradeCount).ToString();
+                        capacityCost.text = (10 * upgradeCount).ToString();
+                    }
+                    else
+                    {
+                        assist_text.text = "You don't have enough to upgrade your weapon's range!";
+                        Debug.Log("You don't have enough to upgrade your weapon's range!");
+                    }
                     break;
 
                 case "+Power":
-                    upgradeFlag = true;
-                    this.currentWeapon.SetDamage(currentWeapon);
+                    if (addCoinsIfAvailable(-10 * upgradeCount))
+                    {
+                        upgradeFlag = true;
+                        this.currentWeapon.SetDamage(currentWeapon);
+                        upgradeCount++;
+                        assist_text.text = "Upgrade Sucessful";
+                        rangeCost.text = (10 * upgradeCount).ToString();
+                        powerCost.text = (10 * upgradeCount).ToString();
+                        capacityCost.text = (10 * upgradeCount).ToString();
+                    }
+                    else
+                    {
+                        assist_text.text = "You don't have enough to upgrade your weapon's power!";
+                        Debug.Log("You don't have enough to upgrade your weapon's power!");
+                    }
                     break;
 
                 case "+Capacity":
-                    upgradeFlag = true;
-                    this.currentWeapon.SetCapacity(currentWeapon);
+                    if (addCoinsIfAvailable(-10 * upgradeCount))
+                    {
+                        upgradeFlag = true;
+                        this.currentWeapon.SetCapacity(currentWeapon);
+                        upgradeCount++;
+                        assist_text.text = "Upgrade Sucessful";
+                        rangeCost.text = (10 * upgradeCount).ToString();
+                        powerCost.text = (10 * upgradeCount).ToString();
+                        capacityCost.text = (10 * upgradeCount).ToString();
+                    }
+                    else
+                    {
+                        assist_text.text = "You don't have enough to upgrade your weapon's ammo capacity!";
+                        Debug.Log("You don't have enough to upgrade your weapon's ammo capacity!");
+                    }
                     break;
 
                 default:
@@ -328,5 +461,22 @@ public class PlayerData : MonoBehaviour {
     public void SethealthFromRevive() {
         this.currentHealth = 30f;
         healthSlider.value = 30f;
+    }
+
+
+
+    /* TODO: Fix and Generalise this */
+    public IEnumerator Delay(float x)
+    {
+        if (assist_text.isActiveAndEnabled)
+        {
+            TextAssist.gameObject.SetActive(true);
+            yield return new WaitForSecondsRealtime(x/2.0f);
+            TextAssist.gameObject.SetActive(false);
+        }
+        else
+        {
+
+        }
     }
 }
