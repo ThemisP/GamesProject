@@ -55,6 +55,7 @@ public class PlayerData : MonoBehaviour {
 
 
     // private GameObject popupStatus;
+    private PlayerData startingData;
     public PlayerController playerController;
 
 	private int coins = 0;
@@ -70,6 +71,7 @@ public class PlayerData : MonoBehaviour {
 
     //Change back to Start when fixed HUD
     void Start() {
+        startingData = this;
         HUDCanvas = GameObject.Find("HUDPrefab");
         RectTransform hud = HUDCanvas.GetComponent<RectTransform>();
         GameObject canvas = GameObject.Find("Health");
@@ -494,5 +496,14 @@ public class PlayerData : MonoBehaviour {
         TextAssist.gameObject.SetActive(true);
         yield return new WaitForSecondsRealtime(x);
         TextAssist.gameObject.SetActive(false);
+    }
+
+
+    public void EndGame()
+    {
+        pistolButton.enabled = true;
+        shotgunButton.enabled = true;
+        rifleButton.enabled = true;
+        sniperButton.enabled = true;
     }
 }
