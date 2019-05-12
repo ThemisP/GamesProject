@@ -27,7 +27,6 @@ public class MainMenu : MonoBehaviour {
     public Text RoomTitle;
     public Text Player1InLobby;
     public Text Player2InLobby;
-
     public Text TimeUntilGameStart;
 
     [Header("Other")]
@@ -172,8 +171,9 @@ public class MainMenu : MonoBehaviour {
     }
 
     public void LoginResponse(int successful, string msg) {
-        if(successful == 1) 
+        if (successful == 1) {
             SetMenuState(MenuState.Main);
+        }
         Debug.Log(msg);
     }
 
@@ -198,6 +198,8 @@ public class MainMenu : MonoBehaviour {
     }
     public void JoinRoomSuccessfull() {
         SetMenuState(MenuState.Lobby);
+        Player1InLobby.text = "Player 1";
+        Player2InLobby.text = "Player 2";
     }
 
     public void EnterMainGame() {
