@@ -123,6 +123,7 @@ public class PlayerController : MonoBehaviour
             if (hitReload && clipCount < playerData.currentWeapon.GetMagazine()) {                
                 ReloadTime = playerData.currentWeapon.GetReloadTime();
                 Reloaded = true;
+                playerData.ReloadPopupStop();
             }
             Turning();
             Animating(h, v);
@@ -226,6 +227,8 @@ public class PlayerController : MonoBehaviour
             {
                 if (clipCount > 0) {
                     FireGun();
+                } else {
+                    playerData.ReloadPopupShow();
                 }
             }
         }

@@ -34,6 +34,8 @@ public class PlayerData : MonoBehaviour {
     private GameObject activeWeapon;
     private GameObject currentMagazine;
     private GameObject balance;
+    private GameObject reload;
+
 
     private Transform TextAssist;
     private Transform shotgunRef;
@@ -84,7 +86,8 @@ public class PlayerData : MonoBehaviour {
         dodgeSlider = hud.Find("Dodge Cooldown").GetComponent<Slider>();
         holdToRevive = hud.Find("Revive_Button").gameObject;
         ReviveSlider = hud.Find("Revive_Slider").gameObject;
-
+        reload = hud.Find("Reload").gameObject;
+        reload.SetActive(false);
         pistolButton = popupWeapon.GetComponent<RectTransform>().Find("Pistol").GetComponent<Button>();
         shotgunButton = popupWeapon.GetComponent<RectTransform>().Find("Shotgun").GetComponent<Button>();
         rifleButton = popupWeapon.GetComponent<RectTransform>().Find("Rifle").GetComponent<Button>();
@@ -469,21 +472,27 @@ public class PlayerData : MonoBehaviour {
         healthSlider.value = 30f;
     }
 
+    public void ReloadPopupShow() {
+        StartCoroutine(ReloadPopup(2f));
+    }
+
+    public void ReloadPopupStop() {
+        reload.SetActive(false);
+    }
+
+    IEnumerator ReloadPopup(float time) {
+        reload.SetActive(true);
+        yield return new WaitForSecondsRealtime(time);
+        reload.SetActive(false);
+    }
+
 
 
     /* TODO: Fix and Generalise this */
-    public IEnumerator Delay(float x)
+    IEnumerator Delay(float x)
     {
-        if (assist_text.isActiveAndEnabled)
-        {
-            TextAssist.gameObject.SetActive(true);
-            yield return new WaitForSecondsRealtime(x);
-            Debug.Log("Co-Routine called");
-            TextAssist.gameObject.SetActive(false);
-        }
-        else
-        {
-
-        }
+        TextAssist.gameObject.SetActive(true);
+        yield return new WaitForSecondsRealtime(x);
+        TextAssist.gameObject.SetActive(false);
     }
 }
