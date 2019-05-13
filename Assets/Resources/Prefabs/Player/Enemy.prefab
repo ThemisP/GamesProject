@@ -5936,7 +5936,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthSlider: {fileID: 2309534466521635591}
-  UsernameDisplay: {fileID: 0}
+  UsernameDisplay: {fileID: 8310302066135626216}
   gunParticles: {fileID: 1981483896800828587}
   gunAudio: {fileID: 2130423746749573089}
   gunLight: {fileID: 3598022147154751878}

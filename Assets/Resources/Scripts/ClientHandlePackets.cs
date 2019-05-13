@@ -102,6 +102,7 @@ public class ClientHandlePackets{
                 });
             } else {
                 Debug.LogWarning("Getting info for an unregistered player");
+                Debug.Log("playerId: + " + playerId + " and player username " + playerUsername);
                 Network.instance.CallFunctionFromAnotherThread(() => {
                     Network.instance.SpawnPlayer(playerId, playerUsername, playerTeam,
                                                     new Vector3(posX, posY, posZ),

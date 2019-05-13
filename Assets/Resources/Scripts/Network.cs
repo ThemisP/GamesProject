@@ -214,6 +214,7 @@ public class Network : MonoBehaviour {
         EnemyPlayerController controller = playerObj.GetComponent<EnemyPlayerController>();
         if (controller == null) Debug.LogError("Controller not found in spawned player");
         else {
+            Debug.Log("register " + id);
             controller.SetPlayerId(id);
             controller.SetUsername(username);
             controller.SetTeamNumber(team);
