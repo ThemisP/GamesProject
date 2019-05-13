@@ -1261,8 +1261,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 881580505460245057}
-  - {fileID: 224412029240414882}
   - {fileID: 636803438834589618}
+  - {fileID: 224412029240414882}
   - {fileID: 224640378623720826}
   - {fileID: 224218900441856234}
   - {fileID: 224344527068303734}
@@ -2200,7 +2200,7 @@ RectTransform:
   - {fileID: 224126843718242726}
   - {fileID: 224540695668469346}
   m_Father: {fileID: 224140089287466776}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.01873946, y: 0.92333335}
   m_AnchorMax: {x: 0.13725212, y: 0.98333335}
@@ -2554,6 +2554,7 @@ GameObject:
   - component: {fileID: 636803438834589618}
   - component: {fileID: 4751306411116016246}
   - component: {fileID: 6808390603834773852}
+  - component: {fileID: 812531746096692289}
   m_Layer: 5
   m_Name: Highlight_behind
   m_TagString: Untagged
@@ -2568,18 +2569,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 196222262647610804}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 224140089287466776}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -453.8, y: 220.5}
-  m_SizeDelta: {x: 41.3, y: 39}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 38.73, y: -30.11}
+  m_SizeDelta: {x: 92.24, y: 73.15}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &4751306411116016246
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2615,6 +2616,18 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!225 &812531746096692289
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 196222262647610804}
+  m_Enabled: 1
+  m_Alpha: 0.5
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &201817256638473301
 GameObject:
   m_ObjectHideFlags: 0
