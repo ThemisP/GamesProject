@@ -106,6 +106,7 @@ public class Network : MonoBehaviour {
         Array.Resize(ref asyncBuff, 8192);
         TcpClient.BeginConnect(IP, Port, new AsyncCallback(ConnectCallback), TcpClient);
         isConnected = true;
+        Debug.Log("connect send");
         //checkHealthThread = new Thread(() => CheckPlayerHealth(PlayerPrefab, TcpStream));
         //checkHealthThread.Start();
     }

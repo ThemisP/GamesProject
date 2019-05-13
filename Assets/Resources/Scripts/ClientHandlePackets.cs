@@ -129,7 +129,6 @@ public class ClientHandlePackets{
         buffer.WriteInt(ClientIndex);
         buffer.WriteInt(1);
         buffer.WriteFloat(10.2f);
-        //Debug.Log("send");
         Network.instance.UdpClient.Send(buffer.BuffToArray(), buffer.Length());
     }
     //Packetnum = 2
