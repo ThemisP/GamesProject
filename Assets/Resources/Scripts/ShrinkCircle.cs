@@ -17,7 +17,7 @@ public class ShrinkCircle : MonoBehaviour
     public int currentStageIndex = 0;
 
     #region Private Members
-    private float maxCircleTime = 600f;
+    private float maxCircleTime = 900f;
     private float currentCircleTimeRatio;
     private float startingRadius;
     private float currentRadius;
@@ -101,5 +101,11 @@ public class ShrinkCircle : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public void ResetRadious() {
+        currentRadius = startingRadius;
+        circle.Draw(Segments, currentRadius, currentRadius);
+        Circle.transform.localScale = new Vector3(currentRadius, 1, currentRadius);
     }
 }

@@ -292,6 +292,8 @@ public class Network : MonoBehaviour {
         GameIsReady = false;
         EnemyPlayerController controller;
         mainMenu.GameOver(won);
+        ObjectHandler.instance.InstantiateCollectibles();
+        ShrinkCircle.instance.ResetRadious();
         foreach (KeyValuePair<int, EnemyPlayerController> enemy in playersInGame) {
             if (playersInGame.TryGetValue(enemy.Key, out controller)) {
                 playersInGame.Remove(enemy.Key);

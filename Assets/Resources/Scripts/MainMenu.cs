@@ -139,13 +139,13 @@ public class MainMenu : MonoBehaviour {
                 MainScreenMenu.SetActive(false);
                 LobbyMenu.SetActive(false);
                 BackgroundImage.SetActive(false);
-                bool escape = Input.GetKeyDown(KeyCode.Escape);
-                if (escape) {
-                    if (!EscapeMenu.activeSelf)
-                        EscapeMenu.SetActive(true);
-                    else
-                        EscapeMenu.SetActive(false);
-                }
+                //bool escape = Input.GetKeyDown(KeyCode.Escape);
+                //if (escape) {
+                //    if (!EscapeMenu.activeSelf)
+                //        EscapeMenu.SetActive(true);
+                //    else
+                //        EscapeMenu.SetActive(false);
+                //}
 
                 break;
         }
