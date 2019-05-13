@@ -13,7 +13,7 @@ public class FixPosition : MonoBehaviour
     void Update()
     {
         if(transform.position.y < 0) {
-            rig.MovePosition(new Vector3(transform.position.x, 0, transform.position.z));
+            rig.MovePosition(new Vector3(transform.position.x, 1, transform.position.z));
         }
     }
 }
