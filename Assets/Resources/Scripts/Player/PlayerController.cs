@@ -99,6 +99,8 @@ public class PlayerController : MonoBehaviour
                         Network.instance.RevivedTeammate();
                         Debug.Log("Revive teammate");
                         TimeToRevive = 0f;
+                        AbleToRevive = false;
+                        playerData.ReviveButton(false);
                     }
                     return;
                 } else {

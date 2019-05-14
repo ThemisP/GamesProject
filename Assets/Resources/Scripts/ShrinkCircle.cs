@@ -18,13 +18,12 @@ public class ShrinkCircle : MonoBehaviour
 
     #region Private Members
     private float maxCircleTime = 900f;
-    private float currentCircleTimeRatio;
+    private float currentCircleTimeRatio = 1f;
     private float startingRadius;
     private float currentRadius;
 	private RenderCircleLine circle;
 	private LineRenderer renderer;
     private float startPauseTime;
-    private float initialRadius;
     private bool workingCircle;
     // private float startShrinkingTime;
 	#endregion
@@ -38,14 +37,13 @@ public class ShrinkCircle : MonoBehaviour
         circle = new RenderCircleLine(ref renderer, Segments, Radius, Radius);
         Circle = GameObject.FindGameObjectWithTag("Circle");
         startPauseTime = Time.time;
-        initialRadius = Radius;
         Circle.transform.localScale = new Vector3 (Radius, 1, Radius);
     }
 
     void Update ()
     {
         if (workingCircle) {
-            Radius = Mathf.Lerp(currentRadius, initialRadius*currentCircleTimeRatio, Time.deltaTime * 1f);
+            Radius = Mathf.Lerp(currentRadius, startingRadius*currentCircleTimeRatio, Time.deltaTime * 1f);
             currentRadius = Radius;
             circle.Draw(Segments, Radius, Radius);
             Circle.transform.localScale = new Vector3(Radius, 1, Radius);
@@ -58,7 +56,7 @@ public class ShrinkCircle : MonoBehaviour
                 Shrinking = true;
             }
         } else {
-            if (Radius <= initialRadius * Stages[currentStageIndex]) {
+            if (Radius <= startingRadius * Stages[currentStageIndex]) {
                 Shrinking = false;
                 startPauseTime = Time.time;
                 if ((currentStageIndex + 1) < Stages.Count)
@@ -77,9 +75,9 @@ public class ShrinkCircle : MonoBehaviour
     public void CircleTimer( float circleShrinkTimer) {
         if(!workingCircle) {
             workingCircle = true;
-            currentRadius = initialRadius;
+            currentRadius = startingRadius;
         }
-        currentCircleTimeRatio = 1 - circleShrinkTimer / maxCircleTime;
+        currentCircleTimeRatio = 1 - (circleShrinkTimer / maxCircleTime);
     }
 
     public void StartCircle() {

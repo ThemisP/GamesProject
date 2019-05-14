@@ -225,12 +225,11 @@ public class Network : MonoBehaviour {
 
     }
 
-    public void DestroyPlayer(int id, int teamNumber) {
+    public void DestroyPlayer(int id) {
         EnemyPlayerController controller;
         if (playersInGame.TryGetValue(id, out controller)) {
             playersInGame.Remove(id);
             Destroy(controller.gameObject, 2f);
-            HUD.SetActive(false);
         }
     }
 

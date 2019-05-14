@@ -35,6 +35,7 @@ public class ClientHandlePackets{
         PacketsTcp.Add(21, HandleDisableCollectibles);
         PacketsTcp.Add(22, HandleHealthPlayer);
         PacketsTcp.Add(23, TestConnectionToServer);
+        PacketsTcp.Add(24, HandleTeamDeath);
 
         PacketsUdp = new Dictionary<int, Packet_>();
         PacketsUdp.Add(2, HandleReceivePlayersLocations);
@@ -431,6 +432,19 @@ public class ClientHandlePackets{
         ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
         buffer.WriteInt(100);
         Network.instance.TcpStream.Write(buffer.BuffToArray(), 0, buffer.Length());
+    }
+
+    //packetnum = 24
+    void HandleTeamDeath(byte[] data) {
+        ByteBuffer.ByteBuffer buffer = new ByteBuffer.ByteBuffer();
+        buffer.WriteBytes(data);
+        int player1 = buffer.ReadInt();
+        int player2 = buffer.ReadInt();
+
+        Network.instance.CallFunctionFromAnotherThread(() => {
+            Network.instance.DestroyPlayer(player1);
+            Network.instance.DestroyPlayer(player2);
+        });
     }
     #endregion
 }
